@@ -470,8 +470,8 @@ HWTEST_F(CommonEventPublishOrderedEventUnitTest, CommonEventPublishOrderedUnitTe
 
 /*
  * @tc.number: CommonEventPublishOrderedUnitTest_1500
- * @tc.name: test FinishReceiverLocked
- * @tc.desc: Verify FinishReceiverLocked return true because eventRecord state is received
+ * @tc.name: test FinishReceiver
+ * @tc.desc: Verify FinishReceiver return true because eventRecord state is received
  */
 HWTEST_F(CommonEventPublishOrderedEventUnitTest, CommonEventPublishOrderedUnitTest_1500, Function | MediumTest | Level1)
 {
@@ -488,14 +488,14 @@ HWTEST_F(CommonEventPublishOrderedEventUnitTest, CommonEventPublishOrderedUnitTe
     eventRecord->nextReceiver = 0;
 
     std::string receiverData = "receiverData";
-    bool result = commonEventControlManager->FinishReceiverLocked(eventRecord, 0, receiverData, false);
+    bool result = commonEventControlManager->FinishReceiver(eventRecord, 0, receiverData, false);
     EXPECT_EQ(true, result);
 }
 
 /*
  * @tc.number: CommonEventPublishOrderedUnitTest_1600
- * @tc.name: test FinishReceiverLocked
- * @tc.desc: Verify FinishReceiverLocked return false eventRecord state is idle
+ * @tc.name: test FinishReceiver
+ * @tc.desc: Verify FinishReceiver return false eventRecord state is idle
  */
 HWTEST_F(CommonEventPublishOrderedEventUnitTest, CommonEventPublishOrderedUnitTest_1600, Function | MediumTest | Level1)
 {
@@ -512,19 +512,19 @@ HWTEST_F(CommonEventPublishOrderedEventUnitTest, CommonEventPublishOrderedUnitTe
     eventRecord->nextReceiver = 0;
 
     std::string receiverData = "receiverData";
-    bool result = commonEventControlManager->FinishReceiverLocked(eventRecord, 0, receiverData, false);
+    bool result = commonEventControlManager->FinishReceiver(eventRecord, 0, receiverData, false);
     EXPECT_EQ(false, result);
 }
 
 /*
  * @tc.number: CommonEventPublishOrderedUnitTest_1700
- * @tc.name: test FinishReceiverLocked recordPtr is null
- * @tc.desc: Verify FinishReceiverLocked recordPtr is null return false
+ * @tc.name: test FinishReceiver recordPtr is null
+ * @tc.desc: Verify FinishReceiver recordPtr is null return false
  */
 HWTEST_F(CommonEventPublishOrderedEventUnitTest, CommonEventPublishOrderedUnitTest_1700, Function | MediumTest | Level1)
 {
     std::string receiverData = "receiverData";
-    bool result = commonEventControlManager->FinishReceiverLocked(nullptr, 0, receiverData, false);
+    bool result = commonEventControlManager->FinishReceiver(nullptr, 0, receiverData, false);
     EXPECT_EQ(false, result);
 }
 
@@ -610,7 +610,7 @@ HWTEST_F(CommonEventPublishOrderedEventUnitTest, CommonEventPublishOrderedUnitTe
     eventRecord->resultTo = nullptr;
     eventRecord->state = OrderedEventRecord::IDLE;
     eventRecord->nextReceiver = 1;
-    eventRecord->deliveryState.emplace_back(OrderedEventRecord::DELIVERY_PENDING);
+    eventRecord->deliveryState.emplace_back(OrderedEventRecord::PENDING);
     eventRecord->receivers.emplace_back(subscriberRecord);
 
     commonEventControlManager->scheduled_ = true;

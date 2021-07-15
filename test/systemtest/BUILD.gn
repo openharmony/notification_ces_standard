@@ -27,5 +27,9 @@ group("systemtest") {
   deps = [
     "common/acts:actsCEStest_ces",
     "common/ces:systemtest_ces",
+    "common/resource/cesSTPermissionAndAB:cesSTPermissionAndAB",
+    "common/resource/cesSTPermissionDefaultA:cesSTPermissionDefaultA",
+    "common/resource/cesSTPermissionOrAB:cesSTPermissionOrAB",
+    "common/resource/cesSTPermissionOrAX:cesSTPermissionOrAX",
   ]
 }

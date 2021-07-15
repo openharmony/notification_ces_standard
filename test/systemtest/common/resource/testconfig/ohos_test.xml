@@ -16,34 +16,28 @@
 <configuration ver="2.0">
 
 <!--            CES               -->
-  <target name="actsCESMatchingSkillsTest">
-      <depend resource="stress/." pushpath="/testconfig" findpath="res" presetcmd=""/>
+  <target name="ActsCESMatchingSkillsTest">
+      <depend resource="stress/." pushpath="/data/testconfig" findpath="res" presetcmd=""/>
       <preparer>
-        <option name="push" value="stress/. -> /testconfig" src="res" />
+        <option name="push" value="stress/. -> /data/testconfig" src="res" />
       </preparer>
   </target>
   <target name="ActsCESCESpublishInfoTest">
-      <depend resource="stress/." pushpath="/testconfig" findpath="res" presetcmd=""/>
+      <depend resource="stress/." pushpath="/data/testconfig" findpath="res" presetcmd=""/>
       <preparer>
-        <option name="push" value="stress/. -> /testconfig" src="res" />
+        <option name="push" value="stress/. -> /data/testconfig" src="res" />
       </preparer>
   </target>
   <target name="ActsCESManagertest">
-      <depend resource="stress/." pushpath="/testconfig" findpath="res" presetcmd=""/>
+      <depend resource="stress/." pushpath="/data/testconfig" findpath="res" presetcmd=""/>
       <preparer>
-        <option name="push" value="stress/. -> /testconfig" src="res" />
+        <option name="push" value="stress/. -> /data/testconfig" src="res" />
       </preparer>
   </target>
   <target name="ActsCESSubscribeInfoTest">
-      <depend resource="stress/." pushpath="/testconfig" findpath="res" presetcmd=""/>
+      <depend resource="stress/." pushpath="/data/testconfig" findpath="res" presetcmd=""/>
       <preparer>
-        <option name="push" value="stress/. -> /testconfig" src="res" />
+        <option name="push" value="stress/. -> /data/testconfig" src="res" />
       </preparer>
   </target>
-  
-
-<!--            AMS               -->
-
-<!--            BMS               -->
-
 </configuration>

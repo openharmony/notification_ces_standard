@@ -1953,6 +1953,7 @@ HWTEST_F(ActsCESManagertest, CES_ReceiveEvent_0400, Function | MediumTest | Leve
     std::string eventName = "TESTEVENT_RECEIVE_ACTION_INFO_TRUE";
     std::string eventAction = "TESTEVENT_RECEIVE_ACTION_INFO_TRUE";
     bool stickty = true;
+    bool result = true;
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(eventName);
     Want wantTest;
@@ -1974,11 +1975,12 @@ HWTEST_F(ActsCESManagertest, CES_ReceiveEvent_0400, Function | MediumTest | Leve
         EXPECT_EQ(OHOS::GetSystemCurrentTime(&doingTime), true);
         seconds = OHOS::GetSecondsBetween(startTime, doingTime);
         if (seconds >= g_TIME_OUT_SECONDS_LIMIT) {
+            result = false;
             break;
         }
     }
     // expect the subscriber could receive the event within 5 seconds.
-    EXPECT_LT(seconds, g_TIME_OUT_SECONDS_LIMIT);
+    EXPECT_FALSE(result);
     g_mtx.unlock();
     UnsubscribeCommonEventTest(subscribeInfo);
 }
@@ -2222,7 +2224,6 @@ HWTEST_F(ActsCESManagertest, CES_SendEvent_1300, Function | MediumTest | Level1)
         g_mtx.lock();
     }
     // The publisher can send normally, but does not have permission to send system events
-    GTEST_LOG_(INFO) << " CES_TC_053 result =  " << result;
     EXPECT_TRUE(result);
     struct tm startTime = {0};
     EXPECT_EQ(OHOS::GetSystemCurrentTime(&startTime), true);
@@ -2238,7 +2239,6 @@ HWTEST_F(ActsCESManagertest, CES_SendEvent_1300, Function | MediumTest | Level1)
             break;
         }
     }
-    GTEST_LOG_(INFO) << " CES_TC_053 seconds =  " << seconds;
     // Unable to receive published system events, failed to send system events
     EXPECT_TRUE(sysResult);
     g_mtx.unlock();
@@ -2702,6 +2702,7 @@ HWTEST_F(ActsCESManagertest, CES_SetEventAuthority_0800, Function | MediumTest |
     std::string eventName = "TESTEVENT_PUBLISH_ACTION_PERMISSION_R";
     std::string eventAction = "TESTEVENT_PUBLISH_ACTION_PERMISSION_R";
     std::string permissin = "PERMISSION";
+    bool result = false;
     std::vector<std::string> permissins;
     permissins.emplace_back(permissin);
     MatchingSkills matchingSkills;
@@ -2725,10 +2726,11 @@ HWTEST_F(ActsCESManagertest, CES_SetEventAuthority_0800, Function | MediumTest |
         EXPECT_EQ(OHOS::GetSystemCurrentTime(&doingTime), true);
         seconds = OHOS::GetSecondsBetween(startTime, doingTime);
         if (seconds >= g_TIME_OUT_SECONDS_LIMIT) {
+            result = true;
             break;
         }
     }
-    EXPECT_LT(seconds, g_TIME_OUT_SECONDS_LIMIT);
+    EXPECT_TRUE(result);
     g_mtx.unlock();
     UnsubscribeCommonEventTest(subscribeInfo);
 }
@@ -2846,7 +2848,6 @@ HWTEST_F(ActsCESManagertest, CES_SetEventAuthority_1200, Function | MediumTest |
     CommonEventSubscribeInfo subscribeInfo(matchingSkills);
     subscribeInfo.SetThreadMode(CommonEventSubscribeInfo::ThreadMode::HANDLER);
     if (SubscribeCommonEventTest(subscribeInfo) && (CommonEventManager::PublishCommonEvent(commonEventData))) {
-        GTEST_LOG_(INFO) << " CES_TC_070 result";
         g_mtx.lock();
     }
     struct tm startTime = {0};

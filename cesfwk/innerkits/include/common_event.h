@@ -123,6 +123,7 @@ private:
     sptr<ICommonEvent> commonEventProxy_;
     std::map<std::shared_ptr<CommonEventSubscriber>, sptr<IRemoteObject>> eventListeners_;
     sptr<IRemoteObject::DeathRecipient> recipient_;
+    const unsigned int SUBSCRIBER_MAX_SIZE = 200;
 };
 }  // namespace EventFwk
 }  // namespace OHOS

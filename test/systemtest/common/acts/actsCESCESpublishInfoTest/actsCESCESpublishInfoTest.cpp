@@ -98,12 +98,12 @@ bool ActsCESCESpublishInfoTest::UnsubscribeCommonEventTest(const CommonEventSubs
 }
 
 /*
- * @tc.number: ACTS_SpublishInfo_Sticky_0100
+ * @tc.number: CES_PublishInfo_Sticky_0100
  * @tc.name: CommonEventPublishInfo : SetSticky and IsSticky
  * @tc.desc: 1.Set publishInfo
  *           2.Verify the function of CommonEventPublishInfo: SetSticky and IsSticky
  */
-HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Sticky_0100, Function | MediumTest | Level1)
+HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Sticky_0100, Function | MediumTest | Level1)
 {
     bool result = false;
     std::string eventName = "StickyFalseTest001";
@@ -116,7 +116,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Sticky_0100, Function | Me
         CommonEventPublishInfo publishInfo;
         publishInfo.SetSticky(sticky);
         if (publishInfo.IsSticky()) {
-            printf("ACTS_SpublishInfo_Sticky_0100 faild ,this is %d round\n", i);
+            printf("CES_PublishInfo_Sticky_0100 faild ,this is %d round\n", i);
             result = false;
             break;
         } else {
@@ -125,18 +125,18 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Sticky_0100, Function | Me
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_SpublishInfo_Sticky_0100  : %d\n", stLevel_.CESLevel);
+        printf("CES_PublishInfo_Sticky_0100  : %d\n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_SpublishInfo_Sticky_0200
+ * @tc.number: CES_PublishInfo_Sticky_0200
  * @tc.name: CommonEventPublishInfo : SetSticky and IsSticky
  * @tc.desc: 1.Set publishInfo
  *           2.Verify the function of CommonEventPublishInfo: SetSticky and IsSticky
  */
-HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Sticky_0200, Function | MediumTest | Level1)
+HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Sticky_0200, Function | MediumTest | Level1)
 {
     bool result = false;
     std::string eventName = "StickyFalseTest001";
@@ -149,7 +149,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Sticky_0200, Function | Me
         CommonEventPublishInfo publishInfo;
         publishInfo.SetSticky(sticky);
         if (!publishInfo.IsSticky()) {
-            printf("ACTS_SpublishInfo_Sticky_0200 faild ,this is %d round\n", i);
+            printf("CES_PublishInfo_Sticky_0200 faild ,this is %d round\n", i);
             result = false;
             break;
         } else {
@@ -158,18 +158,18 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Sticky_0200, Function | Me
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_SpublishInfo_Sticky_0200  : %d\n", stLevel_.CESLevel);
+        printf("CES_PublishInfo_Sticky_0200  : %d\n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_SpublishInfo_Sticky_0300
+ * @tc.number: CES_PublishInfo_Sticky_0300
  * @tc.name: CommonEventPublishInfo : SetSticky and IsSticky
  * @tc.desc: 1.Set publishInfo
  *           2.Verify the function of CommonEventPublishInfo: SetSticky and IsSticky
  */
-HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Sticky_0300, Function | MediumTest | Level1)
+HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Sticky_0300, Function | MediumTest | Level1)
 {
     bool result = false;
     std::string eventName = "StickyFalseTest003";
@@ -181,7 +181,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Sticky_0300, Function | Me
         CommonEventPublishInfo publishInfo;
         publishInfo.SetSticky(sticky);
         if (publishInfo.IsSticky()) {
-            printf("ACTS_SpublishInfo_Sticky_0300 faild ,this is %d round\n", i);
+            printf("CES_PublishInfo_Sticky_0300 faild ,this is %d round\n", i);
             result = false;
             break;
         } else {
@@ -190,18 +190,18 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Sticky_0300, Function | Me
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_SpublishInfo_Sticky_0300  : %d\n", stLevel_.CESLevel);
+        printf("CES_PublishInfo_Sticky_0300  : %d\n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_SpublishInfo_Sticky_0400
+ * @tc.number: CES_PublishInfo_Sticky_0400
  * @tc.name: CommonEventPublishInfo : SetSticky and IsSticky
  * @tc.desc: 1.Set publishInfo
  *           2.Verify the function of CommonEventPublishInfo: SetSticky and IsSticky
  */
-HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Sticky_0400, Function | MediumTest | Level1)
+HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Sticky_0400, Function | MediumTest | Level1)
 {
     bool result = false;
     std::string eventName = "StickyTrueTest004";
@@ -213,7 +213,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Sticky_0400, Function | Me
         CommonEventPublishInfo publishInfo;
         publishInfo.SetSticky(sticky);
         if (!publishInfo.IsSticky()) {
-            printf("ACTS_SpublishInfo_Sticky_0400 faild ,this is %d round\n", i);
+            printf("CES_PublishInfo_Sticky_0400 faild ,this is %d round\n", i);
             result = false;
             break;
         } else {
@@ -222,18 +222,18 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Sticky_0400, Function | Me
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_SpublishInfo_Sticky_0400  : %d\n", stLevel_.CESLevel);
+        printf("CES_PublishInfo_Sticky_0400  : %d\n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_SpublishInfo_Sticky_0500
+ * @tc.number: CES_PublishInfo_Sticky_0500
  * @tc.name: CommonEventPublishInfo : IsSticky
  * @tc.desc: 1.Set publishInfo
  *           2.Verify the function of CommonEventPublishInfo: IsSticky
  */
-HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Sticky_0500, Function | MediumTest | Level2)
+HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Sticky_0500, Function | MediumTest | Level2)
 {
     bool result = false;
     std::string eventName = "StickyFalseTest005";
@@ -243,7 +243,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Sticky_0500, Function | Me
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         CommonEventPublishInfo publishInfo;
         if (publishInfo.IsSticky()) {
-            printf("ACTS_SpublishInfo_Sticky_0500 faild ,this is %d round\n", i);
+            printf("CES_PublishInfo_Sticky_0500 faild ,this is %d round\n", i);
             result = false;
             break;
         } else {
@@ -252,18 +252,18 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Sticky_0500, Function | Me
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_SpublishInfo_Sticky_0500  : %d\n", stLevel_.CESLevel);
+        printf("CES_PublishInfo_Sticky_0500  : %d\n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_SpublishInfo_Sticky_0600
+ * @tc.number: CES_PublishInfo_Sticky_0600
  * @tc.name: CommonEventPublishInfo : SetSticky and IsSticky
  * @tc.desc: 1.Set publishInfo
  *           2.Verify the function of CommonEventPublishInfo: SetSticky and IsSticky
  */
-HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Sticky_0600, Function | MediumTest | Level1)
+HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Sticky_0600, Function | MediumTest | Level1)
 {
     bool result = false;
     std::string eventName = "StickyTrueTest006";
@@ -278,7 +278,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Sticky_0600, Function | Me
         sticky = false;
         publishInfo.SetSticky(sticky);
         if (publishInfo.IsSticky()) {
-            printf("ACTS_SpublishInfo_Sticky_0600 faild ,this is %d round\n", i);
+            printf("CES_PublishInfo_Sticky_0600 faild ,this is %d round\n", i);
             result = false;
             break;
         } else {
@@ -288,18 +288,18 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Sticky_0600, Function | Me
         sticky = true;
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_SpublishInfo_Sticky_0600  : %d\n", stLevel_.CESLevel);
+        printf("CES_PublishInfo_Sticky_0600  : %d\n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_SpublishInfo_Sticky_0700
+ * @tc.number: CES_PublishInfo_Sticky_0700
  * @tc.name: CommonEventPublishInfo : SetSticky and IsSticky
  * @tc.desc: 1.Set publishInfo
  *           2.Verify the function of CommonEventPublishInfo: SetSticky and IsSticky
  */
-HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Sticky_0700, Function | MediumTest | Level1)
+HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Sticky_0700, Function | MediumTest | Level1)
 {
     bool result = false;
     std::string eventName = "StickyTrueTest007";
@@ -314,7 +314,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Sticky_0700, Function | Me
         sticky = true;
         publishInfo.SetSticky(sticky);
         if (!publishInfo.IsSticky()) {
-            printf("ACTS_SpublishInfo_Sticky_0700 faild ,this is %d round\n", i);
+            printf("CES_PublishInfo_Sticky_0700 faild ,this is %d round\n", i);
             result = false;
             break;
         } else {
@@ -324,18 +324,18 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Sticky_0700, Function | Me
         sticky = false;
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_SpublishInfo_Sticky_0700  : %d\n", stLevel_.CESLevel);
+        printf("CES_PublishInfo_Sticky_0700  : %d\n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_SpublishInfo_Sticky_0800
+ * @tc.number: CES_PublishInfo_Sticky_0800
  * @tc.name: CommonEventPublishInfo : SetSticky and IsSticky
  * @tc.desc: 1.Set publishInfo
  *           2.Verify the function of CommonEventPublishInfo: SetSticky and IsSticky
  */
-HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Sticky_0800, Function | MediumTest | Level2)
+HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Sticky_0800, Function | MediumTest | Level2)
 {
     bool result = false;
     std::string eventName = "StickyFalseTest008";
@@ -351,7 +351,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Sticky_0800, Function | Me
         sticky = true;
         publishInfo.SetSticky(sticky);
         if (!publishInfo.IsSticky()) {
-            printf("ACTS_SpublishInfo_Sticky_0800 faild ,this is %d round\n", i);
+            printf("CES_PublishInfo_Sticky_0800 faild ,this is %d round\n", i);
             result = false;
             break;
         } else {
@@ -361,18 +361,18 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Sticky_0800, Function | Me
         sticky = false;
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_SpublishInfo_Sticky_0800  : %d\n", stLevel_.CESLevel);
+        printf("CES_PublishInfo_Sticky_0800  : %d\n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_SpublishInfo_Sticky_0900
+ * @tc.number: CES_PublishInfo_Sticky_0900
  * @tc.name: CommonEventPublishInfo : SetSticky and IsSticky
  * @tc.desc: 1.Set publishInfo
  *           2.Verify the function of CommonEventPublishInfo: SetSticky and IsSticky
  */
-HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Sticky_0900, Function | MediumTest | Level1)
+HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Sticky_0900, Function | MediumTest | Level1)
 {
     bool result = false;
     std::string eventName = "StickyFalseTest009";
@@ -388,7 +388,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Sticky_0900, Function | Me
         sticky = false;
         publishInfo.SetSticky(sticky);
         if (publishInfo.IsSticky()) {
-            printf("ACTS_SpublishInfo_Sticky_0900 faild ,this is %d round\n", i);
+            printf("CES_PublishInfo_Sticky_0900 faild ,this is %d round\n", i);
             result = false;
             break;
         } else {
@@ -398,18 +398,18 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Sticky_0900, Function | Me
         sticky = true;
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_SpublishInfo_Sticky_0900  : %d\n", stLevel_.CESLevel);
+        printf("CES_PublishInfo_Sticky_0900  : %d\n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_SpublishInfo_Sticky_1000
+ * @tc.number: CES_PublishInfo_Sticky_1000
  * @tc.name: CommonEventPublishInfo : SetSticky and IsSticky
  * @tc.desc: 1.Set publishInfo
  *           2.Verify the function of CommonEventPublishInfo: SetSticky and IsSticky
  */
-HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Sticky_1000, Function | MediumTest | Level2)
+HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Sticky_1000, Function | MediumTest | Level2)
 {
     bool result = false;
     std::string eventName = "StickyFalseTest010";
@@ -422,7 +422,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Sticky_1000, Function | Me
         bool sticky = true;
         publishInfo.SetSticky(sticky);
         if (!publishInfo.IsSticky()) {
-            printf("ACTS_SpublishInfo_Sticky_1000 faild ,this is %d round\n", i);
+            printf("CES_PublishInfo_Sticky_1000 faild ,this is %d round\n", i);
             result = false;
             break;
         } else {
@@ -431,18 +431,18 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Sticky_1000, Function | Me
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_SpublishInfo_Sticky_1000  : %d\n", stLevel_.CESLevel);
+        printf("CES_PublishInfo_Sticky_1000  : %d\n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_SpublishInfo_Permissions_0100
+ * @tc.number: CES_PublishInfo_Permissions_0100
  * @tc.name: CommonEventPublishInfo : GetSubscriberPermissions
  * @tc.desc: 1.Set publishInfo
  *           2.Verify the function of CommonEventPublishInfo: GetSubscriberPermissions
  */
-HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Permissions_0100, Function | MediumTest | Level1)
+HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Permissions_0100, Function | MediumTest | Level1)
 {
     bool result = false;
     std::string eventName = "PermissionsTest001";
@@ -459,7 +459,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Permissions_0100, Function
         SubscribeCommonEventTest(subscribeInfo);
         std::vector<std::string> testPermissions = publishInfo.GetSubscriberPermissions();
         if (!(permissin == testPermissions[0])) {
-            printf("ACTS_SpublishInfo_Permissions_0100 faild ,this is %d round\n", i);
+            printf("CES_PublishInfo_Permissions_0100 faild ,this is %d round\n", i);
             result = false;
             break;
         } else {
@@ -468,18 +468,18 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Permissions_0100, Function
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_SpublishInfo_Permissions_0100  : %d\n", stLevel_.CESLevel);
+        printf("CES_PublishInfo_Permissions_0100  : %d\n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_SpublishInfo_Permissions_0200
+ * @tc.number: CES_PublishInfo_Permissions_0200
  * @tc.name: CommonEventPublishInfo : GetSubscriberPermissions
  * @tc.desc: 1.Set publishInfo
  *           2.Verify the function of CommonEventPublishInfo: GetSubscriberPermissions
  */
-HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Permissions_0200, Function | MediumTest | Level2)
+HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Permissions_0200, Function | MediumTest | Level2)
 {
     bool result = false;
     std::string eventName = "PermissionsTest002";
@@ -498,7 +498,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Permissions_0200, Function
         SubscribeCommonEventTest(subscribeInfo);
         std::vector<std::string> testPermissions = publishInfo.GetSubscriberPermissions();
         if (!(permissin2 == testPermissions[1])) {
-            printf("ACTS_SpublishInfo_Permissions_0200 faild ,this is %d round\n", i);
+            printf("CES_PublishInfo_Permissions_0200 faild ,this is %d round\n", i);
             result = false;
             break;
         } else {
@@ -507,18 +507,18 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Permissions_0200, Function
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_SpublishInfo_Permissions_0200  : %d\n", stLevel_.CESLevel);
+        printf("CES_PublishInfo_Permissions_0200  : %d\n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_SpublishInfo_Permissions_0300
+ * @tc.number: CES_PublishInfo_Permissions_0300
  * @tc.name: CommonEventPublishInfo : GetSubscriberPermissions
  * @tc.desc: 1.Set publishInfo
  *           2.Verify the function of CommonEventPublishInfo: GetSubscriberPermissions
  */
-HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Permissions_0300, Function | MediumTest | Level2)
+HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Permissions_0300, Function | MediumTest | Level2)
 {
     bool result = false;
     std::string eventName = "PermissionsTest003";
@@ -539,7 +539,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Permissions_0300, Function
         SubscribeCommonEventTest(subscribeInfo);
         std::vector<std::string> testPermissions = publishInfo.GetSubscriberPermissions();
         if (!(permissin3 == testPermissions[2])) {
-            printf("ACTS_SpublishInfo_Permissions_0300 faild ,this is %d round\n", i);
+            printf("CES_PublishInfo_Permissions_0300 faild ,this is %d round\n", i);
             result = false;
             break;
         } else {
@@ -548,18 +548,18 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Permissions_0300, Function
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_SpublishInfo_Permissions_0300  : %d\n", stLevel_.CESLevel);
+        printf("CES_PublishInfo_Permissions_0300  : %d\n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_SpublishInfo_Permissions_0400
+ * @tc.number: CES_PublishInfo_Permissions_0400
  * @tc.name: CommonEventPublishInfo : GetSubscriberPermissions
  * @tc.desc: 1.Set publishInfo
  *           2.Verify the function of CommonEventPublishInfo: GetSubscriberPermissions
  */
-HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Permissions_0400, Function | MediumTest | Level2)
+HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Permissions_0400, Function | MediumTest | Level2)
 {
     bool result = false;
     std::string eventName = "PermissionsTest004";
@@ -577,7 +577,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Permissions_0400, Function
         SubscribeCommonEventTest(subscribeInfo);
         std::vector<std::string> testPermissions = publishInfo.GetSubscriberPermissions();
         if (teststr == testPermissions[0]) {
-            printf("ACTS_SpublishInfo_Permissions_0400 faild ,this is %d round\n", i);
+            printf("CES_PublishInfo_Permissions_0400 faild ,this is %d round\n", i);
             result = false;
             break;
         } else {
@@ -586,18 +586,18 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Permissions_0400, Function
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_SpublishInfo_Permissions_0400  : %d\n", stLevel_.CESLevel);
+        printf("CES_PublishInfo_Permissions_0400  : %d\n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_SpublishInfo_Permissions_0500
+ * @tc.number: CES_PublishInfo_Permissions_0500
  * @tc.name: CommonEventPublishInfo : GetSubscriberPermissions
  * @tc.desc: 1.Set publishInfo
  *           2.Verify the function of CommonEventPublishInfo: GetSubscriberPermissions
  */
-HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Permissions_0500, Function | MediumTest | Level2)
+HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Permissions_0500, Function | MediumTest | Level2)
 {
     bool result = false;
     std::string eventName = "PermissionsTest005";
@@ -616,7 +616,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Permissions_0500, Function
         SubscribeCommonEventTest(subscribeInfo);
         std::vector<std::string> testPermissions = publishInfo.GetSubscriberPermissions();
         if (permissin1 == testPermissions[1]) {
-            printf("ACTS_SpublishInfo_Permissions_0500 faild ,this is %d round\n", i);
+            printf("CES_PublishInfo_Permissions_0500 faild ,this is %d round\n", i);
             result = false;
             break;
         } else {
@@ -625,18 +625,18 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Permissions_0500, Function
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_SpublishInfo_Permissions_0500  : %d\n", stLevel_.CESLevel);
+        printf("CES_PublishInfo_Permissions_0500  : %d\n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_SpublishInfo_Permissions_0600
+ * @tc.number: CES_PublishInfo_Permissions_0600
  * @tc.name: CommonEventPublishInfo : GetSubscriberPermissions
  * @tc.desc: 1.Set publishInfo
  *           2.Verify the function of CommonEventPublishInfo: GetSubscriberPermissions
  */
-HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Permissions_0600, Function | MediumTest | Level2)
+HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Permissions_0600, Function | MediumTest | Level2)
 {
     bool result = false;
     std::string eventName = "PermissionsTest006";
@@ -657,7 +657,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Permissions_0600, Function
         SubscribeCommonEventTest(subscribeInfo);
         std::vector<std::string> testPermissions = publishInfo.GetSubscriberPermissions();
         if (permissin1 == testPermissions[2]) {
-            printf("ACTS_SpublishInfo_Permissions_0600 faild ,this is %d round\n", i);
+            printf("CES_PublishInfo_Permissions_0600 faild ,this is %d round\n", i);
             result = false;
             break;
         } else {
@@ -666,18 +666,18 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Permissions_0600, Function
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_SpublishInfo_Permissions_0600  : %d\n", stLevel_.CESLevel);
+        printf("CES_PublishInfo_Permissions_0600  : %d\n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_SpublishInfo_Permissions_0700
+ * @tc.number: CES_PublishInfo_Permissions_0700
  * @tc.name: CommonEventPublishInfo : GetSubscriberPermissions
  * @tc.desc: 1.Set publishInfo
  *           2.Verify the function of CommonEventPublishInfo: GetSubscriberPermissions
  */
-HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Permissions_0700, Function | MediumTest | Level1)
+HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Permissions_0700, Function | MediumTest | Level1)
 {
     bool result = false;
     std::string eventName = "PermissionsTest007";
@@ -694,7 +694,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Permissions_0700, Function
         SubscribeCommonEventTest(subscribeInfo);
         std::vector<std::string> testPermissions = publishInfo.GetSubscriberPermissions();
         if (!(1 == testPermissions.size())) {
-            printf("ACTS_SpublishInfo_Permissions_0700 faild ,this is %d round\n", i);
+            printf("CES_PublishInfo_Permissions_0700 faild ,this is %d round\n", i);
             result = false;
             break;
         } else {
@@ -703,18 +703,18 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Permissions_0700, Function
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_SpublishInfo_Permissions_0700  : %d\n", stLevel_.CESLevel);
+        printf("CES_PublishInfo_Permissions_0700  : %d\n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_SpublishInfo_Permissions_0800
+ * @tc.number: CES_PublishInfo_Permissions_0800
  * @tc.name: CommonEventPublishInfo : GetSubscriberPermissions
  * @tc.desc: 1.Set publishInfo
  *           2.Verify the function of CommonEventPublishInfo: GetSubscriberPermissions
  */
-HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Permissions_0800, Function | MediumTest | Level1)
+HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Permissions_0800, Function | MediumTest | Level1)
 {
     bool result = false;
     std::string eventName = "PermissionsTest008";
@@ -733,7 +733,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Permissions_0800, Function
         SubscribeCommonEventTest(subscribeInfo);
         std::vector<std::string> testPermissions = publishInfo.GetSubscriberPermissions();
         if (!(2 == testPermissions.size())) {
-            printf("ACTS_SpublishInfo_Permissions_0800 faild ,this is %d round\n", i);
+            printf("CES_PublishInfo_Permissions_0800 faild ,this is %d round\n", i);
             result = false;
             break;
         } else {
@@ -742,18 +742,18 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Permissions_0800, Function
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_SpublishInfo_Permissions_0800  : %d\n", stLevel_.CESLevel);
+        printf("CES_PublishInfo_Permissions_0800  : %d\n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_SpublishInfo_Permissions_0900
+ * @tc.number: CES_PublishInfo_Permissions_0900
  * @tc.name: CommonEventPublishInfo : GetSubscriberPermissions
  * @tc.desc: 1.Set publishInfo
  *           2.Verify the function of CommonEventPublishInfo: GetSubscriberPermissions
  */
-HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Permissions_0900, Function | MediumTest | Level1)
+HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Permissions_0900, Function | MediumTest | Level1)
 {
     bool result = false;
     std::string eventName = "PermissionsTest009";
@@ -774,7 +774,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Permissions_0900, Function
         SubscribeCommonEventTest(subscribeInfo);
         std::vector<std::string> testPermissions = publishInfo.GetSubscriberPermissions();
         if (!(3 == testPermissions.size())) {
-            printf("ACTS_SpublishInfo_Permissions_0900 faild ,this is %d round\n", i);
+            printf("CES_PublishInfo_Permissions_0900 faild ,this is %d round\n", i);
             result = false;
             break;
         } else {
@@ -783,18 +783,18 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Permissions_0900, Function
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_SpublishInfo_Permissions_0900  : %d\n", stLevel_.CESLevel);
+        printf("CES_PublishInfo_Permissions_0900  : %d\n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_SpublishInfo_Permissions_1000
+ * @tc.number: CES_PublishInfo_Permissions_1000
  * @tc.name: CommonEventPublishInfo : GetSubscriberPermissions
  * @tc.desc: 1.Set publishInfo
  *           2.Verify the function of CommonEventPublishInfo: GetSubscriberPermissions
  */
-HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Permissions_1000, Function | MediumTest | Level2)
+HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Permissions_1000, Function | MediumTest | Level2)
 {
     bool result = false;
     std::string eventName = "PermissionsTest010";
@@ -809,7 +809,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Permissions_1000, Function
         SubscribeCommonEventTest(subscribeInfo);
         std::vector<std::string> testPermissions = publishInfo.GetSubscriberPermissions();
         if (!(0 == testPermissions.size())) {
-            printf("ACTS_SpublishInfo_Permissions_1000 faild ,this is %d round\n", i);
+            printf("CES_PublishInfo_Permissions_1000 faild ,this is %d round\n", i);
             result = false;
             break;
         } else {
@@ -818,18 +818,18 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Permissions_1000, Function
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_SpublishInfo_Permissions_1000  : %d\n", stLevel_.CESLevel);
+        printf("CES_PublishInfo_Permissions_1000  : %d\n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_SpublishInfo_Ordered_0100
+ * @tc.number: CES_PublishInfo_Ordered_0100
  * @tc.name: CommonEventPublishInfo : SetOrdered and IsOrdered
  * @tc.desc: 1.Set publishInfo
  *           2.Verify the function of CommonEventPublishInfo: SetOrdered and IsOrdered
  */
-HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Ordered_0100, Function | MediumTest | Level1)
+HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Ordered_0100, Function | MediumTest | Level1)
 {
     bool result = false;
     std::string eventName = "OrderedTest001";
@@ -842,7 +842,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Ordered_0100, Function | M
         publishInfo.SetOrdered(order);
         SubscribeCommonEventTest(subscribeInfo);
         if (publishInfo.IsOrdered()) {
-            printf("ACTS_SpublishInfo_Ordered_0100 faild ,this is %d round\n", i);
+            printf("CES_PublishInfo_Ordered_0100 faild ,this is %d round\n", i);
             result = false;
             break;
         } else {
@@ -851,18 +851,18 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Ordered_0100, Function | M
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_SpublishInfo_Ordered_0100  : %d\n", stLevel_.CESLevel);
+        printf("CES_PublishInfo_Ordered_0100  : %d\n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_SpublishInfo_Ordered_0200
+ * @tc.number: CES_PublishInfo_Ordered_0200
  * @tc.name: CommonEventPublishInfo : SetOrdered and IsOrdered
  * @tc.desc: 1.Set publishInfo
  *           2.Verify the function of CommonEventPublishInfo: SetOrdered and IsOrdered
  */
-HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Ordered_0200, Function | MediumTest | Level1)
+HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Ordered_0200, Function | MediumTest | Level1)
 {
     bool result = false;
     std::string eventName = "OrderedTest002";
@@ -875,7 +875,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Ordered_0200, Function | M
         publishInfo.SetOrdered(order);
         SubscribeCommonEventTest(subscribeInfo);
         if (!publishInfo.IsOrdered()) {
-            printf("ACTS_SpublishInfo_Ordered_0200 faild ,this is %d round\n", i);
+            printf("CES_PublishInfo_Ordered_0200 faild ,this is %d round\n", i);
             result = false;
             break;
         } else {
@@ -884,18 +884,18 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Ordered_0200, Function | M
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_SpublishInfo_Ordered_0200  : %d\n", stLevel_.CESLevel);
+        printf("CES_PublishInfo_Ordered_0200  : %d\n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_SpublishInfo_Ordered_0300
+ * @tc.number: CES_PublishInfo_Ordered_0300
  * @tc.name: CommonEventPublishInfo : SetOrdered and IsOrdered
  * @tc.desc: 1.Set publishInfo
  *           2.Verify the function of CommonEventPublishInfo: SetOrdered and IsOrdered
  */
-HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Ordered_0300, Function | MediumTest | Level2)
+HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Ordered_0300, Function | MediumTest | Level2)
 {
     bool result = false;
     std::string eventName = "OrderedTest003";
@@ -906,7 +906,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Ordered_0300, Function | M
         CommonEventPublishInfo publishInfo;
         SubscribeCommonEventTest(subscribeInfo);
         if (publishInfo.IsOrdered()) {
-            printf("ACTS_SpublishInfo_Ordered_0300 faild ,this is %d round\n", i);
+            printf("CES_PublishInfo_Ordered_0300 faild ,this is %d round\n", i);
             result = false;
             break;
         } else {
@@ -915,18 +915,18 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Ordered_0300, Function | M
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_SpublishInfo_Ordered_0300  : %d\n", stLevel_.CESLevel);
+        printf("CES_PublishInfo_Ordered_0300  : %d\n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_SpublishInfo_Ordered_0400
+ * @tc.number: CES_PublishInfo_Ordered_0400
  * @tc.name: CommonEventPublishInfo : SetOrdered and IsOrdered
  * @tc.desc: 1.Set publishInfo
  *           2.Verify the function of CommonEventPublishInfo: SetOrdered and IsOrdered
  */
-HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Ordered_0400, Function | MediumTest | Level2)
+HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Ordered_0400, Function | MediumTest | Level2)
 {
     bool result = false;
     std::string eventName = "OrderedTest004";
@@ -938,7 +938,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Ordered_0400, Function | M
         CommonEventPublishInfo publishInfo;
         publishInfo.SetOrdered(order);
         if (publishInfo.IsOrdered()) {
-            printf("ACTS_SpublishInfo_Ordered_0400 faild ,this is %d round\n", i);
+            printf("CES_PublishInfo_Ordered_0400 faild ,this is %d round\n", i);
             result = false;
             break;
         } else {
@@ -947,18 +947,18 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Ordered_0400, Function | M
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_SpublishInfo_Ordered_0400  : %d\n", stLevel_.CESLevel);
+        printf("CES_PublishInfo_Ordered_0400  : %d\n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_SpublishInfo_Ordered_0500
+ * @tc.number: CES_PublishInfo_Ordered_0500
  * @tc.name: CommonEventPublishInfo : SetOrdered and IsOrdered
  * @tc.desc: 1.Set publishInfo
  *           2.Verify the function of CommonEventPublishInfo: SetOrdered and IsOrdered
  */
-HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Ordered_0500, Function | MediumTest | Level2)
+HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Ordered_0500, Function | MediumTest | Level2)
 {
     bool result = false;
     std::string eventName = "OrderedTest005";
@@ -970,7 +970,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Ordered_0500, Function | M
         CommonEventPublishInfo publishInfo;
         publishInfo.SetOrdered(order);
         if (!publishInfo.IsOrdered()) {
-            printf("ACTS_SpublishInfo_Ordered_0500 faild ,this is %d round\n", i);
+            printf("CES_PublishInfo_Ordered_0500 faild ,this is %d round\n", i);
             result = false;
             break;
         } else {
@@ -979,18 +979,18 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Ordered_0500, Function | M
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_SpublishInfo_Ordered_0500  : %d\n", stLevel_.CESLevel);
+        printf("CES_PublishInfo_Ordered_0500  : %d\n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_SpublishInfo_Ordered_0600
+ * @tc.number: CES_PublishInfo_Ordered_0600
  * @tc.name: CommonEventPublishInfo : SetOrdered and IsOrdered
  * @tc.desc: 1.Set publishInfo
  *           2.Verify the function of CommonEventPublishInfo: SetOrdered and IsOrdered
  */
-HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Ordered_0600, Function | MediumTest | Level2)
+HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Ordered_0600, Function | MediumTest | Level2)
 {
     bool result = false;
     std::string eventName = "OrderedTest006";
@@ -1001,7 +1001,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Ordered_0600, Function | M
         CommonEventPublishInfo publishInfo;
         SubscribeCommonEventTest(subscribeInfo);
         if (publishInfo.IsOrdered()) {
-            printf("ACTS_SpublishInfo_Ordered_0600 faild ,this is %d round\n", i);
+            printf("CES_PublishInfo_Ordered_0600 faild ,this is %d round\n", i);
             result = false;
             break;
         } else {
@@ -1010,18 +1010,18 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Ordered_0600, Function | M
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_SpublishInfo_Ordered_0600  : %d\n", stLevel_.CESLevel);
+        printf("CES_PublishInfo_Ordered_0600  : %d\n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_SpublishInfo_Ordered_0700
+ * @tc.number: CES_PublishInfo_Ordered_0700
  * @tc.name: CommonEventPublishInfo : SetOrdered SetSticky and IsOrdered
  * @tc.desc: 1.Set publishInfo
  *           2.Verify the function of CommonEventPublishInfo: SetOrdered SetSticky and IsOrdered
  */
-HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Ordered_0700, Function | MediumTest | Level2)
+HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Ordered_0700, Function | MediumTest | Level2)
 {
     bool result = false;
     std::string eventName = "OrderedTest007";
@@ -1035,7 +1035,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Ordered_0700, Function | M
         publishInfo.SetOrdered(order);
         publishInfo.SetSticky(sticky);
         if (!publishInfo.IsOrdered()) {
-            printf("ACTS_SpublishInfo_Ordered_0700 faild ,this is %d round\n", i);
+            printf("CES_PublishInfo_Ordered_0700 faild ,this is %d round\n", i);
             result = false;
             break;
         } else {
@@ -1044,18 +1044,18 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Ordered_0700, Function | M
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_SpublishInfo_Ordered_0700  : %d\n", stLevel_.CESLevel);
+        printf("CES_PublishInfo_Ordered_0700  : %d\n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_SpublishInfo_Ordered_0800
+ * @tc.number: CES_PublishInfo_Ordered_0800
  * @tc.name: CommonEventPublishInfo : SetOrdered SetSticky and IsOrdered
  * @tc.desc: 1.Set publishInfo
  *           2.Verify the function of CommonEventPublishInfo: SetOrdered SetSticky and IsOrdered
  */
-HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Ordered_0800, Function | MediumTest | Level2)
+HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Ordered_0800, Function | MediumTest | Level2)
 {
     bool result = false;
     std::string eventName = "OrderedTest008";
@@ -1069,7 +1069,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Ordered_0800, Function | M
         publishInfo.SetOrdered(order);
         publishInfo.SetSticky(sticky);
         if (!publishInfo.IsOrdered()) {
-            printf("ACTS_SpublishInfo_Ordered_0800 faild ,this is %d round\n", i);
+            printf("CES_PublishInfo_Ordered_0800 faild ,this is %d round\n", i);
             result = false;
             break;
         } else {
@@ -1078,18 +1078,18 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Ordered_0800, Function | M
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_SpublishInfo_Ordered_0800  : %d\n", stLevel_.CESLevel);
+        printf("CES_PublishInfo_Ordered_0800  : %d\n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_SpublishInfo_Ordered_0900
+ * @tc.number: CES_PublishInfo_Ordered_0900
  * @tc.name: CommonEventPublishInfo : SetOrdered SetSticky and IsOrdered
  * @tc.desc: 1.Set publishInfo
  *           2.Verify the function of CommonEventPublishInfo: SetOrdered SetSticky and IsOrdered
  */
-HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Ordered_0900, Function | MediumTest | Level2)
+HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Ordered_0900, Function | MediumTest | Level2)
 {
     bool result = false;
     std::string eventName = "OrderedTest009";
@@ -1103,7 +1103,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Ordered_0900, Function | M
         publishInfo.SetOrdered(order);
         publishInfo.SetSticky(sticky);
         if (publishInfo.IsOrdered()) {
-            printf("ACTS_SpublishInfo_Ordered_0900 faild ,this is %d round\n", i);
+            printf("CES_PublishInfo_Ordered_0900 faild ,this is %d round\n", i);
             result = false;
             break;
         } else {
@@ -1112,18 +1112,18 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Ordered_0900, Function | M
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_SpublishInfo_Ordered_0900  : %d\n", stLevel_.CESLevel);
+        printf("CES_PublishInfo_Ordered_0900  : %d\n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_SpublishInfo_Ordered_1000
+ * @tc.number: CES_PublishInfo_Ordered_1000
  * @tc.name: CommonEventPublishInfo : SetOrdered SetSticky and IsOrdered
  * @tc.desc: 1.Set publishInfo
  *           2.Verify the function of CommonEventPublishInfo: SetOrdered SetSticky and IsOrdered
  */
-HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Ordered_1000, Function | MediumTest | Level2)
+HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Ordered_1000, Function | MediumTest | Level2)
 {
     bool result = false;
     std::string eventName = "OrderedTest010";
@@ -1137,7 +1137,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Ordered_1000, Function | M
         publishInfo.SetOrdered(order);
         publishInfo.SetSticky(sticky);
         if (publishInfo.IsOrdered()) {
-            printf("ACTS_SpublishInfo_Ordered_1000 faild ,this is %d round\n", i);
+            printf("CES_PublishInfo_Ordered_1000 faild ,this is %d round\n", i);
             result = false;
             break;
         } else {
@@ -1146,7 +1146,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, ACTS_SpublishInfo_Ordered_1000, Function | M
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_SpublishInfo_Ordered_1000  : %d\n", stLevel_.CESLevel);
+        printf("CES_PublishInfo_Ordered_1000  : %d\n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }

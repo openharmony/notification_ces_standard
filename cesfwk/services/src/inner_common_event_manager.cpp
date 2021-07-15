@@ -71,7 +71,7 @@ bool InnerCommonEventManager::PublishCommonEvent(const CommonEventData &data, co
         bool ret = DelayedSingleton<BundleManagerHelper>::GetInstance()->CheckPermission(bundleName, permission);
         if (!ret) {
             EVENT_LOGE(
-                "No permission to send a sticky common event from %s{public} (pid = %{public}d, uid = %{public}d)",
+                "No permission to send a sticky common event from %{public}s (pid = %{public}d, uid = %{public}d)",
                 bundleName.c_str(),
                 pid,
                 uid);
@@ -154,6 +154,13 @@ void InnerCommonEventManager::DumpState(const std::string &event, std::vector<st
 
     DelayedSingleton<CommonEventStickyManager>::GetInstance()->DumpState(event, state);
 
+    if (!controlPtr_) {
+        EVENT_LOGE("CommonEventControlManager ptr is nullptr");
+        return;
+    }
+    controlPtr_->DumpState(event, state);
+
+    controlPtr_->DumpHistoryState(event, state);
     return;
 }
 

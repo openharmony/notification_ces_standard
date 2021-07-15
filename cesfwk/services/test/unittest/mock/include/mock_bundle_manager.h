@@ -402,7 +402,129 @@ public:
     {
         return nullptr;
     }
-
+    /**
+     * @brief Sets whether to enable a specified ability.
+     * @param abilityInfo Indicates information about the ability to check.
+     * @return Returns true if the ability is enabled; returns false otherwise.
+     */
+    virtual bool IsAbilityEnabled(const AbilityInfo &abilityInfo) override
+    {
+        return true;
+    }
+    /**
+     * @brief Sets whether to enable a specified ability.
+     * @param abilityInfo Indicates information about the ability.
+     * @param isEnabled Specifies whether to enable the ability.
+     *                 The value true means to enable it, and the value false means to disable it.
+     * @return Returns true if the ability is enabled; returns false otherwise.
+     */
+    virtual bool SetAbilityEnabled(const AbilityInfo &abilityInfo, bool isEnabled) override
+    {
+        return true;
+    }
+    /**
+     * @brief Obtains the icon of a specified ability.
+     * @param bundleName Indicates the bundle name.
+     * @param className Indicates the ability class name.
+     * @return Returns the icon resource string of the ability if exist; returns empty string otherwise.
+     */
+    virtual std::string GetAbilityIcon(const std::string &bundleName, const std::string &className) override
+    {
+        return "";
+    }
+    /**
+     * @brief Obtains all bundle names of a specified application based on the given application UID.
+     * @param uid Indicates the uid.
+     * @param bundleNames Indicates the obtained bundle names.
+     * @return Returns true if the bundle names is successfully obtained; returns false otherwise.
+     */
+    virtual bool GetBundlesForUid(const int uid, std::vector<std::string> &bundleNames) override
+    {
+        return true;
+    }
+    /**
+     * @brief Obtains the formal name associated with the given UID.
+     * @param uid Indicates the uid.
+     * @param name Indicates the obtained formal name.
+     * @return Returns true if the formal name is successfully obtained; returns false otherwise.
+     */
+    virtual bool GetNameForUid(const int uid, std::string &name) override
+    {
+        return true;
+    }
+    /**
+     * @brief Registers a callback for listening for permission changes of all UIDs.
+     * @param callback Indicates the callback method to register.
+     * @return Returns true if this function is successfully called; returns false otherwise.
+     */
+    virtual bool RegisterAllPermissionsChanged(const sptr<OnPermissionChangedCallback> &callback) override
+    {
+        return true;
+    }
+    /**
+     * @brief Registers a callback for listening for permission changes of specified UIDs.
+     * @param uids Indicates the list of UIDs whose permission changes will be monitored.
+     * @param callback Indicates the callback method to register.
+     * @return Returns true if this function is successfully called; returns false otherwise.
+     */
+    virtual bool RegisterPermissionsChanged(
+        const std::vector<int> &uids, const sptr<OnPermissionChangedCallback> &callback) override
+    {
+        return true;
+    }
+    /**
+     * @brief Unregisters a specified callback for listening for permission changes.
+     * @param callback Indicates the callback method to register.
+     * @return Returns true if this function is successfully called; returns false otherwise.
+     */
+    virtual bool UnregisterPermissionsChanged(const sptr<OnPermissionChangedCallback> &callback) override
+    {
+        return true;
+    }
+    /**
+     * @brief Obtains the application ID based on the given bundle name and user ID.
+     * @param bundleName Indicates the bundle name of the application.
+     * @param userId Indicates the user ID.
+     * @return Returns the application ID if successfully obtained; returns empty string otherwise.
+     */
+    virtual std::string GetAppIdByBundleName(const std::string &bundleName, const int userId) override
+    {
+        return "";
+    }
+        /**
+     * @brief  Obtains the FormInfo objects provided by all applications on the device.
+     * @param  formInfo List of FormInfo objects if obtained; returns an empty List if no FormInfo is available on the
+     * device.
+     * @return Returns true if this function is successfully called; returns false otherwise.
+     */
+    virtual bool GetAllFormsInfo(std::vector<FormInfo> &formInfos) override
+    {
+        return true;
+    }
+    /**
+     * @brief  Obtains the FormInfo objects provided by a specified application on the device.
+     * @param  bundleName Indicates the bundle name of the application.
+     * @param  formInfo List of FormInfo objects if obtained; returns an empty List if no FormInfo is available on the
+     * device.
+     * @return Returns true if this function is successfully called; returns false otherwise.
+     */
+	virtual bool GetFormsInfoByApp(const std::string &bundleName, std::vector<FormInfo> &formInfos) override
+    {
+        return true;
+    }
+     /**
+     * @brief  Obtains the FormInfo objects provided by a specified module name.
+     * @param  formInfo List of FormInfo objects if obtained; returns an empty List if no FormInfo is available on the
+     * device.
+     * @param  moduleName Indicates the module name of the application.
+     * @param  bundleName Indicates the bundle name of the application.
+     * @return Returns true if this function is successfully called; returns false otherwise.
+     */
+	virtual bool GetFormsInfoByModule(
+        const std::string &bundleName, const std::string &moduleName, std::vector<FormInfo> &formInfos) override
+    {
+        return true;
+    }
     void MockSetIsSystemApp(bool isSystemApp);
 
 private:

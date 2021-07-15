@@ -104,13 +104,79 @@ std::vector<std::shared_ptr<EventSubscriberRecord>> CommonEventSubscriberManager
     return records;
 }
 
+void CommonEventSubscriberManager::DumpDetailed(
+    const std::string &title, const SubscriberRecordPtr &record, const std::string format, std::string &dumpInfo)
+{
+
+    char systime[LENGTH];
+    strftime(systime, sizeof(char) * LENGTH, "%Y%m%d %I:%M %p", &record->recordTime);
+
+    std::string recordTime = format + "Time: " + std::string(systime) + "\n";
+    std::string pid = format + "PID: " + std::to_string(record->pid) + "\n";
+    std::string uid = format + "UID: " + std::to_string(record->uid) + "\n";
+    std::string bundleName = format + "BundleName: " + record->bundleName + "\n";
+    std::string priority = format + "Priority: " + std::to_string(record->eventSubscriberInfo->GetPriority()) + "\n";
+    std::string permission = format + "Permission: " + record->eventSubscriberInfo->GetPermission() + "\n";
+    std::string deviceId = format + "DevicedID: " + record->eventSubscriberInfo->GetDeviceId() + "\n";
+
+    std::string events = format + "\tEvent: ";
+    std::string separator;
+    for (int eventNum = 0; eventNum < record->eventSubscriberInfo->GetMatchingSkills().CountEvent(); ++eventNum) {
+        if (eventNum == 0) {
+            separator = "";
+        } else {
+            separator = ", ";
+        }
+        events = events + separator + record->eventSubscriberInfo->GetMatchingSkills().GetEvent(eventNum);
+    }
+    events = events + "\n";
+
+    std::string entities = format + "\tEntity: ";
+    for (int entityNum = 0; entityNum < record->eventSubscriberInfo->GetMatchingSkills().CountEntities(); ++entityNum) {
+        if (entityNum == 0) {
+            separator = "";
+        } else {
+            separator = ", ";
+        }
+        entities = entities + separator + record->eventSubscriberInfo->GetMatchingSkills().GetEntity(entityNum);
+    }
+    entities = entities + "\n";
+
+    std::string scheme = format + "\tScheme: ";
+    for (int schemeNum = 0; schemeNum < record->eventSubscriberInfo->GetMatchingSkills().CountSchemes(); ++schemeNum) {
+        if (schemeNum == 0) {
+            separator = "";
+        } else {
+            separator = ", ";
+        }
+        scheme = scheme + separator + record->eventSubscriberInfo->GetMatchingSkills().GetScheme(schemeNum);
+    }
+    scheme = scheme + "\n";
+
+    std::string matchingSkills = format + "MatchingSkills:\n" + events + entities + scheme;
+
+    std::string isFreeze = record->isFreeze ? "true" : "false";
+    isFreeze = format + "IsFreeze: " + isFreeze + "\n";
+
+    std::string freezeTime;
+    if (record->freezeTime == 0) {
+        freezeTime = format + "FreezeTime:  -\n";
+    } else {
+        freezeTime = format + "FreezeTime: " + std::to_string(record->freezeTime) + "\n";
+    }
+
+    dumpInfo = title + recordTime + pid + uid + bundleName + priority + permission + deviceId + matchingSkills +
+               isFreeze + freezeTime;
+}
+
 void CommonEventSubscriberManager::DumpState(const std::string &event, std::vector<std::string> &state)
 {
     EVENT_LOGI("enter");
 
     std::vector<SubscriberRecordPtr> records;
 
-    GetSubscriberRecordsByEventLocked(event, records);
+    std::lock_guard<std::mutex> lock(mutex_);
+    GetSubscriberRecordsByEvent(event, records);
 
     if (records.size() == 0) {
         state.emplace_back("Subscribers:\tNo information");
@@ -120,71 +186,14 @@ void CommonEventSubscriberManager::DumpState(const std::string &event, std::vect
     int num = 0;
     for (auto record : records) {
         num++;
-
-        std::string no = std::to_string(num);
+        std::string title = std::to_string(num);
         if (num == 1) {
-            no = "Subscribers:\tTotal " + std::to_string(records.size()) + " subscribers\nNO " + no + "\n";
+            title = "Subscribers:\tTotal " + std::to_string(records.size()) + " subscribers\nNO " + title + "\n";
         } else {
-            no = "NO " + no + "\n";
+            title = "NO " + title + "\n";
         }
-
-        char systime[LENGTH];
-        strftime(systime, sizeof(char) * LENGTH, "%Y%m%d %I:%M %p", &record->recordTime);
-
-        std::string recordTime = "\tTime: " + std::string(systime) + "\n";
-        std::string pid = "\tPID: " + std::to_string(record->pid) + "\n";
-        std::string uid = "\tUID: " + std::to_string(record->uid) + "\n";
-        std::string bundleName = "\tBundleName: " + record->bundleName + "\n";
-        std::string priority = "\tPriority: " + std::to_string(record->eventSubscriberInfo->GetPriority()) + "\n";
-        std::string permission = "\tPermission: " + record->eventSubscriberInfo->GetPermission() + "\n";
-        std::string deviceId = "\tDevicedID: " + record->eventSubscriberInfo->GetDeviceId() + "\n";
-
-        std::string events = "\t\tEvent: ";
-        std::string separator;
-        for (int eventNum = 0; eventNum < record->eventSubscriberInfo->GetMatchingSkills().CountEvent(); ++eventNum) {
-            if (eventNum == 0) {
-                separator = "";
-            } else {
-                separator = ", ";
-            }
-            events = events + separator + record->eventSubscriberInfo->GetMatchingSkills().GetEvent(eventNum);
-        }
-        events = events + "\n";
-
-        std::string entities = "\t\tEntity: ";
-        for (int entityNum = 0; entityNum < record->eventSubscriberInfo->GetMatchingSkills().CountEntities();
-             ++entityNum) {
-            if (entityNum == 0) {
-                separator = "";
-            } else {
-                separator = ", ";
-            }
-            entities = entities + separator + record->eventSubscriberInfo->GetMatchingSkills().GetEntity(entityNum);
-        }
-        entities = entities + "\n";
-
-        std::string scheme = "\t\tScheme: ";
-        for (int schemeNum = 0; schemeNum < record->eventSubscriberInfo->GetMatchingSkills().CountSchemes();
-             ++schemeNum) {
-            if (schemeNum == 0) {
-                separator = "";
-            } else {
-                separator = ", ";
-            }
-            scheme = scheme + separator + record->eventSubscriberInfo->GetMatchingSkills().GetScheme(schemeNum);
-        }
-        scheme = scheme + "\n";
-
-        std::string matchingSkills = "\tMatchingSkills:\n" + events + entities + scheme;
-
-        std::string isFreeze = record->isFreeze ? "true" : "false";
-        isFreeze = "\tIsFreeze: " + isFreeze + "\n";
-
-        std::string freezeTime = "\tFreezeTime: " + std::to_string(record->freezeTime) + "\n";
-
-        std::string dumpInfo = no + recordTime + pid + uid + bundleName + priority + permission + deviceId +
-                               matchingSkills + isFreeze + freezeTime;
-
+        std::string dumpInfo;
+        DumpDetailed(title, record, "\t", dumpInfo);
         state.emplace_back(dumpInfo);
     }
 }
@@ -278,10 +287,9 @@ void CommonEventSubscriberManager::GetSubscriberRecordsByWantLocked(
     }
 }
 
-void CommonEventSubscriberManager::GetSubscriberRecordsByEventLocked(
+void CommonEventSubscriberManager::GetSubscriberRecordsByEvent(
     const std::string &event, std::vector<SubscriberRecordPtr> &records)
 {
-    std::lock_guard<std::mutex> lock(mutex_);
 
     if (event.empty()) {
         records = subscribers_;
@@ -332,7 +340,7 @@ void CommonEventSubscriberManager::InsertFrozenEvents(
     if (frozenRecordsItem != frozenEvents_.end()) {
         auto eventRecordsItem = frozenRecordsItem->second.find(subscriberRecord);
         if (eventRecordsItem != frozenRecordsItem->second.end()) {
-            eventRecordsItem->second.push_back(record);
+            eventRecordsItem->second.emplace_back(record);
             time_t backRecordTime = mktime(&eventRecordsItem->second.back()->recordTime);
             time_t frontRecordTime = mktime(&eventRecordsItem->second.front()->recordTime);
             EVENT_LOGD("backRecordTime: %{public}ld", backRecordTime);
@@ -344,13 +352,13 @@ void CommonEventSubscriberManager::InsertFrozenEvents(
             }
         } else {
             std::vector<EventRecordPtr> EventRecords;
-            EventRecords.push_back(record);
+            EventRecords.emplace_back(record);
             frozenRecordsItem->second[subscriberRecord] = EventRecords;
         }
     } else {
         std::map<SubscriberRecordPtr, std::vector<EventRecordPtr>> frozenRecords;
         std::vector<EventRecordPtr> EventRecords;
-        EventRecords.push_back(record);
+        EventRecords.emplace_back(record);
         frozenRecords[subscriberRecord] = EventRecords;
         frozenEvents_[subscriberRecord->uid] = frozenRecords;
     }
@@ -394,6 +402,5 @@ void CommonEventSubscriberManager::RemoveFrozenEventsBySubscriber(const Subscrib
         }
     }
 }
-
 }  // namespace EventFwk
 }  // namespace OHOS

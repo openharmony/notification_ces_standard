@@ -27,8 +27,8 @@ config("cesfwk_kit_config") {
   }
 
   defines = [
-    "APP_LOG_TAG = \"CesFwkKits\"",
-    "LOG_DOMAIN = 0xD002200",
+    "EVENT_LOG_TAG = \"CesFwkKits\"",
+    "LOG_DOMAIN = 0xD008800",
   ]
 }
 

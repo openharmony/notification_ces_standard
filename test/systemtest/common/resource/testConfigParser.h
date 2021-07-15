@@ -15,49 +15,59 @@
 #ifndef TEST_CONFIG_PARSER_H
 #define TEST_CONFIG_PARSER_H
 
-#include "nlohmann/json.hpp"
-
 #include <iostream>
 #include <fstream>
 #include <string>
 
+#include "nlohmann/json.hpp"
+
 namespace OHOS {
 
-const std::string STRESS_TEST_CONFIG_FILE_PATH{"/testconfig/stressconfig.json"};
+const std::string STRESS_TEST_CONFIG_FILE_PATH{"/data/testconfig/stressconfig.json"};
 
 const std::string STRESS_TEST_AMS_KEY{"AMS"};
 const std::string STRESS_TEST_BMS_KEY{"BMS"};
 const std::string STRESS_TEST_CES_KEY{"CES"};
 
 struct StressTestLevel {
-    int32_t AMSLevel = 0;
-    int32_t BMSLevel = 0;
-    int32_t CESLevel = 0;
+    int32_t AMSLevel{1};
+    int32_t BMSLevel{1};
+    int32_t CESLevel{1};
 };
 
 class TestConfigParser {
 public:
     void ParseFromFile4StressTest(const std::string &path, StressTestLevel &stlevel)
     {
-        if (path.empty()) {
-            std::cout << __FUNCTION__ << " invalid file path, check!" << std::endl;
+        std::ifstream jf(path);
+        if (!jf.is_open()) {
+            std::cout << "json file can not open!" << std::endl;
             return;
         }
 
         nlohmann::json jsonObj;
-        std::ifstream(path) >> jsonObj;
+        jf >> jsonObj;
 
         const auto &jsonObjEnd = jsonObj.end();
         if (jsonObj.find(STRESS_TEST_AMS_KEY) != jsonObjEnd) {
             jsonObj.at(STRESS_TEST_AMS_KEY).get_to(stlevel.AMSLevel);
+            if (0 == stlevel.AMSLevel) {
+                stlevel.AMSLevel = 1;
+            }
         }
 
         if (jsonObj.find(STRESS_TEST_BMS_KEY) != jsonObjEnd) {
             jsonObj.at(STRESS_TEST_BMS_KEY).get_to(stlevel.BMSLevel);
+            if (0 == stlevel.BMSLevel) {
+                stlevel.BMSLevel = 1;
+            }
         }
 
         if (jsonObj.find(STRESS_TEST_CES_KEY) != jsonObjEnd) {
             jsonObj.at(STRESS_TEST_CES_KEY).get_to(stlevel.CESLevel);
+            if (0 == stlevel.CESLevel) {
+                stlevel.CESLevel = 1;
+            }
         }
     }
 };
