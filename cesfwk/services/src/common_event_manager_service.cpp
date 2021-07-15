@@ -18,6 +18,7 @@
 #include "datetime_ex.h"
 #include "event_log_wrapper.h"
 #include "ipc_skeleton.h"
+#include "publish_manager.h"
 #include "system_ability_definition.h"
 
 namespace OHOS {
@@ -140,6 +141,14 @@ bool CommonEventManagerService::PublishCommonEvent(const CommonEventData &event,
     uid_t callingUid = IPCSkeleton::GetCallingUid();
     std::string bundleName = DelayedSingleton<BundleManagerHelper>::GetInstance()->GetBundleName(callingUid);
 
+    if (!DelayedSingleton<PublishManager>::GetInstance()->CheckIsFloodAttack(callingUid)) {
+        EVENT_LOGE("Too many common events have been sent in a short period from %{public}s (pid = %{public}d, uid = %{public}d)",
+            bundleName.c_str(),
+            callingPid,
+            callingUid);
+        return false;
+    }
+
     std::function<void()> PublishCommonEventFunc = std::bind(&InnerCommonEventManager::PublishCommonEvent,
         innerCommonEventManager_,
         event,
@@ -204,6 +213,17 @@ bool CommonEventManagerService::GetStickyCommonEvent(const std::string &event, C
 
     if (event.empty()) {
         EVENT_LOGE("event is empty");
+        return false;
+    }
+
+    uid_t callingUid = IPCSkeleton::GetCallingUid();
+    std::string bundleName = DelayedSingleton<BundleManagerHelper>::GetInstance()->GetBundleName(callingUid);
+    const std::string permission = "ohos.permission.COMMONEVENT_STICKY";
+    bool ret = DelayedSingleton<BundleManagerHelper>::GetInstance()->CheckPermission(bundleName, permission);
+    if (!ret) {
+        EVENT_LOGE("No permission to get a sticky common event from %{public}s (uid = %{public}d)",
+            bundleName.c_str(),
+            callingUid);
         return false;
     }
 

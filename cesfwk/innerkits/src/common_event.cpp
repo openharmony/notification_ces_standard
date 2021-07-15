@@ -239,12 +239,19 @@ int CommonEvent::CreateCommonEventListener(
     }
 
     std::lock_guard<std::mutex> lock(eventListenersMutex_);
+
     auto eventListener = eventListeners_.find(subscriber);
     if (eventListener != eventListeners_.end()) {
         commonEventListener = eventListener->second;
         EVENT_LOGW("subscriber has common event listener");
         return ALREADY_SUBSCRIBED;
     } else {
+
+        if (eventListeners_.size() == SUBSCRIBER_MAX_SIZE) {
+            EVENT_LOGE("the maximum number of subscriptions has been reached");
+            return SUBSCRIBE_FAILD;
+        }
+
         sptr<IEventReceive> listener = new CommonEventListener(subscriber);
         if (!listener) {
             EVENT_LOGE("the common event listener is null");

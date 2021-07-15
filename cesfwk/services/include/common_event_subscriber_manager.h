@@ -82,6 +82,9 @@ public:
 
     std::map<SubscriberRecordPtr, std::vector<EventRecordPtr>> GetFrozenEvents(const uid_t &uid);
 
+    void DumpDetailed(
+        const std::string &title, const SubscriberRecordPtr &record, const std::string format, std::string &dumpInfo);
+
     void DumpState(const std::string &event, std::vector<std::string> &state);
 
 private:
@@ -91,7 +94,7 @@ private:
 
     void GetSubscriberRecordsByWantLocked(const Want &want, std::vector<SubscriberRecordPtr> &records);
 
-    void GetSubscriberRecordsByEventLocked(const std::string &event, std::vector<SubscriberRecordPtr> &records);
+    void GetSubscriberRecordsByEvent(const std::string &event, std::vector<SubscriberRecordPtr> &records);
 
     void RemoveFrozenEventsBySubscriber(const SubscriberRecordPtr &subscriberRecord);
 

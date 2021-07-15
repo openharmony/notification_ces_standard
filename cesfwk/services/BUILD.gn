@@ -28,8 +28,8 @@ config("cesfwk_services_config") {
   }
 
   defines = [
-    "APP_LOG_TAG = \"CesFwk\"",
-    "LOG_DOMAIN = 0xD002200",
+    "EVENT_LOG_TAG = \"CesService\"",
+    "LOG_DOMAIN = 0xD008800",
   ]
 }
 

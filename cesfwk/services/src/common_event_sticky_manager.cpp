@@ -73,7 +73,9 @@ void CommonEventStickyManager::DumpState(const std::string &event, std::vector<s
 
     std::vector<CommonEventRecordPtr> records;
 
-    GetStickyCommonEventRecordsLocked(event, records);
+    std::lock_guard<std::mutex> lock(mutex_);
+
+    GetStickyCommonEventRecords(event, records);
 
     if (records.size() == 0) {
         state.emplace_back("Sticky Events:\tNo information");
@@ -86,7 +88,7 @@ void CommonEventStickyManager::DumpState(const std::string &event, std::vector<s
 
         std::string no = std::to_string(num);
         if (num == 1) {
-            no = "Sticky Events:\tTotal " + std::to_string(records.size()) + "information\nNO " + no + "\n";
+            no = "Sticky Events:\tTotal " + std::to_string(records.size()) + " information\nNO " + no + "\n";
         } else {
             no = "NO " + no + "\n";
         }
@@ -154,8 +156,8 @@ void CommonEventStickyManager::DumpState(const std::string &event, std::vector<s
         std::string deviced = "\t\tDevicedID: " + record->commonEventData->GetWant().GetElement().GetDeviceID() + "\n";
 
         std::string want = "\tWant:\n" + action + entities + scheme + uri + flags + type + bundle + ability + deviced;
-        std::string code = "\tCode:" + std::to_string(record->commonEventData->GetCode()) + "\n";
-        std::string data = "\tData:" + record->commonEventData->GetData() + "\n";
+        std::string code = "\tCode: " + std::to_string(record->commonEventData->GetCode()) + "\n";
+        std::string data = "\tData: " + record->commonEventData->GetData() + "\n";
 
         std::string dumpInfo = no + recordTime + pid + uid + bundleName + permission + isSticky + isOrdered +
                                isSystemEvent + want + code + data;
@@ -209,11 +211,9 @@ int CommonEventStickyManager::UpdateStickyEventLocked(const std::string &event, 
     return ERR_OK;
 }
 
-void CommonEventStickyManager::GetStickyCommonEventRecordsLocked(
+void CommonEventStickyManager::GetStickyCommonEventRecords(
     const std::string &event, std::vector<CommonEventRecordPtr> &records)
 {
-    std::lock_guard<std::mutex> lock(mutex_);
-
     if (event.empty()) {
         for (auto record : commonEventRecords_) {
             records.emplace_back(record.second);

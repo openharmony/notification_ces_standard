@@ -50,7 +50,7 @@ private:
 
     int UpdateStickyEventLocked(const std::string &event, const CommonEventRecordPtr &record);
 
-    void GetStickyCommonEventRecordsLocked(const std::string &event, std::vector<CommonEventRecordPtr> &records);
+    void GetStickyCommonEventRecords(const std::string &event, std::vector<CommonEventRecordPtr> &records);
 
 private:
     std::mutex mutex_;

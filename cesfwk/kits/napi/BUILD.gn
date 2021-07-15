@@ -14,5 +14,5 @@
 import("//build/ohos.gni")
 
 group("napi_packages") {
-  deps = [ "//base/notification/ces_standard/cesfwk/kits/napi/native_module:commonevent" ]
+  deps = [ "//base/notification/ces_standard/cesfwk/kits/napi/common_event:commonevent" ]
 }

@@ -1130,15 +1130,15 @@ HWTEST_F(CesPublishOrderedEventModuleTest, CommonEventPublishOrderedEventTest_07
 
 /*
  * @tc.number: CommonEventPublishOrderedEventTest_0800
- * @tc.name: CommonEventControlManager FinishReceiverLocked
- * @tc.desc: test FinishReceiverLocked recordPtr is null, verify FinishReceiverLocked recordPtr is return false
+ * @tc.name: CommonEventControlManager FinishReceiver
+ * @tc.desc: test FinishReceiver recordPtr is null, verify FinishReceiver recordPtr is return false
  */
 HWTEST_F(CesPublishOrderedEventModuleTest, CommonEventPublishOrderedEventTest_0800, Function | MediumTest | Level1)
 {
     CommonEventControlManager commonEventControlManager;
     bool result;
     std::string receiverData = "receiverData";
-    result = commonEventControlManager.FinishReceiverLocked(nullptr, 0, receiverData, false);
+    result = commonEventControlManager.FinishReceiver(nullptr, 0, receiverData, false);
     EXPECT_EQ(false, result);
 }
 

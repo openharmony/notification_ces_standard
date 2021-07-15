@@ -59,7 +59,6 @@
         }
       ],
       "test_list": [
-        "//base/notification/ces_standard/cesfwk/innerkits/test/unittest:unittest",
         "//base/notification/ces_standard/cesfwk/kits/native/test/unittest:unittest",
         "//base/notification/ces_standard/cesfwk/services/test/unittest:unittest",
         "//base/notification/ces_standard/cesfwk/tools:systemtest",

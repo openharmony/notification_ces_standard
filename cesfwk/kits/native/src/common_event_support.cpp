@@ -964,6 +964,18 @@ const std::string CommonEventSupport::COMMON_EVENT_SIM_STATE_CHANGED = "usual.ev
 const std::string CommonEventSupport::COMMON_EVENT_AIRPLANE_MODE_CHANGED = "usual.event.AIRPLANE_MODE";
 
 /**
+ * Indicate the action of a common event that a new sms bas been received by the device.
+ * This common event can be triggered only by system applications.
+ */
+const std::string CommonEventSupport::COMMON_EVENT_SMS_RECEIVE_COMPLETED = "usual.event.SMS_RECEIVE_COMPLETED";
+
+/**
+ * Indicate the action of a common event that the spn display information has been updated.
+ * This common event can be triggered only by system applications.
+ */
+const std::string CommonEventSupport::COMMON_EVENT_SPN_INFO_UPDATED = "usual.event.SPN_INFO_UPDATED";
+
+/**
  * Only for test case.
  */
 const std::string CommonEventSupport::COMMON_EVENT_TEST_ACTION1 = "usual.event.test1";
@@ -1094,6 +1106,10 @@ void CommonEventSupport::Init()
     commonEventSupport_.emplace_back(CommonEventSupport::COMMON_EVENT_SIM_STATE_CHANGED);
 
     commonEventSupport_.emplace_back(CommonEventSupport::COMMON_EVENT_AIRPLANE_MODE_CHANGED);
+
+    commonEventSupport_.emplace_back(CommonEventSupport::COMMON_EVENT_SMS_RECEIVE_COMPLETED);
+
+    commonEventSupport_.emplace_back(CommonEventSupport::COMMON_EVENT_SPN_INFO_UPDATED);
 
     return;
 }

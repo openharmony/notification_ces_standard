@@ -13,8 +13,10 @@
  * limitations under the License.
  */
 
+#include <chrono>
 #include <iostream>
 #include <string>
+#include <thread>
 
 #include "common_event_manager.h"
 #define private public
@@ -37,6 +39,11 @@ namespace {
 std::mutex mtx_;
 const time_t TIME_OUT_SECONDS_LIMIT = 5;
 const time_t TIME_OUT_SECONDS_ = 3;
+const time_t TIME_OUT_SECONDS_NINE = 9;
+const time_t TIME_OUT_SECONDS_ELEVEN = 11;
+const time_t TIME_OUT_SECONDS_TWENTY = 20;
+const unsigned int SUBSCRIBER_MAX_SIZE = 200;
+const unsigned int SUBSCRIBER_MAX_SIZE_PLUS = 201;
 
 const std::string CompareStr = "cesComparesStrForCase";
 const std::string CompareStrFalse = "cesComparesStrForCaseFalse";
@@ -44,6 +51,8 @@ const std::string CompareStrFalse = "cesComparesStrForCaseFalse";
 const int32_t g_CODE_COMPARE1 = 1;
 const int32_t g_CODE_COMPARE2 = 2;
 const int32_t g_CODE_COMPARE3 = 200;
+const int32_t PRIORITY_HIGH = 80;
+const int32_t PRIORITY_LOW = 20;
 }  // namespace
 
 class CommonEventServicesSystemTest : public CommonEventSubscriber {
@@ -87,6 +96,39 @@ void CommonEventServicesSystemTestSubscriber::OnReceiveEvent(const CommonEventDa
     } else if (action == CompareStrFalse) {
         EXPECT_TRUE(data.GetCode() == g_CODE_COMPARE2);
     }
+}
+
+class CESPublishOrderTimeOutOne : public CommonEventSubscriber {
+public:
+    CESPublishOrderTimeOutOne(const CommonEventSubscribeInfo &subscriberInfo);
+    virtual ~CESPublishOrderTimeOutOne(){};
+    virtual void OnReceiveEvent(const CommonEventData &data);
+};
+
+CESPublishOrderTimeOutOne::CESPublishOrderTimeOutOne(const CommonEventSubscribeInfo &subscriberInfo)
+    : CommonEventSubscriber(subscriberInfo)
+{}
+
+void CESPublishOrderTimeOutOne::OnReceiveEvent(const CommonEventData &data)
+{
+    std::this_thread::sleep_for(std::chrono::milliseconds(20000));
+}
+
+class CESPublishOrderTimeOutTwo : public CommonEventSubscriber {
+public:
+    CESPublishOrderTimeOutTwo(const CommonEventSubscribeInfo &subscriberInfo);
+    virtual ~CESPublishOrderTimeOutTwo(){};
+    virtual void OnReceiveEvent(const CommonEventData &data);
+};
+
+CESPublishOrderTimeOutTwo::CESPublishOrderTimeOutTwo(const CommonEventSubscribeInfo &subscriberInfo)
+    : CommonEventSubscriber(subscriberInfo)
+{}
+
+void CESPublishOrderTimeOutTwo::OnReceiveEvent(const CommonEventData &data)
+{
+    EXPECT_TRUE(data.GetCode() == GetCode());
+    mtx_.unlock();
 }
 
 class cesSystemTest : public testing::Test {
@@ -1685,7 +1727,6 @@ HWTEST_F(cesSystemTest, CES_SendEvent_1300, Function | MediumTest | Level1)
         mtx_.lock();
     }
     // The publisher can send normally, but does not have permission to send system events
-    GTEST_LOG_(INFO) << " CES_TC_053 result =  " << result;
     EXPECT_TRUE(result);
     struct tm startTime = {0};
     EXPECT_EQ(OHOS::GetSystemCurrentTime(&startTime), true);
@@ -1701,7 +1742,6 @@ HWTEST_F(cesSystemTest, CES_SendEvent_1300, Function | MediumTest | Level1)
             break;
         }
     }
-    GTEST_LOG_(INFO) << " CES_TC_053 seconds =  " << seconds;
     // Unable to receive published system events, failed to send system events
     EXPECT_TRUE(sysResult);
     mtx_.unlock();
@@ -2180,7 +2220,7 @@ HWTEST_F(cesSystemTest, CES_SetEventAuthority_1200, Function | MediumTest | Leve
     wantTest.SetAction(eventAction);
     CommonEventData commonEventData(wantTest);
     CommonEventSubscribeInfo subscribeInfo(matchingSkills);
-    subscribeInfo.SetThreadMode(CommonEventSubscribeInfo::ThreadMode::HANDLER);
+    subscribeInfo.SetThreadMode(CommonEventSubscribeInfo::ThreadMode::POST);
     auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
     if (CommonEventManager::SubscribeCommonEvent(subscriberPtr) &&
         (CommonEventManager::PublishCommonEvent(commonEventData))) {
@@ -2302,6 +2342,293 @@ HWTEST_F(cesSystemTest, CES_VerifyMatchingSkills_0500, Function | MediumTest | L
     EXPECT_TRUE(result);
     EXPECT_TRUE((matchingSkills.CountEntities() >= 1));
     CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
+}
+
+/*
+ * @tc.number: CES_SubscriberMaxSize_0200
+ * @tc.name: SubscribeCommonEvent
+ * @tc.desc: Verify that the maximum number of subscriptions for a single third-party application is 200
+ */
+HWTEST_F(cesSystemTest, CES_SubscriberMaxSize_0100, Function | MediumTest | Level1)
+{
+    bool result = false;
+    std::string eventName = "TESTEVENT_SUBSCRIBER";
+    MatchingSkills matchingSkills;
+    matchingSkills.AddEvent(eventName);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
+
+    std::vector<std::shared_ptr<CommonEventServicesSystemTest>> subscriberPtrs;
+    for (size_t i = 0; i < SUBSCRIBER_MAX_SIZE; i++) {
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        subscriberPtrs.push_back(subscriberPtr);
+        result = CommonEventManager::SubscribeCommonEvent(subscriberPtrs.at(i));
+        EXPECT_TRUE(result);
+    }
+    for (size_t i = 0; i < SUBSCRIBER_MAX_SIZE; i++) {
+        result = CommonEventManager::UnSubscribeCommonEvent(subscriberPtrs.at(i));
+        EXPECT_TRUE(result);
+    }
+}
+
+/*
+ * @tc.number: CES_SubscriberMaxSize_0200
+ * @tc.name: SubscribeCommonEvent
+ * @tc.desc: Verify that the maximum number of subscriptions for a single third-party application is 200 and the 201st
+ * subscription failed
+ */
+HWTEST_F(cesSystemTest, CES_SubscriberMaxSize_0200, Function | MediumTest | Level1)
+{
+    bool result = false;
+    std::string eventName = "TESTEVENT_SUBSCRIBER_PLUS";
+    MatchingSkills matchingSkills;
+    matchingSkills.AddEvent(eventName);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
+
+    std::vector<std::shared_ptr<CommonEventServicesSystemTest>> subscriberPtrs;
+    for (size_t i = 0; i < SUBSCRIBER_MAX_SIZE_PLUS - 1; i++) {
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        subscriberPtrs.push_back(subscriberPtr);
+        result = CommonEventManager::SubscribeCommonEvent(subscriberPtrs.at(i));
+        EXPECT_TRUE(result);
+    }
+    auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+    subscriberPtrs.push_back(subscriberPtr);
+    EXPECT_FALSE(CommonEventManager::SubscribeCommonEvent(subscriberPtrs.at(SUBSCRIBER_MAX_SIZE_PLUS - 1)));
+
+    for (size_t i = 0; i < SUBSCRIBER_MAX_SIZE_PLUS - 1; i++) {
+        result = CommonEventManager::UnSubscribeCommonEvent(subscriberPtrs.at(i));
+        EXPECT_TRUE(result);
+    }
+}
+
+/*
+ * @tc.number: CES_PublishOrderTimeOut_0100
+ * @tc.name: OnReceiveEvent
+ * @tc.desc: Verify allowing a receiver to run for ten seconds before giving up on it
+ */
+HWTEST_F(cesSystemTest, CES_PublishOrderTimeOut_0100, Function | MediumTest | Level1)
+{
+    std::string eventNameTimeOut = "TESTEVENT_PUBLISHORDER_TIMEOUT";
+    std::string eventActionTimeOut = "TESTEVENT_PUBLISHORDER_TIMEOUT";
+    MatchingSkills matchingSkillsTimeOne;
+    matchingSkillsTimeOne.AddEvent(eventNameTimeOut);
+    CommonEventSubscribeInfo subscribeInfoOne(matchingSkillsTimeOne);
+    subscribeInfoOne.SetPriority(PRIORITY_HIGH);
+    auto subscriberTimeOnePtr = std::make_shared<CESPublishOrderTimeOutOne>(subscribeInfoOne);
+    EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberTimeOnePtr));
+
+    MatchingSkills matchingSkillsTimeTwo;
+    matchingSkillsTimeTwo.AddEvent(eventNameTimeOut);
+    CommonEventSubscribeInfo subscribeInfoTwo(matchingSkillsTimeOne);
+    subscribeInfoTwo.SetPriority(PRIORITY_LOW);
+    auto subscriberTimeTwoPtr = std::make_shared<CESPublishOrderTimeOutTwo>(subscribeInfoTwo);
+    EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberTimeTwoPtr));
+
+    mtx_.lock();
+    struct tm startTime = {0};
+    Want wantTimeOut;
+    wantTimeOut.SetAction(eventActionTimeOut);
+    CommonEventData commonEventDataTimeOut(wantTimeOut);
+    CommonEventPublishInfo publishInfoTimeOut;
+    publishInfoTimeOut.SetOrdered(true);
+    EXPECT_EQ(OHOS::GetSystemCurrentTime(&startTime), true);
+    EXPECT_TRUE(CommonEventManager::PublishCommonEvent(commonEventDataTimeOut, publishInfoTimeOut));
+    struct tm doingTime = {0};
+    int64_t seconds = 0;
+    while (!mtx_.try_lock()) {
+        // get current time and compare it with the start time
+        EXPECT_EQ(OHOS::GetSystemCurrentTime(&doingTime), true);
+        seconds = OHOS::GetSecondsBetween(startTime, doingTime);
+        if (seconds >= TIME_OUT_SECONDS_TWENTY) {
+            break;
+        }
+    }
+    // expect the subscriber could receive the event within 11 seconds.
+    std::cout << "seconds: " << seconds << std::endl;
+    EXPECT_LT(TIME_OUT_SECONDS_NINE, seconds);
+    EXPECT_LT(seconds, TIME_OUT_SECONDS_ELEVEN);
+    CommonEventManager::SubscribeCommonEvent(subscriberTimeOnePtr);
+    CommonEventManager::SubscribeCommonEvent(subscriberTimeTwoPtr);
+    mtx_.unlock();
+}
+
+/*
+ * @tc.number: CES_PublishOrderTimeOut_0200
+ * @tc.name: OnReceiveEvent
+ * @tc.desc: Set the last subscriber and Verify allowing a receiver to run for ten seconds before giving up on it
+ */
+HWTEST_F(cesSystemTest, CES_PublishOrderTimeOut_0200, Function | MediumTest | Level1)
+{
+    std::string eventNameTimeOut = "TESTEVENT_PUBLISHORDER_TIMEOUT_SUBSCRIBER";
+    std::string eventActionTimeOut = "TESTEVENT_PUBLISHORDER_TIMEOUT_SUBSCRIBER";
+    MatchingSkills matchingSkillsTimeOne;
+    matchingSkillsTimeOne.AddEvent(eventNameTimeOut);
+    CommonEventSubscribeInfo subscribeInfoOne(matchingSkillsTimeOne);
+    subscribeInfoOne.SetPriority(PRIORITY_HIGH);
+    auto subscriberTimeOnePtr = std::make_shared<CESPublishOrderTimeOutOne>(subscribeInfoOne);
+    EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberTimeOnePtr));
+
+    MatchingSkills matchingSkillsTimeTwo;
+    matchingSkillsTimeTwo.AddEvent(eventNameTimeOut);
+    CommonEventSubscribeInfo subscribeInfoTwo(matchingSkillsTimeOne);
+    subscribeInfoTwo.SetPriority(PRIORITY_LOW);
+    auto subscriberTimeTwoPtr = std::make_shared<CESPublishOrderTimeOutTwo>(subscribeInfoTwo);
+    EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberTimeTwoPtr));
+
+    mtx_.lock();
+    struct tm startTime = {0};
+    Want wantTimeOut;
+    wantTimeOut.SetAction(eventActionTimeOut);
+    CommonEventData commonEventDataTimeOut(wantTimeOut);
+    CommonEventPublishInfo publishInfoTimeOut;
+    publishInfoTimeOut.SetOrdered(true);
+    EXPECT_EQ(OHOS::GetSystemCurrentTime(&startTime), true);
+    EXPECT_TRUE(
+        CommonEventManager::PublishCommonEvent(commonEventDataTimeOut, publishInfoTimeOut, subscriberTimeTwoPtr));
+    struct tm doingTime = {0};
+    int64_t seconds = 0;
+    while (!mtx_.try_lock()) {
+        // get current time and compare it with the start time
+        EXPECT_EQ(OHOS::GetSystemCurrentTime(&doingTime), true);
+        seconds = OHOS::GetSecondsBetween(startTime, doingTime);
+        if (seconds >= TIME_OUT_SECONDS_TWENTY) {
+            break;
+        }
+    }
+    // expect the subscriber could receive the event within 11 seconds.
+    std::cout << "seconds: " << seconds << std::endl;
+    EXPECT_LT(TIME_OUT_SECONDS_NINE, seconds);
+    EXPECT_LT(seconds, TIME_OUT_SECONDS_ELEVEN);
+    CommonEventManager::SubscribeCommonEvent(subscriberTimeOnePtr);
+    CommonEventManager::SubscribeCommonEvent(subscriberTimeTwoPtr);
+    mtx_.unlock();
+}
+
+/*
+ * @tc.number: CES_PublishOrderTimeOut_0300
+ * @tc.name: OnReceiveEvent
+ * @tc.desc: Without setting priority for subscribers and Verify allowing a receiver to run for ten seconds before
+ * giving up on it
+ */
+HWTEST_F(cesSystemTest, CES_PublishOrderTimeOut_0300, Function | MediumTest | Level1)
+{
+    std::string eventNameTimeOut = "TESTEVENT_PUBLISHORDER_TIMEOUT_NOPRIORITY";
+    std::string eventActionTimeOut = "TESTEVENT_PUBLISHORDER_TIMEOUT_NOPRIORITY";
+    MatchingSkills matchingSkillsTimeOne;
+    matchingSkillsTimeOne.AddEvent(eventNameTimeOut);
+    CommonEventSubscribeInfo subscribeInfoOne(matchingSkillsTimeOne);
+    auto subscriberTimeOnePtr = std::make_shared<CESPublishOrderTimeOutOne>(subscribeInfoOne);
+    EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberTimeOnePtr));
+
+    MatchingSkills matchingSkillsTimeTwo;
+    matchingSkillsTimeTwo.AddEvent(eventNameTimeOut);
+    CommonEventSubscribeInfo subscribeInfoTwo(matchingSkillsTimeOne);
+    auto subscriberTimeTwoPtr = std::make_shared<CESPublishOrderTimeOutTwo>(subscribeInfoTwo);
+    EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberTimeTwoPtr));
+
+    mtx_.lock();
+    struct tm startTime = {0};
+    Want wantTimeOut;
+    wantTimeOut.SetAction(eventActionTimeOut);
+    CommonEventData commonEventDataTimeOut(wantTimeOut);
+    CommonEventPublishInfo publishInfoTimeOut;
+    publishInfoTimeOut.SetOrdered(true);
+    EXPECT_EQ(OHOS::GetSystemCurrentTime(&startTime), true);
+    EXPECT_TRUE(CommonEventManager::PublishCommonEvent(commonEventDataTimeOut, publishInfoTimeOut));
+    struct tm doingTime = {0};
+    int64_t seconds = 0;
+    while (!mtx_.try_lock()) {
+        // get current time and compare it with the start time
+        EXPECT_EQ(OHOS::GetSystemCurrentTime(&doingTime), true);
+        seconds = OHOS::GetSecondsBetween(startTime, doingTime);
+        if (seconds >= TIME_OUT_SECONDS_TWENTY) {
+            break;
+        }
+    }
+    // expect the subscriber could receive the event within 11 seconds.
+    std::cout << "seconds: " << seconds << std::endl;
+    EXPECT_LT(TIME_OUT_SECONDS_NINE, seconds);
+    EXPECT_LT(seconds, TIME_OUT_SECONDS_ELEVEN);
+    CommonEventManager::SubscribeCommonEvent(subscriberTimeOnePtr);
+    CommonEventManager::SubscribeCommonEvent(subscriberTimeTwoPtr);
+    mtx_.unlock();
+}
+
+/*
+ * @tc.number: CES_PublishOrderTimeOut_0400
+ * @tc.name: OnReceiveEvent
+ * @tc.desc: Set the last subscriber and Without setting priority for subscribers, Verify allowing a receiver to run
+ * for ten seconds before giving up on it
+ */
+HWTEST_F(cesSystemTest, CES_PublishOrderTimeOut_0400, Function | MediumTest | Level1)
+{
+    std::string eventNameTimeOut = "TESTEVENT_PUBLISHORDER_TIMEOUT_SUBSCRIBER_NOPRIORITY";
+    std::string eventActionTimeOut = "TESTEVENT_PUBLISHORDER_TIMEOUT_SUBSCRIBER_NOPRIORITY";
+    MatchingSkills matchingSkillsTimeOne;
+    matchingSkillsTimeOne.AddEvent(eventNameTimeOut);
+    CommonEventSubscribeInfo subscribeInfoOne(matchingSkillsTimeOne);
+    auto subscriberTimeOnePtr = std::make_shared<CESPublishOrderTimeOutOne>(subscribeInfoOne);
+    EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberTimeOnePtr));
+
+    MatchingSkills matchingSkillsTimeTwo;
+    matchingSkillsTimeTwo.AddEvent(eventNameTimeOut);
+    CommonEventSubscribeInfo subscribeInfoTwo(matchingSkillsTimeOne);
+    auto subscriberTimeTwoPtr = std::make_shared<CESPublishOrderTimeOutTwo>(subscribeInfoTwo);
+    EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberTimeTwoPtr));
+
+    mtx_.lock();
+    struct tm startTime = {0};
+    Want wantTimeOut;
+    wantTimeOut.SetAction(eventActionTimeOut);
+    CommonEventData commonEventDataTimeOut(wantTimeOut);
+    CommonEventPublishInfo publishInfoTimeOut;
+    publishInfoTimeOut.SetOrdered(true);
+    EXPECT_EQ(OHOS::GetSystemCurrentTime(&startTime), true);
+    EXPECT_TRUE(
+        CommonEventManager::PublishCommonEvent(commonEventDataTimeOut, publishInfoTimeOut, subscriberTimeTwoPtr));
+    struct tm doingTime = {0};
+    int64_t seconds = 0;
+    while (!mtx_.try_lock()) {
+        // get current time and compare it with the start time
+        EXPECT_EQ(OHOS::GetSystemCurrentTime(&doingTime), true);
+        seconds = OHOS::GetSecondsBetween(startTime, doingTime);
+        if (seconds >= TIME_OUT_SECONDS_TWENTY) {
+            break;
+        }
+    }
+    // expect the subscriber could receive the event within 11 seconds.
+    std::cout << "seconds: " << seconds << std::endl;
+    EXPECT_LT(TIME_OUT_SECONDS_NINE, seconds);
+    EXPECT_LT(seconds, TIME_OUT_SECONDS_ELEVEN);
+    CommonEventManager::SubscribeCommonEvent(subscriberTimeOnePtr);
+    CommonEventManager::SubscribeCommonEvent(subscriberTimeTwoPtr);
+    mtx_.unlock();
+}
+
+/*
+ * @tc.number: CES_PermissionAndOrDefault_0100
+ * @tc.name: OnReceiveEvent
+ * @tc.desc: Verify system applications handle system public events with permissions
+ */
+HWTEST_F(cesSystemTest, CES_PermissionAndOrDefault_0100, Function | MediumTest | Level1)
+{
+    std::string eventAndN = "COMMON_EVENT_BLUETOOTH_REMOTEDEVICE_DISCOVERED";
+    std::string eventDefaultN = "COMMON_EVENT_USER_SWITCHED";
+
+    Want wantAnd;
+    wantAnd.SetAction(eventAndN);
+    CommonEventData commonEventDataAnd(wantAnd);
+    CommonEventPublishInfo publishInfoAnd;
+    bool resultAnd = EventFwk::CommonEventManager::PublishCommonEvent(commonEventDataAnd, publishInfoAnd);
+    EXPECT_TRUE(resultAnd);
+
+    Want wantDefaultN;
+    wantDefaultN.SetAction(eventDefaultN);
+    CommonEventData commonEventDataDefaultN(wantDefaultN);
+    CommonEventPublishInfo publishInfoDefaultN;
+    bool resultDefaultN =
+        EventFwk::CommonEventManager::PublishCommonEvent(commonEventDataDefaultN, publishInfoDefaultN);
+    EXPECT_TRUE(resultDefaultN);
 }
 }  // namespace EventFwk
 }  // namespace OHOS

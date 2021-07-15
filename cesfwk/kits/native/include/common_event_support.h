@@ -915,6 +915,18 @@ public:
     static const std::string COMMON_EVENT_AIRPLANE_MODE_CHANGED;
 
     /**
+     * Indicate the action of a common event that a new sms bas been received by the device.
+     * This common event can be triggered only by system applications.
+     */
+    static const std::string COMMON_EVENT_SMS_RECEIVE_COMPLETED;
+
+    /**
+     * Indicate the action of a common event that the spn display information has been updated.
+     * This common event can be triggered only by system applications.
+     */
+    static const std::string COMMON_EVENT_SPN_INFO_UPDATED;
+
+    /**
      * Only for test case.
      */
     static const std::string COMMON_EVENT_TEST_ACTION1;

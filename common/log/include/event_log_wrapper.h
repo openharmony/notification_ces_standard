@@ -24,13 +24,13 @@ namespace EventFwk {
 #ifndef LOG_DOMAIN
 #define LOG_DOMAIN 0xD001100
 #endif
-#ifndef APP_LOG_TAG
-#define APP_LOG_TAG NULL 
+#ifndef EVENT_LOG_TAG
+#define EVENT_LOG_TAG NULL
 #endif
 
 enum class EventLogLevel { DEBUG = 0, INFO, WARN, ERROR, FATAL };
 
-static constexpr OHOS::HiviewDFX::HiLogLabel Event_LABEL = {LOG_CORE, LOG_DOMAIN, APP_LOG_TAG};
+static constexpr OHOS::HiviewDFX::HiLogLabel Event_LABEL = {LOG_CORE, LOG_DOMAIN, EVENT_LOG_TAG};
 
 class EventLogWrapper {
 public:

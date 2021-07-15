@@ -36,11 +36,75 @@ bool MockBundleMgrService::CheckIsSystemAppByUid(const int uid)
 
 int MockBundleMgrService::CheckPermission(const std::string &bundleName, const std::string &permission)
 {
+    static int num1 = 0;
+    static int num2 = 0;
+
+    if (!bundleName.compare("case1")) {
+        if (!permission.compare("ohos.permission.RECEIVER_STARTUP_COMPLETED") ||
+            !permission.compare("ohos.permission.MANAGE_SECURE_SETTINGS") ||
+            !permission.compare("ohos.permission.LISTEN_BUNDLE_CHANGE") ||
+            !permission.compare("ohos.permission.GET_APP_ACCOUNTS") ||
+            !permission.compare("ohos.permission.INTERACT_ACROSS_LOCAL_ACCOUNTS")) {
+            return 0;
+        }
+    }
+
+    if (!bundleName.compare("case2")) {
+        if (!permission.compare("ohos.permission.MANAGE_USERS") ||
+            !permission.compare("ohos.permission.INTERACT_ACROSS_USERS") ||
+            !permission.compare("ohos.permission.LOCATION") || !permission.compare("ohos.permission.GET_WIFI_INFO") ||
+            !permission.compare("ohos.permission.MPLINK_CHANGE_STATE") ||
+            !permission.compare("ohos.permission.USE_BLUETOOTH") ||
+            !permission.compare("ohos.permission.DISCOVER_BLUETOOTH") ||
+            !permission.compare("ohos.permission.USE_BLUETOOTH permission")) {
+            return 0;
+        }
+    }
+
+    if (!bundleName.compare("case3")) {  // "ohos.permission.GET_WIFI_INFO" and "ohos.permission.LOCATION"  ||
+                                         // "ohos.permission.USE_BLUETOOTH" and "ohos.permission.LOCATION"
+        if (num1 == 0) {
+            if (!permission.compare("ohos.permission.GET_WIFI_INFO") ||
+                !permission.compare("ohos.permission.USE_BLUETOOTH")) {
+                num1++;
+                return 0;
+            }
+        }
+    }
+
+    if (!bundleName.compare("case3")) {
+        if (num1 == 1) {
+            num1 = 0;
+            if (!permission.compare("ohos.permission.LOCATION")) {
+                return 0;
+            }
+        }
+    }
+
+    if (!bundleName.compare("case4")) {  // ¡°ohos.permission.WRITE_USER_STORAGE¡± or ¡°ohos.permission.READ_USER_STORAGE¡±
+        if (num2 == 0) {
+            if (!permission.compare("ohos.permission.WRITE_USER_STORAGE")) {
+                num2++;
+                return -1;
+            }
+        }
+    }
+
+    if (!bundleName.compare("case4")) {
+        if (num2 == 1) {
+            num2 = 0;
+            if (!permission.compare("ohos.permission.READ_USER_STORAGE")) {
+                return 0;
+            }
+        }
+    }
+
     if (!bundleName.compare("hello")) {
         return 0;
-    } else {
-        return -1;
     }
+
+    return -1;
 }
+
 }  // namespace AppExecFwk
 }  // namespace OHOS

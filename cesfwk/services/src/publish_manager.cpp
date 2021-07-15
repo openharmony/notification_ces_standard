@@ -24,36 +24,33 @@ namespace EventFwk {
 #define FLOOD_ATTACH_MAX 20
 #define FLOOD_ATTACH_INTERVAL_MAX 5
 
-PublishManager::PublishManager()
-    : lastPublishTime_(0),
-      publishNum_(0),
-      floodAttachMax_(FLOOD_ATTACH_MAX),
-      floodAttachIntervalMax_(FLOOD_ATTACH_INTERVAL_MAX)
+PublishManager::PublishManager() : floodAttackMax_(FLOOD_ATTACH_MAX), floodAttackIntervalMax_(FLOOD_ATTACH_INTERVAL_MAX)
 {}
 
 PublishManager::~PublishManager()
 {}
 
-bool PublishManager::CheckValid()
+bool PublishManager::CheckIsFloodAttack(pid_t appUid)
 {
     EVENT_LOGI("enter");
 
     bool isValid = false;
-    int64_t nowSystemTime = SystemTime::GetNowSysTime();
 
-    EVENT_LOGI("nowSystemTime = %{public}lld, lastPublishTime_ = %{public}lld, interval = %{public}lld",
-        nowSystemTime,
-        lastPublishTime_,
-        nowSystemTime - lastPublishTime_);
-    if (nowSystemTime - lastPublishTime_ < floodAttachIntervalMax_) {
-        publishNum_++;
-    } else {
-        publishNum_ = 0;
+    floodAttackAppStatistics_[appUid].publishNum++;
+
+    if (floodAttackAppStatistics_[appUid].startPublishTime == 0) {
+        floodAttackAppStatistics_[appUid].startPublishTime = SystemTime::GetNowSysTime();
     }
 
-    lastPublishTime_ = nowSystemTime;
+    if (floodAttackAppStatistics_[appUid].publishNum > floodAttackMax_) {
+        int64_t innternal = SystemTime::GetNowSysTime() - floodAttackAppStatistics_[appUid].startPublishTime;
 
-    if (publishNum_ <= floodAttachMax_) {
+        if (innternal >= floodAttackIntervalMax_) {
+            floodAttackAppStatistics_[appUid].publishNum = 1;
+            floodAttackAppStatistics_[appUid].startPublishTime = SystemTime::GetNowSysTime();
+            isValid = true;
+        }
+    } else {
         isValid = true;
     }
 

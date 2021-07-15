@@ -27,8 +27,8 @@ config("cesfwk_innerkits_config") {
   }
 
   defines = [
-    "APP_LOG_TAG = \"CesFwk\"",
-    "LOG_DOMAIN = 0xD002200",
+    "EVENT_LOG_TAG = \"CesFwk\"",
+    "LOG_DOMAIN = 0xD008800",
   ]
 }
 

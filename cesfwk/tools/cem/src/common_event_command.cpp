@@ -217,12 +217,12 @@ ErrCode CommonEventManagerShellCommand::RunAsPublishCommand()
                         resultReceiver_.append(longOption);
                         resultReceiver_.append("' requires a value at least.\n");
                     } else {
-                        // 'cem publish' with a unknown option: cem publish --x
-                        // 'cem publish' with a unknown option: cem publish --xxx
+                        // 'cem publish' with an unknown option: cem publish --x
+                        // 'cem publish' with an unknown option: cem publish --xxx
                         std::string unknownOption = "";
                         std::string unknownOptionMsg = GetUnknownOptionMsg(unknownOption);
 
-                        EVENT_LOGI("'cem publish' with a unknown option: %{public}s", unknownOption.c_str());
+                        EVENT_LOGI("'cem publish' with an unknown option: %{public}s", unknownOption.c_str());
 
                         resultReceiver_.append(unknownOptionMsg);
                     }
@@ -231,12 +231,12 @@ ErrCode CommonEventManagerShellCommand::RunAsPublishCommand()
                     break;
                 }
                 default: {
-                    // 'cem publish' with a unknown option: cem publish -x
-                    // 'cem publish' with a unknown option: cem publish -xxx
+                    // 'cem publish' with an unknown option: cem publish -x
+                    // 'cem publish' with an unknown option: cem publish -xxx
                     std::string unknownOption = "";
                     std::string unknownOptionMsg = GetUnknownOptionMsg(unknownOption);
 
-                    EVENT_LOGI("'cem publish' with a unknown option: %{public}s", unknownOption.c_str());
+                    EVENT_LOGI("'cem publish' with an unknown option: %{public}s", unknownOption.c_str());
 
                     resultReceiver_.append(unknownOptionMsg);
                     result = OHOS::ERR_INVALID_VALUE;
@@ -517,24 +517,24 @@ ErrCode CommonEventManagerShellCommand::RunAsDumpCommand()
                     break;
                 }
                 case 0: {
-                    // 'cem dump' with a unknown option: cem dump --x
-                    // 'cem dump' with a unknown option: cem dump --xxx
+                    // 'cem dump' with an unknown option: cem dump --x
+                    // 'cem dump' with an unknown option: cem dump --xxx
                     std::string unknownOption = "";
                     std::string unknownOptionMsg = GetUnknownOptionMsg(unknownOption);
 
-                    EVENT_LOGI("'cem dump' with a unknown option: %{public}s", unknownOption.c_str());
+                    EVENT_LOGI("'cem dump' with an unknown option: %{public}s", unknownOption.c_str());
 
                     resultReceiver_.append(unknownOptionMsg);
                     result = OHOS::ERR_INVALID_VALUE;
                     break;
                 }
                 default: {
-                    // 'cem dump' with a unknown option: cem dump -x
-                    // 'cem dump' with a unknown option: cem dump -xxx
+                    // 'cem dump' with an unknown option: cem dump -x
+                    // 'cem dump' with an unknown option: cem dump -xxx
                     std::string unknownOption = "";
                     std::string unknownOptionMsg = GetUnknownOptionMsg(unknownOption);
 
-                    EVENT_LOGI("'cem dump' with a unknown option: %{public}s", unknownOption.c_str());
+                    EVENT_LOGI("'cem dump' with an unknown option: %{public}s", unknownOption.c_str());
 
                     resultReceiver_.append(unknownOptionMsg);
                     result = OHOS::ERR_INVALID_VALUE;

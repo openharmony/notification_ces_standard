@@ -58,12 +58,12 @@ void ActsCESMatchingSkillsTest::TearDown()
 {}
 
 /*
- * @tc.number: ACTS_MatchingSkills_Entity_TC_0100
+ * @tc.number: CES_MatchingSkills_Entity_0100
  * @tc.name: AddEntity、GetEntity、CountEntities、HasEntity and RemoveEntity
  * @tc.desc: Verify the function of  MatchingSkills entity: AddEntity、GetEntity、
  *           CountEntities、HasEntity and RemoveEntity
  */
-HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_Entity_TC_0100, Function | MediumTest | Level1)
+HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_Entity_0100, Function | MediumTest | Level1)
 {
     bool result = false;
     std::string eventName = "entityTest";
@@ -87,7 +87,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_Entity_TC_0100, Function
         matchingSkills.RemoveEntity(entityRemove);
         if (matchingSkills.CountEntities() != 0) {
             result = false;
-            printf("ACTS_MatchingSkills_Entity_TC_0100 : %d \n", i);
+            printf("CES_MatchingSkills_Entity_0100 : %d \n", i);
             break;
         } else {
             result = true;
@@ -95,18 +95,18 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_Entity_TC_0100, Function
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_MatchingSkills_Entity_TC_0100 : %d \n", stLevel_.CESLevel);
+        printf("CES_MatchingSkills_Entity_0100 : %d \n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_MatchingSkills_Entity_TC_0200
+ * @tc.number: CES_MatchingSkills_Entity_0200
  * @tc.name: AddEntity、GetEntity、CountEntities、HasEntity and RemoveEntity
  * @tc.desc: Verify the function of  MatchingSkills entity with different name of event and entity:
  *           AddEntity、GetEntity、CountEntities、HasEntity and RemoveEntity
  */
-HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_Entity_TC_0200, Function | MediumTest | Level1)
+HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_Entity_0200, Function | MediumTest | Level1)
 {
     bool result = false;
     std::string eventName = "EventEntityTest";
@@ -130,7 +130,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_Entity_TC_0200, Function
         matchingSkills.RemoveEntity(entityRemove);
         if (matchingSkills.CountEntities() != 0) {
             result = false;
-            printf("ACTS_MatchingSkills_Entity_TC_0200 : %d \n", i);
+            printf("CES_MatchingSkills_Entity_0200 : %d \n", i);
             break;
         } else {
             result = true;
@@ -138,18 +138,18 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_Entity_TC_0200, Function
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_MatchingSkills_Entity_TC_0200 : %d \n", stLevel_.CESLevel);
+        printf("CES_MatchingSkills_Entity_0200 : %d \n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_MatchingSkills_Entity_TC_0300
+ * @tc.number: CES_MatchingSkills_Entity_0300
  * @tc.name: AddEntity、GetEntity、CountEntities、HasEntity and RemoveEntity
  * @tc.desc: Verify the function of  MatchingSkills entity with different name of event and entity:
  *           AddEntity、GetEntity、CountEntities、HasEntity and RemoveEntity
  */
-HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_Entity_TC_0300, Function | MediumTest | Level1)
+HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_Entity_0300, Function | MediumTest | Level1)
 {
     bool result = false;
     std::string eventName = "EventEntityTest2";
@@ -174,7 +174,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_Entity_TC_0300, Function
         matchingSkills.RemoveEntity(entityRemove);
         if (matchingSkills.CountEntities() != 0) {
             result = false;
-            printf("ACTS_MatchingSkills_Entity_TC_0300 : %d \n", i);
+            printf("CES_MatchingSkills_Entity_0300 : %d \n", i);
             break;
         } else {
             result = true;
@@ -182,18 +182,18 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_Entity_TC_0300, Function
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_MatchingSkills_Entity_TC_0300 : %d \n", stLevel_.CESLevel);
+        printf("CES_MatchingSkills_Entity_0300 : %d \n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_MatchingSkills_Entity_TC_0400
+ * @tc.number: CES_MatchingSkills_Entity_0400
  * @tc.name: AddEntity、GetEntity、CountEntities、HasEntity and RemoveEntity
  * @tc.desc: Verify the function of  MatchingSkills entity with different name of event and entity:
  *           AddEntity、GetEntity、CountEntities、HasEntity and RemoveEntity
  */
-HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_Entity_TC_0400, Function | MediumTest | Level1)
+HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_Entity_0400, Function | MediumTest | Level1)
 {
     bool result = false;
     std::string eventName = "EventEntityTest3";
@@ -230,7 +230,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_Entity_TC_0400, Function
         matchingSkills.RemoveEntity(entityRemove);
         if (matchingSkills.CountEntities() != 0) {
             result = false;
-            printf("ACTS_MatchingSkills_Entity_TC_0400 : %d \n", i);
+            printf("CES_MatchingSkills_Entity_0400 : %d \n", i);
             break;
         } else {
             result = true;
@@ -242,18 +242,18 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_Entity_TC_0400, Function
         matchingSkills.RemoveEvent(eventName5);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_MatchingSkills_Entity_TC_0400 : %d \n", stLevel_.CESLevel);
+        printf("CES_MatchingSkills_Entity_0400 : %d \n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_MatchingSkills_Entity_TC_0500
+ * @tc.number: CES_MatchingSkills_Entity_0500
  * @tc.name: AddEntity、GetEntity、CountEntities、HasEntity and RemoveEntity
  * @tc.desc: Verify the function of  MatchingSkills entity with different name of event and entity:
  *           AddEntity、GetEntity、CountEntities、HasEntity and RemoveEntity
  */
-HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_Entity_TC_0500, Function | MediumTest | Level1)
+HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_Entity_0500, Function | MediumTest | Level1)
 {
     bool result = false;
     std::string eventName = "EventEntityTest3";
@@ -299,7 +299,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_Entity_TC_0500, Function
         matchingSkills.RemoveEntity(entityRemove);
         if (matchingSkills.CountEntities() != 0) {
             result = false;
-            printf("ACTS_MatchingSkills_Entity_TC_0500 : %d \n", i);
+            printf("CES_MatchingSkills_Entity_0500 : %d \n", i);
             break;
         } else {
             result = true;
@@ -316,18 +316,18 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_Entity_TC_0500, Function
         matchingSkills.RemoveEvent(eventName10);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_MatchingSkills_Entity_TC_0500 : %d \n", stLevel_.CESLevel);
+        printf("CES_MatchingSkills_Entity_0500 : %d \n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_MatchingSkills_Scheme_TC_0100
+ * @tc.number: CES_MatchingSkills_Scheme_0100
  * @tc.name: AddScheme、GetScheme、CountSchemes、HasScheme and RemoveScheme
  * @tc.desc: Verify the function of  MatchingSkills scheme : AddScheme、GetScheme、
  *           CountSchemes、HasScheme and RemoveScheme
  */
-HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_Scheme_TC_0100, Function | MediumTest | Level1)
+HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_Scheme_0100, Function | MediumTest | Level1)
 {
     bool result = false;
     std::string eventName = "EventSchemeTest";
@@ -341,25 +341,25 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_Scheme_TC_0100, Function
         matchingSkills.RemoveScheme(shceme);
         if (matchingSkills.CountSchemes() != 0) {
             result = false;
-            printf("ACTS_MatchingSkills_Scheme_TC_0100 : %d \n", i);
+            printf("CES_MatchingSkills_Scheme_0100 : %d \n", i);
             break;
         } else {
             result = true;
         }
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_MatchingSkills_Scheme_TC_0100 : %d \n", stLevel_.CESLevel);
+        printf("CES_MatchingSkills_Scheme_0100 : %d \n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_MatchingSkills_Scheme_TC_0200
+ * @tc.number: CES_MatchingSkills_Scheme_0200
  * @tc.name: AddScheme、GetScheme、CountSchemes、HasScheme and RemoveScheme
  * @tc.desc: Verify the function of  MatchingSkills scheme : AddScheme、GetScheme、
  *           CountSchemes、HasScheme and RemoveScheme
  */
-HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_Scheme_TC_0200, Function | MediumTest | Level1)
+HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_Scheme_0200, Function | MediumTest | Level1)
 {
     bool result = false;
     std::string eventName = "EventSchemeTest2";
@@ -373,25 +373,25 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_Scheme_TC_0200, Function
         matchingSkills.RemoveScheme(shceme);
         if (matchingSkills.CountSchemes() != 0) {
             result = false;
-            printf("ACTS_MatchingSkills_Scheme_TC_0200 : %d \n", i);
+            printf("CES_MatchingSkills_Scheme_0200 : %d \n", i);
             break;
         } else {
             result = true;
         }
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_MatchingSkills_Scheme_TC_0200 : %d \n", stLevel_.CESLevel);
+        printf("CES_MatchingSkills_Scheme_0200 : %d \n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_MatchingSkills_Scheme_TC_0300
+ * @tc.number: CES_MatchingSkills_Scheme_0300
  * @tc.name: AddScheme、GetScheme、CountSchemes、HasScheme and RemoveScheme
  * @tc.desc: Verify the function of  MatchingSkills scheme : AddScheme、GetScheme、
  *           CountSchemes、HasScheme and RemoveScheme
  */
-HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_Scheme_TC_0300, Function | MediumTest | Level1)
+HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_Scheme_0300, Function | MediumTest | Level1)
 {
     bool result = false;
     std::string eventName = "EventSchemeTest3";
@@ -405,25 +405,25 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_Scheme_TC_0300, Function
         matchingSkills.RemoveScheme(shceme);
         if (matchingSkills.CountSchemes() != 0) {
             result = false;
-            printf("ACTS_MatchingSkills_Scheme_TC_0300 : %d \n", i);
+            printf("CES_MatchingSkills_Scheme_0300 : %d \n", i);
             break;
         } else {
             result = true;
         }
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_MatchingSkills_Scheme_TC_0300 : %d \n", stLevel_.CESLevel);
+        printf("CES_MatchingSkills_Scheme_0300 : %d \n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_MatchingSkills_Scheme_TC_0400
+ * @tc.number: CES_MatchingSkills_Scheme_0400
  * @tc.name: AddScheme、GetScheme、CountSchemes、HasScheme and RemoveScheme
  * @tc.desc: Verify the function of  MatchingSkills scheme : AddScheme、GetScheme、
  *           CountSchemes、HasScheme and RemoveScheme
  */
-HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_Scheme_TC_0400, Function | MediumTest | Level1)
+HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_Scheme_0400, Function | MediumTest | Level1)
 {
     bool result = false;
     std::string eventName = "EventSchemeTest2";
@@ -448,7 +448,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_Scheme_TC_0400, Function
 
         if (matchingSkills.CountSchemes() != 4) {
             result = false;
-            printf("ACTS_MatchingSkills_Scheme_TC_0400 : %d \n", i);
+            printf("CES_MatchingSkills_Scheme_0400 : %d \n", i);
             break;
         } else {
             result = true;
@@ -459,18 +459,18 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_Scheme_TC_0400, Function
         matchingSkills.RemoveScheme(shceme5);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_MatchingSkills_Scheme_TC_0400 : %d \n", stLevel_.CESLevel);
+        printf("CES_MatchingSkills_Scheme_0400 : %d \n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_MatchingSkills_Scheme_TC_0500
+ * @tc.number: CES_MatchingSkills_Scheme_0500
  * @tc.name: AddScheme、GetScheme、CountSchemes、HasScheme and RemoveScheme
  * @tc.desc: Verify the function of  MatchingSkills scheme : AddScheme、GetScheme、
  *           CountSchemes、HasScheme and RemoveScheme
  */
-HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_Scheme_TC_0500, Function | MediumTest | Level1)
+HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_Scheme_0500, Function | MediumTest | Level1)
 {
     bool result = false;
     std::string eventName = "EventSchemeTest2";
@@ -506,7 +506,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_Scheme_TC_0500, Function
 
         if (matchingSkills.CountSchemes() != 9) {
             result = false;
-            printf("ACTS_MatchingSkills_Scheme_TC_0500 : %d \n", i);
+            printf("CES_MatchingSkills_Scheme_0500 : %d \n", i);
             break;
         } else {
             result = true;
@@ -522,17 +522,17 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_Scheme_TC_0500, Function
         matchingSkills.RemoveScheme(shceme10);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_MatchingSkills_Scheme_TC_0500 : %d \n", stLevel_.CESLevel);
+        printf("CES_MatchingSkills_Scheme_0500 : %d \n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_MatchingSkills_MatchEvent_0100
+ * @tc.number: CES_MatchingSkills_MatchEvent_0100
  * @tc.name: MatchEvent and AddEvent
  * @tc.desc: Verify the function of  MatchingSkills event : MatchEvent、AddEvent
  */
-HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_MatchEvent_0100, Function | MediumTest | Level1)
+HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_MatchEvent_0100, Function | MediumTest | Level1)
 {
     bool result = false;
     MatchingSkills matchingSkills;
@@ -542,7 +542,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_MatchEvent_0100, Functio
         matchingSkills.AddEvent(eventName);
         if (!matchingSkills.MatchEvent(eventName)) {
             result = false;
-            printf("ACTS_MatchingSkills_MatchEvent_0100 : %d \n", i);
+            printf("CES_MatchingSkills_MatchEvent_0100 : %d \n", i);
             break;
         } else {
             result = true;
@@ -550,17 +550,17 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_MatchEvent_0100, Functio
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_MatchingSkills_MatchEvent_0100 : %d \n", stLevel_.CESLevel);
+        printf("CES_MatchingSkills_MatchEvent_0100 : %d \n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_MatchingSkills_MatchEvent_0200
+ * @tc.number: CES_MatchingSkills_MatchEvent_0200
  * @tc.name: MatchEvent and AddEvent
  * @tc.desc: Verify the function of  MatchingSkills event : MatchEvent、AddEvent
  */
-HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_MatchEvent_0200, Function | MediumTest | Level1)
+HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_MatchEvent_0200, Function | MediumTest | Level1)
 {
     bool result = false;
     MatchingSkills matchingSkills;
@@ -570,7 +570,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_MatchEvent_0200, Functio
         matchingSkills.AddEvent(eventName);
         if (!matchingSkills.MatchEvent(eventName)) {
             result = false;
-            printf("ACTS_MatchingSkills_MatchEvent_0200 : %d \n", i);
+            printf("CES_MatchingSkills_MatchEvent_0200 : %d \n", i);
             break;
         } else {
             result = true;
@@ -578,17 +578,17 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_MatchEvent_0200, Functio
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_MatchingSkills_MatchEvent_0200 : %d \n", stLevel_.CESLevel);
+        printf("CES_MatchingSkills_MatchEvent_0200 : %d \n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_MatchingSkills_MatchEvent_0300
+ * @tc.number: CES_MatchingSkills_MatchEvent_0300
  * @tc.name: MatchEvent and AddEvent
  * @tc.desc: Verify the function of  MatchingSkills event : MatchEvent、AddEvent
  */
-HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_MatchEvent_0300, Function | MediumTest | Level1)
+HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_MatchEvent_0300, Function | MediumTest | Level1)
 {
     bool result = false;
     MatchingSkills matchingSkills;
@@ -598,7 +598,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_MatchEvent_0300, Functio
         matchingSkills.AddEvent(eventName);
         if (!matchingSkills.MatchEvent(eventName)) {
             result = false;
-            printf("ACTS_MatchingSkills_MatchEvent_0300 : %d \n", i);
+            printf("CES_MatchingSkills_MatchEvent_0300 : %d \n", i);
             break;
         } else {
             result = true;
@@ -606,17 +606,17 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_MatchEvent_0300, Functio
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_MatchingSkills_MatchEvent_0300 : %d \n", stLevel_.CESLevel);
+        printf("CES_MatchingSkills_MatchEvent_0300 : %d \n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_MatchingSkills_MatchEvent_0400
+ * @tc.number: CES_MatchingSkills_MatchEvent_0400
  * @tc.name: MatchEvent and AddEvent
  * @tc.desc: Verify the function of  MatchingSkills event : MatchEvent、AddEvent
  */
-HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_MatchEvent_0400, Function | MediumTest | Level1)
+HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_MatchEvent_0400, Function | MediumTest | Level1)
 {
     bool result = false;
     MatchingSkills matchingSkills;
@@ -626,7 +626,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_MatchEvent_0400, Functio
         matchingSkills.AddEvent(eventName);
         if (!matchingSkills.MatchEvent(eventName)) {
             result = false;
-            printf("ACTS_MatchingSkills_MatchEvent_0400 : %d \n", i);
+            printf("CES_MatchingSkills_MatchEvent_0400 : %d \n", i);
             break;
         } else {
             result = true;
@@ -634,17 +634,17 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_MatchEvent_0400, Functio
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_MatchingSkills_MatchEvent_0400 : %d \n", stLevel_.CESLevel);
+        printf("CES_MatchingSkills_MatchEvent_0400 : %d \n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_MatchingSkills_MatchEvent_0500
+ * @tc.number: CES_MatchingSkills_MatchEvent_0500
  * @tc.name: MatchEvent and AddEvent
  * @tc.desc: Verify the function of  MatchingSkills event : MatchEvent、AddEvent
  */
-HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_MatchEvent_0500, Function | MediumTest | Level1)
+HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_MatchEvent_0500, Function | MediumTest | Level1)
 {
     bool result = false;
     MatchingSkills matchingSkills;
@@ -654,7 +654,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_MatchEvent_0500, Functio
         matchingSkills.AddEvent(eventName);
         if (!matchingSkills.MatchEvent(eventName)) {
             result = false;
-            printf("ACTS_MatchingSkills_MatchEvent_0500 : %d \n", i);
+            printf("CES_MatchingSkills_MatchEvent_0500 : %d \n", i);
             break;
         } else {
             result = true;
@@ -662,17 +662,17 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_MatchEvent_0500, Functio
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_MatchingSkills_MatchEvent_0500 : %d \n", stLevel_.CESLevel);
+        printf("CES_MatchingSkills_MatchEvent_0500 : %d \n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_MatchingSkills_MatchEntity_0100
+ * @tc.number: CES_MatchingSkills_MatchEntity_0100
  * @tc.name: MatchEntity and AddEntity
  * @tc.desc: Verify the function of  MatchingSkills entity : MatchEntity、AddEntity
  */
-HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_MatchEntity_0100, Function | MediumTest | Level1)
+HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_MatchEntity_0100, Function | MediumTest | Level1)
 {
     bool result = false;
     MatchingSkills matchingSkills;
@@ -686,7 +686,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_MatchEntity_0100, Functi
         entityVector.emplace_back("entityTestMatchEntity");
         if (matchingSkills.MatchEntity(entityVector)) {
             result = false;
-            printf("ACTS_MatchingSkills_MatchEntity_0100 : %d \n", i);
+            printf("CES_MatchingSkills_MatchEntity_0100 : %d \n", i);
             break;
         } else {
             result = true;
@@ -695,17 +695,17 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_MatchEntity_0100, Functi
         matchingSkills.RemoveEntity(entity);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_MatchingSkills_MatchEntity_0100 : %d \n", stLevel_.CESLevel);
+        printf("CES_MatchingSkills_MatchEntity_0100 : %d \n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_MatchingSkills_MatchEntity_0200
+ * @tc.number: CES_MatchingSkills_MatchEntity_0200
  * @tc.name: MatchEntity and AddEntity
  * @tc.desc: Verify the function of  MatchingSkills entity : MatchEntity、AddEntity
  */
-HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_MatchEntity_0200, Function | MediumTest | Level1)
+HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_MatchEntity_0200, Function | MediumTest | Level1)
 {
     bool result = false;
     MatchingSkills matchingSkills;
@@ -720,7 +720,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_MatchEntity_0200, Functi
         entityVector.emplace_back("entityTestMatchEntity2");
         if (matchingSkills.MatchEntity(entityVector)) {
             result = false;
-            printf("ACTS_MatchingSkills_MatchEntity_0200 : %d \n", i);
+            printf("CES_MatchingSkills_MatchEntity_0200 : %d \n", i);
             break;
         } else {
             result = true;
@@ -729,17 +729,17 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_MatchEntity_0200, Functi
         entityVector.clear();
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_MatchingSkills_MatchEntity_0200 : %d \n", stLevel_.CESLevel);
+        printf("CES_MatchingSkills_MatchEntity_0200 : %d \n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_MatchingSkills_MatchEntity_0300
+ * @tc.number: CES_MatchingSkills_MatchEntity_0300
  * @tc.name: MatchEntity and AddEntity
  * @tc.desc: Verify the function of  MatchingSkills entity : MatchEntity、AddEntity
  */
-HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_MatchEntity_0300, Function | MediumTest | Level1)
+HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_MatchEntity_0300, Function | MediumTest | Level1)
 {
     bool result = false;
     MatchingSkills matchingSkills;
@@ -754,7 +754,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_MatchEntity_0300, Functi
         entityVector.emplace_back("entityTestMatchEntity3");
         if (matchingSkills.MatchEntity(entityVector)) {
             result = false;
-            printf("ACTS_MatchingSkills_MatchEntity_0300 : %d \n", i);
+            printf("CES_MatchingSkills_MatchEntity_0300 : %d \n", i);
             break;
         } else {
             result = true;
@@ -763,17 +763,17 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_MatchEntity_0300, Functi
         entityVector.clear();
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_MatchingSkills_MatchEntity_0300 : %d \n", stLevel_.CESLevel);
+        printf("CES_MatchingSkills_MatchEntity_0300 : %d \n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_MatchingSkills_MatchEntity_0400
+ * @tc.number: CES_MatchingSkills_MatchEntity_0400
  * @tc.name: MatchEntity and AddEntity
  * @tc.desc: Verify the function of  MatchingSkills entity : MatchEntity、AddEntity
  */
-HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_MatchEntity_0400, Function | MediumTest | Level1)
+HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_MatchEntity_0400, Function | MediumTest | Level1)
 {
     bool result = false;
     MatchingSkills matchingSkills;
@@ -788,7 +788,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_MatchEntity_0400, Functi
         entityVector.emplace_back("entityTestMatchEntity4");
         if (matchingSkills.MatchEntity(entityVector)) {
             result = false;
-            printf("ACTS_MatchingSkills_MatchEntity_0400 : %d \n", i);
+            printf("CES_MatchingSkills_MatchEntity_0400 : %d \n", i);
             break;
         } else {
             result = true;
@@ -797,17 +797,17 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_MatchEntity_0400, Functi
         entityVector.clear();
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_MatchingSkills_MatchEntity_0400 : %d \n", stLevel_.CESLevel);
+        printf("CES_MatchingSkills_MatchEntity_0400 : %d \n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_MatchingSkills_MatchEntity_0500
+ * @tc.number: CES_MatchingSkills_MatchEntity_0500
  * @tc.name: MatchEntity and AddEntity
  * @tc.desc: Verify the function of  MatchingSkills entity : MatchEntity、AddEntity
  */
-HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_MatchEntity_0500, Function | MediumTest | Level1)
+HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_MatchEntity_0500, Function | MediumTest | Level1)
 {
     bool result = false;
     MatchingSkills matchingSkills;
@@ -822,7 +822,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_MatchEntity_0500, Functi
         entityVector.emplace_back("entityTestMatchEntity5");
         if (matchingSkills.MatchEntity(entityVector)) {
             result = false;
-            printf("ACTS_MatchingSkills_MatchEntity_0500 : %d \n", i);
+            printf("CES_MatchingSkills_MatchEntity_0500 : %d \n", i);
             break;
         } else {
             result = true;
@@ -831,17 +831,17 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_MatchEntity_0500, Functi
         entityVector.clear();
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_MatchingSkills_MatchEntity_0500 : %d \n", stLevel_.CESLevel);
+        printf("CES_MatchingSkills_MatchEntity_0500 : %d \n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_MatchingSkills_MatchScheme_0100
+ * @tc.number: CES_MatchingSkills_MatchScheme_0100
  * @tc.name: MatchScheme and AddScheme
  * @tc.desc: Verify the function of  MatchingSkills scheme : MatchScheme、AddScheme
  */
-HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_MatchScheme_0100, Function | MediumTest | Level1)
+HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_MatchScheme_0100, Function | MediumTest | Level1)
 {
     bool result = false;
     MatchingSkills matchingSkills;
@@ -853,7 +853,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_MatchScheme_0100, Functi
 
         if (matchingSkills.MatchScheme("schemeMatchScheme")) {
             result = false;
-            printf("ACTS_MatchingSkills_MatchScheme_0100 : %d \n", i);
+            printf("CES_MatchingSkills_MatchScheme_0100 : %d \n", i);
             break;
         } else {
             result = true;
@@ -861,17 +861,17 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_MatchScheme_0100, Functi
         matchingSkills.RemoveScheme(scheme);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_MatchingSkills_MatchScheme_0100 : %d \n", stLevel_.CESLevel);
+        printf("CES_MatchingSkills_MatchScheme_0100 : %d \n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_MatchingSkills_MatchScheme_0200
+ * @tc.number: CES_MatchingSkills_MatchScheme_0200
  * @tc.name: check MatchScheme of MatchingSkills
  * @tc.desc: verify the function of  MatchingSkills: MatchScheme
  */
-HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_MatchScheme_0200, Function | MediumTest | Level1)
+HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_MatchScheme_0200, Function | MediumTest | Level1)
 {
     bool result = false;
     MatchingSkills matchingSkills;
@@ -883,7 +883,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_MatchScheme_0200, Functi
 
         if (!matchingSkills.MatchScheme("schemeMatchScheme")) {
             result = false;
-            printf("ACTS_MatchingSkills_MatchScheme_0200 : %d \n", i);
+            printf("CES_MatchingSkills_MatchScheme_0200 : %d \n", i);
             break;
         } else {
             result = true;
@@ -891,17 +891,17 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_MatchScheme_0200, Functi
         matchingSkills.RemoveScheme(scheme);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_MatchingSkills_MatchScheme_0200 : %d \n", stLevel_.CESLevel);
+        printf("CES_MatchingSkills_MatchScheme_0200 : %d \n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_MatchingSkills_MatchScheme_0300
+ * @tc.number: CES_MatchingSkills_MatchScheme_0300
  * @tc.name: MatchScheme
  * @tc.desc: verify the function of  MatchingSkills: MatchScheme
  */
-HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_MatchScheme_0300, Function | MediumTest | Level1)
+HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_MatchScheme_0300, Function | MediumTest | Level1)
 {
     bool result = false;
     MatchingSkills matchingSkills;
@@ -912,7 +912,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_MatchScheme_0300, Functi
 
         if (!matchingSkills.MatchScheme("MatchScheme")) {
             result = false;
-            printf("ACTS_MatchingSkills_MatchScheme_0300 : %d \n", i);
+            printf("CES_MatchingSkills_MatchScheme_0300 : %d \n", i);
             break;
         } else {
             result = true;
@@ -920,17 +920,17 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_MatchScheme_0300, Functi
         matchingSkills.RemoveScheme(scheme);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_MatchingSkills_MatchScheme_0300 : %d \n", stLevel_.CESLevel);
+        printf("CES_MatchingSkills_MatchScheme_0300 : %d \n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_MatchingSkills_MatchScheme_0400
+ * @tc.number: CES_MatchingSkills_MatchScheme_0400
  * @tc.name: MatchScheme
  * @tc.desc: verify the function of  MatchingSkills: MatchScheme
  */
-HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_MatchScheme_0400, Function | MediumTest | Level1)
+HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_MatchScheme_0400, Function | MediumTest | Level1)
 {
     bool result = false;
     MatchingSkills matchingSkills;
@@ -941,7 +941,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_MatchScheme_0400, Functi
 
         if (!matchingSkills.MatchScheme("MatchScheme2")) {
             result = false;
-            printf("ACTS_MatchingSkills_MatchScheme_0400 : %d \n", i);
+            printf("CES_MatchingSkills_MatchScheme_0400 : %d \n", i);
             break;
         } else {
             result = true;
@@ -949,17 +949,17 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_MatchScheme_0400, Functi
         matchingSkills.RemoveScheme(scheme);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_MatchingSkills_MatchScheme_0400 : %d \n", stLevel_.CESLevel);
+        printf("CES_MatchingSkills_MatchScheme_0400 : %d \n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_MatchingSkills_MatchScheme_0500
+ * @tc.number: CES_MatchingSkills_MatchScheme_0500
  * @tc.name: MatchScheme
- * @tc.desc: verify the function of  MatchingSkills: MatchScheme
+ * @tc.desc: verify the function of MatchingSkills: MatchScheme
  */
-HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_MatchScheme_0500, Function | MediumTest | Level1)
+HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_MatchScheme_0500, Function | MediumTest | Level1)
 {
     bool result = false;
     MatchingSkills matchingSkills;
@@ -970,7 +970,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_MatchScheme_0500, Functi
 
         if (!matchingSkills.MatchScheme("MatchScheme5")) {
             result = false;
-            printf("ACTS_MatchingSkills_MatchScheme_0400 : %d \n", i);
+            printf("CES_MatchingSkills_MatchScheme_0500 : %d \n", i);
             break;
         } else {
             result = true;
@@ -978,17 +978,17 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_MatchScheme_0500, Functi
         matchingSkills.RemoveScheme(scheme);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_MatchingSkills_MatchScheme_0400 : %d \n", stLevel_.CESLevel);
+        printf("CES_MatchingSkills_MatchScheme_0500 : %d \n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_MatchingSkills_Match_0100
+ * @tc.number: CES_MatchingSkills_Match_0100
  * @tc.name: Match
- * @tc.desc: verify the function of  MatchingSkills: March Want
+ * @tc.desc: verify the function of MatchingSkills: March Want
  */
-HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_Match_0100, Function | MediumTest | Level1)
+HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_Match_0100, Function | MediumTest | Level1)
 {
     bool result = false;
     std::string eventName = "matchTest";
@@ -1003,7 +1003,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_Match_0100, Function | M
 
         if (!matchingSkills.Match(want)) {
             result = false;
-            printf("ACTS_MatchingSkills_Match_0100 : %d \n", i);
+            printf("CES_MatchingSkills_Match_0100 : %d \n", i);
             break;
         } else {
             result = true;
@@ -1013,17 +1013,17 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_Match_0100, Function | M
         want.RemoveEntity(entity);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_MatchingSkills_Match_0100 : %d \n", stLevel_.CESLevel);
+        printf("CES_MatchingSkills_Match_0100 : %d \n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_MatchingSkills_Match_0200
+ * @tc.number: CES_MatchingSkills_Match_0200
  * @tc.name: Match
- * @tc.desc: verify the function of  MatchingSkills: March Want
+ * @tc.desc: verify the function of MatchingSkills: March Want
  */
-HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_Match_0200, Function | MediumTest | Level1)
+HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_Match_0200, Function | MediumTest | Level1)
 {
     bool result = false;
     std::string eventName2 = "matchTest2";
@@ -1038,7 +1038,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_Match_0200, Function | M
         want.SetAction(eventName2);
         if (!matchingSkills.Match(want)) {
             result = false;
-            printf("ACTS_MatchingSkills_Match_0200 : %d \n", i);
+            printf("CES_MatchingSkills_Match_0200 : %d \n", i);
             break;
         } else {
             result = true;
@@ -1048,17 +1048,17 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_Match_0200, Function | M
         want.RemoveEntity(entity);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_MatchingSkills_Match_0200 : %d \n", stLevel_.CESLevel);
+        printf("CES_MatchingSkills_Match_0200 : %d \n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_MatchingSkills_Match_0300
+ * @tc.number: CES_MatchingSkills_Match_0300
  * @tc.name: Match
- * @tc.desc: verify the function of  MatchingSkills: March Want
+ * @tc.desc: verify the function of MatchingSkills: March Want
  */
-HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_Match_0300, Function | MediumTest | Level1)
+HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_Match_0300, Function | MediumTest | Level1)
 {
     bool result = false;
     std::string eventName3 = "matchTest3";
@@ -1072,7 +1072,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_Match_0300, Function | M
         want.SetAction(eventName3);
         if (!matchingSkills.Match(want)) {
             result = false;
-            printf("ACTS_MatchingSkills_Match_0300 : %d \n", i);
+            printf("CES_MatchingSkills_Match_0300 : %d \n", i);
             break;
         } else {
             result = true;
@@ -1082,17 +1082,17 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_Match_0300, Function | M
         want.RemoveEntity(entity);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_MatchingSkills_Match_0300 : %d \n", stLevel_.CESLevel);
+        printf("CES_MatchingSkills_Match_0300 : %d \n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_MatchingSkills_Match_0400
+ * @tc.number: CES_MatchingSkills_Match_0400
  * @tc.name: Match
- * @tc.desc: verify the function of  MatchingSkills: March Want
+ * @tc.desc: verify the function of MatchingSkills: March Want
  */
-HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_Match_0400, Function | MediumTest | Level1)
+HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_Match_0400, Function | MediumTest | Level1)
 {
     bool result = false;
     std::string eventName4 = "matchTest4";
@@ -1106,7 +1106,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_Match_0400, Function | M
         want.SetAction(eventName4);
         if (!matchingSkills.Match(want)) {
             result = false;
-            printf("ACTS_MatchingSkills_Match_0400 : %d \n", i);
+            printf("CES_MatchingSkills_Match_0400 : %d \n", i);
             break;
         } else {
             result = true;
@@ -1116,17 +1116,17 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_Match_0400, Function | M
         want.RemoveEntity(entity);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_MatchingSkills_Match_0400 : %d \n", stLevel_.CESLevel);
+        printf("CES_MatchingSkills_Match_0400 : %d \n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }
 
 /*
- * @tc.number: ACTS_MatchingSkills_Match_0500
+ * @tc.number: CES_MatchingSkills_Match_0500
  * @tc.name: Match
- * @tc.desc: verify the function of  MatchingSkills: March Want
+ * @tc.desc: verify the function of MatchingSkills: March Want
  */
-HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_Match_0500, Function | MediumTest | Level1)
+HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_Match_0500, Function | MediumTest | Level1)
 {
     bool result = false;
     std::string eventName5 = "matchTest5";
@@ -1140,7 +1140,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_Match_0500, Function | M
         want.SetAction(eventName5);
         if (!matchingSkills.Match(want)) {
             result = false;
-            printf("ACTS_MatchingSkills_Match_0500 : %d \n", i);
+            printf("CES_MatchingSkills_Match_0500 : %d \n", i);
             break;
         } else {
             result = true;
@@ -1150,7 +1150,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, ACTS_MatchingSkills_Match_0500, Function | M
         want.RemoveEntity(entity);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("ACTS_MatchingSkills_Match_0500 : %d \n", stLevel_.CESLevel);
+        printf("CES_MatchingSkills_Match_0500 : %d \n", stLevel_.CESLevel);
     }
     EXPECT_TRUE(result);
 }

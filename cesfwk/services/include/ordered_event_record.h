@@ -29,10 +29,10 @@ struct OrderedEventRecord : public CommonEventRecord {
     };
 
     enum DeliveryState_ {
-        DELIVERY_PENDING = 0,
-        DELIVERY_DELIVERED,
-        DELIVERY_SKIPPED,
-        DELIVERY_TIMEOUT,
+        PENDING = 0,
+        DELIVERED,
+        SKIPPED,
+        TIMEOUT,
     };
 
     std::vector<std::shared_ptr<EventSubscriberRecord>> receivers;
