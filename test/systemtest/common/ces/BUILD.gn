@@ -26,9 +26,6 @@ config("cesfwk_kits_test_config") {
     "//foundation/appexecfwk/standard/services/bundlemgr/include",
     "//utils/system/safwk/native/include",
     "//foundation/aafwk/standard/interfaces/innerkits/base/include/ohos/aafwk/base",
-    "//base/notification/ces_standard/cesfwk/innerkits/include",
-    "//base/notification/ces_standard/cesfwk/services/include",
-    "//base/notification/ces_standard/cesfwk/kits/native/include",
     "//foundation/aafwk/standard/interfaces/innerkits/want/include/ohos/aafwk/content",
     "//foundation/distributedschedule/dmsfwk/services/dtbschedmgr/include",
     "//foundation/appexecfwk/standard/interfaces/innerkits/libeventhandler/include",
@@ -48,18 +45,18 @@ ohos_shared_library("cesfwk_kits_test") {
   }
 
   deps = [
-    "//base/notification/ces_standard/cesfwk/innerkits:cesfwk_innerkits",
-    "//base/notification/ces_standard/cesfwk/kits/native:cesfwk_kits",
-    "//base/notification/ces_standard/cesfwk/services:cesfwk_services",
-    "//base/notification/ces_standard/common:libevent_common",
-    "//foundation/aafwk/standard/interfaces/innerkits/want:want",
-    "//foundation/appexecfwk/standard/interfaces/innerkits/appexecfwk_base:appexecfwk_base",
-    "//foundation/appexecfwk/standard/interfaces/innerkits/libeventhandler:libeventhandler",
+    "${ces_common_path}:libevent_common",
+    "${ces_core_path}:cesfwk_core",
+    "${ces_native_path}:cesfwk_innerkits",
+    "${services_path}:cesfwk_services",
     "//foundation/appexecfwk/standard/services/bundlemgr:libbms",
     "//utils/native/base:utils",
   ]
 
   external_deps = [
+    "aafwk_standard:want",
+    "appexecfwk_standard:appexecfwk_base",
+    "appexecfwk_standard:libeventhandler",
     "hiviewdfx_hilog_native:libhilog",
     "ipc:ipc_core",
   ]

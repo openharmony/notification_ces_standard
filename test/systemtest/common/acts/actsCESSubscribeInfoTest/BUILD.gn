@@ -18,18 +18,18 @@ module_output_path = "ces_standard/systemtest"
 
 ohos_systemtest("ActsCESSubscribeInfoTest") {
   module_out_path = module_output_path
-  resource_config_file = "//base/notification/ces_standard/test/systemtest/common/resource/testconfig/ohos_test.xml"
+  resource_config_file = "${ces_standard_path}/test/systemtest/common/resource/testconfig/ohos_test.xml"
 
   sources = [ "actsCESSubscribeInfoTest.cpp" ]
 
-  configs = [ "//base/notification/ces_standard/test/systemtest/common/ces:cesfwk_kits_test_config" ]
+  configs = [
+    "${ces_standard_path}/test/systemtest/common/ces:cesfwk_kits_test_config",
+  ]
 
   include_dirs = [
     "//utils/native/base/include",
-    "//base/notification/ces_standard/cesfwk/kits/native/include",
     "//foundation/aafwk/standard/interfaces/innerkits/want/include/ohos/aafwk/content",
-    "//base/notification/ces_standard/common/log/include",
-    "//base/notification/ces_standard/test/systemtest/common/resource",
+    "${ces_standard_path}/test/systemtest/common/resource",
     "//third_party/json/single_include",
   ]
 
@@ -40,10 +40,8 @@ ohos_systemtest("ActsCESSubscribeInfoTest") {
   }
 
   deps = [
-    "${event_common_path}:libevent_common",
-    "//base/notification/ces_standard/cesfwk/kits/native:cesfwk_kits",
-    "//foundation/aafwk/standard/interfaces/innerkits/want:want",
-    "//foundation/appexecfwk/standard/interfaces/innerkits/appexecfwk_core:appexecfwk_core",
+    "${ces_common_path}:libevent_common",
+    "${ces_native_path}:cesfwk_innerkits",
     "//third_party/googletest:gtest_main",
     "//utils/native/base:utils",
   ]
@@ -53,7 +51,11 @@ ohos_systemtest("ActsCESSubscribeInfoTest") {
     "LOG_DOMAIN = 0xD002200",
   ]
 
-  external_deps = [ "hiviewdfx_hilog_native:libhilog" ]
+  external_deps = [
+    "aafwk_standard:want",
+    "appexecfwk_standard:appexecfwk_core",
+    "hiviewdfx_hilog_native:libhilog",
+  ]
 }
 
 group("actsCESTest") {
