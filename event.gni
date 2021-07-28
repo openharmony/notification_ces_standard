@@ -12,9 +12,25 @@
 # limitations under the License.
 
 aafwk_path = "//foundation/aafwk/standard"
+
 appexecfwk_path = "//foundation/appexecfwk/standard"
-event_cesfwk_path = "//base/notification/ces_standard/cesfwk"
-event_cesfwk_services_path = "${event_cesfwk_path}/services"
-event_cesfwk_kits_path = "${event_cesfwk_path}/kits"
-event_cesfwk_innerkits_path = "${event_cesfwk_path}/innerkits"
-event_common_path = "//base/notification/ces_standard/common"
+
+ces_standard_path = "//base/notification/ces_standard"
+
+frameworks_path = "${ces_standard_path}/frameworks"
+
+interfaces_path = "${ces_standard_path}/interfaces"
+
+services_path = "${ces_standard_path}/services"
+
+tools_path = "${ces_standard_path}/tools"
+
+ces_common_path = "${frameworks_path}/common"
+
+ces_core_path = "${frameworks_path}/core"
+
+ces_innerkits_path = "${interfaces_path}/innerkits/native"
+
+ces_native_path = "${frameworks_path}/native"
+
+ces_services_path = "${services_path}/ces"

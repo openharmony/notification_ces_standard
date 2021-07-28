@@ -2,18 +2,18 @@
   "parts": {
     "ces_standard": {
       "module_list": [
-        "//base/notification/ces_standard/cesfwk/innerkits:cesfwk_innerkits",
-        "//base/notification/ces_standard/cesfwk/kits/native:cesfwk_kits",
-        "//base/notification/ces_standard/cesfwk/kits/napi:napi_packages",
-        "//base/notification/ces_standard/cesfwk/sa_profile:event_sa_profile",
-        "//base/notification/ces_standard/cesfwk/services:cesfwk_services",
-        "//base/notification/ces_standard/cesfwk/tools:tools_target",
-        "//base/notification/ces_standard/common:libevent_common"
+        "//base/notification/ces_standard/frameworks/common:libevent_common",
+        "//base/notification/ces_standard/frameworks/core:cesfwk_core",
+        "//base/notification/ces_standard/frameworks/native:cesfwk_innerkits",
+        "//base/notification/ces_standard/interfaces/kits/napi:napi_packages",
+        "//base/notification/ces_standard/sa_profile:event_sa_profile",
+        "//base/notification/ces_standard/services:cesfwk_services",
+        "//base/notification/ces_standard/tools:tools_target"
   	],
       "inner_kits": [
         {
           "header": {
-            "header_base" : "//base/notification/ces_standard/cesfwk/innerkits/include",
+            "header_base" : "//base/notification/ces_standard/frameworks/core/include",
             "header_files": [
               "common_event_death_recipient.h",
               "common_event_listener.h",
@@ -26,11 +26,11 @@
               "ievent_receive.h"
             ]
           },
-          "name":"//base/notification/ces_standard/cesfwk/innerkits:cesfwk_innerkits"
+          "name":"//base/notification/ces_standard/frameworks/core:cesfwk_core"
         },
         {
           "header": {
-            "header_base" : "//base/notification/ces_standard/cesfwk/kits/native/include",
+            "header_base" : "//base/notification/ces_standard/interfaces/innerkits/native/include",
             "header_files": [
               "async_common_event_result.h",
               "common_event_data.h",
@@ -42,11 +42,11 @@
               "matching_skills.h"
             ]
           },
-          "name":"//base/notification/ces_standard/cesfwk/kits/native:cesfwk_kits"
+          "name":"//base/notification/ces_standard/frameworks/native:cesfwk_innerkits"
         },
         {
           "header": {
-            "header_base" : "//base/notification/ces_standard/cesfwk/services/include",
+            "header_base" : "//base/notification/ces_standard/services/ces/include",
             "header_files": [
               "common_event_control_manager.h",
               "common_event_manager_service.h",
@@ -55,18 +55,18 @@
               "inner_common_event_manager.h"
             ]
           },
-          "name":"//base/notification/ces_standard/cesfwk/services:cesfwk_services"
+          "name":"//base/notification/ces_standard/services:cesfwk_services"
         }
       ],
       "test_list": [
-        "//base/notification/ces_standard/cesfwk/kits/native/test/unittest:unittest",
-        "//base/notification/ces_standard/cesfwk/services/test/unittest:unittest",
-        "//base/notification/ces_standard/cesfwk/tools:systemtest",
-        "//base/notification/ces_standard/cesfwk/tools:moduletest",
-        "//base/notification/ces_standard/cesfwk/tools:unittest",
-        "//base/notification/ces_standard/common/test:unittest",
-        "//base/notification/ces_standard/cesfwk/services/test/moduletest:moduletest",
-        "//base/notification/ces_standard/test/systemtest:systemtest"
+        "//base/notification/ces_standard/frameworks/common/test:unittest",
+        "//base/notification/ces_standard/frameworks/native/test/unittest:unittest",
+        "//base/notification/ces_standard/services/test/moduletest:moduletest",
+        "//base/notification/ces_standard/services/test/unittest:unittest",
+        "//base/notification/ces_standard/test/systemtest:systemtest",
+        "//base/notification/ces_standard/tools:moduletest",
+        "//base/notification/ces_standard/tools:systemtest",
+        "//base/notification/ces_standard/tools:unittest"
       ]
     }
   },
