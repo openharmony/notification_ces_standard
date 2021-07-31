@@ -20,24 +20,24 @@ module_output_path = "ces_standard/systemtest"
 
 ohos_systemtest("ActsFuzzTest") {
   module_out_path = module_output_path
-  resource_config_file = "//base/notification/ces_standard/test/systemtest/common/resource/fuzzTest/ohos_test.xml"
+  resource_config_file = "${ces_standard_path}/test/systemtest/common/resource/fuzzTest/ohos_test.xml"
 
   sources = [
-    "//base/notification/ces_standard/test/systemtest/common/resource/fuzzTest/src/fuzzTestManager.cpp",
-    "//base/notification/ces_standard/test/systemtest/common/resource/fuzzTest/src/getparam.cpp",
+    "${ces_standard_path}/test/systemtest/common/resource/fuzzTest/src/fuzzTestManager.cpp",
+    "${ces_standard_path}/test/systemtest/common/resource/fuzzTest/src/getparam.cpp",
     "actsFuzzTest.cpp",
   ]
 
-  configs = [ "//base/notification/ces_standard/test/systemtest/common/ces:cesfwk_kits_test_config" ]
+  configs = [
+    "${ces_standard_path}/test/systemtest/common/ces:cesfwk_kits_test_config",
+  ]
 
   include_dirs = [
     "//utils/native/base/include",
-    "//base/notification/ces_standard/cesfwk/kits/native/include",
     "//foundation/aafwk/standard/interfaces/innerkits/want/include/ohos/aafwk/content",
-    "//base/notification/ces_standard/common/log/include",
-    "//base/notification/ces_standard/test/systemtest/common/resource",
+    "${ces_standard_path}/test/systemtest/common/resource",
     "//third_party/json/single_include",
-    "//base/notification/ces_standard/cesfwk/services/include",
+    "${services_path}/include",
     "//foundation/appexecfwk/standard/interfaces/innerkits/libeventhandler/include",
     "//foundation/appexecfwk/standard/interfaces/innerkits/appexecfwk_base/include",
     "//foundation/appexecfwk/standard/interfaces/innerkits/appexecfwk_core/include",
@@ -58,18 +58,13 @@ ohos_systemtest("ActsFuzzTest") {
   }
 
   deps = [
-    "${event_common_path}:libevent_common",
+    "${ces_common_path}:libevent_common",
+    "${ces_native_path}:cesfwk_innerkits",
     "//base/global/resmgr_standard/frameworks/resmgr:global_resmgr",
-    "//base/notification/ces_standard/cesfwk/kits/native:cesfwk_kits",
     "//foundation/aafwk/standard/frameworks/kits/ability/native:abilitykit_native",
     "//foundation/aafwk/standard/interfaces/innerkits/ability_manager:ability_manager",
     "//foundation/aafwk/standard/interfaces/innerkits/base:base",
-    "//foundation/aafwk/standard/interfaces/innerkits/want:want",
     "//foundation/aafwk/standard/services/abilitymgr:abilityms",
-    "//foundation/appexecfwk/standard/interfaces/innerkits/appexecfwk_base:appexecfwk_base",
-    "//foundation/appexecfwk/standard/interfaces/innerkits/appexecfwk_base:appexecfwk_base",
-    "//foundation/appexecfwk/standard/interfaces/innerkits/appexecfwk_core:appexecfwk_core",
-    "//foundation/appexecfwk/standard/interfaces/innerkits/libeventhandler:libeventhandler",
     "//foundation/appexecfwk/standard/kits:appkit_native",
     "//foundation/distributedschedule/dmsfwk/interfaces/innerkits/uri:zuri",
     "//foundation/multimodalinput/input/interfaces/native/innerkits/event:mmi_event",
@@ -82,6 +77,10 @@ ohos_systemtest("ActsFuzzTest") {
     "LOG_DOMAIN = 0xD002200",
   ]
   external_deps = [
+    "aafwk_standard:want",
+    "appexecfwk_standard:appexecfwk_base",
+    "appexecfwk_standard:appexecfwk_core",
+    "appexecfwk_standard:libeventhandler",
     "hiviewdfx_hilog_native:libhilog",
     "ipc:ipc_core",
   ]
