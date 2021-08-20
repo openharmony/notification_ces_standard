@@ -14,6 +14,7 @@
  */
 
 #include "common_event_control_manager.h"
+#include <cinttypes>
 #include "bundle_manager_helper.h"
 #include "datetime_ex.h"
 #include "event_log_wrapper.h"
@@ -67,9 +68,9 @@ bool CommonEventControlManager::PublishFreezeCommonEvent(const uid_t &uid)
 
     frozenRecords frozenEventRecords = spinstance->GetFrozenEvents(uid);
 
-    EVENT_LOGD("frozenEventRecords size: %{public}d", frozenEventRecords.size());
+    EVENT_LOGD("frozenEventRecords size: %{public}zu", frozenEventRecords.size());
     for (auto record : frozenEventRecords) {
-        EVENT_LOGD("CommonEventRecord size: %{public}d", record.second.size());
+        EVENT_LOGD("CommonEventRecord size: %{public}zu", record.second.size());
         for (auto vec : record.second) {
             EVENT_LOGD("subscriber proxy: %{public}p", &(record.first->commonEventListener));
             std::function<void()> innerCallback =
@@ -88,7 +89,7 @@ bool CommonEventControlManager::NotifyFreezeEvents(
     EVENT_LOGD("subscriber proxy: %{public}p", &subscriberRecord.commonEventListener);
     EVENT_LOGD("subscriber uid: %{public}d", subscriberRecord.uid);
     EVENT_LOGD("subscriber isFreeze: %{public}d", subscriberRecord.isFreeze);
-    EVENT_LOGD("subscriber freezeTime: %{public}lld", subscriberRecord.freezeTime);
+    EVENT_LOGD("subscriber freezeTime: %{public}" PRId64, subscriberRecord.freezeTime);
     EVENT_LOGD("CommonEvent Action: %{public}s", eventRecord.commonEventData->GetWant().GetAction().c_str());
     EVENT_LOGD("CommonEvent Type: %{public}s", eventRecord.commonEventData->GetWant().GetType().c_str());
 
@@ -677,7 +678,7 @@ bool CommonEventControlManager::CheckSubcriberPermission(
     const Permission &permission, const EventSubscriberRecord &subscriberRecord)
 {
     EVENT_LOGI("enter");
-    EVENT_LOGI("size = %{public}d", permission.names.size());
+    EVENT_LOGI("size = %{public}zu", permission.names.size());
     bool ret = false;
 
     if (permission.names.size() < 1) {

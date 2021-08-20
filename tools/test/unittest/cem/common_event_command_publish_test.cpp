@@ -135,7 +135,7 @@ HWTEST_F(CemCommandPublishTest, Cem_Command_Publish_0300, Function | MediumTest 
     int argc = sizeof(argv) / sizeof(argv[0]) - 1;
 
     CommonEventManagerShellCommand cmd(argc, argv);
-    EXPECT_EQ(cmd.ExecCommand(), "error: unknown option '-x'.\n" + HELP_MSG_PUBLISH);
+    EXPECT_EQ(cmd.ExecCommand(), "error: unknown option.\n" + HELP_MSG_PUBLISH);
 }
 
 /**
@@ -154,7 +154,7 @@ HWTEST_F(CemCommandPublishTest, Cem_Command_Publish_0400, Function | MediumTest 
     int argc = sizeof(argv) / sizeof(argv[0]) - 1;
 
     CommonEventManagerShellCommand cmd(argc, argv);
-    EXPECT_EQ(cmd.ExecCommand(), "error: unknown option '-xxx'.\n" + HELP_MSG_PUBLISH);
+    EXPECT_EQ(cmd.ExecCommand(), "error: unknown option.\n" + HELP_MSG_PUBLISH);
 }
 
 /**
@@ -173,7 +173,7 @@ HWTEST_F(CemCommandPublishTest, Cem_Command_Publish_0500, Function | MediumTest 
     int argc = sizeof(argv) / sizeof(argv[0]) - 1;
 
     CommonEventManagerShellCommand cmd(argc, argv);
-    EXPECT_EQ(cmd.ExecCommand(), "error: unknown option '--x'.\n" + HELP_MSG_PUBLISH);
+    EXPECT_EQ(cmd.ExecCommand(), "error: unknown option.\n" + HELP_MSG_PUBLISH);
 }
 
 /**
@@ -192,7 +192,7 @@ HWTEST_F(CemCommandPublishTest, Cem_Command_Publish_0600, Function | MediumTest 
     int argc = sizeof(argv) / sizeof(argv[0]) - 1;
 
     CommonEventManagerShellCommand cmd(argc, argv);
-    EXPECT_EQ(cmd.ExecCommand(), "error: unknown option '--xxx'.\n" + HELP_MSG_PUBLISH);
+    EXPECT_EQ(cmd.ExecCommand(), "error: unknown option.\n" + HELP_MSG_PUBLISH);
 }
 
 /**
@@ -249,7 +249,7 @@ HWTEST_F(CemCommandPublishTest, Cem_Command_Publish_0900, Function | MediumTest 
     int argc = sizeof(argv) / sizeof(argv[0]) - 1;
 
     CommonEventManagerShellCommand cmd(argc, argv);
-    EXPECT_EQ(cmd.ExecCommand(), "error: option '-e' requires a value.\n" + HELP_MSG_PUBLISH);
+    EXPECT_EQ(cmd.ExecCommand(), "error: option requires a value.\n" + HELP_MSG_PUBLISH);
 }
 
 /**
@@ -288,7 +288,7 @@ HWTEST_F(CemCommandPublishTest, Cem_Command_Publish_1100, Function | MediumTest 
     int argc = sizeof(argv) / sizeof(argv[0]) - 1;
 
     CommonEventManagerShellCommand cmd(argc, argv);
-    EXPECT_EQ(cmd.ExecCommand(), "error: option '-c' requires a value.\n" + HELP_MSG_PUBLISH);
+    EXPECT_EQ(cmd.ExecCommand(), "error: option requires a value.\n" + HELP_MSG_PUBLISH);
 }
 
 /**
@@ -309,7 +309,7 @@ HWTEST_F(CemCommandPublishTest, Cem_Command_Publish_1200, Function | MediumTest 
     int argc = sizeof(argv) / sizeof(argv[0]) - 1;
 
     CommonEventManagerShellCommand cmd(argc, argv);
-    EXPECT_EQ(cmd.ExecCommand(), "error: option '-c' requires a value.\n" + HELP_MSG_PUBLISH);
+    EXPECT_EQ(cmd.ExecCommand(), "error: option requires a value.\n" + HELP_MSG_PUBLISH);
 }
 
 /**
@@ -370,7 +370,7 @@ HWTEST_F(CemCommandPublishTest, Cem_Command_Publish_1500, Function | MediumTest 
     int argc = sizeof(argv) / sizeof(argv[0]) - 1;
 
     CommonEventManagerShellCommand cmd(argc, argv);
-    EXPECT_EQ(cmd.ExecCommand(), "error: option '-d' requires a value.\n" + HELP_MSG_PUBLISH);
+    EXPECT_EQ(cmd.ExecCommand(), "error: option requires a value.\n" + HELP_MSG_PUBLISH);
 }
 
 /**
@@ -391,7 +391,7 @@ HWTEST_F(CemCommandPublishTest, Cem_Command_Publish_1600, Function | MediumTest 
     int argc = sizeof(argv) / sizeof(argv[0]) - 1;
 
     CommonEventManagerShellCommand cmd(argc, argv);
-    EXPECT_EQ(cmd.ExecCommand(), "error: option '-d' requires a value.\n" + HELP_MSG_PUBLISH);
+    EXPECT_EQ(cmd.ExecCommand(), "error: option requires a value.\n" + HELP_MSG_PUBLISH);
 }
 
 /**

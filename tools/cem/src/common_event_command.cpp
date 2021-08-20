@@ -176,9 +176,8 @@ ErrCode CommonEventManagerShellCommand::RunAsPublishCommand()
                     // 'cem publish --event' with no argument: cem publish --event
                     EVENT_LOGI("'cem publish -e' with no argument.");
 
-                    resultReceiver_.append("error: option '");
-                    resultReceiver_.append(argv_[optind - 1]);
-                    resultReceiver_.append("' requires a value.\n");
+                    resultReceiver_.append("error: option ");
+                    resultReceiver_.append("requires a value.\n");
 
                     result = OHOS::ERR_INVALID_VALUE;
                     break;
@@ -188,9 +187,8 @@ ErrCode CommonEventManagerShellCommand::RunAsPublishCommand()
                     // 'cem publish --event <name> -c' with no argument: cem publish --event -c
                     EVENT_LOGI("'cem publish -e <name> -c' with no argument.");
 
-                    resultReceiver_.append("error: option '");
-                    resultReceiver_.append(argv_[optind - 1]);
-                    resultReceiver_.append("' requires a value.\n");
+                    resultReceiver_.append("error: option ");
+                    resultReceiver_.append("requires a value.\n");
 
                     result = OHOS::ERR_INVALID_VALUE;
                     break;
@@ -200,9 +198,8 @@ ErrCode CommonEventManagerShellCommand::RunAsPublishCommand()
                     // 'cem publish --event <name> -d' with no argument: cem publish --event -d
                     EVENT_LOGI("'cem publish -e <name> -d' with no argument.");
 
-                    resultReceiver_.append("error: option '");
-                    resultReceiver_.append(argv_[optind - 1]);
-                    resultReceiver_.append("' requires a value.\n");
+                    resultReceiver_.append("error: option ");
+                    resultReceiver_.append("requires a value.\n");
 
                     result = OHOS::ERR_INVALID_VALUE;
                     break;
@@ -213,16 +210,15 @@ ErrCode CommonEventManagerShellCommand::RunAsPublishCommand()
                     if (longOption == "--ebool" || longOption == "--ebyte" || longOption == "--echar" ||
                         longOption == "--eint" || longOption == "--edouble" || longOption == "--efloat" ||
                         longOption == "--elong" || longOption == "--eshort" || longOption == "--estring") {
-                        resultReceiver_.append("error: option '");
-                        resultReceiver_.append(longOption);
-                        resultReceiver_.append("' requires a value at least.\n");
+                        resultReceiver_.append("error: option ");
+                        resultReceiver_.append("requires a value at least.\n");
                     } else {
                         // 'cem publish' with an unknown option: cem publish --x
                         // 'cem publish' with an unknown option: cem publish --xxx
                         std::string unknownOption = "";
                         std::string unknownOptionMsg = GetUnknownOptionMsg(unknownOption);
 
-                        EVENT_LOGI("'cem publish' with an unknown option: %{public}s", unknownOption.c_str());
+                        EVENT_LOGI("'cem publish' with an unknown option.");
 
                         resultReceiver_.append(unknownOptionMsg);
                     }
@@ -236,7 +232,7 @@ ErrCode CommonEventManagerShellCommand::RunAsPublishCommand()
                     std::string unknownOption = "";
                     std::string unknownOptionMsg = GetUnknownOptionMsg(unknownOption);
 
-                    EVENT_LOGI("'cem publish' with an unknown option: %{public}s", unknownOption.c_str());
+                    EVENT_LOGI("'cem publish' with an unknown option.");
 
                     resultReceiver_.append(unknownOptionMsg);
                     result = OHOS::ERR_INVALID_VALUE;
@@ -510,9 +506,8 @@ ErrCode CommonEventManagerShellCommand::RunAsDumpCommand()
                     // 'cem dump --event' with no argument: cem dump --event
                     EVENT_LOGI("'cem dump -s' with no argument.");
 
-                    resultReceiver_.append("error: option '");
-                    resultReceiver_.append(argv_[optind - 1]);
-                    resultReceiver_.append("' requires a value.\n");
+                    resultReceiver_.append("error: option ");
+                    resultReceiver_.append("requires a value.\n");
                     result = OHOS::ERR_INVALID_VALUE;
                     break;
                 }
@@ -522,7 +517,7 @@ ErrCode CommonEventManagerShellCommand::RunAsDumpCommand()
                     std::string unknownOption = "";
                     std::string unknownOptionMsg = GetUnknownOptionMsg(unknownOption);
 
-                    EVENT_LOGI("'cem dump' with an unknown option: %{public}s", unknownOption.c_str());
+                    EVENT_LOGI("'cem dump' with an unknown option.");
 
                     resultReceiver_.append(unknownOptionMsg);
                     result = OHOS::ERR_INVALID_VALUE;
@@ -534,7 +529,7 @@ ErrCode CommonEventManagerShellCommand::RunAsDumpCommand()
                     std::string unknownOption = "";
                     std::string unknownOptionMsg = GetUnknownOptionMsg(unknownOption);
 
-                    EVENT_LOGI("'cem dump' with an unknown option: %{public}s", unknownOption.c_str());
+                    EVENT_LOGI("'cem dump' with an unknown option.");
 
                     resultReceiver_.append(unknownOptionMsg);
                     result = OHOS::ERR_INVALID_VALUE;
