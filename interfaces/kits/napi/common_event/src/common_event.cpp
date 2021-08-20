@@ -2024,7 +2024,7 @@ void NapiDeleteSubscribe(std::shared_ptr<SubscriberInstance> &subscriber)
 
     auto subscribe = subscriberInstances.find(subscriber);
     if (subscribe != subscriberInstances.end()) {
-        EVENT_LOGI("NapiDeleteSubscribe size = %{public}d", subscribe->second.asyncCallbackInfo.size());
+        EVENT_LOGI("NapiDeleteSubscribe size = %{public}zu", subscribe->second.asyncCallbackInfo.size());
         for (auto asyncCallbackInfoSubscribe : subscribe->second.asyncCallbackInfo) {
             EVENT_LOGI("NapiDeleteSubscribe ptr = %{public}p", asyncCallbackInfoSubscribe);
             delete asyncCallbackInfoSubscribe;
