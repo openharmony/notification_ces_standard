@@ -118,7 +118,8 @@ bool CommonEvent::UnSubscribeCommonEvent(const std::shared_ptr<CommonEventSubscr
     std::lock_guard<std::mutex> lock(eventListenersMutex_);
     auto eventListener = eventListeners_.find(subscriber);
     if (eventListener != eventListeners_.end()) {
-        if (commonEventProxy_->UnsubscribeCommonEvent(eventListener->second)) {
+        if (commonEventProxy_->UnsubscribeCommonEvent(eventListener->second->AsObject())) {
+            eventListener->second->Stop();
             eventListeners_.erase(eventListener);
             return true;
         }
@@ -262,7 +263,7 @@ int CommonEvent::CreateCommonEventListener(
 
     auto eventListener = eventListeners_.find(subscriber);
     if (eventListener != eventListeners_.end()) {
-        commonEventListener = eventListener->second;
+        commonEventListener = eventListener->second->AsObject();
         EVENT_LOGW("subscriber has common event listener");
         return ALREADY_SUBSCRIBED;
     } else {
@@ -272,13 +273,13 @@ int CommonEvent::CreateCommonEventListener(
             return SUBSCRIBE_FAILD;
         }
 
-        sptr<IEventReceive> listener = new CommonEventListener(subscriber);
+        sptr<CommonEventListener> listener = new CommonEventListener(subscriber);
         if (!listener) {
             EVENT_LOGE("the common event listener is null");
             return SUBSCRIBE_FAILD;
         }
         commonEventListener = listener->AsObject();
-        eventListeners_[subscriber] = commonEventListener;
+        eventListeners_[subscriber] = listener;
     }
 
     return INITIAL_SUBSCRIPTION;

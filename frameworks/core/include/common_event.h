@@ -142,7 +142,7 @@ private:
     std::mutex mutex_;
     std::mutex eventListenersMutex_;
     sptr<ICommonEvent> commonEventProxy_;
-    std::map<std::shared_ptr<CommonEventSubscriber>, sptr<IRemoteObject>> eventListeners_;
+    std::map<std::shared_ptr<CommonEventSubscriber>, sptr<CommonEventListener>> eventListeners_;
     sptr<IRemoteObject::DeathRecipient> recipient_;
     const unsigned int SUBSCRIBER_MAX_SIZE = 200;
 };

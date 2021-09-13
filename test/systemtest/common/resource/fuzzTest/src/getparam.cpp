@@ -207,7 +207,7 @@ char32_t GetChar32Param()
 char *GetCharArryParam()
 {
     static char param[256];
-    strcpy(param, GetStringParam().c_str());
+    strcpy_s(param, 255, GetStringParam().c_str());
     return param;
 }
 

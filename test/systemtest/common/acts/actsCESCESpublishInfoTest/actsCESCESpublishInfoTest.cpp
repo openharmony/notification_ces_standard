@@ -50,8 +50,6 @@ public:
     void SetUp();
     void TearDown();
 
-    bool SubscribeCommonEventTest(const CommonEventSubscribeInfo &subscriberInfo);
-    bool UnsubscribeCommonEventTest(const CommonEventSubscribeInfo &subscriberInfo);
     static StressTestLevel stLevel_;
 };
 StressTestLevel ActsCESCESpublishInfoTest::stLevel_{};
@@ -70,32 +68,10 @@ void ActsCESCESpublishInfoTest::TearDownTestCase()
 {}
 
 void ActsCESCESpublishInfoTest::SetUp()
-{
-    OHOS::DelayedSingleton<CommonEventManagerService>::GetInstance()->OnStart();
-}
+{}
 
 void ActsCESCESpublishInfoTest::TearDown()
-{
-    OHOS::DelayedSingleton<CommonEventManagerService>::GetInstance()->OnStop();
-}
-
-bool ActsCESCESpublishInfoTest::SubscribeCommonEventTest(const CommonEventSubscribeInfo &subscriberInfo)
-{
-    bool result = false;
-    auto subscriberPtr = std::make_shared<ActsCommonEventServicesSystemTest>(subscriberInfo);
-    result = CommonEventManager::SubscribeCommonEvent(subscriberPtr);
-    return result;
-}
-
-bool ActsCESCESpublishInfoTest::UnsubscribeCommonEventTest(const CommonEventSubscribeInfo &subscriberInfo)
-{
-    bool result = false;
-    auto subscriberPtr = std::make_shared<ActsCommonEventServicesSystemTest>(subscriberInfo);
-    if (CommonEventManager::SubscribeCommonEvent(subscriberPtr)) {
-        result = CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
-    }
-    return result;
-}
+{}
 
 /*
  * @tc.number: CES_PublishInfo_Sticky_0100
@@ -112,11 +88,10 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Sticky_0100, Function | Medi
     for (int i = 1; i <= stLevel_.CESLevel; i++) {
         matchingSkills.AddEvent(eventName);
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
-        SubscribeCommonEventTest(subscribeInfo);
         CommonEventPublishInfo publishInfo;
         publishInfo.SetSticky(sticky);
         if (publishInfo.IsSticky()) {
-            printf("CES_PublishInfo_Sticky_0100 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_PublishInfo_Sticky_0100 faild, frequency: " << i;
             result = false;
             break;
         } else {
@@ -125,7 +100,8 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Sticky_0100, Function | Medi
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_PublishInfo_Sticky_0100  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_PublishInfo_Sticky_0100 stress level: " << stLevel_.CESLevel;
+        GTEST_LOG_(INFO) << "CES_SetEventAuthority_0100 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -145,11 +121,10 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Sticky_0200, Function | Medi
     for (int i = 1; i <= stLevel_.CESLevel; i++) {
         matchingSkills.AddEvent(eventName);
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
-        SubscribeCommonEventTest(subscribeInfo);
         CommonEventPublishInfo publishInfo;
         publishInfo.SetSticky(sticky);
         if (!publishInfo.IsSticky()) {
-            printf("CES_PublishInfo_Sticky_0200 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_PublishInfo_Sticky_0200 faild, frequency: " << i;
             result = false;
             break;
         } else {
@@ -158,7 +133,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Sticky_0200, Function | Medi
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_PublishInfo_Sticky_0200  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_PublishInfo_Sticky_0200 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -181,7 +156,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Sticky_0300, Function | Medi
         CommonEventPublishInfo publishInfo;
         publishInfo.SetSticky(sticky);
         if (publishInfo.IsSticky()) {
-            printf("CES_PublishInfo_Sticky_0300 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_PublishInfo_Sticky_0300 faild, frequency: " << i;
             result = false;
             break;
         } else {
@@ -190,7 +165,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Sticky_0300, Function | Medi
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_PublishInfo_Sticky_0300  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_PublishInfo_Sticky_0300 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -213,7 +188,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Sticky_0400, Function | Medi
         CommonEventPublishInfo publishInfo;
         publishInfo.SetSticky(sticky);
         if (!publishInfo.IsSticky()) {
-            printf("CES_PublishInfo_Sticky_0400 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_PublishInfo_Sticky_0400 faild, frequency: " << i;
             result = false;
             break;
         } else {
@@ -222,7 +197,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Sticky_0400, Function | Medi
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_PublishInfo_Sticky_0400  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_PublishInfo_Sticky_0400 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -243,7 +218,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Sticky_0500, Function | Medi
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         CommonEventPublishInfo publishInfo;
         if (publishInfo.IsSticky()) {
-            printf("CES_PublishInfo_Sticky_0500 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_PublishInfo_Sticky_0500 faild, frequency: " << i;
             result = false;
             break;
         } else {
@@ -252,7 +227,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Sticky_0500, Function | Medi
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_PublishInfo_Sticky_0500  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_PublishInfo_Sticky_0500 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -278,7 +253,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Sticky_0600, Function | Medi
         sticky = false;
         publishInfo.SetSticky(sticky);
         if (publishInfo.IsSticky()) {
-            printf("CES_PublishInfo_Sticky_0600 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_PublishInfo_Sticky_0600 faild, frequency: " << i;
             result = false;
             break;
         } else {
@@ -288,7 +263,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Sticky_0600, Function | Medi
         sticky = true;
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_PublishInfo_Sticky_0600  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_PublishInfo_Sticky_0600 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -314,7 +289,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Sticky_0700, Function | Medi
         sticky = true;
         publishInfo.SetSticky(sticky);
         if (!publishInfo.IsSticky()) {
-            printf("CES_PublishInfo_Sticky_0700 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_PublishInfo_Sticky_0700 faild, frequency: " << i;
             result = false;
             break;
         } else {
@@ -324,7 +299,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Sticky_0700, Function | Medi
         sticky = false;
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_PublishInfo_Sticky_0700  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_PublishInfo_Sticky_0700 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -344,14 +319,13 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Sticky_0800, Function | Medi
     for (int i = 1; i <= stLevel_.CESLevel; i++) {
         matchingSkills.AddEvent(eventName);
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
-        SubscribeCommonEventTest(subscribeInfo);
         CommonEventPublishInfo publishInfo;
         publishInfo.SetSticky(sticky);
         EXPECT_FALSE(publishInfo.IsSticky());
         sticky = true;
         publishInfo.SetSticky(sticky);
         if (!publishInfo.IsSticky()) {
-            printf("CES_PublishInfo_Sticky_0800 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_PublishInfo_Sticky_0800 faild, frequency: " << i;
             result = false;
             break;
         } else {
@@ -361,7 +335,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Sticky_0800, Function | Medi
         sticky = false;
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_PublishInfo_Sticky_0800  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_PublishInfo_Sticky_0800 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -381,14 +355,13 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Sticky_0900, Function | Medi
     for (int i = 1; i <= stLevel_.CESLevel; i++) {
         matchingSkills.AddEvent(eventName);
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
-        SubscribeCommonEventTest(subscribeInfo);
         CommonEventPublishInfo publishInfo;
         publishInfo.SetSticky(sticky);
         EXPECT_TRUE(publishInfo.IsSticky());
         sticky = false;
         publishInfo.SetSticky(sticky);
         if (publishInfo.IsSticky()) {
-            printf("CES_PublishInfo_Sticky_0900 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_PublishInfo_Sticky_0900 faild, frequency: " << i;
             result = false;
             break;
         } else {
@@ -398,7 +371,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Sticky_0900, Function | Medi
         sticky = true;
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_PublishInfo_Sticky_0900  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_PublishInfo_Sticky_0900 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -422,7 +395,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Sticky_1000, Function | Medi
         bool sticky = true;
         publishInfo.SetSticky(sticky);
         if (!publishInfo.IsSticky()) {
-            printf("CES_PublishInfo_Sticky_1000 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_PublishInfo_Sticky_1000 faild, frequency: " << i;
             result = false;
             break;
         } else {
@@ -431,7 +404,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Sticky_1000, Function | Medi
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_PublishInfo_Sticky_1000  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_PublishInfo_Sticky_1000 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -456,10 +429,9 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Permissions_0100, Function |
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         CommonEventPublishInfo publishInfo;
         publishInfo.SetSubscriberPermissions(permissins);
-        SubscribeCommonEventTest(subscribeInfo);
         std::vector<std::string> testPermissions = publishInfo.GetSubscriberPermissions();
         if (!(permissin == testPermissions[0])) {
-            printf("CES_PublishInfo_Permissions_0100 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_PublishInfo_Permissions_0100 faild, frequency: " << i;
             result = false;
             break;
         } else {
@@ -468,7 +440,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Permissions_0100, Function |
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_PublishInfo_Permissions_0100  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_PublishInfo_Permissions_0100 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -495,10 +467,9 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Permissions_0200, Function |
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         CommonEventPublishInfo publishInfo;
         publishInfo.SetSubscriberPermissions(permissins);
-        SubscribeCommonEventTest(subscribeInfo);
         std::vector<std::string> testPermissions = publishInfo.GetSubscriberPermissions();
         if (!(permissin2 == testPermissions[1])) {
-            printf("CES_PublishInfo_Permissions_0200 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_PublishInfo_Permissions_0200 faild, frequency: " << i;
             result = false;
             break;
         } else {
@@ -507,7 +478,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Permissions_0200, Function |
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_PublishInfo_Permissions_0200  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_PublishInfo_Permissions_0200 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -536,10 +507,9 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Permissions_0300, Function |
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         CommonEventPublishInfo publishInfo;
         publishInfo.SetSubscriberPermissions(permissins);
-        SubscribeCommonEventTest(subscribeInfo);
         std::vector<std::string> testPermissions = publishInfo.GetSubscriberPermissions();
         if (!(permissin3 == testPermissions[2])) {
-            printf("CES_PublishInfo_Permissions_0300 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_PublishInfo_Permissions_0300 faild, frequency: " << i;
             result = false;
             break;
         } else {
@@ -548,7 +518,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Permissions_0300, Function |
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_PublishInfo_Permissions_0300  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_PublishInfo_Permissions_0300 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -574,10 +544,9 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Permissions_0400, Function |
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         CommonEventPublishInfo publishInfo;
         publishInfo.SetSubscriberPermissions(permissins);
-        SubscribeCommonEventTest(subscribeInfo);
         std::vector<std::string> testPermissions = publishInfo.GetSubscriberPermissions();
         if (teststr == testPermissions[0]) {
-            printf("CES_PublishInfo_Permissions_0400 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_PublishInfo_Permissions_0400 faild, frequency: " << i;
             result = false;
             break;
         } else {
@@ -586,7 +555,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Permissions_0400, Function |
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_PublishInfo_Permissions_0400  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_PublishInfo_Permissions_0400 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -613,10 +582,9 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Permissions_0500, Function |
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         CommonEventPublishInfo publishInfo;
         publishInfo.SetSubscriberPermissions(permissins);
-        SubscribeCommonEventTest(subscribeInfo);
         std::vector<std::string> testPermissions = publishInfo.GetSubscriberPermissions();
         if (permissin1 == testPermissions[1]) {
-            printf("CES_PublishInfo_Permissions_0500 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_PublishInfo_Permissions_0500 faild, frequency: " << i;
             result = false;
             break;
         } else {
@@ -625,7 +593,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Permissions_0500, Function |
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_PublishInfo_Permissions_0500  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_PublishInfo_Permissions_0500 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -654,10 +622,9 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Permissions_0600, Function |
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         CommonEventPublishInfo publishInfo;
         publishInfo.SetSubscriberPermissions(permissins);
-        SubscribeCommonEventTest(subscribeInfo);
         std::vector<std::string> testPermissions = publishInfo.GetSubscriberPermissions();
         if (permissin1 == testPermissions[2]) {
-            printf("CES_PublishInfo_Permissions_0600 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_PublishInfo_Permissions_0600 faild, frequency: " << i;
             result = false;
             break;
         } else {
@@ -666,7 +633,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Permissions_0600, Function |
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_PublishInfo_Permissions_0600  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_PublishInfo_Permissions_0600 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -691,10 +658,9 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Permissions_0700, Function |
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         CommonEventPublishInfo publishInfo;
         publishInfo.SetSubscriberPermissions(permissins);
-        SubscribeCommonEventTest(subscribeInfo);
         std::vector<std::string> testPermissions = publishInfo.GetSubscriberPermissions();
         if (!(1 == testPermissions.size())) {
-            printf("CES_PublishInfo_Permissions_0700 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_PublishInfo_Permissions_0700 faild, frequency: " << i;
             result = false;
             break;
         } else {
@@ -703,7 +669,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Permissions_0700, Function |
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_PublishInfo_Permissions_0700  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_PublishInfo_Permissions_0700 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -730,10 +696,9 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Permissions_0800, Function |
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         CommonEventPublishInfo publishInfo;
         publishInfo.SetSubscriberPermissions(permissins);
-        SubscribeCommonEventTest(subscribeInfo);
         std::vector<std::string> testPermissions = publishInfo.GetSubscriberPermissions();
         if (!(2 == testPermissions.size())) {
-            printf("CES_PublishInfo_Permissions_0800 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_PublishInfo_Permissions_0800 faild, frequency: " << i;
             result = false;
             break;
         } else {
@@ -742,7 +707,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Permissions_0800, Function |
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_PublishInfo_Permissions_0800  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_PublishInfo_Permissions_0800 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -771,10 +736,9 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Permissions_0900, Function |
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         CommonEventPublishInfo publishInfo;
         publishInfo.SetSubscriberPermissions(permissins);
-        SubscribeCommonEventTest(subscribeInfo);
         std::vector<std::string> testPermissions = publishInfo.GetSubscriberPermissions();
         if (!(3 == testPermissions.size())) {
-            printf("CES_PublishInfo_Permissions_0900 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_PublishInfo_Permissions_0900 faild, frequency: " << i;
             result = false;
             break;
         } else {
@@ -783,7 +747,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Permissions_0900, Function |
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_PublishInfo_Permissions_0900  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_PublishInfo_Permissions_0900 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -806,10 +770,9 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Permissions_1000, Function |
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         CommonEventPublishInfo publishInfo;
         publishInfo.SetSubscriberPermissions(permissins);
-        SubscribeCommonEventTest(subscribeInfo);
         std::vector<std::string> testPermissions = publishInfo.GetSubscriberPermissions();
         if (!(0 == testPermissions.size())) {
-            printf("CES_PublishInfo_Permissions_1000 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_PublishInfo_Permissions_1000 faild, frequency: " << i;
             result = false;
             break;
         } else {
@@ -818,7 +781,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Permissions_1000, Function |
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_PublishInfo_Permissions_1000  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_PublishInfo_Permissions_1000 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -840,9 +803,8 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Ordered_0100, Function | Med
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         CommonEventPublishInfo publishInfo;
         publishInfo.SetOrdered(order);
-        SubscribeCommonEventTest(subscribeInfo);
         if (publishInfo.IsOrdered()) {
-            printf("CES_PublishInfo_Ordered_0100 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_PublishInfo_Ordered_0100 faild, frequency: " << i;
             result = false;
             break;
         } else {
@@ -851,7 +813,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Ordered_0100, Function | Med
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_PublishInfo_Ordered_0100  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_PublishInfo_Ordered_0100 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -873,9 +835,8 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Ordered_0200, Function | Med
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         CommonEventPublishInfo publishInfo;
         publishInfo.SetOrdered(order);
-        SubscribeCommonEventTest(subscribeInfo);
         if (!publishInfo.IsOrdered()) {
-            printf("CES_PublishInfo_Ordered_0200 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_PublishInfo_Ordered_0200 faild, frequency: " << i;
             result = false;
             break;
         } else {
@@ -884,7 +845,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Ordered_0200, Function | Med
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_PublishInfo_Ordered_0200  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_PublishInfo_Ordered_0200 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -904,9 +865,8 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Ordered_0300, Function | Med
         matchingSkills.AddEvent(eventName);
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         CommonEventPublishInfo publishInfo;
-        SubscribeCommonEventTest(subscribeInfo);
         if (publishInfo.IsOrdered()) {
-            printf("CES_PublishInfo_Ordered_0300 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_PublishInfo_Ordered_0300 faild, frequency: " << i;
             result = false;
             break;
         } else {
@@ -915,7 +875,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Ordered_0300, Function | Med
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_PublishInfo_Ordered_0300  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_PublishInfo_Ordered_0300 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -938,7 +898,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Ordered_0400, Function | Med
         CommonEventPublishInfo publishInfo;
         publishInfo.SetOrdered(order);
         if (publishInfo.IsOrdered()) {
-            printf("CES_PublishInfo_Ordered_0400 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_PublishInfo_Ordered_0400 faild, frequency: " << i;
             result = false;
             break;
         } else {
@@ -947,7 +907,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Ordered_0400, Function | Med
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_PublishInfo_Ordered_0400  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_PublishInfo_Ordered_0400 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -970,7 +930,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Ordered_0500, Function | Med
         CommonEventPublishInfo publishInfo;
         publishInfo.SetOrdered(order);
         if (!publishInfo.IsOrdered()) {
-            printf("CES_PublishInfo_Ordered_0500 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_PublishInfo_Ordered_0500 faild, frequency: " << i;
             result = false;
             break;
         } else {
@@ -979,7 +939,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Ordered_0500, Function | Med
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_PublishInfo_Ordered_0500  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_PublishInfo_Ordered_0500 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -999,9 +959,8 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Ordered_0600, Function | Med
         matchingSkills.AddEvent(eventName);
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         CommonEventPublishInfo publishInfo;
-        SubscribeCommonEventTest(subscribeInfo);
         if (publishInfo.IsOrdered()) {
-            printf("CES_PublishInfo_Ordered_0600 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_PublishInfo_Ordered_0600 faild, frequency: " << i;
             result = false;
             break;
         } else {
@@ -1010,7 +969,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Ordered_0600, Function | Med
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_PublishInfo_Ordered_0600  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_PublishInfo_Ordered_0600 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -1035,7 +994,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Ordered_0700, Function | Med
         publishInfo.SetOrdered(order);
         publishInfo.SetSticky(sticky);
         if (!publishInfo.IsOrdered()) {
-            printf("CES_PublishInfo_Ordered_0700 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_PublishInfo_Ordered_0700 faild, frequency: " << i;
             result = false;
             break;
         } else {
@@ -1044,7 +1003,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Ordered_0700, Function | Med
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_PublishInfo_Ordered_0700  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_PublishInfo_Ordered_0700 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -1069,7 +1028,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Ordered_0800, Function | Med
         publishInfo.SetOrdered(order);
         publishInfo.SetSticky(sticky);
         if (!publishInfo.IsOrdered()) {
-            printf("CES_PublishInfo_Ordered_0800 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_PublishInfo_Ordered_0800 faild, frequency: " << i;
             result = false;
             break;
         } else {
@@ -1078,7 +1037,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Ordered_0800, Function | Med
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_PublishInfo_Ordered_0800  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_PublishInfo_Ordered_0800 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -1103,7 +1062,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Ordered_0900, Function | Med
         publishInfo.SetOrdered(order);
         publishInfo.SetSticky(sticky);
         if (publishInfo.IsOrdered()) {
-            printf("CES_PublishInfo_Ordered_0900 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_PublishInfo_Ordered_0900 faild, frequency: " << i;
             result = false;
             break;
         } else {
@@ -1112,7 +1071,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Ordered_0900, Function | Med
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_PublishInfo_Ordered_0900  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_PublishInfo_Ordered_0900 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -1137,7 +1096,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Ordered_1000, Function | Med
         publishInfo.SetOrdered(order);
         publishInfo.SetSticky(sticky);
         if (publishInfo.IsOrdered()) {
-            printf("CES_PublishInfo_Ordered_1000 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_PublishInfo_Ordered_1000 faild, frequency: " << i;
             result = false;
             break;
         } else {
@@ -1146,7 +1105,7 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Ordered_1000, Function | Med
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_PublishInfo_Ordered_1000  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_PublishInfo_Ordered_1000 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }

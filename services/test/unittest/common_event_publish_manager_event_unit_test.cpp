@@ -87,7 +87,7 @@ HWTEST_F(CommonEventPublishManagerEventUnitTest, CommonEventPublishManagerEventU
     GTEST_LOG_(INFO)
         << "CommonEventPublishManagerEventUnitTest, CommonEventPublishManagerEventUnitTestt_0100, TestSize.Level1";
     int i = 0;
-    bool result;
+    bool result = false;
     int64_t startTime = SystemTime::GetNowSysTime();
     int64_t lastTime = 0;
     int64_t innternal = 0;

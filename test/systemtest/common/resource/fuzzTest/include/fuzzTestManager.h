@@ -46,9 +46,9 @@ private:
     fuzzTestManager(fuzzTestManager &) = delete;
     fuzzTestManager &operator=(const fuzzTestManager &) = delete;
     static Ptr instance_;
-    uint16_t cycle_;
-    std::unordered_map<std::string, int> remainderMap_;
-    std::unordered_map<std::string, std::function<void()>> callFunctionMap_;
+    uint16_t cycle_{};
+    std::unordered_map<std::string, int> remainderMap_{};
+    std::unordered_map<std::string, std::function<void()>> callFunctionMap_{};
 
     void RegisterAsyncCommonEventResult();
     void RegisterCommonEventData();

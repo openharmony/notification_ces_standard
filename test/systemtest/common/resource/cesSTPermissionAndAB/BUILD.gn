@@ -43,6 +43,7 @@ config("cesSTPermissionAndABConfig") {
 }
 
 ohos_shared_library("libraryCesSTPermissionAndAB") {
+  include_dirs = [ "//third_party/jsoncpp/include" ]
   sources = [ "${SUBDEMOSYSTEM_DIR}/src/ces_st_permission_and_AB.cpp" ]
 
   configs = [ ":cesSTPermissionAndABConfig" ]
@@ -53,6 +54,7 @@ ohos_shared_library("libraryCesSTPermissionAndAB") {
     "//foundation/appexecfwk/standard/common:libappexecfwk_common",
     "//foundation/appexecfwk/standard/kits:appkit_native",
     "//foundation/appexecfwk/standard/services/bundlemgr:libbms",
+    "//third_party/jsoncpp:jsoncpp",
     "//utils/native/base:utilsbase",
   ]
 
