@@ -26,6 +26,7 @@ config("cesSTPermissionOrAXConfig") {
 
   include_dirs = [
     "${SUBDEMOSYSTEM_DIR}/include",
+    "//third_party/jsoncpp/include",
     "//foundation/appexecfwk/standard/kits/appkit/native/app",
     "//foundation/aafwk/standard/interfaces/innerkits/want/include/ohos/aafwk/content",
     "//foundation/aafwk/standard/interfaces/innerkits/ability_manager/include",
@@ -53,6 +54,7 @@ ohos_shared_library("libraryCesSTPermissionOrAX") {
     "//foundation/appexecfwk/standard/common:libappexecfwk_common",
     "//foundation/appexecfwk/standard/kits:appkit_native",
     "//foundation/appexecfwk/standard/services/bundlemgr:libbms",
+    "//third_party/jsoncpp:jsoncpp",
     "//utils/native/base:utilsbase",
   ]
 

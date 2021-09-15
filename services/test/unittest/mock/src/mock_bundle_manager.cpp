@@ -81,7 +81,7 @@ int MockBundleMgrService::CheckPermission(const std::string &bundleName, const s
         }
     }
 
-    if (!bundleName.compare("case4")) {  // ¡°ohos.permission.WRITE_USER_STORAGE¡± or ¡°ohos.permission.READ_USER_STORAGE¡±
+    if (!bundleName.compare("case4")) {  // ï¿½ï¿½ohos.permission.WRITE_USER_STORAGEï¿½ï¿½ or ï¿½ï¿½ohos.permission.READ_USER_STORAGEï¿½ï¿½
         if (num2 == 0) {
             if (!permission.compare("ohos.permission.WRITE_USER_STORAGE")) {
                 num2++;

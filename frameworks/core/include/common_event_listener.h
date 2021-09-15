@@ -33,6 +33,8 @@ public:
 
     virtual void NotifyEvent(const CommonEventData &CommonEventData, const bool &ordered, const bool &sticky) override;
 
+    void Stop();
+
 private:
     ErrCode Init();
 

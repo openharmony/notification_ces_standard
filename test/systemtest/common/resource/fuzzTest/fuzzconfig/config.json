@@ -502,7 +502,6 @@
         "ContinueAbilityReversiblyS": [],
         "GetOriginalDeviceId": [],
         "GetContinuationState": [],
-        "ReverseContinueAbility": [],
         "GetAbilityPackage": [],
         "DenormalizeUri": [],
         "Reload": [],

@@ -23,7 +23,7 @@ namespace OHOS {
 namespace EventFwk {
 
 struct HistorySubscriberRecord {
-    struct tm recordTime;
+    struct tm recordTime {};
     std::string bundleName;
     int32_t priority;
     std::string permission;
@@ -55,7 +55,7 @@ struct History_event_record {
     bool ordered;
     std::vector<std::string> subscriberPermissions;
 
-    struct tm recordTime;
+    struct tm recordTime {};
     pid_t pid;
     uid_t uid;
     std::string bundleName;

@@ -114,5 +114,20 @@ void CommonEventListener::OnReceiveEvent(
         commonEventSubscriber_->GetAsyncCommonEventResult()->FinishCommonEvent();
     }
 }
+
+void CommonEventListener::Stop()
+{
+    if (handler_) {
+        handler_.reset();
+    }
+
+    if (CommonEventSubscribeInfo::HANDLER == commonEventSubscriber_->GetSubscribeInfo().GetThreadMode()) {
+        return;
+    }
+
+    if (runner_) {
+        runner_.reset();
+    }
+}
 }  // namespace EventFwk
 }  // namespace OHOS

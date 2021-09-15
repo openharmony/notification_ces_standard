@@ -53,7 +53,7 @@
 
 // aafwk/bundle
 #include "bundle_mgr_proxy.h"
-
+#include "ohos/aafwk/base/short_wrapper.h"
 #include "../include/getparam.h"
 #include "../include/fuzzTestManager.h"
 
@@ -1148,12 +1148,6 @@ void fuzzTestManager::RegisterWantParams()
         want1 = want2;
     };
 
-    callFunctionMap_["WantParamsSetParam"] = []() {
-        std::shared_ptr<AAFwk::WantParams> temp = GetParamWantParams();
-        OHOS::AAFwk::IInterface *param = OHOS::AAFwk::Short::Box(GetShortParam()).GetRefPtr();
-        temp->SetParam(GetStringParam(), param);
-    };
-
     callFunctionMap_["WantParamsGetParam"] = []() {
         std::shared_ptr<AAFwk::WantParams> temp = GetParamWantParams();
         temp->GetParam(GetStringParam());
@@ -2236,11 +2230,6 @@ void fuzzTestManager::RegisterAbility()
     callFunctionMap_.emplace("AbilityGetContinuationState", []() {
         std::shared_ptr<OHOS::AppExecFwk::Ability> temp = GetParamAbility();
         temp->GetContinuationState();
-    });
-
-    callFunctionMap_.emplace("AbilityReverseContinueAbility", []() {
-        std::shared_ptr<OHOS::AppExecFwk::Ability> temp = GetParamAbility();
-        temp->ReverseContinueAbility();
     });
 
     callFunctionMap_.emplace("AbilityGetAbilityPackage", []() {

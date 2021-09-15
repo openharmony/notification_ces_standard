@@ -86,7 +86,7 @@ HWTEST_F(ActsCESSubscribeInfoTest, CES_SubscribeInfo_Priority_0100, Function | M
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         subscribeInfo.SetPriority(PRIORITYTEST1);
         if (subscribeInfo.GetPriority() != PRIORITYTEST1) {
-            printf("CES_SubscribeInfo_Priority_0100 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_SubscribeInfo_Priority_0100 faild ,frequency: " << i;
             result = false;
             break;
         } else {
@@ -95,7 +95,7 @@ HWTEST_F(ActsCESSubscribeInfoTest, CES_SubscribeInfo_Priority_0100, Function | M
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscribeInfo_Priority_0100  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscribeInfo_Priority_0100 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -115,7 +115,7 @@ HWTEST_F(ActsCESSubscribeInfoTest, CES_SubscribeInfo_Priority_0200, Function | M
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         subscribeInfo.SetPriority(PRIORITYTEST2);
         if (subscribeInfo.GetPriority() != PRIORITYTEST2) {
-            printf("CES_SubscribeInfo_Priority_0200 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_SubscribeInfo_Priority_0200 faild ,frequency: " << i;
             result = false;
             break;
         } else {
@@ -124,7 +124,7 @@ HWTEST_F(ActsCESSubscribeInfoTest, CES_SubscribeInfo_Priority_0200, Function | M
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscribeInfo_Priority_0200  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscribeInfo_Priority_0200 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -144,7 +144,7 @@ HWTEST_F(ActsCESSubscribeInfoTest, CES_SubscribeInfo_Priority_0300, Function | M
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         subscribeInfo.SetPriority(PRIORITYTEST3);
         if (subscribeInfo.GetPriority() != PRIORITYTEST3) {
-            printf("CES_SubscribeInfo_Priority_0300 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_SubscribeInfo_Priority_0300 faild ,frequency: " << i;
             result = false;
             break;
         } else {
@@ -153,7 +153,7 @@ HWTEST_F(ActsCESSubscribeInfoTest, CES_SubscribeInfo_Priority_0300, Function | M
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscribeInfo_Priority_0300  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscribeInfo_Priority_0300 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -173,7 +173,7 @@ HWTEST_F(ActsCESSubscribeInfoTest, CES_SubscribeInfo_Priority_0400, Function | M
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         subscribeInfo.SetPriority(PRIORITYTEST4);
         if (subscribeInfo.GetPriority() != PRIORITYTEST4) {
-            printf("CES_SubscribeInfo_Priority_0400 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_SubscribeInfo_Priority_0400 faild ,frequency: " << i;
             result = false;
             break;
         } else {
@@ -182,7 +182,7 @@ HWTEST_F(ActsCESSubscribeInfoTest, CES_SubscribeInfo_Priority_0400, Function | M
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscribeInfo_Priority_0400  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscribeInfo_Priority_0400 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -202,7 +202,7 @@ HWTEST_F(ActsCESSubscribeInfoTest, CES_SubscribeInfo_Priority_0500, Function | M
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         subscribeInfo.SetPriority(PRIORITYTEST5);
         if (subscribeInfo.GetPriority() != PRIORITYTEST5) {
-            printf("CES_SubscribeInfo_Priority_0500 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_SubscribeInfo_Priority_0500 faild ,frequency: " << i;
             result = false;
             break;
         } else {
@@ -211,7 +211,7 @@ HWTEST_F(ActsCESSubscribeInfoTest, CES_SubscribeInfo_Priority_0500, Function | M
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscribeInfo_Priority_0500  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscribeInfo_Priority_0500 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -231,7 +231,7 @@ HWTEST_F(ActsCESSubscribeInfoTest, CES_SubscribeInfo_Permission_0100, Function |
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         subscribeInfo.SetPermission(PERMISSIONTEST1);
         if (subscribeInfo.GetPermission() != PERMISSIONTEST1) {
-            printf("CES_SubscribeInfo_Permission_0100 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_SubscribeInfo_Permission_0100 faild ,frequency: " << i;
             result = false;
             break;
         } else {
@@ -240,7 +240,7 @@ HWTEST_F(ActsCESSubscribeInfoTest, CES_SubscribeInfo_Permission_0100, Function |
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscribeInfo_Permission_0100  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscribeInfo_Permission_0100 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -261,7 +261,7 @@ HWTEST_F(ActsCESSubscribeInfoTest, CES_SubscribeInfo_Permission_0200, Function |
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         subscribeInfo.SetPermission(PERMISSIONTEST2);
         if (subscribeInfo.GetPermission() != PERMISSIONTEST2) {
-            printf("CES_SubscribeInfo_Permission_0200 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_SubscribeInfo_Permission_0200 faild ,frequency: " << i;
             result = false;
             break;
         } else {
@@ -270,7 +270,7 @@ HWTEST_F(ActsCESSubscribeInfoTest, CES_SubscribeInfo_Permission_0200, Function |
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscribeInfo_Permission_0200  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscribeInfo_Permission_0200 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -290,7 +290,7 @@ HWTEST_F(ActsCESSubscribeInfoTest, CES_SubscribeInfo_Permission_0300, Function |
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         subscribeInfo.SetPermission(PERMISSIONTEST3);
         if (subscribeInfo.GetPermission() != PERMISSIONTEST3) {
-            printf("CES_SubscribeInfo_Permission_0300 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_SubscribeInfo_Permission_0300 faild ,frequency: " << i;
             result = false;
             break;
         } else {
@@ -299,7 +299,7 @@ HWTEST_F(ActsCESSubscribeInfoTest, CES_SubscribeInfo_Permission_0300, Function |
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscribeInfo_Permission_0300  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscribeInfo_Permission_0300 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -319,7 +319,7 @@ HWTEST_F(ActsCESSubscribeInfoTest, CES_SubscribeInfo_Permission_0400, Function |
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         subscribeInfo.SetPermission(PERMISSIONTEST4);
         if (subscribeInfo.GetPermission() != PERMISSIONTEST4) {
-            printf("CES_SubscribeInfo_Permission_0400 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_SubscribeInfo_Permission_0400 faild ,frequency: " << i;
             result = false;
             break;
         } else {
@@ -328,7 +328,7 @@ HWTEST_F(ActsCESSubscribeInfoTest, CES_SubscribeInfo_Permission_0400, Function |
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscribeInfo_Permission_0400  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscribeInfo_Permission_0400 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -348,7 +348,7 @@ HWTEST_F(ActsCESSubscribeInfoTest, CES_SubscribeInfo_Permission_0500, Function |
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         subscribeInfo.SetPermission(PERMISSIONTEST5);
         if (subscribeInfo.GetPermission() != PERMISSIONTEST5) {
-            printf("CES_SubscribeInfo_Permission_0500 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_SubscribeInfo_Permission_0500 faild ,frequency: " << i;
             result = false;
             break;
         } else {
@@ -357,7 +357,7 @@ HWTEST_F(ActsCESSubscribeInfoTest, CES_SubscribeInfo_Permission_0500, Function |
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscribeInfo_Permission_0500  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscribeInfo_Permission_0500 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -378,7 +378,7 @@ HWTEST_F(ActsCESSubscribeInfoTest, CES_SubscribeInfo_ThreadMode_0100, Function |
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         subscribeInfo.SetThreadMode(CommonEventSubscribeInfo::ThreadMode::HANDLER);
         if (subscribeInfo.GetThreadMode() != CommonEventSubscribeInfo::ThreadMode::HANDLER) {
-            printf("CES_SubscribeInfo_ThreadMode_0100 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_SubscribeInfo_ThreadMode_0100 faild ,frequency: " << i;
             result = false;
             break;
         } else {
@@ -387,7 +387,7 @@ HWTEST_F(ActsCESSubscribeInfoTest, CES_SubscribeInfo_ThreadMode_0100, Function |
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscribeInfo_ThreadMode_0100  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscribeInfo_ThreadMode_0100 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -407,7 +407,7 @@ HWTEST_F(ActsCESSubscribeInfoTest, CES_SubscribeInfo_ThreadMode_0200, Function |
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         subscribeInfo.SetThreadMode(CommonEventSubscribeInfo::ThreadMode::POST);
         if (subscribeInfo.GetThreadMode() != CommonEventSubscribeInfo::ThreadMode::POST) {
-            printf("CES_SubscribeInfo_ThreadMode_0200 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_SubscribeInfo_ThreadMode_0200 faild ,frequency: " << i;
             result = false;
             break;
         } else {
@@ -416,7 +416,7 @@ HWTEST_F(ActsCESSubscribeInfoTest, CES_SubscribeInfo_ThreadMode_0200, Function |
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscribeInfo_ThreadMode_0200  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscribeInfo_ThreadMode_0200 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -437,7 +437,7 @@ HWTEST_F(ActsCESSubscribeInfoTest, CES_SubscribeInfo_ThreadMode_0300, Function |
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         subscribeInfo.SetThreadMode(CommonEventSubscribeInfo::ThreadMode::ASYNC);
         if (subscribeInfo.GetThreadMode() != CommonEventSubscribeInfo::ThreadMode::ASYNC) {
-            printf("CES_SubscribeInfo_ThreadMode_0300 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_SubscribeInfo_ThreadMode_0300 faild ,frequency: " << i;
             result = false;
             break;
         } else {
@@ -446,7 +446,7 @@ HWTEST_F(ActsCESSubscribeInfoTest, CES_SubscribeInfo_ThreadMode_0300, Function |
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscribeInfo_ThreadMode_0300  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscribeInfo_ThreadMode_0300 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -467,7 +467,7 @@ HWTEST_F(ActsCESSubscribeInfoTest, CES_SubscribeInfo_ThreadMode_0400, Function |
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         subscribeInfo.SetThreadMode(CommonEventSubscribeInfo::ThreadMode::BACKGROUND);
         if (subscribeInfo.GetThreadMode() != CommonEventSubscribeInfo::ThreadMode::BACKGROUND) {
-            printf("CES_SubscribeInfo_ThreadMode_0400 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_SubscribeInfo_ThreadMode_0400 faild ,frequency: " << i;
             result = false;
             break;
         } else {
@@ -476,7 +476,7 @@ HWTEST_F(ActsCESSubscribeInfoTest, CES_SubscribeInfo_ThreadMode_0400, Function |
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscribeInfo_ThreadMode_0400  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscribeInfo_ThreadMode_0400 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -496,7 +496,7 @@ HWTEST_F(ActsCESSubscribeInfoTest, CES_SubscribeInfo_DeviceId_0100, Function | M
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         subscribeInfo.SetDeviceId(DEVICEIDTEST1);
         if (subscribeInfo.GetDeviceId() != DEVICEIDTEST1) {
-            printf("CES_SubscribeInfo_DeviceId_0100 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_SubscribeInfo_DeviceId_0100 faild ,frequency: " << i;
             result = false;
             break;
         } else {
@@ -505,7 +505,7 @@ HWTEST_F(ActsCESSubscribeInfoTest, CES_SubscribeInfo_DeviceId_0100, Function | M
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscribeInfo_DeviceId_0100  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscribeInfo_DeviceId_0100 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -525,7 +525,7 @@ HWTEST_F(ActsCESSubscribeInfoTest, CES_SubscribeInfo_DeviceId_0200, Function | M
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         subscribeInfo.SetDeviceId(DEVICEIDTEST2);
         if (subscribeInfo.GetDeviceId() != DEVICEIDTEST2) {
-            printf("CES_SubscribeInfo_DeviceId_0200 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_SubscribeInfo_DeviceId_0200 faild ,frequency: " << i;
             result = false;
             break;
         } else {
@@ -534,7 +534,7 @@ HWTEST_F(ActsCESSubscribeInfoTest, CES_SubscribeInfo_DeviceId_0200, Function | M
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscribeInfo_DeviceId_0200  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscribeInfo_DeviceId_0200 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -554,7 +554,7 @@ HWTEST_F(ActsCESSubscribeInfoTest, CES_SubscribeInfo_DeviceId_0300, Function | M
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         subscribeInfo.SetDeviceId(DEVICEIDTEST3);
         if (subscribeInfo.GetDeviceId() != DEVICEIDTEST3) {
-            printf("CES_SubscribeInfo_DeviceId_0300 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_SubscribeInfo_DeviceId_0300 faild ,frequency: " << i;
             result = false;
             break;
         } else {
@@ -563,7 +563,7 @@ HWTEST_F(ActsCESSubscribeInfoTest, CES_SubscribeInfo_DeviceId_0300, Function | M
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscribeInfo_DeviceId_0300  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscribeInfo_DeviceId_0300 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -583,7 +583,7 @@ HWTEST_F(ActsCESSubscribeInfoTest, CES_SubscribeInfo_DeviceId_0400, Function | M
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         subscribeInfo.SetDeviceId(DEVICEIDTEST4);
         if (subscribeInfo.GetDeviceId() != DEVICEIDTEST4) {
-            printf("CES_SubscribeInfo_DeviceId_0400 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_SubscribeInfo_DeviceId_0400 faild ,frequency: " << i;
             result = false;
             break;
         } else {
@@ -592,7 +592,7 @@ HWTEST_F(ActsCESSubscribeInfoTest, CES_SubscribeInfo_DeviceId_0400, Function | M
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscribeInfo_DeviceId_0400  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscribeInfo_DeviceId_0400 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -612,7 +612,7 @@ HWTEST_F(ActsCESSubscribeInfoTest, CES_SubscribeInfo_DeviceId_0500, Function | M
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         subscribeInfo.SetDeviceId(DEVICEIDTEST5);
         if (subscribeInfo.GetDeviceId() != DEVICEIDTEST5) {
-            printf("CES_SubscribeInfo_DeviceId_0500 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_SubscribeInfo_DeviceId_0500 faild ,frequency: " << i;
             result = false;
             break;
         } else {
@@ -621,7 +621,7 @@ HWTEST_F(ActsCESSubscribeInfoTest, CES_SubscribeInfo_DeviceId_0500, Function | M
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscribeInfo_DeviceId_0500  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscribeInfo_DeviceId_0500 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -640,7 +640,7 @@ HWTEST_F(ActsCESSubscribeInfoTest, CES_SubscribeInfo_GetMatchingSkills_0100, Fun
         matchingSkills.AddEvent(eventName);
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         if (subscribeInfo.GetMatchingSkills().HasEvent(eventName) == false) {
-            printf("CES_SubscribeInfo_GetMatchingSkills_0100 faild ,this is %d round\n", i);
+            GTEST_LOG_(INFO) << "CES_SubscribeInfo_GetMatchingSkills_0100 faild ,frequency: " << i;
             result = false;
             break;
         } else {
@@ -649,7 +649,7 @@ HWTEST_F(ActsCESSubscribeInfoTest, CES_SubscribeInfo_GetMatchingSkills_0100, Fun
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscribeInfo_GetMatchingSkills_0100  : %d\n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscribeInfo_GetMatchingSkills_0100 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
