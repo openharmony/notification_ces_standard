@@ -55,9 +55,10 @@ private:
 #define PRINT_LOG(LEVEL, Level, fmt, ...)                    \
     if (EventLogWrapper::JudgeLevel(EventLogLevel::LEVEL))   \
     OHOS::HiviewDFX::HiLog::Level(Event_LABEL,               \
-        "[%{public}s(%{public}s)] " fmt,                     \
+        "[%{public}s:(%{public}s):%{public}d] " fmt,         \
         EventLogWrapper::GetBriefFileName(__FILE__).c_str(), \
         __FUNCTION__,                                        \
+        __LINE__,                                            \
         ##__VA_ARGS__)
 
 #define EVENT_LOGD(fmt, ...) PRINT_LOG(DEBUG, Debug, fmt, ##__VA_ARGS__)

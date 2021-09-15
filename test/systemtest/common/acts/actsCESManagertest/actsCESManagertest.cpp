@@ -15,6 +15,7 @@
 
 #include <iostream>
 #include <string>
+#include <thread>
 
 #include "common_event_manager.h"
 #define private public
@@ -104,9 +105,6 @@ public:
     void SetUp();
     void TearDown();
 
-    bool SubscribeCommonEventTest(const CommonEventSubscribeInfo &subscriberInfo);
-    bool UnsubscribeCommonEventTest(const CommonEventSubscribeInfo &subscriberInfo);
-    bool PublishCommonEventTest(const std::string &eventName);
     static StressTestLevel stLevel_;
 };
 StressTestLevel ActsCESManagertest::stLevel_{};
@@ -130,24 +128,6 @@ void ActsCESManagertest::SetUp()
 void ActsCESManagertest::TearDown()
 {}
 
-bool ActsCESManagertest::SubscribeCommonEventTest(const CommonEventSubscribeInfo &subscriberInfo)
-{
-    bool result = false;
-    auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscriberInfo);
-    result = CommonEventManager::SubscribeCommonEvent(subscriberPtr);
-    return result;
-}
-
-bool ActsCESManagertest::UnsubscribeCommonEventTest(const CommonEventSubscribeInfo &subscriberInfo)
-{
-    bool result = false;
-    auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscriberInfo);
-    if (CommonEventManager::SubscribeCommonEvent(subscriberPtr)) {
-        result = CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
-    }
-    return result;
-}
-
 /*
  * @tc.number: CES_SubscriptionEvent_0100
  * @tc.name: SubscribeCommonEvent
@@ -161,22 +141,22 @@ HWTEST_F(ActsCESManagertest, CES_SubscriptionEvent_0100, Function | MediumTest |
     for (int i = 1; i <= stLevel_.CESLevel; i++) {
         matchingSkills.AddEvent(eventName);
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
-
-        if (!SubscribeCommonEventTest(subscribeInfo)) {
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        if (!CommonEventManager::SubscribeCommonEvent(subscriberPtr)) {
             result = false;
-            printf("CES_SubscriptionEvent_0100 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SubscriptionEvent_0100 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
         matchingSkills.RemoveEvent(eventName);
-        UnsubscribeCommonEventTest(subscribeInfo);
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscriptionEvent_0100 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscriptionEvent_0100 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
-}  // namespace EventFwk
+}
 
 /*
  * @tc.number: CES_SubscriptionEvent_0200
@@ -191,18 +171,19 @@ HWTEST_F(ActsCESManagertest, CES_SubscriptionEvent_0200, Function | MediumTest |
     for (int i = 1; i <= stLevel_.CESLevel; i++) {
         matchingSkills.AddEvent(eventName);
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
-        if (!SubscribeCommonEventTest(subscribeInfo)) {
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        if (!CommonEventManager::SubscribeCommonEvent(subscriberPtr)) {
             result = false;
-            printf("CES_SubscriptionEvent_0200 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SubscriptionEvent_0200 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
         matchingSkills.RemoveEvent(eventName);
-        UnsubscribeCommonEventTest(subscribeInfo);
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscriptionEvent_0200 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscriptionEvent_0200 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -220,18 +201,19 @@ HWTEST_F(ActsCESManagertest, CES_SubscriptionEvent_0300, Function | MediumTest |
     for (int i = 1; i <= stLevel_.CESLevel; i++) {
         matchingSkills.AddEvent(eventName);
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
-        if (!SubscribeCommonEventTest(subscribeInfo)) {
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        if (!CommonEventManager::SubscribeCommonEvent(subscriberPtr)) {
             result = false;
-            printf("CES_SubscriptionEvent_0300 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SubscriptionEvent_0300 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
         matchingSkills.RemoveEvent(eventName);
-        UnsubscribeCommonEventTest(subscribeInfo);
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscriptionEvent_0300 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscriptionEvent_0300 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -239,7 +221,7 @@ HWTEST_F(ActsCESManagertest, CES_SubscriptionEvent_0300, Function | MediumTest |
 /*
  * @tc.number: CES_SubscriptionEvent_0400
  * @tc.name: SubscribeCommonEvent
- * @tc.desc: Verify the function when the input string is empty
+ * @tc.desc: Verify the function when the input string is points
  */
 HWTEST_F(ActsCESManagertest, CES_SubscriptionEvent_0400, Function | MediumTest | Level2)
 {
@@ -249,18 +231,19 @@ HWTEST_F(ActsCESManagertest, CES_SubscriptionEvent_0400, Function | MediumTest |
     for (int i = 1; i <= stLevel_.CESLevel; i++) {
         matchingSkills.AddEvent(eventName);
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
-        if (!SubscribeCommonEventTest(subscribeInfo)) {
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        if (!CommonEventManager::SubscribeCommonEvent(subscriberPtr)) {
             result = false;
-            printf("CES_SubscriptionEvent_0400 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SubscriptionEvent_0400 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
         matchingSkills.RemoveEvent(eventName);
-        UnsubscribeCommonEventTest(subscribeInfo);
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscriptionEvent_0400 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscriptionEvent_0400 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -278,18 +261,19 @@ HWTEST_F(ActsCESManagertest, CES_SubscriptionEvent_0500, Function | MediumTest |
     for (int i = 1; i <= stLevel_.CESLevel; i++) {
         matchingSkills.AddEvent(eventName);
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
-        if (!SubscribeCommonEventTest(subscribeInfo)) {
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        if (!CommonEventManager::SubscribeCommonEvent(subscriberPtr)) {
             result = false;
-            printf("CES_SubscriptionEvent_0500 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SubscriptionEvent_0500 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
         matchingSkills.RemoveEvent(eventName);
-        UnsubscribeCommonEventTest(subscribeInfo);
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscriptionEvent_0500 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscriptionEvent_0500 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -308,18 +292,19 @@ HWTEST_F(ActsCESManagertest, CES_SubscriptionEvent_0600, Function | MediumTest |
         matchingSkills.AddEvent(eventName);
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         subscribeInfo.SetPriority(100);
-        if (!SubscribeCommonEventTest(subscribeInfo)) {
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        if (!CommonEventManager::SubscribeCommonEvent(subscriberPtr)) {
             result = false;
-            printf("CES_SubscriptionEvent_0600 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SubscriptionEvent_0600 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
         matchingSkills.RemoveEvent(eventName);
-        UnsubscribeCommonEventTest(subscribeInfo);
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscriptionEvent_0600 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscriptionEvent_0600 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -338,19 +323,20 @@ HWTEST_F(ActsCESManagertest, CES_SubscriptionEvent_0700, Function | MediumTest |
         matchingSkills.AddEvent(eventName);
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         subscribeInfo.SetPriority(100);
-        EXPECT_TRUE(SubscribeCommonEventTest(subscribeInfo));
-        if (!UnsubscribeCommonEventTest(subscribeInfo)) {
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberPtr));
+        if (!CommonEventManager::UnSubscribeCommonEvent(subscriberPtr)) {
             result = false;
-            printf("CES_SubscriptionEvent_0700 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SubscriptionEvent_0700 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
         matchingSkills.RemoveEvent(eventName);
-        UnsubscribeCommonEventTest(subscribeInfo);
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscriptionEvent_0700 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscriptionEvent_0700 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -372,19 +358,22 @@ HWTEST_F(ActsCESManagertest, CES_SubscriptionEvent_0800, Function | MediumTest |
     for (int i = 1; i <= stLevel_.CESLevel; i++) {
         matchingSkills1.AddEvent(eventName1);
         CommonEventSubscribeInfo subscribeInfo1(matchingSkills1);
-        bool result1 = SubscribeCommonEventTest(subscribeInfo1);
+        auto subscriberPtr1 = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo1);
+        bool result1 = CommonEventManager::SubscribeCommonEvent(subscriberPtr1);
 
         matchingSkills2.AddEvent(eventName2);
         CommonEventSubscribeInfo subscribeInfo2(matchingSkills2);
-        bool result2 = SubscribeCommonEventTest(subscribeInfo2);
+        auto subscriberPtr2 = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo2);
+        bool result2 = CommonEventManager::SubscribeCommonEvent(subscriberPtr2);
 
         matchingSkills3.AddEvent(eventName3);
         CommonEventSubscribeInfo subscribeInfo3(matchingSkills3);
-        bool result3 = SubscribeCommonEventTest(subscribeInfo3);
+        auto subscriberPtr3 = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo3);
+        bool result3 = CommonEventManager::SubscribeCommonEvent(subscriberPtr3);
 
         if (!result1 || !result2 || !result3) {
             result = false;
-            printf("CES_SubscriptionEvent_0800 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SubscriptionEvent_0800 faild, frequency: " << i;
             break;
         } else {
             result = true;
@@ -392,12 +381,12 @@ HWTEST_F(ActsCESManagertest, CES_SubscriptionEvent_0800, Function | MediumTest |
         matchingSkills1.RemoveEvent(eventName1);
         matchingSkills2.RemoveEvent(eventName2);
         matchingSkills3.RemoveEvent(eventName3);
-        UnsubscribeCommonEventTest(subscribeInfo1);
-        UnsubscribeCommonEventTest(subscribeInfo2);
-        UnsubscribeCommonEventTest(subscribeInfo3);
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr1);
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr2);
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr3);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscriptionEvent_0800 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscriptionEvent_0800 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -419,19 +408,22 @@ HWTEST_F(ActsCESManagertest, CES_SubscriptionEvent_0900, Function | MediumTest |
     for (int i = 1; i <= stLevel_.CESLevel; i++) {
         matchingSkills1.AddEvent(eventName1);
         CommonEventSubscribeInfo subscribeInfo1(matchingSkills1);
-        bool result1 = SubscribeCommonEventTest(subscribeInfo1);
+        auto subscriberPtr1 = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo1);
+        bool result1 = CommonEventManager::SubscribeCommonEvent(subscriberPtr1);
 
         matchingSkills2.AddEvent(eventName2);
         CommonEventSubscribeInfo subscribeInfo2(matchingSkills2);
-        bool result2 = SubscribeCommonEventTest(subscribeInfo2);
+        auto subscriberPtr2 = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo2);
+        bool result2 = CommonEventManager::SubscribeCommonEvent(subscriberPtr2);
 
         matchingSkills3.AddEvent(eventName3);
         CommonEventSubscribeInfo subscribeInfo3(matchingSkills3);
-        bool result3 = SubscribeCommonEventTest(subscribeInfo3);
+        auto subscriberPtr3 = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo3);
+        bool result3 = CommonEventManager::SubscribeCommonEvent(subscriberPtr3);
 
         if (!result1 || !result2 || !result3) {
             result = false;
-            printf("CES_SubscriptionEvent_0900 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SubscriptionEvent_0900 faild, frequency: " << i;
             break;
         } else {
             result = true;
@@ -439,12 +431,12 @@ HWTEST_F(ActsCESManagertest, CES_SubscriptionEvent_0900, Function | MediumTest |
         matchingSkills1.RemoveEvent(eventName1);
         matchingSkills2.RemoveEvent(eventName2);
         matchingSkills3.RemoveEvent(eventName3);
-        UnsubscribeCommonEventTest(subscribeInfo1);
-        UnsubscribeCommonEventTest(subscribeInfo2);
-        UnsubscribeCommonEventTest(subscribeInfo3);
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr1);
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr2);
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr3);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscriptionEvent_0900 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscriptionEvent_0900 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -466,19 +458,22 @@ HWTEST_F(ActsCESManagertest, CES_SubscriptionEvent_1000, Function | MediumTest |
     for (int i = 1; i <= stLevel_.CESLevel; i++) {
         matchingSkills1.AddEvent(eventName1);
         CommonEventSubscribeInfo subscribeInfo1(matchingSkills1);
-        bool result1 = SubscribeCommonEventTest(subscribeInfo1);
+        auto subscriberPtr1 = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo1);
+        bool result1 = CommonEventManager::SubscribeCommonEvent(subscriberPtr1);
 
         matchingSkills2.AddEvent(eventName2);
         CommonEventSubscribeInfo subscribeInfo2(matchingSkills2);
-        bool result2 = SubscribeCommonEventTest(subscribeInfo2);
+        auto subscriberPtr2 = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo2);
+        bool result2 = CommonEventManager::SubscribeCommonEvent(subscriberPtr2);
 
         matchingSkills3.AddEvent(eventName3);
         CommonEventSubscribeInfo subscribeInfo3(matchingSkills3);
-        bool result3 = SubscribeCommonEventTest(subscribeInfo3);
+        auto subscriberPtr3 = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo3);
+        bool result3 = CommonEventManager::SubscribeCommonEvent(subscriberPtr3);
 
         if (!result1 || !result2 || !result3) {
             result = false;
-            printf("CES_SubscriptionEvent_1000 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SubscriptionEvent_1000 faild, frequency: " << i;
             break;
         } else {
             result = true;
@@ -486,12 +481,12 @@ HWTEST_F(ActsCESManagertest, CES_SubscriptionEvent_1000, Function | MediumTest |
         matchingSkills1.RemoveEvent(eventName1);
         matchingSkills2.RemoveEvent(eventName2);
         matchingSkills3.RemoveEvent(eventName3);
-        UnsubscribeCommonEventTest(subscribeInfo1);
-        UnsubscribeCommonEventTest(subscribeInfo2);
-        UnsubscribeCommonEventTest(subscribeInfo3);
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr1);
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr2);
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr3);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscriptionEvent_1000 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscriptionEvent_1000 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -511,26 +506,27 @@ HWTEST_F(ActsCESManagertest, CES_SubscriptionEvent_1100, Function | MediumTest |
     for (int i = 1; i <= stLevel_.CESLevel; i++) {
         matchingSkills1.AddEvent(eventName1);
         CommonEventSubscribeInfo subscribeInfo1(matchingSkills1);
-        bool result1 = SubscribeCommonEventTest(subscribeInfo1);
+        auto subscriberPtr1 = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo1);
+        bool result1 = CommonEventManager::SubscribeCommonEvent(subscriberPtr1);
 
         matchingSkills2.AddEvent(eventName2);
         CommonEventSubscribeInfo subscribeInfo2(matchingSkills2);
-        bool result2 = SubscribeCommonEventTest(subscribeInfo2);
-
+        auto subscriberPtr2 = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo2);
+        bool result2 = CommonEventManager::SubscribeCommonEvent(subscriberPtr2);
         if (!result1 || !result2) {
             result = false;
-            printf("CES_SubscriptionEvent_1100 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SubscriptionEvent_1100 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
         matchingSkills1.RemoveEvent(eventName1);
         matchingSkills2.RemoveEvent(eventName2);
-        UnsubscribeCommonEventTest(subscribeInfo1);
-        UnsubscribeCommonEventTest(subscribeInfo2);
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr1);
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr2);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscriptionEvent_1100 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscriptionEvent_1100 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -552,19 +548,22 @@ HWTEST_F(ActsCESManagertest, CES_SubscriptionEvent_1200, Function | MediumTest |
     for (int i = 1; i <= stLevel_.CESLevel; i++) {
         matchingSkills1.AddEvent(eventName1);
         CommonEventSubscribeInfo subscribeInfo1(matchingSkills1);
-        bool result1 = SubscribeCommonEventTest(subscribeInfo1);
+        auto subscriberPtr1 = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo1);
+        bool result1 = CommonEventManager::SubscribeCommonEvent(subscriberPtr1);
 
         matchingSkills2.AddEvent(eventName2);
         CommonEventSubscribeInfo subscribeInfo2(matchingSkills2);
-        bool result2 = SubscribeCommonEventTest(subscribeInfo2);
+        auto subscriberPtr2 = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo2);
+        bool result2 = CommonEventManager::SubscribeCommonEvent(subscriberPtr2);
 
         matchingSkills3.AddEvent(eventName3);
         CommonEventSubscribeInfo subscribeInfo3(matchingSkills3);
-        bool result3 = SubscribeCommonEventTest(subscribeInfo3);
+        auto subscriberPtr3 = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo3);
+        bool result3 = CommonEventManager::SubscribeCommonEvent(subscriberPtr3);
 
         if (!result1 || !result2 || !result3) {
             result = false;
-            printf("CES_SubscriptionEvent_1200 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SubscriptionEvent_1200 faild, frequency: " << i;
             break;
         } else {
             result = true;
@@ -572,12 +571,12 @@ HWTEST_F(ActsCESManagertest, CES_SubscriptionEvent_1200, Function | MediumTest |
         matchingSkills1.RemoveEvent(eventName1);
         matchingSkills2.RemoveEvent(eventName2);
         matchingSkills3.RemoveEvent(eventName3);
-        UnsubscribeCommonEventTest(subscribeInfo1);
-        UnsubscribeCommonEventTest(subscribeInfo2);
-        UnsubscribeCommonEventTest(subscribeInfo3);
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr1);
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr2);
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr3);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscriptionEvent_1200 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscriptionEvent_1200 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -595,10 +594,11 @@ HWTEST_F(ActsCESManagertest, CES_SubscriptionEvent_1300, Function | MediumTest |
     for (int i = 1; i <= stLevel_.CESLevel; i++) {
         matchingSkills.AddEvent(eventName);
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
-        EXPECT_TRUE(SubscribeCommonEventTest(subscribeInfo));
-        if (!UnsubscribeCommonEventTest(subscribeInfo)) {
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberPtr));
+        if (!CommonEventManager::UnSubscribeCommonEvent(subscriberPtr)) {
             result = false;
-            printf("CES_SubscriptionEvent_1300 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SubscriptionEvent_1300 faild, frequency: " << i;
             break;
         } else {
             result = true;
@@ -606,7 +606,7 @@ HWTEST_F(ActsCESManagertest, CES_SubscriptionEvent_1300, Function | MediumTest |
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscriptionEvent_1300 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscriptionEvent_1300 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -624,10 +624,11 @@ HWTEST_F(ActsCESManagertest, CES_SubscriptionEvent_1400, Function | MediumTest |
     for (int i = 1; i <= stLevel_.CESLevel; i++) {
         matchingSkills.AddEvent(eventName);
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
-        EXPECT_TRUE(SubscribeCommonEventTest(subscribeInfo));
-        if (!UnsubscribeCommonEventTest(subscribeInfo)) {
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberPtr));
+        if (!CommonEventManager::UnSubscribeCommonEvent(subscriberPtr)) {
             result = false;
-            printf("CES_SubscriptionEvent_1400 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SubscriptionEvent_1400 faild, frequency: " << i;
             break;
         } else {
             result = true;
@@ -635,7 +636,7 @@ HWTEST_F(ActsCESManagertest, CES_SubscriptionEvent_1400, Function | MediumTest |
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscriptionEvent_1400 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscriptionEvent_1400 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -653,10 +654,11 @@ HWTEST_F(ActsCESManagertest, CES_SubscriptionEvent_1500, Function | MediumTest |
     for (int i = 1; i <= stLevel_.CESLevel; i++) {
         matchingSkills.AddEvent(eventName);
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
-        EXPECT_TRUE(SubscribeCommonEventTest(subscribeInfo));
-        if (!UnsubscribeCommonEventTest(subscribeInfo)) {
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberPtr));
+        if (!CommonEventManager::UnSubscribeCommonEvent(subscriberPtr)) {
             result = false;
-            printf("CES_SubscriptionEvent_1500 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SubscriptionEvent_1500 faild, frequency: " << i;
             break;
         } else {
             result = true;
@@ -664,7 +666,7 @@ HWTEST_F(ActsCESManagertest, CES_SubscriptionEvent_1500, Function | MediumTest |
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscriptionEvent_1500 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscriptionEvent_1500 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -672,7 +674,7 @@ HWTEST_F(ActsCESManagertest, CES_SubscriptionEvent_1500, Function | MediumTest |
 /*
  * @tc.number: CES_SubscriptionEvent_1600
  * @tc.name: UnSubscribeCommonEvent
- * @tc.desc: Verify the function when the input string is quotes
+ * @tc.desc: Verify the function when the input string is points
  */
 HWTEST_F(ActsCESManagertest, CES_SubscriptionEvent_1600, Function | MediumTest | Level2)
 {
@@ -682,10 +684,11 @@ HWTEST_F(ActsCESManagertest, CES_SubscriptionEvent_1600, Function | MediumTest |
     for (int i = 1; i <= stLevel_.CESLevel; i++) {
         matchingSkills.AddEvent(eventName);
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
-        EXPECT_TRUE(SubscribeCommonEventTest(subscribeInfo));
-        if (!UnsubscribeCommonEventTest(subscribeInfo)) {
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberPtr));
+        if (!CommonEventManager::UnSubscribeCommonEvent(subscriberPtr)) {
             result = false;
-            printf("CES_SubscriptionEvent_1600 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SubscriptionEvent_1600 faild, frequency: " << i;
             break;
         } else {
             result = true;
@@ -693,7 +696,7 @@ HWTEST_F(ActsCESManagertest, CES_SubscriptionEvent_1600, Function | MediumTest |
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscriptionEvent_1600 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscriptionEvent_1600 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -711,10 +714,11 @@ HWTEST_F(ActsCESManagertest, CES_SubscriptionEvent_1700, Function | MediumTest |
     for (int i = 1; i <= stLevel_.CESLevel; i++) {
         matchingSkills.AddEvent(eventName);
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
-        EXPECT_TRUE(SubscribeCommonEventTest(subscribeInfo));
-        if (!UnsubscribeCommonEventTest(subscribeInfo)) {
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberPtr));
+        if (!CommonEventManager::UnSubscribeCommonEvent(subscriberPtr)) {
             result = false;
-            printf("CES_SubscriptionEvent_1700 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SubscriptionEvent_1700 faild, frequency: " << i;
             break;
         } else {
             result = true;
@@ -722,7 +726,7 @@ HWTEST_F(ActsCESManagertest, CES_SubscriptionEvent_1700, Function | MediumTest |
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscriptionEvent_1700 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscriptionEvent_1700 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -745,27 +749,30 @@ HWTEST_F(ActsCESManagertest, CES_SubscriptionEvent_1800, Function | MediumTest |
         bool result1 = false;
         matchingSkills1.AddEvent(eventName1);
         CommonEventSubscribeInfo subscribeInfo1(matchingSkills1);
-        if (SubscribeCommonEventTest(subscribeInfo1)) {
-            result1 = UnsubscribeCommonEventTest(subscribeInfo1);
+        auto subscriberPtr1 = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo1);
+        if (CommonEventManager::SubscribeCommonEvent(subscriberPtr1)) {
+            result1 = CommonEventManager::UnSubscribeCommonEvent(subscriberPtr1);
         }
 
         bool result2 = false;
         matchingSkills2.AddEvent(eventName2);
         CommonEventSubscribeInfo subscribeInfo2(matchingSkills2);
-        if (SubscribeCommonEventTest(subscribeInfo2)) {
-            result2 = UnsubscribeCommonEventTest(subscribeInfo2);
+        auto subscriberPtr2 = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo2);
+        if (CommonEventManager::SubscribeCommonEvent(subscriberPtr2)) {
+            result2 = CommonEventManager::UnSubscribeCommonEvent(subscriberPtr2);
         }
 
         bool result3 = false;
         matchingSkills3.AddEvent(eventName3);
         CommonEventSubscribeInfo subscribeInfo3(matchingSkills3);
-        if (SubscribeCommonEventTest(subscribeInfo3)) {
-            result3 = UnsubscribeCommonEventTest(subscribeInfo3);
+        auto subscriberPtr3 = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo3);
+        if (CommonEventManager::SubscribeCommonEvent(subscriberPtr3)) {
+            result3 = CommonEventManager::UnSubscribeCommonEvent(subscriberPtr3);
         }
 
         if (!result1 || !result2 || !result3) {
             result = false;
-            printf("CES_SubscriptionEvent_1800 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SubscriptionEvent_1800 faild, frequency: " << i;
             break;
         } else {
             result = true;
@@ -775,7 +782,7 @@ HWTEST_F(ActsCESManagertest, CES_SubscriptionEvent_1800, Function | MediumTest |
         matchingSkills3.RemoveEvent(eventName3);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscriptionEvent_1800 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscriptionEvent_1800 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -796,20 +803,22 @@ HWTEST_F(ActsCESManagertest, CES_SubscriptionEvent_1900, Function | MediumTest |
         bool result1 = false;
         matchingSkills1.AddEvent(eventName1);
         CommonEventSubscribeInfo subscribeInfo1(matchingSkills1);
-        if (SubscribeCommonEventTest(subscribeInfo1)) {
-            result1 = UnsubscribeCommonEventTest(subscribeInfo1);
+        auto subscriberPtr1 = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo1);
+        if (CommonEventManager::SubscribeCommonEvent(subscriberPtr1)) {
+            result1 = CommonEventManager::UnSubscribeCommonEvent(subscriberPtr1);
         }
 
         bool result2 = false;
         matchingSkills2.AddEvent(eventName2);
         CommonEventSubscribeInfo subscribeInfo2(matchingSkills2);
-        if (SubscribeCommonEventTest(subscribeInfo2)) {
-            result2 = UnsubscribeCommonEventTest(subscribeInfo2);
+        auto subscriberPtr2 = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo2);
+        if (CommonEventManager::SubscribeCommonEvent(subscriberPtr2)) {
+            result2 = CommonEventManager::UnSubscribeCommonEvent(subscriberPtr2);
         }
 
         if (!result1 || !result2) {
             result = false;
-            printf("CES_SubscriptionEvent_1900 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SubscriptionEvent_1900 faild, frequency: " << i;
             break;
         } else {
             result = true;
@@ -818,7 +827,7 @@ HWTEST_F(ActsCESManagertest, CES_SubscriptionEvent_1900, Function | MediumTest |
         matchingSkills2.RemoveEvent(eventName2);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscriptionEvent_1900 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscriptionEvent_1900 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -836,41 +845,45 @@ HWTEST_F(ActsCESManagertest, CES_SubscriptionEvent_2000, Function | MediumTest |
     std::string eventName3 = "";
     MatchingSkills matchingSkills1;
     MatchingSkills matchingSkills2;
+    MatchingSkills matchingSkills3;
     for (int i = 1; i <= stLevel_.CESLevel; i++) {
         bool result1 = false;
         matchingSkills1.AddEvent(eventName1);
         CommonEventSubscribeInfo subscribeInfo1(matchingSkills1);
-        if (SubscribeCommonEventTest(subscribeInfo1)) {
-            result1 = UnsubscribeCommonEventTest(subscribeInfo1);
+        auto subscriberPtr1 = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo1);
+        if (CommonEventManager::SubscribeCommonEvent(subscriberPtr1)) {
+            result1 = CommonEventManager::UnSubscribeCommonEvent(subscriberPtr1);
         }
 
         bool result2 = false;
         matchingSkills2.AddEvent(eventName2);
         CommonEventSubscribeInfo subscribeInfo2(matchingSkills2);
-        if (SubscribeCommonEventTest(subscribeInfo2)) {
-            result2 = UnsubscribeCommonEventTest(subscribeInfo2);
+        auto subscriberPtr2 = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo2);
+        if (CommonEventManager::SubscribeCommonEvent(subscriberPtr2)) {
+            result2 = CommonEventManager::UnSubscribeCommonEvent(subscriberPtr2);
         }
 
         bool result3 = false;
-        MatchingSkills matchingSkills3;
         matchingSkills3.AddEvent(eventName3);
         CommonEventSubscribeInfo subscribeInfo3(matchingSkills3);
-        if (SubscribeCommonEventTest(subscribeInfo3)) {
-            result3 = UnsubscribeCommonEventTest(subscribeInfo3);
+        auto subscriberPtr3 = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo3);
+        if (CommonEventManager::SubscribeCommonEvent(subscriberPtr3)) {
+            result3 = CommonEventManager::UnSubscribeCommonEvent(subscriberPtr3);
         }
 
         if (!result1 || !result2 || !result3) {
             result = false;
-            printf("CES_SubscriptionEvent_2000 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SubscriptionEvent_2000 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
         matchingSkills1.RemoveEvent(eventName1);
         matchingSkills2.RemoveEvent(eventName2);
+        matchingSkills3.RemoveEvent(eventName3);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscriptionEvent_2000 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscriptionEvent_2000 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -888,41 +901,45 @@ HWTEST_F(ActsCESManagertest, CES_SubscriptionEvent_2100, Function | MediumTest |
     std::string eventName3 = "TESTEVENT4";
     MatchingSkills matchingSkills1;
     MatchingSkills matchingSkills2;
+    MatchingSkills matchingSkills3;
     for (int i = 1; i <= stLevel_.CESLevel; i++) {
+        bool result1 = false;
         matchingSkills1.AddEvent(eventName1);
         CommonEventSubscribeInfo subscribeInfo1(matchingSkills1);
-        bool result1 = false;
-        if (SubscribeCommonEventTest(subscribeInfo1)) {
-            result1 = UnsubscribeCommonEventTest(subscribeInfo1);
+        auto subscriberPtr1 = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo1);
+        if (CommonEventManager::SubscribeCommonEvent(subscriberPtr1)) {
+            result1 = CommonEventManager::UnSubscribeCommonEvent(subscriberPtr1);
         }
 
+        bool result2 = false;
         matchingSkills2.AddEvent(eventName2);
         CommonEventSubscribeInfo subscribeInfo2(matchingSkills2);
-        bool result2 = false;
-        if (SubscribeCommonEventTest(subscribeInfo2)) {
-            result2 = UnsubscribeCommonEventTest(subscribeInfo2);
+        auto subscriberPtr2 = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo2);
+        if (CommonEventManager::SubscribeCommonEvent(subscriberPtr2)) {
+            result2 = CommonEventManager::UnSubscribeCommonEvent(subscriberPtr2);
         }
 
-        MatchingSkills matchingSkills3;
+        bool result3 = false;
         matchingSkills3.AddEvent(eventName3);
         CommonEventSubscribeInfo subscribeInfo3(matchingSkills3);
-        bool result3 = false;
-        if (SubscribeCommonEventTest(subscribeInfo3)) {
-            result3 = UnsubscribeCommonEventTest(subscribeInfo3);
+        auto subscriberPtr3 = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo3);
+        if (CommonEventManager::SubscribeCommonEvent(subscriberPtr3)) {
+            result3 = CommonEventManager::UnSubscribeCommonEvent(subscriberPtr3);
         }
 
         if (!result1 || !result2 || !result3) {
             result = false;
-            printf("CES_SubscriptionEvent_2100 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SubscriptionEvent_2100 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
         matchingSkills1.RemoveEvent(eventName1);
         matchingSkills2.RemoveEvent(eventName2);
+        matchingSkills3.RemoveEvent(eventName3);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscriptionEvent_2100 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscriptionEvent_2100 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -942,30 +959,33 @@ HWTEST_F(ActsCESManagertest, CES_SubscriptionEvent_2200, Function | MediumTest |
     MatchingSkills matchingSkills2;
     MatchingSkills matchingSkills3;
     for (int i = 1; i <= stLevel_.CESLevel; i++) {
+        bool result1 = false;
         matchingSkills1.AddEvent(eventName1);
         CommonEventSubscribeInfo subscribeInfo1(matchingSkills1);
-        bool result1 = false;
-        if (SubscribeCommonEventTest(subscribeInfo1)) {
-            result1 = UnsubscribeCommonEventTest(subscribeInfo1);
+        auto subscriberPtr1 = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo1);
+        if (CommonEventManager::SubscribeCommonEvent(subscriberPtr1)) {
+            result1 = CommonEventManager::UnSubscribeCommonEvent(subscriberPtr1);
         }
 
+        bool result2 = false;
         matchingSkills2.AddEvent(eventName2);
         CommonEventSubscribeInfo subscribeInfo2(matchingSkills2);
-        bool result2 = false;
-        if (SubscribeCommonEventTest(subscribeInfo2)) {
-            result2 = UnsubscribeCommonEventTest(subscribeInfo2);
+        auto subscriberPtr2 = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo2);
+        if (CommonEventManager::SubscribeCommonEvent(subscriberPtr2)) {
+            result2 = CommonEventManager::UnSubscribeCommonEvent(subscriberPtr2);
         }
 
+        bool result3 = false;
         matchingSkills3.AddEvent(eventName3);
         CommonEventSubscribeInfo subscribeInfo3(matchingSkills3);
-        bool result3 = false;
-        if (SubscribeCommonEventTest(subscribeInfo3)) {
-            result3 = UnsubscribeCommonEventTest(subscribeInfo3);
+        auto subscriberPtr3 = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo3);
+        if (CommonEventManager::SubscribeCommonEvent(subscriberPtr3)) {
+            result3 = CommonEventManager::UnSubscribeCommonEvent(subscriberPtr3);
         }
 
         if (!result1 || !result2 || !result3) {
             result = false;
-            printf("CES_SubscriptionEvent_2200 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SubscriptionEvent_2200 faild, frequency: " << i;
             break;
         } else {
             result = true;
@@ -975,7 +995,7 @@ HWTEST_F(ActsCESManagertest, CES_SubscriptionEvent_2200, Function | MediumTest |
         matchingSkills3.RemoveEvent(eventName3);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscriptionEvent_2200 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscriptionEvent_2200 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -997,19 +1017,21 @@ HWTEST_F(ActsCESManagertest, CES_SendEvent_0100, Function | MediumTest | Level1)
         wantTest.SetAction(eventAction);
         CommonEventData commonEventData(wantTest);
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
-        EXPECT_TRUE(SubscribeCommonEventTest(subscribeInfo));
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberPtr));
         if (!CommonEventManager::PublishCommonEvent(commonEventData)) {
             result = false;
-            printf("CES_SendEvent_0100 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SendEvent_0100 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
-        UnsubscribeCommonEventTest(subscribeInfo);
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SendEvent_0100 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SendEvent_0100 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -1033,19 +1055,21 @@ HWTEST_F(ActsCESManagertest, CES_SendEvent_0200, Function | MediumTest | Level1)
         wantTest.AddEntity(entity);
         CommonEventData commonEventData(wantTest);
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
-        EXPECT_TRUE(SubscribeCommonEventTest(subscribeInfo));
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberPtr));
         if (!CommonEventManager::PublishCommonEvent(commonEventData)) {
             result = false;
-            printf("CES_SendEvent_0200 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SendEvent_0200 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
-        UnsubscribeCommonEventTest(subscribeInfo);
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SendEvent_0200 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SendEvent_0200 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -1068,19 +1092,21 @@ HWTEST_F(ActsCESManagertest, CES_SendEvent_0300, Function | MediumTest | Level1)
         wantTest.SetAction(eventAction);
         CommonEventData commonEventData(wantTest);
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
-        EXPECT_TRUE(SubscribeCommonEventTest(subscribeInfo));
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberPtr));
         if (!CommonEventManager::PublishCommonEvent(commonEventData)) {
             result = false;
-            printf("CES_SendEvent_0300 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SendEvent_0300 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
-        UnsubscribeCommonEventTest(subscribeInfo);
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SendEvent_0300 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SendEvent_0300 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -1105,19 +1131,21 @@ HWTEST_F(ActsCESManagertest, CES_SendEvent_0400, Function | MediumTest | Level1)
         wantTest.AddEntity(entity);
         CommonEventData commonEventData(wantTest);
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
-        EXPECT_TRUE(SubscribeCommonEventTest(subscribeInfo));
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberPtr));
         if (!CommonEventManager::PublishCommonEvent(commonEventData)) {
             result = false;
-            printf("CES_SendEvent_0400 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SendEvent_0400 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
-        UnsubscribeCommonEventTest(subscribeInfo);
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SendEvent_0400 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SendEvent_0400 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -1142,19 +1170,21 @@ HWTEST_F(ActsCESManagertest, CES_SendEvent_0500, Function | MediumTest | Level1)
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         CommonEventPublishInfo publishInfo;
         publishInfo.SetSticky(stickty);
-        EXPECT_TRUE(SubscribeCommonEventTest(subscribeInfo));
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberPtr));
         if (!CommonEventManager::PublishCommonEvent(commonEventData, publishInfo)) {
             result = false;
-            printf("CES_SendEvent_0500 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SendEvent_0500 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
-        UnsubscribeCommonEventTest(subscribeInfo);
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SendEvent_0500 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SendEvent_0500 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -1181,19 +1211,21 @@ HWTEST_F(ActsCESManagertest, CES_SendEvent_0600, Function | MediumTest | Level1)
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         CommonEventPublishInfo publishInfo;
         publishInfo.SetSticky(stickty);
-        EXPECT_TRUE(SubscribeCommonEventTest(subscribeInfo));
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberPtr));
         if (!CommonEventManager::PublishCommonEvent(commonEventData, publishInfo)) {
             result = false;
-            printf("CES_SendEvent_0600 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SendEvent_0600 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
-        UnsubscribeCommonEventTest(subscribeInfo);
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SendEvent_0600 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SendEvent_0600 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -1220,19 +1252,21 @@ HWTEST_F(ActsCESManagertest, CES_SendEvent_0700, Function | MediumTest | Level1)
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         CommonEventPublishInfo publishInfo;
         publishInfo.SetSticky(stickty);
-        EXPECT_TRUE(SubscribeCommonEventTest(subscribeInfo));
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberPtr));
         if (!CommonEventManager::PublishCommonEvent(commonEventData, publishInfo)) {
             result = false;
-            printf("CES_SendEvent_0700 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SendEvent_0700 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
-        UnsubscribeCommonEventTest(subscribeInfo);
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SendEvent_0700 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SendEvent_0700 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -1257,19 +1291,21 @@ HWTEST_F(ActsCESManagertest, CES_SendEvent_0800, Function | MediumTest | Level1)
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         CommonEventPublishInfo publishInfo;
         publishInfo.SetSticky(stickty);
-        EXPECT_TRUE(SubscribeCommonEventTest(subscribeInfo));
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberPtr));
         if (!CommonEventManager::PublishCommonEvent(commonEventData, publishInfo)) {
             result = false;
-            printf("CES_SendEvent_0800 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SendEvent_0800 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
-        UnsubscribeCommonEventTest(subscribeInfo);
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SendEvent_0800 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SendEvent_0800 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -1295,19 +1331,21 @@ HWTEST_F(ActsCESManagertest, CES_SendEvent_0900, Function | MediumTest | Level1)
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         CommonEventPublishInfo publishInfo;
         publishInfo.SetSticky(stickty);
-        EXPECT_TRUE(SubscribeCommonEventTest(subscribeInfo));
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberPtr));
         if (!CommonEventManager::PublishCommonEvent(commonEventData, publishInfo)) {
             result = false;
-            printf("CES_SendEvent_0900 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SendEvent_0900 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
-        UnsubscribeCommonEventTest(subscribeInfo);
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SendEvent_0900 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SendEvent_0900 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -1333,19 +1371,21 @@ HWTEST_F(ActsCESManagertest, CES_SendEvent_1000, Function | MediumTest | Level1)
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         CommonEventPublishInfo publishInfo;
         publishInfo.SetSticky(stickty);
-        EXPECT_TRUE(SubscribeCommonEventTest(subscribeInfo));
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberPtr));
         if (!CommonEventManager::PublishCommonEvent(commonEventData, publishInfo)) {
             result = false;
-            printf("CES_SendEvent_1000 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SendEvent_1000 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
-        UnsubscribeCommonEventTest(subscribeInfo);
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SendEvent_1000 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SendEvent_1000 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -1373,19 +1413,21 @@ HWTEST_F(ActsCESManagertest, CES_SendEvent_1100, Function | MediumTest | Level1)
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         CommonEventPublishInfo publishInfo;
         publishInfo.SetSticky(stickty);
-        EXPECT_TRUE(SubscribeCommonEventTest(subscribeInfo));
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberPtr));
         if (!CommonEventManager::PublishCommonEvent(commonEventData, publishInfo)) {
             result = false;
-            printf("CES_SendEvent_1100 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SendEvent_1100 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
-        UnsubscribeCommonEventTest(subscribeInfo);
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SendEvent_1100 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SendEvent_1100 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -1413,19 +1455,21 @@ HWTEST_F(ActsCESManagertest, CES_SendEvent_1200, Function | MediumTest | Level1)
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         CommonEventPublishInfo publishInfo;
         publishInfo.SetSticky(stickty);
-        EXPECT_TRUE(SubscribeCommonEventTest(subscribeInfo));
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberPtr));
         if (!CommonEventManager::PublishCommonEvent(commonEventData, publishInfo)) {
             result = false;
-            printf("CES_SendEvent_1200 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SendEvent_1200 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
-        UnsubscribeCommonEventTest(subscribeInfo);
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SendEvent_1200 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SendEvent_1200 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -1450,19 +1494,21 @@ HWTEST_F(ActsCESManagertest, CES_SendEventSetViscosity_0100, Function | MediumTe
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         CommonEventPublishInfo publishInfo;
         publishInfo.SetSticky(stickty);
-        EXPECT_TRUE(SubscribeCommonEventTest(subscribeInfo));
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberPtr));
         if (!CommonEventManager::PublishCommonEvent(commonEventData, publishInfo)) {
             result = false;
-            printf("CES_SendEventSetViscosity_0100 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SendEventSetViscosity_0100 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
-        UnsubscribeCommonEventTest(subscribeInfo);
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SendEventSetViscosity_0100 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SendEventSetViscosity_0100 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -1489,19 +1535,21 @@ HWTEST_F(ActsCESManagertest, CES_SendEventSetViscosity_0200, Function | MediumTe
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         CommonEventPublishInfo publishInfo;
         publishInfo.SetSticky(stickty);
-        EXPECT_TRUE(SubscribeCommonEventTest(subscribeInfo));
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberPtr));
         if (!CommonEventManager::PublishCommonEvent(commonEventData, publishInfo)) {
             result = false;
-            printf("CES_SendEventSetViscosity_0200 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SendEventSetViscosity_0200 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
-        UnsubscribeCommonEventTest(subscribeInfo);
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SendEventSetViscosity_0200 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SendEventSetViscosity_0200 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -1528,19 +1576,21 @@ HWTEST_F(ActsCESManagertest, CES_SendEventSetViscosity_0300, Function | MediumTe
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         CommonEventPublishInfo publishInfo;
         publishInfo.SetSticky(stickty);
-        EXPECT_TRUE(SubscribeCommonEventTest(subscribeInfo));
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberPtr));
         if (!CommonEventManager::PublishCommonEvent(commonEventData, publishInfo)) {
             result = false;
-            printf("CES_SendEventSetViscosity_0300 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SendEventSetViscosity_0300 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
-        UnsubscribeCommonEventTest(subscribeInfo);
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SendEventSetViscosity_0300 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SendEventSetViscosity_0300 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -1565,19 +1615,21 @@ HWTEST_F(ActsCESManagertest, CES_SendEventSetViscosity_0400, Function | MediumTe
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         CommonEventPublishInfo publishInfo;
         publishInfo.SetSticky(stickty);
-        EXPECT_TRUE(SubscribeCommonEventTest(subscribeInfo));
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberPtr));
         if (!CommonEventManager::PublishCommonEvent(commonEventData, publishInfo)) {
             result = false;
-            printf("CES_SendEventSetViscosity_0400 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SendEventSetViscosity_0400 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
-        UnsubscribeCommonEventTest(subscribeInfo);
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SendEventSetViscosity_0400 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SendEventSetViscosity_0400 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -1603,19 +1655,21 @@ HWTEST_F(ActsCESManagertest, CES_SendEventSetViscosity_0500, Function | MediumTe
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         CommonEventPublishInfo publishInfo;
         publishInfo.SetSticky(stickty);
-        EXPECT_TRUE(SubscribeCommonEventTest(subscribeInfo));
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberPtr));
         if (!CommonEventManager::PublishCommonEvent(commonEventData, publishInfo)) {
             result = false;
-            printf("CES_SendEventSetViscosity_0500 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SendEventSetViscosity_0500 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
-        UnsubscribeCommonEventTest(subscribeInfo);
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SendEventSetViscosity_0500 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SendEventSetViscosity_0500 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -1641,19 +1695,21 @@ HWTEST_F(ActsCESManagertest, CES_SendEventSetViscosity_0600, Function | MediumTe
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         CommonEventPublishInfo publishInfo;
         publishInfo.SetSticky(stickty);
-        EXPECT_TRUE(SubscribeCommonEventTest(subscribeInfo));
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberPtr));
         if (!CommonEventManager::PublishCommonEvent(commonEventData, publishInfo)) {
             result = false;
-            printf("CES_SendEventSetViscosity_0600 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SendEventSetViscosity_0600 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
-        UnsubscribeCommonEventTest(subscribeInfo);
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SendEventSetViscosity_0600 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SendEventSetViscosity_0600 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -1681,19 +1737,21 @@ HWTEST_F(ActsCESManagertest, CES_SendEventSetViscosity_0700, Function | MediumTe
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         CommonEventPublishInfo publishInfo;
         publishInfo.SetSticky(stickty);
-        EXPECT_TRUE(SubscribeCommonEventTest(subscribeInfo));
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberPtr));
         if (!CommonEventManager::PublishCommonEvent(commonEventData, publishInfo)) {
             result = false;
-            printf("CES_SendEventSetViscosity_0700 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SendEventSetViscosity_0700 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
-        UnsubscribeCommonEventTest(subscribeInfo);
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SendEventSetViscosity_0700 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SendEventSetViscosity_0700 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -1721,19 +1779,21 @@ HWTEST_F(ActsCESManagertest, CES_SendEventSetViscosity_0800, Function | MediumTe
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         CommonEventPublishInfo publishInfo;
         publishInfo.SetSticky(stickty);
-        EXPECT_TRUE(SubscribeCommonEventTest(subscribeInfo));
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberPtr));
         if (!CommonEventManager::PublishCommonEvent(commonEventData, publishInfo)) {
             result = false;
-            printf("CES_SendEventSetViscosity_0800 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SendEventSetViscosity_0800 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
-        UnsubscribeCommonEventTest(subscribeInfo);
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SendEventSetViscosity_0800 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SendEventSetViscosity_0800 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -1759,7 +1819,8 @@ HWTEST_F(ActsCESManagertest, CES_SendEventSetViscosity_0900, Function | MediumTe
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         CommonEventPublishInfo publishInfo;
         publishInfo.SetSticky(stickty);
-        if (SubscribeCommonEventTest(subscribeInfo) &&
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        if (CommonEventManager::SubscribeCommonEvent(subscriberPtr) &&
             CommonEventManager::PublishCommonEvent(commonEventData, publishInfo)) {
             result = true;
         }
@@ -1769,16 +1830,17 @@ HWTEST_F(ActsCESManagertest, CES_SendEventSetViscosity_0900, Function | MediumTe
         CommonEventManager::GetStickyCommonEvent(eventAction, stickyData);
         if (eventActionStr == stickyData.GetWant().GetAction()) {
             result = false;
-            printf("CES_SendEventSetViscosity_0900 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SendEventSetViscosity_0900 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
-        UnsubscribeCommonEventTest(subscribeInfo);
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SendEventSetViscosity_0900 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SendEventSetViscosity_0900 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -1786,7 +1848,7 @@ HWTEST_F(ActsCESManagertest, CES_SendEventSetViscosity_0900, Function | MediumTe
 /*
  * @tc.number: CES_SendEventSetViscosity_1000
  * @tc.name: GetStickyCommonEvent
- * @tc.desc: epublish common event set sticky to true and verify the action of stickyData
+ * @tc.desc: publish common event set sticky to true and verify the action of stickyData
  */
 HWTEST_F(ActsCESManagertest, CES_SendEventSetViscosity_1000, Function | MediumTest | Level2)
 {
@@ -1804,7 +1866,8 @@ HWTEST_F(ActsCESManagertest, CES_SendEventSetViscosity_1000, Function | MediumTe
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         CommonEventPublishInfo publishInfo;
         publishInfo.SetSticky(stickty);
-        if (SubscribeCommonEventTest(subscribeInfo) &&
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        if (CommonEventManager::SubscribeCommonEvent(subscriberPtr) &&
             CommonEventManager::PublishCommonEvent(commonEventData, publishInfo)) {
             result = true;
         }
@@ -1813,16 +1876,17 @@ HWTEST_F(ActsCESManagertest, CES_SendEventSetViscosity_1000, Function | MediumTe
         CommonEventData stickyData;
         if (CommonEventManager::GetStickyCommonEvent(actionTest, stickyData)) {
             result = false;
-            printf("CES_SendEventSetViscosity_1000 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SendEventSetViscosity_1000 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
-        UnsubscribeCommonEventTest(subscribeInfo);
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SendEventSetViscosity_1000 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SendEventSetViscosity_1000 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -1842,7 +1906,9 @@ HWTEST_F(ActsCESManagertest, CES_ReceiveEvent_0100, Function | MediumTest | Leve
     wantTest.SetAction(eventAction);
     CommonEventData commonEventData(wantTest);
     CommonEventSubscribeInfo subscribeInfo(matchingSkills);
-    if (SubscribeCommonEventTest(subscribeInfo) && (CommonEventManager::PublishCommonEvent(commonEventData))) {
+    auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+    if (CommonEventManager::SubscribeCommonEvent(subscriberPtr) &&
+        (CommonEventManager::PublishCommonEvent(commonEventData))) {
         g_mtx.lock();
     }
     struct tm startTime = {0};
@@ -1860,13 +1926,13 @@ HWTEST_F(ActsCESManagertest, CES_ReceiveEvent_0100, Function | MediumTest | Leve
     // expect the subscriber could receive the event within 5 seconds.
     EXPECT_LT(seconds, g_TIME_OUT_SECONDS_LIMIT);
     g_mtx.unlock();
-    UnsubscribeCommonEventTest(subscribeInfo);
+    CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
 }
 
 /*
  * @tc.number: CES_ReceiveEvent_0200
  * @tc.name: OnReceiveEvent
- * @tc.desc: erify the function when add entity
+ * @tc.desc: Verify the function when add entity
  */
 HWTEST_F(ActsCESManagertest, CES_ReceiveEvent_0200, Function | MediumTest | Level1)
 {
@@ -1881,7 +1947,9 @@ HWTEST_F(ActsCESManagertest, CES_ReceiveEvent_0200, Function | MediumTest | Leve
     wantTest.AddEntity(entity);
     CommonEventData commonEventData(wantTest);
     CommonEventSubscribeInfo subscribeInfo(matchingSkills);
-    if (SubscribeCommonEventTest(subscribeInfo) && (CommonEventManager::PublishCommonEvent(commonEventData))) {
+    auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+    if (CommonEventManager::SubscribeCommonEvent(subscriberPtr) &&
+        (CommonEventManager::PublishCommonEvent(commonEventData))) {
         g_mtx.lock();
     }
     struct tm startTime = {0};
@@ -1900,7 +1968,7 @@ HWTEST_F(ActsCESManagertest, CES_ReceiveEvent_0200, Function | MediumTest | Leve
     // The publisher sets the Entity, the receiver must set it, otherwise the receiver will not receive the information
     EXPECT_FALSE(result);
     g_mtx.unlock();
-    UnsubscribeCommonEventTest(subscribeInfo);
+    CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
 }
 
 /*
@@ -1921,7 +1989,8 @@ HWTEST_F(ActsCESManagertest, CES_ReceiveEvent_0300, Function | MediumTest | Leve
     CommonEventSubscribeInfo subscribeInfo(matchingSkills);
     CommonEventPublishInfo publishInfo;
     publishInfo.SetSticky(stickty);
-    if (SubscribeCommonEventTest(subscribeInfo) &&
+    auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+    if (CommonEventManager::SubscribeCommonEvent(subscriberPtr) &&
         (CommonEventManager::PublishCommonEvent(commonEventData, publishInfo))) {
         g_mtx.lock();
     }
@@ -1940,7 +2009,7 @@ HWTEST_F(ActsCESManagertest, CES_ReceiveEvent_0300, Function | MediumTest | Leve
     // expect the subscriber could receive the event within 5 seconds.
     EXPECT_LT(seconds, g_TIME_OUT_SECONDS_LIMIT);
     g_mtx.unlock();
-    UnsubscribeCommonEventTest(subscribeInfo);
+    CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
 }
 
 /*
@@ -1962,7 +2031,8 @@ HWTEST_F(ActsCESManagertest, CES_ReceiveEvent_0400, Function | MediumTest | Leve
     CommonEventSubscribeInfo subscribeInfo(matchingSkills);
     CommonEventPublishInfo publishInfo;
     publishInfo.SetSticky(stickty);
-    if (SubscribeCommonEventTest(subscribeInfo) &&
+    auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+    if (CommonEventManager::SubscribeCommonEvent(subscriberPtr) &&
         (CommonEventManager::PublishCommonEvent(commonEventData, publishInfo))) {
         g_mtx.lock();
     }
@@ -1982,7 +2052,7 @@ HWTEST_F(ActsCESManagertest, CES_ReceiveEvent_0400, Function | MediumTest | Leve
     // expect the subscriber could receive the event within 5 seconds.
     EXPECT_FALSE(result);
     g_mtx.unlock();
-    UnsubscribeCommonEventTest(subscribeInfo);
+    CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
 }
 
 /*
@@ -2006,7 +2076,8 @@ HWTEST_F(ActsCESManagertest, CES_ReceiveEvent_0500, Function | MediumTest | Leve
     CommonEventSubscribeInfo subscribeInfo(matchingSkills);
     CommonEventPublishInfo publishInfo;
     publishInfo.SetSticky(stickty);
-    if (SubscribeCommonEventTest(subscribeInfo) &&
+    auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+    if (CommonEventManager::SubscribeCommonEvent(subscriberPtr) &&
         (CommonEventManager::PublishCommonEvent(commonEventData, publishInfo))) {
         g_mtx.lock();
     }
@@ -2026,7 +2097,7 @@ HWTEST_F(ActsCESManagertest, CES_ReceiveEvent_0500, Function | MediumTest | Leve
     // The publisher sets the Entity, the receiver must set it, otherwise the receiver will not receive the information
     EXPECT_FALSE(result);
     g_mtx.unlock();
-    UnsubscribeCommonEventTest(subscribeInfo);
+    CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
 }
 
 /*
@@ -2050,7 +2121,8 @@ HWTEST_F(ActsCESManagertest, CES_ReceiveEvent_0600, Function | MediumTest | Leve
     CommonEventSubscribeInfo subscribeInfo(matchingSkills);
     CommonEventPublishInfo publishInfo;
     publishInfo.SetSticky(stickty);
-    if (SubscribeCommonEventTest(subscribeInfo) &&
+    auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+    if (CommonEventManager::SubscribeCommonEvent(subscriberPtr) &&
         (CommonEventManager::PublishCommonEvent(commonEventData, publishInfo))) {
         g_mtx.lock();
     }
@@ -2070,7 +2142,7 @@ HWTEST_F(ActsCESManagertest, CES_ReceiveEvent_0600, Function | MediumTest | Leve
     // The publisher sets the Entity, the receiver must set it, otherwise the receiver will not receive the information
     EXPECT_FALSE(result);
     g_mtx.unlock();
-    UnsubscribeCommonEventTest(subscribeInfo);
+    CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
 }
 
 /*
@@ -2086,18 +2158,19 @@ HWTEST_F(ActsCESManagertest, CES_SubscriptionEventTheme_0100, Function | MediumT
     for (int i = 1; i <= stLevel_.CESLevel; i++) {
         matchingSkills.AddEvent(eventName);
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
-        if (!SubscribeCommonEventTest(subscribeInfo)) {
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        if (!CommonEventManager::SubscribeCommonEvent(subscriberPtr)) {
             result = false;
-            printf("CES_SubscriptionEventTheme_0100 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SubscriptionEventTheme_0100 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
-        UnsubscribeCommonEventTest(subscribeInfo);
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscriptionEventTheme_0100 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscriptionEventTheme_0100 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -2105,7 +2178,7 @@ HWTEST_F(ActsCESManagertest, CES_SubscriptionEventTheme_0100, Function | MediumT
 /*
  * @tc.number: CES_SubscriptionEventTheme_0200
  * @tc.name: AddEvent
- * @tc.desc: erify add multiple enent themes
+ * @tc.desc: Verify add multiple event themes
  */
 HWTEST_F(ActsCESManagertest, CES_SubscriptionEventTheme_0200, Function | MediumTest | Level1)
 {
@@ -2118,19 +2191,20 @@ HWTEST_F(ActsCESManagertest, CES_SubscriptionEventTheme_0200, Function | MediumT
         matchingSkills.AddEvent(eventName2);
 
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
-        if (!SubscribeCommonEventTest(subscribeInfo)) {
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        if (!CommonEventManager::SubscribeCommonEvent(subscriberPtr)) {
             result = false;
-            printf("CES_SubscriptionEventTheme_0200 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SubscriptionEventTheme_0200 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
-        UnsubscribeCommonEventTest(subscribeInfo);
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
         matchingSkills.RemoveEvent(eventName1);
         matchingSkills.RemoveEvent(eventName2);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscriptionEventTheme_0200 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscriptionEventTheme_0200 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -2138,7 +2212,7 @@ HWTEST_F(ActsCESManagertest, CES_SubscriptionEventTheme_0200, Function | MediumT
 /*
  * @tc.number: CES_SubscriptionEventTheme_0300
  * @tc.name: MatchEvent
- * @tc.desc: Verify march a event theme
+ * @tc.desc: Verify match a event theme
  */
 HWTEST_F(ActsCESManagertest, CES_SubscriptionEventTheme_0300, Function | MediumTest | Level1)
 {
@@ -2150,19 +2224,20 @@ HWTEST_F(ActsCESManagertest, CES_SubscriptionEventTheme_0300, Function | MediumT
         wantTest.SetAction(eventName);
         matchingSkills.AddEvent(eventName);
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
-        EXPECT_TRUE(SubscribeCommonEventTest(subscribeInfo));
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberPtr));
         if (!matchingSkills.Match(wantTest)) {
             result = false;
-            printf("CES_SubscriptionEventTheme_0300 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SubscriptionEventTheme_0300 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
-        UnsubscribeCommonEventTest(subscribeInfo);
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscriptionEventTheme_0300 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscriptionEventTheme_0300 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -2170,7 +2245,7 @@ HWTEST_F(ActsCESManagertest, CES_SubscriptionEventTheme_0300, Function | MediumT
 /*
  * @tc.number: CES_SubscriptionEventTheme_0400
  * @tc.name: MatchEvent
- * @tc.desc: Verify march other event theme
+ * @tc.desc: Verify match other event theme
  */
 HWTEST_F(ActsCESManagertest, CES_SubscriptionEventTheme_0400, Function | MediumTest | Level1)
 {
@@ -2183,19 +2258,20 @@ HWTEST_F(ActsCESManagertest, CES_SubscriptionEventTheme_0400, Function | MediumT
         wantTest.SetAction(eventNameCompare);
         matchingSkills.AddEvent(eventName);
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
-        EXPECT_TRUE(SubscribeCommonEventTest(subscribeInfo));
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberPtr));
         if (matchingSkills.Match(wantTest)) {
             result = false;
-            printf("CES_SubscriptionEventTheme_0400 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SubscriptionEventTheme_0400 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
-        UnsubscribeCommonEventTest(subscribeInfo);
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SubscriptionEventTheme_0400 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SubscriptionEventTheme_0400 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -2219,7 +2295,8 @@ HWTEST_F(ActsCESManagertest, CES_SendEvent_1300, Function | MediumTest | Level1)
     CommonEventData commonEventData(wantTest);
     CommonEventSubscribeInfo subscribeInfo(matchingSkills);
     CommonEventPublishInfo publishInfo;
-    if (SubscribeCommonEventTest(subscribeInfo)) {
+    auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+    if (CommonEventManager::SubscribeCommonEvent(subscriberPtr)) {
         result = CommonEventManager::PublishCommonEvent(commonEventData, publishInfo);
         g_mtx.lock();
     }
@@ -2242,7 +2319,7 @@ HWTEST_F(ActsCESManagertest, CES_SendEvent_1300, Function | MediumTest | Level1)
     // Unable to receive published system events, failed to send system events
     EXPECT_TRUE(sysResult);
     g_mtx.unlock();
-    UnsubscribeCommonEventTest(subscribeInfo);
+    CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
 }
 
 /*
@@ -2264,7 +2341,8 @@ HWTEST_F(ActsCESManagertest, CES_SendEvent_1400, Function | MediumTest | Level1)
     CommonEventData commonEventData(wantTest);
     CommonEventSubscribeInfo subscribeInfo(matchingSkills);
     CommonEventPublishInfo publishInfo;
-    if (SubscribeCommonEventTest(subscribeInfo)) {
+    auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+    if (CommonEventManager::SubscribeCommonEvent(subscriberPtr)) {
         result = CommonEventManager::PublishCommonEvent(commonEventData, publishInfo);
         g_mtx.lock();
     }
@@ -2287,7 +2365,7 @@ HWTEST_F(ActsCESManagertest, CES_SendEvent_1400, Function | MediumTest | Level1)
     // Unable to receive published system events, failed to send system events
     EXPECT_TRUE(sysResult);
     g_mtx.unlock();
-    UnsubscribeCommonEventTest(subscribeInfo);
+    CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
 }
 
 /*
@@ -2309,7 +2387,8 @@ HWTEST_F(ActsCESManagertest, CES_SendEvent_1500, Function | MediumTest | Level1)
     CommonEventData commonEventData(wantTest);
     CommonEventSubscribeInfo subscribeInfo(matchingSkills);
     CommonEventPublishInfo publishInfo;
-    if (SubscribeCommonEventTest(subscribeInfo)) {
+    auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+    if (CommonEventManager::SubscribeCommonEvent(subscriberPtr)) {
         result = CommonEventManager::PublishCommonEvent(commonEventData, publishInfo);
         g_mtx.lock();
     }
@@ -2332,7 +2411,7 @@ HWTEST_F(ActsCESManagertest, CES_SendEvent_1500, Function | MediumTest | Level1)
     // Unable to receive published system events, failed to send system events
     EXPECT_TRUE(sysResult);
     g_mtx.unlock();
-    UnsubscribeCommonEventTest(subscribeInfo);
+    CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
 }
 
 /*
@@ -2352,7 +2431,8 @@ HWTEST_F(ActsCESManagertest, CES_SendEvent_1600, Function | MediumTest | Level1)
     CommonEventData commonEventData(wantTest);
     CommonEventSubscribeInfo subscribeInfo(matchingSkills);
     CommonEventPublishInfo publishInfo;
-    if (SubscribeCommonEventTest(subscribeInfo) &&
+    auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+    if (CommonEventManager::SubscribeCommonEvent(subscriberPtr) &&
         (CommonEventManager::PublishCommonEvent(commonEventData, publishInfo))) {
         g_mtx.lock();
     }
@@ -2372,7 +2452,7 @@ HWTEST_F(ActsCESManagertest, CES_SendEvent_1600, Function | MediumTest | Level1)
     // System events published by ordinary publishers, the publication fails, and the receiver cannot receive it
     EXPECT_FALSE(result);
     g_mtx.unlock();
-    UnsubscribeCommonEventTest(subscribeInfo);
+    CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
 }
 
 /*
@@ -2400,17 +2480,14 @@ HWTEST_F(ActsCESManagertest, CES_SendEvent_1700, Function | MediumTest | Level1)
             CommonEventManager::SubscribeCommonEvent(subscriberPtr1)) {
             CommonEventManager::PublishCommonEvent(commonEventData, publishInfo);
         }
-        sleep(1);
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
         CommonEventManager::UnSubscribeCommonEvent(subscriberPtr1);
         CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
         matchingSkills.RemoveEvent(eventName);
     }
     EXPECT_TRUE(SIGNUMFIRST == stLevel_.CESLevel && SIGNUMSECOND == stLevel_.CESLevel && SIGNUMTHIRD == 0);
-    printf("SIGNUMFIRST: %d    SIGNUMSECOND: %d    SIGNUMTHIRD: %d     stLevel_.CESLevel: %d\n",
-        SIGNUMFIRST,
-        SIGNUMSECOND,
-        SIGNUMTHIRD,
-        stLevel_.CESLevel);
+    GTEST_LOG_(INFO) << "SIGNUMFIRST: " << SIGNUMFIRST << "SIGNUMSECOND: " << SIGNUMSECOND
+                     << "SIGNUMTHIRD: " << SIGNUMTHIRD << "stLevel_.CESLevel: " << stLevel_.CESLevel;
     SIGNUMFIRST = 0;
     SIGNUMSECOND = 0;
     SIGNUMTHIRD = 0;
@@ -2440,16 +2517,13 @@ HWTEST_F(ActsCESManagertest, CES_SendEvent_1800, Function | MediumTest | Level1)
         if (CommonEventManager::SubscribeCommonEvent(subscriberPtr)) {
             CommonEventManager::PublishCommonEvent(commonEventData, publishInfo);
         }
-        sleep(1);
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
         CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
         matchingSkills.RemoveEvent(eventName);
     }
     EXPECT_TRUE(SIGNUMFIRST == 0 && SIGNUMSECOND == 0 && SIGNUMTHIRD == stLevel_.CESLevel);
-    printf("SIGNUMFIRST: %d    SIGNUMSECOND: %d    SIGNUMTHIRD: %d     stLevel_.CESLevel: %d\n",
-        SIGNUMFIRST,
-        SIGNUMSECOND,
-        SIGNUMTHIRD,
-        stLevel_.CESLevel);
+    GTEST_LOG_(INFO) << "SIGNUMFIRST: " << SIGNUMFIRST << "SIGNUMSECOND: " << SIGNUMSECOND
+                     << "SIGNUMTHIRD: " << SIGNUMTHIRD << "stLevel_.CESLevel: " << stLevel_.CESLevel;
     SIGNUMFIRST = 0;
     SIGNUMSECOND = 0;
     SIGNUMTHIRD = 0;
@@ -2458,7 +2532,7 @@ HWTEST_F(ActsCESManagertest, CES_SendEvent_1800, Function | MediumTest | Level1)
 /*
  * @tc.number: CES_SetEventAuthority_0100
  * @tc.name: SetPermission
- * @tc.desc: eSet permission for common event subscribers and  verify  successfully subscribe to common events
+ * @tc.desc: Set permission for common event subscribers and verify successfully subscribe to common events
  */
 HWTEST_F(ActsCESManagertest, CES_SetEventAuthority_0100, Function | MediumTest | Level1)
 {
@@ -2470,26 +2544,27 @@ HWTEST_F(ActsCESManagertest, CES_SetEventAuthority_0100, Function | MediumTest |
         matchingSkills.AddEvent(eventName);
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         subscribeInfo.SetPermission(permissin);
-        if (!SubscribeCommonEventTest(subscribeInfo)) {
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        if (!CommonEventManager::SubscribeCommonEvent(subscriberPtr)) {
             result = false;
-            printf("CES_SetEventAuthority_0100 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SetEventAuthority_0100 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
-        UnsubscribeCommonEventTest(subscribeInfo);
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SetEventAuthority_0100 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SetEventAuthority_0100 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
 
 /*
  * @tc.number: CES_SetEventAuthority_0200
- * @tc.name: SetPermission and  SetPriority
- * @tc.desc: Set permission and priority for common event subscribers and  verify  successfully subscribe to
+ * @tc.name: SetPermission and SetPriority
+ * @tc.desc: Set permission and priority for common event subscribers and verify successfully subscribe to common events
  */
 HWTEST_F(ActsCESManagertest, CES_SetEventAuthority_0200, Function | MediumTest | Level1)
 {
@@ -2502,18 +2577,19 @@ HWTEST_F(ActsCESManagertest, CES_SetEventAuthority_0200, Function | MediumTest |
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         subscribeInfo.SetPermission(permissin);
         subscribeInfo.SetPriority(1);
-        if (!SubscribeCommonEventTest(subscribeInfo)) {
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        if (!CommonEventManager::SubscribeCommonEvent(subscriberPtr)) {
             result = false;
-            printf("CES_SetEventAuthority_0200 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SetEventAuthority_0200 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
-        UnsubscribeCommonEventTest(subscribeInfo);
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SetEventAuthority_0200 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SetEventAuthority_0200 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -2521,7 +2597,7 @@ HWTEST_F(ActsCESManagertest, CES_SetEventAuthority_0200, Function | MediumTest |
 /*
  * @tc.number: CES_SetEventAuthority_0300
  * @tc.name: SetPermission SetPriority and SetDeviceId
- * @tc.desc: Set permission and priority and DeviceId for common event subscribers and  verify  successfully
+ * @tc.desc: Set permission and priority and DeviceId for common event subscribers and verify successfully
  * subscribe to common events
  */
 HWTEST_F(ActsCESManagertest, CES_SetEventAuthority_0300, Function | MediumTest | Level1)
@@ -2537,18 +2613,19 @@ HWTEST_F(ActsCESManagertest, CES_SetEventAuthority_0300, Function | MediumTest |
         subscribeInfo.SetPermission(permissin);
         subscribeInfo.SetPriority(1);
         subscribeInfo.SetDeviceId(deviceId);
-        if (!SubscribeCommonEventTest(subscribeInfo)) {
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        if (!CommonEventManager::SubscribeCommonEvent(subscriberPtr)) {
             result = false;
-            printf("CES_SetEventAuthority_0200 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SetEventAuthority_0200 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
-        UnsubscribeCommonEventTest(subscribeInfo);
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SetEventAuthority_0200 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SetEventAuthority_0200 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -2568,10 +2645,11 @@ HWTEST_F(ActsCESManagertest, CES_SetEventAuthority_0400, Function | MediumTest |
         matchingSkills.AddEvent(eventName);
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         subscribeInfo.SetPermission(permissin);
-        EXPECT_TRUE(SubscribeCommonEventTest(subscribeInfo));
-        if (!UnsubscribeCommonEventTest(subscribeInfo)) {
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberPtr));
+        if (!CommonEventManager::UnSubscribeCommonEvent(subscriberPtr)) {
             result = false;
-            printf("CES_SetEventAuthority_0400 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SetEventAuthority_0400 faild, frequency: " << i;
             break;
         } else {
             result = true;
@@ -2579,7 +2657,7 @@ HWTEST_F(ActsCESManagertest, CES_SetEventAuthority_0400, Function | MediumTest |
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SetEventAuthority_0400 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SetEventAuthority_0400 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -2601,10 +2679,11 @@ HWTEST_F(ActsCESManagertest, CES_SetEventAuthority_0500, Function | MediumTest |
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         subscribeInfo.SetPermission(permissin);
         subscribeInfo.SetPriority(1);
-        EXPECT_TRUE(SubscribeCommonEventTest(subscribeInfo));
-        if (!UnsubscribeCommonEventTest(subscribeInfo)) {
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberPtr));
+        if (!CommonEventManager::UnSubscribeCommonEvent(subscriberPtr)) {
             result = false;
-            printf("CES_SetEventAuthority_0500 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SetEventAuthority_0500 faild, frequency: " << i;
             break;
         } else {
             result = true;
@@ -2612,7 +2691,7 @@ HWTEST_F(ActsCESManagertest, CES_SetEventAuthority_0500, Function | MediumTest |
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SetEventAuthority_0500 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SetEventAuthority_0500 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -2636,10 +2715,11 @@ HWTEST_F(ActsCESManagertest, CES_SetEventAuthority_0600, Function | MediumTest |
         subscribeInfo.SetPermission(permissin);
         subscribeInfo.SetPriority(1);
         subscribeInfo.SetDeviceId(deviceId);
-        EXPECT_TRUE(SubscribeCommonEventTest(subscribeInfo));
-        if (!UnsubscribeCommonEventTest(subscribeInfo)) {
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberPtr));
+        if (!CommonEventManager::UnSubscribeCommonEvent(subscriberPtr)) {
             result = false;
-            printf("CES_SetEventAuthority_0600 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SetEventAuthority_0600 faild, frequency: " << i;
             break;
         } else {
             result = true;
@@ -2647,7 +2727,7 @@ HWTEST_F(ActsCESManagertest, CES_SetEventAuthority_0600, Function | MediumTest |
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SetEventAuthority_0600 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SetEventAuthority_0600 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -2674,20 +2754,22 @@ HWTEST_F(ActsCESManagertest, CES_SetEventAuthority_0700, Function | MediumTest |
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         CommonEventPublishInfo publishInfo;
         publishInfo.SetSubscriberPermissions(permissins);
-        EXPECT_TRUE(SubscribeCommonEventTest(subscribeInfo));
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberPtr));
         if (!CommonEventManager::PublishCommonEvent(commonEventData, publishInfo)) {
             result = false;
-            printf("CES_SetEventAuthority_0700 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SetEventAuthority_0700 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
-        UnsubscribeCommonEventTest(subscribeInfo);
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
         matchingSkills.RemoveEvent(eventName);
         permissins.clear();
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SetEventAuthority_0700 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SetEventAuthority_0700 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -2713,7 +2795,8 @@ HWTEST_F(ActsCESManagertest, CES_SetEventAuthority_0800, Function | MediumTest |
     CommonEventSubscribeInfo subscribeInfo(matchingSkills);
     CommonEventPublishInfo publishInfo;
     publishInfo.SetSubscriberPermissions(permissins);
-    if (SubscribeCommonEventTest(subscribeInfo) &&
+    auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+    if (CommonEventManager::SubscribeCommonEvent(subscriberPtr) &&
         (CommonEventManager::PublishCommonEvent(commonEventData, publishInfo))) {
         g_mtx.lock();
     }
@@ -2732,13 +2815,13 @@ HWTEST_F(ActsCESManagertest, CES_SetEventAuthority_0800, Function | MediumTest |
     }
     EXPECT_TRUE(result);
     g_mtx.unlock();
-    UnsubscribeCommonEventTest(subscribeInfo);
+    CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
 }
 
 /*
  * @tc.number: CES_SetEventAuthority_0900
  * @tc.name: SetThreadMode
- * @tc.desc: Set ThreadMode for common event subscribers and  verify  successfully subscribe to common events
+ * @tc.desc: Set ThreadMode for common event subscribers and verify successfully subscribe to common events
  */
 HWTEST_F(ActsCESManagertest, CES_SetEventAuthority_0900, Function | MediumTest | Level1)
 {
@@ -2749,18 +2832,20 @@ HWTEST_F(ActsCESManagertest, CES_SetEventAuthority_0900, Function | MediumTest |
         matchingSkills.AddEvent(eventName);
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         subscribeInfo.SetThreadMode(CommonEventSubscribeInfo::ThreadMode::HANDLER);
-        if (!SubscribeCommonEventTest(subscribeInfo)) {
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        if (!CommonEventManager::SubscribeCommonEvent(subscriberPtr)) {
             result = false;
-            printf("CES_SetEventAuthority_0700 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SetEventAuthority_0700 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
-        UnsubscribeCommonEventTest(subscribeInfo);
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SetEventAuthority_0700 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SetEventAuthority_0700 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -2768,7 +2853,7 @@ HWTEST_F(ActsCESManagertest, CES_SetEventAuthority_0900, Function | MediumTest |
 /*
  * @tc.number: CES_SetEventAuthority_1000
  * @tc.name: SetThreadMode
- * @tc.desc: Set ThreadMode for common event subscribers and  verify  successfully Unsubscribe to common events
+ * @tc.desc: Set ThreadMode for common event subscribers and verify successfully Unsubscribe to common events
  */
 HWTEST_F(ActsCESManagertest, CES_SetEventAuthority_1000, Function | MediumTest | Level1)
 {
@@ -2779,10 +2864,11 @@ HWTEST_F(ActsCESManagertest, CES_SetEventAuthority_1000, Function | MediumTest |
         matchingSkills.AddEvent(eventName);
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         subscribeInfo.SetThreadMode(CommonEventSubscribeInfo::ThreadMode::HANDLER);
-        EXPECT_TRUE(SubscribeCommonEventTest(subscribeInfo));
-        if (!UnsubscribeCommonEventTest(subscribeInfo)) {
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberPtr));
+        if (!CommonEventManager::UnSubscribeCommonEvent(subscriberPtr)) {
             result = false;
-            printf("CES_SetEventAuthority_1000 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SetEventAuthority_1000 faild, frequency: " << i;
             break;
         } else {
             result = true;
@@ -2790,7 +2876,7 @@ HWTEST_F(ActsCESManagertest, CES_SetEventAuthority_1000, Function | MediumTest |
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SetEventAuthority_1000 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SetEventAuthority_1000 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -2798,7 +2884,7 @@ HWTEST_F(ActsCESManagertest, CES_SetEventAuthority_1000, Function | MediumTest |
 /*
  * @tc.number: CES_SetEventAuthority_1100
  * @tc.name: SetThreadMode
- * @tc.desc: Set ThreadMode for common event subscribers and  verify  successfully publish to common events
+ * @tc.desc: Set ThreadMode for common event subscribers and verify successfully publish to common events
  */
 HWTEST_F(ActsCESManagertest, CES_SetEventAuthority_1100, Function | MediumTest | Level1)
 {
@@ -2813,19 +2899,21 @@ HWTEST_F(ActsCESManagertest, CES_SetEventAuthority_1100, Function | MediumTest |
         CommonEventData commonEventData(wantTest);
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
         subscribeInfo.SetThreadMode(CommonEventSubscribeInfo::ThreadMode::HANDLER);
-        EXPECT_TRUE(SubscribeCommonEventTest(subscribeInfo));
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberPtr));
         if (!CommonEventManager::PublishCommonEvent(commonEventData)) {
             result = false;
-            printf("CES_SetEventAuthority_1000 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_SetEventAuthority_1000 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
-        UnsubscribeCommonEventTest(subscribeInfo);
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_SetEventAuthority_1000 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_SetEventAuthority_1000 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -2833,7 +2921,7 @@ HWTEST_F(ActsCESManagertest, CES_SetEventAuthority_1100, Function | MediumTest |
 /*
  * @tc.number: CES_SetEventAuthority_1200
  * @tc.name: SetThreadMode
- * @tc.desc: Set ThreadMode for common event subscribers and  verify  successfully receive  to common events
+ * @tc.desc: Set ThreadMode for common event subscribers and verify successfully receive to common events
  */
 HWTEST_F(ActsCESManagertest, CES_SetEventAuthority_1200, Function | MediumTest | Level1)
 {
@@ -2847,7 +2935,9 @@ HWTEST_F(ActsCESManagertest, CES_SetEventAuthority_1200, Function | MediumTest |
     CommonEventData commonEventData(wantTest);
     CommonEventSubscribeInfo subscribeInfo(matchingSkills);
     subscribeInfo.SetThreadMode(CommonEventSubscribeInfo::ThreadMode::HANDLER);
-    if (SubscribeCommonEventTest(subscribeInfo) && (CommonEventManager::PublishCommonEvent(commonEventData))) {
+    auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+    if (CommonEventManager::SubscribeCommonEvent(subscriberPtr) &&
+        (CommonEventManager::PublishCommonEvent(commonEventData))) {
         g_mtx.lock();
     }
     struct tm startTime = {0};
@@ -2866,7 +2956,7 @@ HWTEST_F(ActsCESManagertest, CES_SetEventAuthority_1200, Function | MediumTest |
     // expect the subscriber could receive the event within 5 seconds.
     EXPECT_TRUE(result);
     g_mtx.unlock();
-    UnsubscribeCommonEventTest(subscribeInfo);
+    CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
 }
 
 /*
@@ -2882,20 +2972,21 @@ HWTEST_F(ActsCESManagertest, CES_VerifyMatchingSkills_0100, Function | MediumTes
     for (int i = 1; i <= stLevel_.CESLevel; i++) {
         matchingSkills.AddEvent(eventName);
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
-        EXPECT_TRUE(SubscribeCommonEventTest(subscribeInfo));
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberPtr));
         MatchingSkills testMatching = subscribeInfo.GetMatchingSkills();
         if (!(testMatching.GetEvent(0) == eventName)) {
             result = false;
-            printf("CES_VerifyMatchingSkills_0100 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_VerifyMatchingSkills_0100 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
-        UnsubscribeCommonEventTest(subscribeInfo);
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_VerifyMatchingSkills_0100 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_VerifyMatchingSkills_0100 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -2915,19 +3006,20 @@ HWTEST_F(ActsCESManagertest, CES_VerifyMatchingSkills_0200, Function | MediumTes
         matchingSkills.AddEvent(eventName);
         matchingSkills.AddEntity(entity);
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
-        EXPECT_TRUE(SubscribeCommonEventTest(subscribeInfo));
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberPtr));
         if (!(matchingSkills.GetEntity(0) == entity)) {
             result = false;
-            printf("CES_VerifyMatchingSkills_0200 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_VerifyMatchingSkills_0200 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
-        UnsubscribeCommonEventTest(subscribeInfo);
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_VerifyMatchingSkills_0200 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_VerifyMatchingSkills_0200 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -2935,7 +3027,7 @@ HWTEST_F(ActsCESManagertest, CES_VerifyMatchingSkills_0200, Function | MediumTes
 /*
  * @tc.number: CES_VerifyMatchingSkills_0300
  * @tc.name: HasEntity
- * @tc.desc: verify that entity is  in MatchingSkills
+ * @tc.desc: verify that entity is in MatchingSkills
  */
 HWTEST_F(ActsCESManagertest, CES_VerifyMatchingSkills_0300, Function | MediumTest | Level1)
 {
@@ -2947,19 +3039,20 @@ HWTEST_F(ActsCESManagertest, CES_VerifyMatchingSkills_0300, Function | MediumTes
         matchingSkills.AddEvent(eventName);
         matchingSkills.AddEntity(entity);
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
-        EXPECT_TRUE(SubscribeCommonEventTest(subscribeInfo));
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberPtr));
         if (!matchingSkills.HasEntity(entity)) {
             result = false;
-            printf("CES_VerifyMatchingSkills_0300 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_VerifyMatchingSkills_0300 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
-        UnsubscribeCommonEventTest(subscribeInfo);
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_VerifyMatchingSkills_0300 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_VerifyMatchingSkills_0300 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -2980,19 +3073,20 @@ HWTEST_F(ActsCESManagertest, CES_VerifyMatchingSkills_0400, Function | MediumTes
         matchingSkills.AddEntity(entity);
         matchingSkills.RemoveEntity(entity);
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
-        EXPECT_TRUE(SubscribeCommonEventTest(subscribeInfo));
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberPtr));
         if (matchingSkills.HasEntity(entity)) {
             result = false;
-            printf("CES_VerifyMatchingSkills_0400 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_VerifyMatchingSkills_0400 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
-        UnsubscribeCommonEventTest(subscribeInfo);
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_VerifyMatchingSkills_0400 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_VerifyMatchingSkills_0400 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -3012,19 +3106,20 @@ HWTEST_F(ActsCESManagertest, CES_VerifyMatchingSkills_0500, Function | MediumTes
         matchingSkills.AddEvent(eventName);
         matchingSkills.AddEntity(entity);
         CommonEventSubscribeInfo subscribeInfo(matchingSkills);
-        EXPECT_TRUE(SubscribeCommonEventTest(subscribeInfo));
+        auto subscriberPtr = std::make_shared<CommonEventServicesSystemTest>(subscribeInfo);
+        EXPECT_TRUE(CommonEventManager::SubscribeCommonEvent(subscriberPtr));
         if (!(matchingSkills.CountEntities() >= 1)) {
             result = false;
-            printf("CES_VerifyMatchingSkills_0400 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_VerifyMatchingSkills_0500 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
-        UnsubscribeCommonEventTest(subscribeInfo);
+        CommonEventManager::UnSubscribeCommonEvent(subscriberPtr);
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_VerifyMatchingSkills_0400 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_VerifyMatchingSkills_0500 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }

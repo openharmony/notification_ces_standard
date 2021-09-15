@@ -722,7 +722,7 @@ void ActsCESDateTest::TearDown(void)
 
 /*
  * @tc.number: CES_CommonEventData_CodeData_0100
- * @tc.name: CommonEventData : SetCode SetData etCode and GetData
+ * @tc.name: CommonEventData : SetCode SetData GetCode and GetData
  * @tc.desc: 1.Set three Subscriber
  *           2.Verify the function of CommonEventData when publish order event: SetCode SetData GetCode and
  * GetData

@@ -253,7 +253,9 @@ HWTEST_F(CommonEventPublishOrderedEventUnitTest, CommonEventPublishOrderedUnitTe
 
     mtx.lock();
 
-    struct tm curTime{0};
+    struct tm curTime {
+        0
+    };
     // publish ordered event
     bool result =
         innerCommonEventManager.PublishCommonEvent(data, publishInfo, commonEventListener, curTime, 0, 0, "bundlename");
@@ -299,7 +301,9 @@ HWTEST_F(CommonEventPublishOrderedEventUnitTest, CommonEventPublishOrderedUnitTe
     // make commonEventListener
     OHOS::sptr<CommonEventListener> commonEventListener = new CommonEventListener(subscriber);
 
-    struct tm curTime{0};
+    struct tm curTime {
+        0
+    };
     // publish ordered event
     bool result =
         innerCommonEventManager.PublishCommonEvent(data, publishInfo, commonEventListener, curTime, 0, 0, "bundlename");
@@ -346,7 +350,8 @@ HWTEST_F(CommonEventPublishOrderedEventUnitTest, CommonEventPublishOrderedUnitTe
 
     mtx.lock();
 
-    bool result = commonEventControlManager->PublishCommonEvent(commonEventRecord, commonEventListenerPtr);
+    bool result = false;
+    result = commonEventControlManager->PublishCommonEvent(commonEventRecord, commonEventListenerPtr);
     EXPECT_EQ(true, result);
 
     int count = 0;
@@ -685,7 +690,9 @@ HWTEST_F(CommonEventPublishOrderedEventUnitTest, CommonEventPublishOrderedUnitTe
 
     mtx.lock();
 
-    struct tm curTime{0};
+    struct tm curTime {
+        0
+    };
     // publish ordered event
     bool result =
         innerCommonEventManager.PublishCommonEvent(data, publishInfo, commonEventListener, curTime, 0, 0, "bundlename");
@@ -739,7 +746,9 @@ HWTEST_F(CommonEventPublishOrderedEventUnitTest, CommonEventPublishOrderedUnitTe
 
     mtx.lock();
 
-    struct tm curTime{0};
+    struct tm curTime {
+        0
+    };
     // publish ordered event
     bool result =
         innerCommonEventManager.PublishCommonEvent(data, publishInfo, commonEventListener, curTime, 0, 0, "bundlename");
@@ -793,7 +802,9 @@ HWTEST_F(CommonEventPublishOrderedEventUnitTest, CommonEventPublishOrderedUnitTe
 
     mtx.lock();
 
-    struct tm curTime{0};
+    struct tm curTime {
+        0
+    };
     // publish ordered event
     bool result =
         innerCommonEventManager.PublishCommonEvent(data, publishInfo, commonEventListener, curTime, 0, 0, "bundlename");
@@ -847,7 +858,9 @@ HWTEST_F(CommonEventPublishOrderedEventUnitTest, CommonEventPublishOrderedUnitTe
 
     mtx.lock();
 
-    struct tm curTime{0};
+    struct tm curTime {
+        0
+    };
     // publish ordered event
     bool result =
         innerCommonEventManager.PublishCommonEvent(data, publishInfo, commonEventListener, curTime, 0, 0, "bundlename");

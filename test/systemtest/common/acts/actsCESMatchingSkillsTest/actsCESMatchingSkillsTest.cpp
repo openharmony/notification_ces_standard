@@ -87,7 +87,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_Entity_0100, Function | M
         matchingSkills.RemoveEntity(entityRemove);
         if (matchingSkills.CountEntities() != 0) {
             result = false;
-            printf("CES_MatchingSkills_Entity_0100 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_MatchingSkills_Entity_0100 faild, frequency: " << i;
             break;
         } else {
             result = true;
@@ -95,7 +95,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_Entity_0100, Function | M
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_MatchingSkills_Entity_0100 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_MatchingSkills_Entity_0100 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -130,7 +130,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_Entity_0200, Function | M
         matchingSkills.RemoveEntity(entityRemove);
         if (matchingSkills.CountEntities() != 0) {
             result = false;
-            printf("CES_MatchingSkills_Entity_0200 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_MatchingSkills_Entity_0200 faild, frequency: " << i;
             break;
         } else {
             result = true;
@@ -138,7 +138,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_Entity_0200, Function | M
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_MatchingSkills_Entity_0200 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_MatchingSkills_Entity_0200 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -174,7 +174,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_Entity_0300, Function | M
         matchingSkills.RemoveEntity(entityRemove);
         if (matchingSkills.CountEntities() != 0) {
             result = false;
-            printf("CES_MatchingSkills_Entity_0300 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_MatchingSkills_Entity_0300 faild, frequency: " << i;
             break;
         } else {
             result = true;
@@ -182,7 +182,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_Entity_0300, Function | M
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_MatchingSkills_Entity_0300 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_MatchingSkills_Entity_0300 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -230,7 +230,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_Entity_0400, Function | M
         matchingSkills.RemoveEntity(entityRemove);
         if (matchingSkills.CountEntities() != 0) {
             result = false;
-            printf("CES_MatchingSkills_Entity_0400 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_MatchingSkills_Entity_0400 faild, frequency: " << i;
             break;
         } else {
             result = true;
@@ -242,7 +242,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_Entity_0400, Function | M
         matchingSkills.RemoveEvent(eventName5);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_MatchingSkills_Entity_0400 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_MatchingSkills_Entity_0400 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -299,7 +299,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_Entity_0500, Function | M
         matchingSkills.RemoveEntity(entityRemove);
         if (matchingSkills.CountEntities() != 0) {
             result = false;
-            printf("CES_MatchingSkills_Entity_0500 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_MatchingSkills_Entity_0500 faild, frequency: " << i;
             break;
         } else {
             result = true;
@@ -316,7 +316,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_Entity_0500, Function | M
         matchingSkills.RemoveEvent(eventName10);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_MatchingSkills_Entity_0500 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_MatchingSkills_Entity_0500 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -341,14 +341,14 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_Scheme_0100, Function | M
         matchingSkills.RemoveScheme(shceme);
         if (matchingSkills.CountSchemes() != 0) {
             result = false;
-            printf("CES_MatchingSkills_Scheme_0100 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_MatchingSkills_Scheme_0100 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_MatchingSkills_Scheme_0100 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_MatchingSkills_Scheme_0100 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -373,14 +373,14 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_Scheme_0200, Function | M
         matchingSkills.RemoveScheme(shceme);
         if (matchingSkills.CountSchemes() != 0) {
             result = false;
-            printf("CES_MatchingSkills_Scheme_0200 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_MatchingSkills_Scheme_0200 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_MatchingSkills_Scheme_0200 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_MatchingSkills_Scheme_0200 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -405,14 +405,14 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_Scheme_0300, Function | M
         matchingSkills.RemoveScheme(shceme);
         if (matchingSkills.CountSchemes() != 0) {
             result = false;
-            printf("CES_MatchingSkills_Scheme_0300 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_MatchingSkills_Scheme_0300 faild, frequency: " << i;
             break;
         } else {
             result = true;
         }
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_MatchingSkills_Scheme_0300 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_MatchingSkills_Scheme_0300 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -448,7 +448,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_Scheme_0400, Function | M
 
         if (matchingSkills.CountSchemes() != 4) {
             result = false;
-            printf("CES_MatchingSkills_Scheme_0400 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_MatchingSkills_Scheme_0400 faild, frequency: " << i;
             break;
         } else {
             result = true;
@@ -459,7 +459,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_Scheme_0400, Function | M
         matchingSkills.RemoveScheme(shceme5);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_MatchingSkills_Scheme_0400 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_MatchingSkills_Scheme_0400 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -506,7 +506,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_Scheme_0500, Function | M
 
         if (matchingSkills.CountSchemes() != 9) {
             result = false;
-            printf("CES_MatchingSkills_Scheme_0500 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_MatchingSkills_Scheme_0500 faild, frequency: " << i;
             break;
         } else {
             result = true;
@@ -522,7 +522,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_Scheme_0500, Function | M
         matchingSkills.RemoveScheme(shceme10);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_MatchingSkills_Scheme_0500 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_MatchingSkills_Scheme_0500 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -542,7 +542,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_MatchEvent_0100, Function
         matchingSkills.AddEvent(eventName);
         if (!matchingSkills.MatchEvent(eventName)) {
             result = false;
-            printf("CES_MatchingSkills_MatchEvent_0100 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_MatchingSkills_MatchEvent_0100 faild, frequency: " << i;
             break;
         } else {
             result = true;
@@ -550,7 +550,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_MatchEvent_0100, Function
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_MatchingSkills_MatchEvent_0100 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_MatchingSkills_MatchEvent_0100 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -570,7 +570,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_MatchEvent_0200, Function
         matchingSkills.AddEvent(eventName);
         if (!matchingSkills.MatchEvent(eventName)) {
             result = false;
-            printf("CES_MatchingSkills_MatchEvent_0200 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_MatchingSkills_MatchEvent_0200 faild, frequency: " << i;
             break;
         } else {
             result = true;
@@ -578,7 +578,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_MatchEvent_0200, Function
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_MatchingSkills_MatchEvent_0200 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_MatchingSkills_MatchEvent_0200 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -598,7 +598,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_MatchEvent_0300, Function
         matchingSkills.AddEvent(eventName);
         if (!matchingSkills.MatchEvent(eventName)) {
             result = false;
-            printf("CES_MatchingSkills_MatchEvent_0300 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_MatchingSkills_MatchEvent_0300 faild, frequency: " << i;
             break;
         } else {
             result = true;
@@ -606,7 +606,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_MatchEvent_0300, Function
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_MatchingSkills_MatchEvent_0300 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_MatchingSkills_MatchEvent_0300 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -626,7 +626,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_MatchEvent_0400, Function
         matchingSkills.AddEvent(eventName);
         if (!matchingSkills.MatchEvent(eventName)) {
             result = false;
-            printf("CES_MatchingSkills_MatchEvent_0400 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_MatchingSkills_MatchEvent_0400 faild, frequency: " << i;
             break;
         } else {
             result = true;
@@ -634,7 +634,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_MatchEvent_0400, Function
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_MatchingSkills_MatchEvent_0400 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_MatchingSkills_MatchEvent_0400 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -654,7 +654,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_MatchEvent_0500, Function
         matchingSkills.AddEvent(eventName);
         if (!matchingSkills.MatchEvent(eventName)) {
             result = false;
-            printf("CES_MatchingSkills_MatchEvent_0500 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_MatchingSkills_MatchEvent_0500 faild, frequency: " << i;
             break;
         } else {
             result = true;
@@ -662,7 +662,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_MatchEvent_0500, Function
         matchingSkills.RemoveEvent(eventName);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_MatchingSkills_MatchEvent_0500 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_MatchingSkills_MatchEvent_0500 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -686,7 +686,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_MatchEntity_0100, Functio
         entityVector.emplace_back("entityTestMatchEntity");
         if (matchingSkills.MatchEntity(entityVector)) {
             result = false;
-            printf("CES_MatchingSkills_MatchEntity_0100 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_MatchingSkills_MatchEntity_0100 faild, frequency: " << i;
             break;
         } else {
             result = true;
@@ -695,7 +695,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_MatchEntity_0100, Functio
         matchingSkills.RemoveEntity(entity);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_MatchingSkills_MatchEntity_0100 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_MatchingSkills_MatchEntity_0100 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -720,7 +720,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_MatchEntity_0200, Functio
         entityVector.emplace_back("entityTestMatchEntity2");
         if (matchingSkills.MatchEntity(entityVector)) {
             result = false;
-            printf("CES_MatchingSkills_MatchEntity_0200 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_MatchingSkills_MatchEntity_0200 faild, frequency: " << i;
             break;
         } else {
             result = true;
@@ -729,7 +729,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_MatchEntity_0200, Functio
         entityVector.clear();
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_MatchingSkills_MatchEntity_0200 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_MatchingSkills_MatchEntity_0200 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -754,7 +754,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_MatchEntity_0300, Functio
         entityVector.emplace_back("entityTestMatchEntity3");
         if (matchingSkills.MatchEntity(entityVector)) {
             result = false;
-            printf("CES_MatchingSkills_MatchEntity_0300 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_MatchingSkills_MatchEntity_0300 faild, frequency: " << i;
             break;
         } else {
             result = true;
@@ -763,7 +763,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_MatchEntity_0300, Functio
         entityVector.clear();
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_MatchingSkills_MatchEntity_0300 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_MatchingSkills_MatchEntity_0300 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -788,7 +788,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_MatchEntity_0400, Functio
         entityVector.emplace_back("entityTestMatchEntity4");
         if (matchingSkills.MatchEntity(entityVector)) {
             result = false;
-            printf("CES_MatchingSkills_MatchEntity_0400 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_MatchingSkills_MatchEntity_0400 faild, frequency: " << i;
             break;
         } else {
             result = true;
@@ -797,7 +797,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_MatchEntity_0400, Functio
         entityVector.clear();
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_MatchingSkills_MatchEntity_0400 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_MatchingSkills_MatchEntity_0400 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -822,7 +822,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_MatchEntity_0500, Functio
         entityVector.emplace_back("entityTestMatchEntity5");
         if (matchingSkills.MatchEntity(entityVector)) {
             result = false;
-            printf("CES_MatchingSkills_MatchEntity_0500 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_MatchingSkills_MatchEntity_0500 faild, frequency: " << i;
             break;
         } else {
             result = true;
@@ -831,7 +831,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_MatchEntity_0500, Functio
         entityVector.clear();
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_MatchingSkills_MatchEntity_0500 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_MatchingSkills_MatchEntity_0500 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -853,7 +853,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_MatchScheme_0100, Functio
 
         if (matchingSkills.MatchScheme("schemeMatchScheme")) {
             result = false;
-            printf("CES_MatchingSkills_MatchScheme_0100 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_MatchingSkills_MatchScheme_0100 faild, frequency: " << i;
             break;
         } else {
             result = true;
@@ -861,7 +861,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_MatchScheme_0100, Functio
         matchingSkills.RemoveScheme(scheme);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_MatchingSkills_MatchScheme_0100 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_MatchingSkills_MatchScheme_0100 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -883,7 +883,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_MatchScheme_0200, Functio
 
         if (!matchingSkills.MatchScheme("schemeMatchScheme")) {
             result = false;
-            printf("CES_MatchingSkills_MatchScheme_0200 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_MatchingSkills_MatchScheme_0200 faild, frequency: " << i;
             break;
         } else {
             result = true;
@@ -891,7 +891,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_MatchScheme_0200, Functio
         matchingSkills.RemoveScheme(scheme);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_MatchingSkills_MatchScheme_0200 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_MatchingSkills_MatchScheme_0200 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -912,7 +912,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_MatchScheme_0300, Functio
 
         if (!matchingSkills.MatchScheme("MatchScheme")) {
             result = false;
-            printf("CES_MatchingSkills_MatchScheme_0300 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_MatchingSkills_MatchScheme_0300 faild, frequency: " << i;
             break;
         } else {
             result = true;
@@ -920,7 +920,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_MatchScheme_0300, Functio
         matchingSkills.RemoveScheme(scheme);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_MatchingSkills_MatchScheme_0300 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_MatchingSkills_MatchScheme_0300 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -941,7 +941,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_MatchScheme_0400, Functio
 
         if (!matchingSkills.MatchScheme("MatchScheme2")) {
             result = false;
-            printf("CES_MatchingSkills_MatchScheme_0400 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_MatchingSkills_MatchScheme_0400 faild, frequency: " << i;
             break;
         } else {
             result = true;
@@ -949,7 +949,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_MatchScheme_0400, Functio
         matchingSkills.RemoveScheme(scheme);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_MatchingSkills_MatchScheme_0400 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_MatchingSkills_MatchScheme_0400 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -970,7 +970,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_MatchScheme_0500, Functio
 
         if (!matchingSkills.MatchScheme("MatchScheme5")) {
             result = false;
-            printf("CES_MatchingSkills_MatchScheme_0500 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_MatchingSkills_MatchScheme_0500 faild, frequency: " << i;
             break;
         } else {
             result = true;
@@ -978,7 +978,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_MatchScheme_0500, Functio
         matchingSkills.RemoveScheme(scheme);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_MatchingSkills_MatchScheme_0500 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_MatchingSkills_MatchScheme_0500 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -1003,7 +1003,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_Match_0100, Function | Me
 
         if (!matchingSkills.Match(want)) {
             result = false;
-            printf("CES_MatchingSkills_Match_0100 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_MatchingSkills_Match_0100 faild, frequency: " << i;
             break;
         } else {
             result = true;
@@ -1013,7 +1013,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_Match_0100, Function | Me
         want.RemoveEntity(entity);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_MatchingSkills_Match_0100 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_MatchingSkills_Match_0100 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -1038,7 +1038,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_Match_0200, Function | Me
         want.SetAction(eventName2);
         if (!matchingSkills.Match(want)) {
             result = false;
-            printf("CES_MatchingSkills_Match_0200 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_MatchingSkills_Match_0200 faild, frequency: " << i;
             break;
         } else {
             result = true;
@@ -1048,7 +1048,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_Match_0200, Function | Me
         want.RemoveEntity(entity);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_MatchingSkills_Match_0200 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_MatchingSkills_Match_0200 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -1072,7 +1072,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_Match_0300, Function | Me
         want.SetAction(eventName3);
         if (!matchingSkills.Match(want)) {
             result = false;
-            printf("CES_MatchingSkills_Match_0300 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_MatchingSkills_Match_0300 faild, frequency: " << i;
             break;
         } else {
             result = true;
@@ -1082,7 +1082,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_Match_0300, Function | Me
         want.RemoveEntity(entity);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_MatchingSkills_Match_0300 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_MatchingSkills_Match_0300 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -1106,7 +1106,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_Match_0400, Function | Me
         want.SetAction(eventName4);
         if (!matchingSkills.Match(want)) {
             result = false;
-            printf("CES_MatchingSkills_Match_0400 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_MatchingSkills_Match_0400 faild, frequency: " << i;
             break;
         } else {
             result = true;
@@ -1116,7 +1116,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_Match_0400, Function | Me
         want.RemoveEntity(entity);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_MatchingSkills_Match_0400 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_MatchingSkills_Match_0400 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
@@ -1140,7 +1140,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_Match_0500, Function | Me
         want.SetAction(eventName5);
         if (!matchingSkills.Match(want)) {
             result = false;
-            printf("CES_MatchingSkills_Match_0500 : %d \n", i);
+            GTEST_LOG_(INFO) << "CES_MatchingSkills_Match_0500 faild, frequency: " << i;
             break;
         } else {
             result = true;
@@ -1150,7 +1150,7 @@ HWTEST_F(ActsCESMatchingSkillsTest, CES_MatchingSkills_Match_0500, Function | Me
         want.RemoveEntity(entity);
     }
     if (result && stLevel_.CESLevel >= 1) {
-        printf("CES_MatchingSkills_Match_0500 : %d \n", stLevel_.CESLevel);
+        GTEST_LOG_(INFO) << "CES_MatchingSkills_Match_0500 stress level: " << stLevel_.CESLevel;
     }
     EXPECT_TRUE(result);
 }
