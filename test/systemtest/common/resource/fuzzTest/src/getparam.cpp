@@ -207,8 +207,23 @@ char32_t GetChar32Param()
 char *GetCharArryParam()
 {
     static char param[256];
-    strcpy_s(param, 255, GetStringParam().c_str());
-    return param;
+    size_t len = 0;
+    string strparam = GetStringParam();
+    if (!strparam.empty()) {
+        len = strparam.size() + 1;
+        if (len > sizeof(param)) {
+            len = sizeof(param) - 1;
+        }
+
+        int ret = strcpy_s(param, len, strparam.c_str());
+        if(ret == 0){
+            return param;    
+        } else {
+            return nullptr;
+        }
+    } else {
+        return nullptr;
+    }  
 }
 
 string GetStringParam()
@@ -853,6 +868,11 @@ sptr<OHOS::AppExecFwk::ICleanCacheCallback> GetParamICleanCacheCallback()
 sptr<OHOS::AppExecFwk::IBundleStatusCallback> GetParamIBundleStatusCallback()
 {
     return sptr<TestIBundleStatusCallback>();
+}
+
+std::shared_ptr<OHOS::AppExecFwk::DataAbilityHelper>GetParamDataAbilityHelper()
+{
+    return OHOS::AppExecFwk::DataAbilityHelper::Creator(std::make_shared<OHOS::AppExecFwk::Ability>());
 }
 
 }  // namespace EventFwk

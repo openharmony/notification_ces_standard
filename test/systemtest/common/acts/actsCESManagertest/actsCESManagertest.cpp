@@ -3123,6 +3123,5 @@ HWTEST_F(ActsCESManagertest, CES_VerifyMatchingSkills_0500, Function | MediumTes
     }
     EXPECT_TRUE(result);
 }
-
 }  // namespace EventFwk
 }  // namespace OHOS

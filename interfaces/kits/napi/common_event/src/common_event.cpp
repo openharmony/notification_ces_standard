@@ -831,7 +831,7 @@ napi_value GetCode(napi_env env, napi_callback_info info)
 }
 
 napi_value ParseParametersBySetCode(
-    const napi_env &env, const napi_value (&argv)[2], size_t argc, int &code, napi_ref &callback)
+    const napi_env &env, const napi_value (&argv)[SET_CODE_MAX_PARA], size_t argc, int &code, napi_ref &callback)
 {
     napi_valuetype valuetype;
 
@@ -870,8 +870,8 @@ void PaddingAsyncCallbackInfoSetCode(const napi_env &env, const size_t &argc,
 napi_value SetCode(napi_env env, napi_callback_info info)
 {
     EVENT_LOGI("SetCode start");
-    size_t argc = 2;
-    napi_value argv[2] = {nullptr};
+    size_t argc = SET_CODE_MAX_PARA;
+    napi_value argv[SET_CODE_MAX_PARA] = {nullptr};
     napi_value thisVar = nullptr;
     NAPI_CALL(env, napi_get_cb_info(env, info, &argc, argv, &thisVar, NULL));
 
@@ -1048,7 +1048,7 @@ napi_value GetData(napi_env env, napi_callback_info info)
 }
 
 napi_value ParseParametersBySetData(
-    const napi_env &env, const napi_value (&argv)[2], size_t argc, std::string &data, napi_ref &callback)
+    const napi_env &env, const napi_value (&argv)[SET_DATA_MAX_PARA], size_t argc, std::string &data, napi_ref &callback)
 {
     napi_valuetype valuetype;
     size_t strLen = 0;
@@ -1089,8 +1089,8 @@ void PaddingAsyncCallbackInfoSetData(const napi_env &env, const size_t &argc,
 napi_value SetData(napi_env env, napi_callback_info info)
 {
     EVENT_LOGI("SetData start");
-    size_t argc = 2;
-    napi_value argv[2] = {nullptr};
+    size_t argc = SET_DATA_MAX_PARA;
+    napi_value argv[SET_DATA_MAX_PARA] = {nullptr};
     napi_value thisVar = nullptr;
     NAPI_CALL(env, napi_get_cb_info(env, info, &argc, argv, &thisVar, NULL));
 
@@ -1162,7 +1162,7 @@ napi_value SetData(napi_env env, napi_callback_info info)
 }
 
 napi_value ParseParametersBySetCodeAndData(
-    const napi_env &env, const napi_value (&argv)[3], size_t argc, int &code, std::string &data, napi_ref &callback)
+    const napi_env &env, const napi_value (&argv)[SET_CODE_AND_DATA_MAX_PARA], size_t argc, int &code, std::string &data, napi_ref &callback)
 {
     napi_valuetype valuetype;
     size_t strLen = 0;
@@ -1181,9 +1181,9 @@ napi_value ParseParametersBySetCodeAndData(
 
     // argv[2]:callback
     if (argc >= SET_CODE_AND_DATA_MAX_PARA) {
-        NAPI_CALL(env, napi_typeof(env, argv[2], &valuetype));
+        NAPI_CALL(env, napi_typeof(env, argv[SET_CODE_AND_DATA_MAX_PARA - 1], &valuetype));
         NAPI_ASSERT(env, valuetype == napi_function, "Wrong argument type. Function expected.");
-        napi_create_reference(env, argv[2], 1, &callback);
+        napi_create_reference(env, argv[SET_CODE_AND_DATA_MAX_PARA - 1], 1, &callback);
     }
     return NapiGetNull(env);
 }
@@ -1209,8 +1209,8 @@ void PaddingAsyncCallbackInfoSetCodeAndData(const napi_env &env, const size_t &a
 napi_value SetCodeAndData(napi_env env, napi_callback_info info)
 {
     EVENT_LOGI("SetCodeAndData start");
-    size_t argc = 3;
-    napi_value argv[3] = {nullptr};
+    size_t argc = SET_CODE_AND_DATA_MAX_PARA;
+    napi_value argv[SET_CODE_AND_DATA_MAX_PARA] = {nullptr};
     napi_value thisVar = nullptr;
     NAPI_CALL(env, napi_get_cb_info(env, info, &argc, argv, &thisVar, NULL));
 

@@ -515,7 +515,7 @@ public:
      * device.
      * @return Returns true if this function is successfully called; returns false otherwise.
      */
-	virtual bool GetFormsInfoByApp(const std::string &bundleName, std::vector<FormInfo> &formInfos) override
+    virtual bool GetFormsInfoByApp(const std::string &bundleName, std::vector<FormInfo> &formInfos) override
     {
         return true;
     }
@@ -527,7 +527,7 @@ public:
      * @param  bundleName Indicates the bundle name of the application.
      * @return Returns true if this function is successfully called; returns false otherwise.
      */
-	virtual bool GetFormsInfoByModule(
+    virtual bool GetFormsInfoByModule(
         const std::string &bundleName, const std::string &moduleName, std::vector<FormInfo> &formInfos) override
     {
         return true;

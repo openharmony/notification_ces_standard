@@ -50,6 +50,10 @@ private:
     std::unordered_map<std::string, int> remainderMap_{};
     std::unordered_map<std::string, std::function<void()>> callFunctionMap_{};
 
+    const int COLOR_R = 100;
+    const int COLOR_G = 100;
+    const int COLOR_B = 100;
+
     void RegisterAsyncCommonEventResult();
     void RegisterCommonEventData();
     void RegisterCommonEventManager();

@@ -1907,6 +1907,10 @@ void fuzzTestManager::RegisterOHOSApplication()
 
 void fuzzTestManager::RegisterAbility()
 {
+    const int COLOR_R = 100;
+    const int COLOR_G = 100;
+    const int COLOR_B = 100;
+
     callFunctionMap_.emplace("AbilityTerminateAbilityWant", []() {
         std::shared_ptr<OHOS::AppExecFwk::Ability> temp = GetParamAbility();
         OHOS::AAFwk::Want param;
@@ -1920,7 +1924,7 @@ void fuzzTestManager::RegisterAbility()
 
     callFunctionMap_.emplace("AbilitySetWindowBackgroundColor", []() {
         std::shared_ptr<OHOS::AppExecFwk::Ability> temp = GetParamAbility();
-        temp->SetWindowBackgroundColor(100, 100, 100);
+        temp->SetWindowBackgroundColor(COLOR_R, COLOR_G, COLOR_B);
     });
 
     callFunctionMap_.emplace("AbilityTerminateAbility", []() {
@@ -2290,9 +2294,6 @@ void fuzzTestManager::RegisterAbility()
 
 void fuzzTestManager::RegisterDataAbilityHelper()
 {
-#define GetParamDataAbilityHelper() \
-    OHOS::AppExecFwk::DataAbilityHelper::Creator(std::make_shared<OHOS::AppExecFwk::Ability>())
-
     callFunctionMap_.emplace("DataAbilityHelperRelease", []() {
         std::shared_ptr<OHOS::AppExecFwk::DataAbilityHelper> temp = GetParamDataAbilityHelper();
         temp->Release();
@@ -2384,7 +2385,6 @@ void fuzzTestManager::RegisterDataUriUtils()
 
 void fuzzTestManager::RegisterLifeCycle()
 {
-#define GetParamLifeCycle() std::make_shared<OHOS::AppExecFwk::LifeCycle>()
     callFunctionMap_.emplace("LifeCycleGetLifecycleState", []() {
         std::shared_ptr<OHOS::AppExecFwk::LifeCycle> temp = GetParamLifeCycle();
         temp->GetLifecycleState();
@@ -2790,6 +2790,5 @@ void fuzzTestManager::StartFuzzTest()
     }
     std::cout << remainderMap_.size() << "--------fuzz test end--------" << std::endl;
 }
-
 }  // namespace EventFwk
 }  // namespace OHOS

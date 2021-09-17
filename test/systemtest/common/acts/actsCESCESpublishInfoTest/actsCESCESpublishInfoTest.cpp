@@ -1109,6 +1109,5 @@ HWTEST_F(ActsCESCESpublishInfoTest, CES_PublishInfo_Ordered_1000, Function | Med
     }
     EXPECT_TRUE(result);
 }
-
 }  // namespace EventFwk
 }  // namespace OHOS
