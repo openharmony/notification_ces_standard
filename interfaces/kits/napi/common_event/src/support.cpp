@@ -68,6 +68,8 @@ napi_value SupportInit(napi_env env, napi_value exports)
         env, obj, EventFwk::CommonEventSupport::COMMON_EVENT_MY_PACKAGE_REPLACED, "COMMON_EVENT_MY_PACKAGE_REPLACED");
     SetNamedPropertyByStr(
         env, obj, EventFwk::CommonEventSupport::COMMON_EVENT_PACKAGE_REMOVED, "COMMON_EVENT_PACKAGE_REMOVED");
+    SetNamedPropertyByStr(
+        env, obj, EventFwk::CommonEventSupport::COMMON_EVENT_BUNDLE_REMOVED, "COMMON_EVENT_BUNDLE_REMOVED");
     SetNamedPropertyByStr(env,
         obj,
         EventFwk::CommonEventSupport::COMMON_EVENT_PACKAGE_FULLY_REMOVED,
@@ -386,9 +388,6 @@ napi_value SupportInit(napi_env env, napi_value exports)
         EventFwk::CommonEventSupport::COMMON_EVENT_IVI_TEMPERATURE_RECOVERY,
         "COMMON_EVENT_IVI_TEMPERATURE_RECOVERY");
     SetNamedPropertyByStr(env, obj, EventFwk::CommonEventSupport::COMMON_EVENT_IVI_ACTIVE, "COMMON_EVENT_IVI_ACTIVE");
-    SetNamedPropertyByStr(env, obj, EventFwk::CommonEventSupport::COMMON_EVENT_USB_STATE, "COMMON_EVENT_USB_STATE");
-    SetNamedPropertyByStr(
-        env, obj, EventFwk::CommonEventSupport::COMMON_EVENT_USB_PORT_CHANGED, "COMMON_EVENT_USB_PORT_CHANGED");
     SetNamedPropertyByStr(
         env, obj, EventFwk::CommonEventSupport::COMMON_EVENT_USB_DEVICE_ATTACHED, "COMMON_EVENT_USB_DEVICE_ATTACHED");
     SetNamedPropertyByStr(
@@ -401,14 +400,6 @@ napi_value SupportInit(napi_env env, napi_value exports)
         obj,
         EventFwk::CommonEventSupport::COMMON_EVENT_USB_ACCESSORY_DETACHED,
         "COMMON_EVENT_USB_ACCESSORY_DETACHED");
-    SetNamedPropertyByStr(
-        env, obj, EventFwk::CommonEventSupport::COMMON_EVENT_DEVICE_STORAGE_LOW, "COMMON_EVENT_DEVICE_STORAGE_LOW");
-    SetNamedPropertyByStr(
-        env, obj, EventFwk::CommonEventSupport::COMMON_EVENT_DEVICE_STORAGE_OK, "COMMON_EVENT_DEVICE_STORAGE_OK");
-    SetNamedPropertyByStr(
-        env, obj, EventFwk::CommonEventSupport::COMMON_EVENT_DEVICE_STORAGE_FULL, "COMMON_EVENT_DEVICE_STORAGE_FULL");
-    SetNamedPropertyByStr(
-        env, obj, EventFwk::CommonEventSupport::COMMON_EVENT_CONNECTIVITY_CHANGE, "COMMON_EVENT_CONNECTIVITY_CHANGE");
     SetNamedPropertyByStr(
         env, obj, EventFwk::CommonEventSupport::COMMON_EVENT_DISK_REMOVED, "COMMON_EVENT_DISK_REMOVED");
     SetNamedPropertyByStr(
@@ -430,12 +421,6 @@ napi_value SupportInit(napi_env env, napi_value exports)
         env, obj, EventFwk::CommonEventSupport::COMMON_EVENT_FOUNDATION_READY, "COMMON_EVENT_FOUNDATION_READY");
     SetNamedPropertyByStr(env,
         obj,
-        EventFwk::CommonEventSupport::COMMON_EVENT_SIM_CARD_DEFAULT_VOICE_SUBSCRIPTION_CHANGED,
-        "COMMON_EVENT_SIM_CARD_DEFAULT_VOICE_SUBSCRIPTION_CHANGED");
-    SetNamedPropertyByStr(
-        env, obj, EventFwk::CommonEventSupport::COMMON_EVENT_SIM_STATE_CHANGED, "COMMON_EVENT_SIM_STATE_CHANGED");
-    SetNamedPropertyByStr(env,
-        obj,
         EventFwk::CommonEventSupport::COMMON_EVENT_AIRPLANE_MODE_CHANGED,
         "COMMON_EVENT_AIRPLANE_MODE_CHANGED");
     SetNamedPropertyByStr(env,
@@ -444,10 +429,6 @@ napi_value SupportInit(napi_env env, napi_value exports)
         "COMMON_EVENT_SMS_RECEIVE_COMPLETED");
     SetNamedPropertyByStr(
         env, obj, EventFwk::CommonEventSupport::COMMON_EVENT_SPN_INFO_UPDATED, "COMMON_EVENT_SPN_INFO_UPDATED");
-    SetNamedPropertyByStr(
-        env, obj, EventFwk::CommonEventSupport::COMMON_EVENT_TEST_ACTION1, "COMMON_EVENT_TEST_ACTION1");
-    SetNamedPropertyByStr(
-        env, obj, EventFwk::CommonEventSupport::COMMON_EVENT_TEST_ACTION2, "COMMON_EVENT_TEST_ACTION2");
 
     napi_property_descriptor exportFuncs[] = {DECLARE_NAPI_PROPERTY("Support", obj)};
     napi_define_properties(env, exports, sizeof(exportFuncs) / sizeof(*exportFuncs), exportFuncs);

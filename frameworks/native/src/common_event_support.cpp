@@ -133,6 +133,12 @@ const std::string CommonEventSupport::COMMON_EVENT_MY_PACKAGE_REPLACED = "usual.
  */
 const std::string CommonEventSupport::COMMON_EVENT_PACKAGE_REMOVED = "usual.event.PACKAGE_REMOVED";
 /**
+ * Indicate the action of a common event that an installed bundle has been uninstalled from the device with the
+ * application data remained.
+ * This common event can only be published by the system.
+ */
+const std::string CommonEventSupport::COMMON_EVENT_BUNDLE_REMOVED = "usual.event.BUNDLE_REMOVED";
+/**
  * Indicate the action of a common event that an installed application, including both the application data and
  * code, have been completely uninstalled from the device.
  * This common event can only be published by the system.
@@ -1019,6 +1025,7 @@ void CommonEventSupport::Init()
     commonEventSupport_.emplace_back(CommonEventSupport::COMMON_EVENT_PACKAGE_REPLACED);
     commonEventSupport_.emplace_back(CommonEventSupport::COMMON_EVENT_MY_PACKAGE_REPLACED);
     commonEventSupport_.emplace_back(CommonEventSupport::COMMON_EVENT_PACKAGE_REMOVED);
+    commonEventSupport_.emplace_back(CommonEventSupport::COMMON_EVENT_BUNDLE_REMOVED);
     commonEventSupport_.emplace_back(CommonEventSupport::COMMON_EVENT_PACKAGE_FULLY_REMOVED);
     commonEventSupport_.emplace_back(CommonEventSupport::COMMON_EVENT_PACKAGE_CHANGED);
     commonEventSupport_.emplace_back(CommonEventSupport::COMMON_EVENT_PACKAGE_RESTARTED);
