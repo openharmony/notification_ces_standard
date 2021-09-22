@@ -14,7 +14,7 @@
  */
 import { AsyncCallback } from './basic';
 import { CommonEventData } from './commonEvent/commonEventData';
-import { CommonEventSubscriber } from './commonEvent/commonEventSubscriber'
+import { CommonEventSubscriber } from './commonEvent/commonEventSubscriber';
 import { CommonEventSubscribeInfo } from './commonEvent/commonEventSubscribeInfo';
 import { CommonEventPublishData } from './commonEvent/commonEventPublishData';
 
@@ -44,7 +44,6 @@ declare namespace commonEvent {
    * @return -
    */
   function publish(event: string, options: CommonEventPublishData, callback: AsyncCallback<void>): void;
-
 
   /**
    * create the CommonEventSubscriber for the SubscriberInfo.
@@ -402,7 +401,7 @@ declare namespace commonEvent {
     /**
      * Indicates Wi-Fi MpLink state notification acknowledged by binding or unbinding MpLink.
      */
-    COMMON_EVENT_WIFI_MPLINK_STATE = "usual.event.wifi.mplink.STATE_CHANGE",
+    COMMON_EVENT_WIFI_MPLINK_STATE_CHANGE = "usual.event.wifi.mplink.STATE_CHANGE",
 
     /**
      * Indicates Wi-Fi P2P connection state notification acknowledged by connecting or disconnecting P2P.
@@ -797,19 +796,6 @@ declare namespace commonEvent {
     COMMON_EVENT_IVI_ACTIVE = "common.event.IVI_ACTIVE",
 
     /**
-     * The usb state changed.
-     * This is a protected common event that can only be sent by system.
-     */
-    COMMON_EVENT_USB_STATE = "usual.event.hardware.usb.action.USB_STATE",
-
-    /**
-     * The usb port changed.
-     * This is a protected common event that can only be sent by system.
-     */
-    COMMON_EVENT_USB_PORT_CHANGED =
-        "usual.event.hardware.usb.action.USB_PORT_CHANGED",
-
-    /**
      * The usb device attached.
      * This is a protected common event that can only be sent by system.
      */
@@ -836,30 +822,6 @@ declare namespace commonEvent {
      */
     COMMON_EVENT_USB_ACCESSORY_DETACHED =
         "usual.event.hardware.usb.action.USB_ACCESSORY_DETACHED",
-
-    /**
-     * The storage space is low.
-     * This is a protected common event that can only be sent by system.
-     */
-    COMMON_EVENT_DEVICE_STORAGE_LOW = "usual.event.DEVICE_STORAGE_LOW",
-
-    /**
-     * The storage space is normal.
-     * This is a protected common event that can only be sent by system.
-     */
-    COMMON_EVENT_DEVICE_STORAGE_OK = "usual.event.DEVICE_STORAGE_OK",
-
-    /**
-     * The storage space is full.
-     * This is a protected common event that can only be sent by system.
-     */
-    COMMON_EVENT_DEVICE_STORAGE_FULL = "usual.event.DEVICE_STORAGE_FULL",
-
-    /**
-     * The network connection was changed.
-     * This is a protected common event that can only be sent by system.
-     */
-    COMMON_EVENT_CONNECTIVITY_CHANGE = "usual.event.CONNECTIVITY_CHANGE",
 
     /**
      * The external storage was removed.
@@ -917,33 +879,10 @@ declare namespace commonEvent {
     COMMON_EVENT_FOUNDATION_READY = "common.event.FOUNDATION_READY",
 
     /**
-     * Indicates the action of a common event that the phone SIM card state has changed.
-     * This is a protected common event that can only be sent by system.
-     */
-    COMMON_EVENT_SIM_CARD_DEFAULT_VOICE_SUBSCRIPTION_CHANGED =
-        "usual.event.SIM.DEFAULT_VOICE_SUBSCRIPTION_CHANGED",
-
-    /**
-     * Indicates the action of a common event that the phone SIM card state has changed.
-     * This is a protected common event that can only be sent by system.
-     */
-    COMMON_EVENT_SIM_STATE_CHANGED = "usual.event.SIM.CARD_STATE_CHANGED",
-
-    /**
      * Indicates the common event Action indicating that the airplane mode status of the device changes.
      * Users can register this event to listen to the change of the airplane mode status of the device.
      */
-    COMMON_EVENT_AIRPLANE_MODE_CHANGED = "usual.event.AIRPLANE_MODE",
-
-    /**
-     * Only for test case.
-     */
-    COMMON_EVENT_TEST_ACTION1 = "usual.event.test1",
-
-    /**
-     * Only for test case.
-     */
-    COMMON_EVENT_TEST_ACTION2 = "usual.event.test2"
+    COMMON_EVENT_AIRPLANE_MODE_CHANGED = "usual.event.AIRPLANE_MODE"
   }
 }
 

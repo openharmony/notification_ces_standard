@@ -16,6 +16,7 @@
 #include "common_event_data.h"
 
 #include "event_log_wrapper.h"
+#include "message_parcel.h"
 #include "string_ex.h"
 
 namespace OHOS {
@@ -73,7 +74,16 @@ const Want &CommonEventData::GetWant() const
 
 bool CommonEventData::Marshalling(Parcel &parcel) const
 {
-    if (!parcel.WriteString16(Str8ToStr16(data_))) {
+    MessageParcel *messageParcel = reinterpret_cast<MessageParcel *>(&parcel);
+    if (!messageParcel) {
+        EVENT_LOGE("Type conversion failed");
+        return false;
+    }
+    if (!messageParcel->WriteUint32(data_.size() + 1)) {
+        EVENT_LOGE("Failed to write data size");
+        return false;
+    }
+    if (!messageParcel->WriteRawData(data_.c_str(), data_.size() + 1)) {
         EVENT_LOGE("Failed to write data");
         return false;
     }
@@ -94,10 +104,25 @@ bool CommonEventData::Marshalling(Parcel &parcel) const
 bool CommonEventData::ReadFromParcel(Parcel &parcel)
 {
     // read data
-    data_ = Str16ToStr8(parcel.ReadString16());
+    MessageParcel *messageParcel = reinterpret_cast<MessageParcel *>(&parcel);
+    if (!messageParcel) {
+        EVENT_LOGE("Type conversion failed");
+        return false;
+    }
+    uint32_t length = messageParcel->ReadUint32();
+    if (length == 0) {
+        EVENT_LOGE("Invalid data length");
+        return false;
+    }
+    const char *data = reinterpret_cast<const char *>(messageParcel->ReadRawData(length));
+    if (!data) {
+        EVENT_LOGE("Fail to read raw data, length = %{public}d", length);
+        return false;
+    }
+    data_ = data;
 
     // read code
-    code_ = parcel.ReadUint32();
+    code_ = parcel.ReadInt32();
 
     // read want
     std::unique_ptr<Want> want(parcel.ReadParcelable<Want>());

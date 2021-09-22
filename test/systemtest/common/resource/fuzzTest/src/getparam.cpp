@@ -18,6 +18,9 @@
 #include <limits.h>
 #include <float.h>
 #include <chrono>
+#include "abs_shared_result_set.h"
+#include "data_ability_predicates.h"
+#include "values_bucket.h"
 using namespace std;
 using namespace OHOS::AppExecFwk;
 using Uri = OHOS::Uri;
@@ -207,8 +210,23 @@ char32_t GetChar32Param()
 char *GetCharArryParam()
 {
     static char param[256];
-    strcpy_s(param, 255, GetStringParam().c_str());
-    return param;
+    size_t len = 0;
+    string strparam = GetStringParam();
+    if (!strparam.empty()) {
+        len = strparam.size() + 1;
+        if (len > sizeof(param)) {
+            len = sizeof(param) - 1;
+        }
+
+        int ret = strcpy_s(param, len, strparam.c_str());
+        if(ret == 0){
+            return param;    
+        } else {
+            return nullptr;
+        }
+    } else {
+        return nullptr;
+    }  
 }
 
 string GetStringParam()
@@ -613,12 +631,14 @@ OHOS::Uri GetParamUri()
     return OHOS::Uri(GetStringParam());
 }
 
-OHOS::AppExecFwk::ValuesBucket GetParamValuesBucket()
+NativeRdb::ValuesBucket GetParamValuesBucket()
 {
     if (GetBoolParam()) {
-        return OHOS::AppExecFwk::ValuesBucket(GetStringParam());
+        NativeRdb::ValuesBucket val;
+        val.PutNull(GetStringParam());
+        return val;
     } else {
-        return OHOS::AppExecFwk::ValuesBucket();
+        return NativeRdb::ValuesBucket();
     }
 }
 
@@ -631,12 +651,12 @@ OHOS::AppExecFwk::Configuration GetParamConfiguration()
     }
 }
 
-OHOS::AppExecFwk::DataAbilityPredicates GetParamDataAbilityPredicates()
+NativeRdb::DataAbilityPredicates GetParamDataAbilityPredicates()
 {
     if (GetBoolParam()) {
-        return OHOS::AppExecFwk::DataAbilityPredicates(GetStringParam());
+        return NativeRdb::DataAbilityPredicates(GetStringParam());
     } else {
-        return OHOS::AppExecFwk::DataAbilityPredicates();
+        return NativeRdb::DataAbilityPredicates();
     }
 }
 
@@ -853,6 +873,11 @@ sptr<OHOS::AppExecFwk::ICleanCacheCallback> GetParamICleanCacheCallback()
 sptr<OHOS::AppExecFwk::IBundleStatusCallback> GetParamIBundleStatusCallback()
 {
     return sptr<TestIBundleStatusCallback>();
+}
+
+std::shared_ptr<OHOS::AppExecFwk::DataAbilityHelper>GetParamDataAbilityHelper()
+{
+    return OHOS::AppExecFwk::DataAbilityHelper::Creator(std::make_shared<OHOS::AppExecFwk::Ability>());
 }
 
 }  // namespace EventFwk

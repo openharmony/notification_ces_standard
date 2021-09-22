@@ -138,6 +138,12 @@ public:
      */
     static const std::string COMMON_EVENT_PACKAGE_REMOVED;
     /**
+     * Indicate the action of a common event that an installed bundle has been uninstalled from the device with the
+     * application data remained.
+     * This common event can only be published by the system.
+     */
+    static const std::string COMMON_EVENT_BUNDLE_REMOVED;
+    /**
      * Indicate the action of a common event that an installed application, including both the application data and
      * code, have been completely uninstalled from the device.
      * This common event can only be published by the system.

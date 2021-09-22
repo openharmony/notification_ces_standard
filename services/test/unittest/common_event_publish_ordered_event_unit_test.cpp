@@ -336,6 +336,7 @@ HWTEST_F(CommonEventPublishOrderedEventUnitTest, CommonEventPublishOrderedUnitTe
     commonEventRecord.pid = 0;
     commonEventRecord.uid = 0;
     commonEventRecord.bundleName = "bundleName";
+    commonEventRecord.recordTime = {0};
 
     // make subcriber info
     MatchingSkills matchingSkills;
