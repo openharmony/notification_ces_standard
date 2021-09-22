@@ -79,11 +79,11 @@ bool CommonEventData::Marshalling(Parcel &parcel) const
         EVENT_LOGE("Type conversion failed");
         return false;
     }
-    if (!messageParcel->WriteUint32(data_.size())) {
+    if (!messageParcel->WriteUint32(data_.size() + 1)) {
         EVENT_LOGE("Failed to write data size");
         return false;
     }
-    if (!messageParcel->WriteRawData(data_.c_str(), data_.size())) {
+    if (!messageParcel->WriteRawData(data_.c_str(), data_.size() + 1)) {
         EVENT_LOGE("Failed to write data");
         return false;
     }
