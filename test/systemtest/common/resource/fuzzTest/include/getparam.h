@@ -130,9 +130,9 @@ std::shared_ptr<OHOS::AppExecFwk::OHOSApplication> GetParamOHOSApplication();
 std::shared_ptr<OHOS::KeyEvent> GetParamKeyEvent();
 OHOS::Uri GetParamUri();
 
-OHOS::AppExecFwk::ValuesBucket GetParamValuesBucket();
+NativeRdb::ValuesBucket GetParamValuesBucket();
 OHOS::AppExecFwk::Configuration GetParamConfiguration();
-OHOS::AppExecFwk::DataAbilityPredicates GetParamDataAbilityPredicates();
+NativeRdb::DataAbilityPredicates GetParamDataAbilityPredicates();
 OHOS::AppExecFwk::PacMap GetParamPacMap();
 OHOS::AppExecFwk::NotificationRequest GetParamNotificationRequest();
 std::shared_ptr<OHOS::AppExecFwk::ComponentContainer> GetParamComponentContainer();

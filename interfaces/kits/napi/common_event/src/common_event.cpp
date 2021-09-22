@@ -26,7 +26,8 @@ namespace OHOS {
 namespace EventFwkNapi {
 using namespace OHOS::EventFwk;
 
-static const std::int32_t STR_MAX_SIZE = 64;
+static const std::int32_t STR_MAX_SIZE = 256;
+static const std::int32_t STR_DATA_MAX_SIZE = 64 * 1024;  // 64KB
 static const std::int32_t PUBLISH_MAX_PARA = 2;
 static const std::int32_t GETSUBSCREBEINFO_MAX_PARA = 1;
 static const std::int32_t ISORDEREDCOMMONEVENT_MAX_PARA = 1;
@@ -264,7 +265,7 @@ napi_value CreateSubscriber(napi_env env, napi_callback_info info)
     }
 
     AsyncCallbackInfoCreate *asyncCallbackInfo =
-        new (std::nothrow) AsyncCallbackInfoCreate{.env = env, .asyncWork = nullptr, .subscriberInfo = nullptr};
+        new (std::nothrow) AsyncCallbackInfoCreate {.env = env, .asyncWork = nullptr, .subscriberInfo = nullptr};
     if (asyncCallbackInfo == nullptr) {
         EVENT_LOGE("asyncCallbackInfo is null");
         return NapiGetNull(env);
@@ -444,7 +445,7 @@ napi_value GetSubscribeInfo(napi_env env, napi_callback_info info)
     EVENT_LOGI("GetSubscribeInfo objectInfo = %{public}p", objectInfo);
 
     AsyncCallbackInfoSubscribeInfo *asyncCallbackInfo =
-        new (std::nothrow) AsyncCallbackInfoSubscribeInfo{.env = env, .asyncWork = nullptr, .objectInfo = objectInfo};
+        new (std::nothrow) AsyncCallbackInfoSubscribeInfo {.env = env, .asyncWork = nullptr, .objectInfo = objectInfo};
     if (asyncCallbackInfo == nullptr) {
         EVENT_LOGE("asyncCallbackInfo is null");
         return NapiGetNull(env);
@@ -562,7 +563,7 @@ napi_value IsOrderedCommonEvent(napi_env env, napi_callback_info info)
     EVENT_LOGI("IsOrderedCommonEvent objectInfo = %{public}p", objectInfo);
 
     AsyncCallbackInfoOrderedCommonEvent *asyncCallbackInfo = new (std::nothrow)
-        AsyncCallbackInfoOrderedCommonEvent{.env = env, .asyncWork = nullptr, .objectInfo = objectInfo};
+        AsyncCallbackInfoOrderedCommonEvent {.env = env, .asyncWork = nullptr, .objectInfo = objectInfo};
     if (asyncCallbackInfo == nullptr) {
         EVENT_LOGE("asyncCallbackInfo is null");
         return NapiGetNull(env);
@@ -670,7 +671,7 @@ napi_value IsStickyCommonEvent(napi_env env, napi_callback_info info)
     EVENT_LOGI("IsStickyCommonEvent: objectInfo = %{public}p", objectInfo);
 
     AsyncCallbackInfoStickyCommonEvent *asyncCallbackInfo = new (std::nothrow)
-        AsyncCallbackInfoStickyCommonEvent{.env = env, .asyncWork = nullptr, .objectInfo = objectInfo};
+        AsyncCallbackInfoStickyCommonEvent {.env = env, .asyncWork = nullptr, .objectInfo = objectInfo};
     if (asyncCallbackInfo == nullptr) {
         EVENT_LOGE("asyncCallbackInfo is null");
         return NapiGetNull(env);
@@ -775,7 +776,7 @@ napi_value GetCode(napi_env env, napi_callback_info info)
     EVENT_LOGI("GetCode: objectInfo = %{public}p", objectInfo);
 
     AsyncCallbackInfoGetCode *asyncCallbackInfo =
-        new (std::nothrow) AsyncCallbackInfoGetCode{.env = env, .asyncWork = nullptr, .objectInfo = objectInfo};
+        new (std::nothrow) AsyncCallbackInfoGetCode {.env = env, .asyncWork = nullptr, .objectInfo = objectInfo};
     if (asyncCallbackInfo == nullptr) {
         EVENT_LOGE("asyncCallbackInfo is null");
         return NapiGetNull(env);
@@ -886,7 +887,7 @@ napi_value SetCode(napi_env env, napi_callback_info info)
     EVENT_LOGI("SetCode: objectInfo = %{public}p", objectInfo);
 
     AsyncCallbackInfoSetCode *asyncCallbackInfo = new (std::nothrow)
-        AsyncCallbackInfoSetCode{.env = env, .asyncWork = nullptr, .objectInfo = objectInfo, .code = code};
+        AsyncCallbackInfoSetCode {.env = env, .asyncWork = nullptr, .objectInfo = objectInfo, .code = code};
     if (asyncCallbackInfo == nullptr) {
         EVENT_LOGE("asyncCallbackInfo is null");
         return NapiGetNull(env);
@@ -992,7 +993,7 @@ napi_value GetData(napi_env env, napi_callback_info info)
     EVENT_LOGI("GetData: objectInfo = %{public}p", objectInfo);
 
     AsyncCallbackInfoGetData *asyncCallbackInfo =
-        new (std::nothrow) AsyncCallbackInfoGetData{.env = env, .asyncWork = nullptr, .objectInfo = objectInfo};
+        new (std::nothrow) AsyncCallbackInfoGetData {.env = env, .asyncWork = nullptr, .objectInfo = objectInfo};
     if (asyncCallbackInfo == nullptr) {
         EVENT_LOGE("asyncCallbackInfo is null");
         return NapiGetNull(env);
@@ -1052,11 +1053,17 @@ napi_value ParseParametersBySetData(
 {
     napi_valuetype valuetype;
     size_t strLen = 0;
-    char str[STR_MAX_SIZE] = {0};
+    char str[STR_DATA_MAX_SIZE] = {0};
     // argv[0]:data
     NAPI_CALL(env, napi_typeof(env, argv[0], &valuetype));
     NAPI_ASSERT(env, valuetype == napi_string, "Wrong argument type. String expected.");
-    NAPI_CALL(env, napi_get_value_string_utf8(env, argv[0], str, STR_MAX_SIZE - 1, &strLen));
+    NAPI_CALL(env, napi_get_value_string_utf8(env, argv[0], str, STR_DATA_MAX_SIZE, &strLen));
+
+    if (strLen > STR_DATA_MAX_SIZE - 1) {
+        EVENT_LOGE("data over size");
+        return nullptr;
+    }
+
     data = str;
 
     // argv[1]:callback
@@ -1105,7 +1112,7 @@ napi_value SetData(napi_env env, napi_callback_info info)
     EVENT_LOGI("SetData: objectInfo = %{public}p", objectInfo);
 
     AsyncCallbackInfoSetData *asyncCallbackInfo = new (std::nothrow)
-        AsyncCallbackInfoSetData{.env = env, .asyncWork = nullptr, .objectInfo = objectInfo, .data = data};
+        AsyncCallbackInfoSetData {.env = env, .asyncWork = nullptr, .objectInfo = objectInfo, .data = data};
     if (asyncCallbackInfo == nullptr) {
         EVENT_LOGE("asyncCallbackInfo is null");
         return NapiGetNull(env);
@@ -1166,7 +1173,7 @@ napi_value ParseParametersBySetCodeAndData(
 {
     napi_valuetype valuetype;
     size_t strLen = 0;
-    char str[STR_MAX_SIZE] = {0};
+    char str[STR_DATA_MAX_SIZE] = {0};
 
     // argv[0]:code
     NAPI_CALL(env, napi_typeof(env, argv[0], &valuetype));
@@ -1176,7 +1183,13 @@ napi_value ParseParametersBySetCodeAndData(
     // argv[1]:data
     NAPI_CALL(env, napi_typeof(env, argv[1], &valuetype));
     NAPI_ASSERT(env, valuetype == napi_string, "Wrong argument type. String expected.");
-    NAPI_CALL(env, napi_get_value_string_utf8(env, argv[1], str, STR_MAX_SIZE - 1, &strLen));
+    NAPI_CALL(env, napi_get_value_string_utf8(env, argv[1], str, STR_DATA_MAX_SIZE, &strLen));
+
+    if (strLen > STR_DATA_MAX_SIZE - 1) {
+        EVENT_LOGE("data over size");
+        return nullptr;
+    }
+
     data = str;
 
     // argv[2]:callback
@@ -1225,7 +1238,7 @@ napi_value SetCodeAndData(napi_env env, napi_callback_info info)
     napi_unwrap(env, thisVar, (void **)&objectInfo);
     EVENT_LOGI("SetCodeAndData: objectInfo = %{public}p", objectInfo);
 
-    AsyncCallbackInfoSetCodeAndData *asyncCallbackInfo = new (std::nothrow) AsyncCallbackInfoSetCodeAndData{
+    AsyncCallbackInfoSetCodeAndData *asyncCallbackInfo = new (std::nothrow) AsyncCallbackInfoSetCodeAndData {
         .env = env, .asyncWork = nullptr, .objectInfo = objectInfo, .code = code, .data = data};
     if (asyncCallbackInfo == nullptr) {
         EVENT_LOGE("asyncCallbackInfo is null");
@@ -1330,7 +1343,7 @@ napi_value AbortCommonEvent(napi_env env, napi_callback_info info)
     EVENT_LOGI("Abort: objectInfo = %{public}p", objectInfo);
 
     AsyncCallbackInfoAbort *asyncCallbackInfo =
-        new (std::nothrow) AsyncCallbackInfoAbort{.env = env, .asyncWork = nullptr, .objectInfo = objectInfo};
+        new (std::nothrow) AsyncCallbackInfoAbort {.env = env, .asyncWork = nullptr, .objectInfo = objectInfo};
     if (asyncCallbackInfo == nullptr) {
         EVENT_LOGE("asyncCallbackInfo is null");
         return NapiGetNull(env);
@@ -1435,7 +1448,7 @@ napi_value ClearAbortCommonEvent(napi_env env, napi_callback_info info)
     EVENT_LOGI("ClearAbort: objectInfo = %{public}p", objectInfo);
 
     AsyncCallbackInfoClearAbort *asyncCallbackInfo =
-        new (std::nothrow) AsyncCallbackInfoClearAbort{.env = env, .asyncWork = nullptr, .objectInfo = objectInfo};
+        new (std::nothrow) AsyncCallbackInfoClearAbort {.env = env, .asyncWork = nullptr, .objectInfo = objectInfo};
     if (asyncCallbackInfo == nullptr) {
         EVENT_LOGE("asyncCallbackInfo is null");
         return NapiGetNull(env);
@@ -1539,7 +1552,7 @@ napi_value GetAbortCommonEvent(napi_env env, napi_callback_info info)
     EVENT_LOGI("GetAbort: objectInfo = %{public}p", objectInfo);
 
     AsyncCallbackInfoGetAbort *asyncCallbackInfo =
-        new (std::nothrow) AsyncCallbackInfoGetAbort{.env = env, .asyncWork = nullptr, .objectInfo = objectInfo};
+        new (std::nothrow) AsyncCallbackInfoGetAbort {.env = env, .asyncWork = nullptr, .objectInfo = objectInfo};
     if (asyncCallbackInfo == nullptr) {
         EVENT_LOGE("asyncCallbackInfo is null");
         return NapiGetNull(env);
@@ -1644,7 +1657,7 @@ napi_value FinishCommonEvent(napi_env env, napi_callback_info info)
     EVENT_LOGI("Finish: objectInfo = %{public}p", objectInfo);
 
     AsyncCallbackInfoFinish *asyncCallbackInfo =
-        new (std::nothrow) AsyncCallbackInfoFinish{.env = env, .asyncWork = nullptr, .objectInfo = objectInfo};
+        new (std::nothrow) AsyncCallbackInfoFinish {.env = env, .asyncWork = nullptr, .objectInfo = objectInfo};
     if (asyncCallbackInfo == nullptr) {
         EVENT_LOGE("asyncCallbackInfo is null");
         return NapiGetNull(env);
@@ -1755,7 +1768,7 @@ napi_value Subscribe(napi_env env, napi_callback_info info)
     }
 
     AsyncCallbackInfoSubscribe *asyncCallbackInfo =
-        new (std::nothrow) AsyncCallbackInfoSubscribe{.env = env, .asyncWork = nullptr, .subscriber = nullptr};
+        new (std::nothrow) AsyncCallbackInfoSubscribe {.env = env, .asyncWork = nullptr, .subscriber = nullptr};
     if (asyncCallbackInfo == nullptr) {
         EVENT_LOGE("asyncCallbackInfo is null");
         return NapiGetNull(env);
@@ -1820,7 +1833,7 @@ napi_value GetDataByPublish(const napi_env &env, const napi_value &value, std::s
 
     napi_valuetype valuetype;
     napi_value result = nullptr;
-    char str[STR_MAX_SIZE] = {0};
+    char str[STR_DATA_MAX_SIZE] = {0};
     size_t strLen = 0;
     bool hasProperty = false;
 
@@ -1829,7 +1842,13 @@ napi_value GetDataByPublish(const napi_env &env, const napi_value &value, std::s
         napi_get_named_property(env, value, "data", &result);
         NAPI_CALL(env, napi_typeof(env, result, &valuetype));
         NAPI_ASSERT(env, valuetype == napi_string, "Wrong argument type. String expected.");
-        NAPI_CALL(env, napi_get_value_string_utf8(env, result, str, STR_MAX_SIZE - 1, &strLen));
+        NAPI_CALL(env, napi_get_value_string_utf8(env, result, str, STR_DATA_MAX_SIZE, &strLen));
+
+        if (strLen > STR_DATA_MAX_SIZE - 1) {
+            EVENT_LOGE("data over size");
+            return nullptr;
+        }
+
         data = str;
     }
 
@@ -2021,7 +2040,7 @@ napi_value Publish(napi_env env, napi_callback_info info)
     }
 
     AsyncCallbackInfoPublish *asyncCallbackInfo =
-        new (std::nothrow) AsyncCallbackInfoPublish{.env = env, .asyncWork = nullptr};
+        new (std::nothrow) AsyncCallbackInfoPublish {.env = env, .asyncWork = nullptr};
     if (asyncCallbackInfo == nullptr) {
         EVENT_LOGE("asyncCallbackInfo is null");
         return NapiGetNull(env);
@@ -2168,7 +2187,7 @@ napi_value Unsubscribe(napi_env env, napi_callback_info info)
     }
 
     AsyncCallbackInfoUnsubscribe *asynccallback =
-        new (std::nothrow) AsyncCallbackInfoUnsubscribe{.env = env, .asyncWork = nullptr, .subscriber = nullptr};
+        new (std::nothrow) AsyncCallbackInfoUnsubscribe {.env = env, .asyncWork = nullptr, .subscriber = nullptr};
     if (asynccallback == nullptr) {
         EVENT_LOGE("asynccallback is null");
         return NapiGetNull(env);

@@ -18,6 +18,9 @@
 #include <limits.h>
 #include <float.h>
 #include <chrono>
+#include "abs_shared_result_set.h"
+#include "data_ability_predicates.h"
+#include "values_bucket.h"
 using namespace std;
 using namespace OHOS::AppExecFwk;
 using Uri = OHOS::Uri;
@@ -628,12 +631,14 @@ OHOS::Uri GetParamUri()
     return OHOS::Uri(GetStringParam());
 }
 
-OHOS::AppExecFwk::ValuesBucket GetParamValuesBucket()
+NativeRdb::ValuesBucket GetParamValuesBucket()
 {
     if (GetBoolParam()) {
-        return OHOS::AppExecFwk::ValuesBucket(GetStringParam());
+        NativeRdb::ValuesBucket val;
+        val.PutNull(GetStringParam());
+        return val;
     } else {
-        return OHOS::AppExecFwk::ValuesBucket();
+        return NativeRdb::ValuesBucket();
     }
 }
 
@@ -646,12 +651,12 @@ OHOS::AppExecFwk::Configuration GetParamConfiguration()
     }
 }
 
-OHOS::AppExecFwk::DataAbilityPredicates GetParamDataAbilityPredicates()
+NativeRdb::DataAbilityPredicates GetParamDataAbilityPredicates()
 {
     if (GetBoolParam()) {
-        return OHOS::AppExecFwk::DataAbilityPredicates(GetStringParam());
+        return NativeRdb::DataAbilityPredicates(GetStringParam());
     } else {
-        return OHOS::AppExecFwk::DataAbilityPredicates();
+        return NativeRdb::DataAbilityPredicates();
     }
 }
 

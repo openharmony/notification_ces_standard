@@ -59,6 +59,10 @@
 
 #include "../include/fuzzConfigParser.h"
 
+#include "abs_shared_result_set.h"
+#include "data_ability_predicates.h"
+#include "values_bucket.h"
+
 #include <unistd.h>
 #include <signal.h>
 
@@ -2072,7 +2076,7 @@ void fuzzTestManager::RegisterAbility()
 
     callFunctionMap_.emplace("AbilityInsert", []() {
         std::shared_ptr<OHOS::AppExecFwk::Ability> temp = GetParamAbility();
-        temp->Insert(GetParamUri(), OHOS::AppExecFwk::ValuesBucket());
+        temp->Insert(GetParamUri(), NativeRdb::ValuesBucket());
     });
 
     callFunctionMap_.emplace("AbilityOnConfigurationUpdated", []() {
@@ -2092,7 +2096,7 @@ void fuzzTestManager::RegisterAbility()
 
     callFunctionMap_.emplace("AbilityUpdate", []() {
         std::shared_ptr<OHOS::AppExecFwk::Ability> temp = GetParamAbility();
-        temp->Update(GetParamUri(), OHOS::AppExecFwk::ValuesBucket(), GetParamDataAbilityPredicates());
+        temp->Update(GetParamUri(), NativeRdb::ValuesBucket(), GetParamDataAbilityPredicates());
     });
 
     callFunctionMap_.emplace("AbilityGetApplication", []() {
@@ -2253,7 +2257,7 @@ void fuzzTestManager::RegisterAbility()
 
     callFunctionMap_.emplace("AbilityBatchInsert", []() {
         std::shared_ptr<OHOS::AppExecFwk::Ability> temp = GetParamAbility();
-        temp->BatchInsert(GetParamUri(), std::vector<OHOS::AppExecFwk::ValuesBucket>());
+        temp->BatchInsert(GetParamUri(), std::vector<NativeRdb::ValuesBucket>());
     });
 
     callFunctionMap_.emplace("AbilityGetVolumeTypeAdjustedByKey", []() {
@@ -2320,13 +2324,13 @@ void fuzzTestManager::RegisterDataAbilityHelper()
     callFunctionMap_.emplace("DataAbilityHelperInsert", []() {
         std::shared_ptr<OHOS::AppExecFwk::DataAbilityHelper> temp = GetParamDataAbilityHelper();
         auto uri = GetParamUri();
-        temp->Insert(uri, OHOS::AppExecFwk::ValuesBucket());
+        temp->Insert(uri, NativeRdb::ValuesBucket());
     });
 
     callFunctionMap_.emplace("DataAbilityHelperUpdate", []() {
         std::shared_ptr<OHOS::AppExecFwk::DataAbilityHelper> temp = GetParamDataAbilityHelper();
         auto uri = GetParamUri();
-        temp->Update(uri, OHOS::AppExecFwk::ValuesBucket(), GetParamDataAbilityPredicates());
+        temp->Update(uri, NativeRdb::ValuesBucket(), GetParamDataAbilityPredicates());
     });
 
     callFunctionMap_.emplace("DataAbilityHelperDelete", []() {
@@ -2357,7 +2361,7 @@ void fuzzTestManager::RegisterDataAbilityHelper()
     callFunctionMap_.emplace("DataAbilityHelperBatchInsert", []() {
         std::shared_ptr<OHOS::AppExecFwk::DataAbilityHelper> temp = GetParamDataAbilityHelper();
         auto uri = GetParamUri();
-        std::vector<OHOS::AppExecFwk::ValuesBucket> values{};
+        std::vector<NativeRdb::ValuesBucket> values{};
         temp->BatchInsert(uri, values);
     });
 }
