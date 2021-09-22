@@ -55,11 +55,13 @@ SubscriberInstance::~SubscriberInstance()
 void SubscriberInstance::OnReceiveEvent(const CommonEventData &data)
 {
     EVENT_LOGI("OnReceiveEvent start");
-    uv_loop_s *loop = nullptr;
 
-#if NAPI_VERSION >= 2
+    uv_loop_s *loop = nullptr;
     napi_get_uv_event_loop(env_, &loop);
-#endif  // NAPI_VERSION >= 2
+    if (loop == nullptr) {
+        EVENT_LOGE("loop instance is nullptr");
+        return;
+    }
 
     uv_work_t *work = new (std::nothrow) uv_work_t;
     if (work == nullptr) {
