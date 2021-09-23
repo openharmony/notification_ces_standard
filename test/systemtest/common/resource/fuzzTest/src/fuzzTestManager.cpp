@@ -59,6 +59,10 @@
 
 #include "../include/fuzzConfigParser.h"
 
+#include "abs_shared_result_set.h"
+#include "data_ability_predicates.h"
+#include "values_bucket.h"
+
 #include <unistd.h>
 #include <signal.h>
 
@@ -1907,6 +1911,10 @@ void fuzzTestManager::RegisterOHOSApplication()
 
 void fuzzTestManager::RegisterAbility()
 {
+    const int COLOR_R = 100;
+    const int COLOR_G = 100;
+    const int COLOR_B = 100;
+
     callFunctionMap_.emplace("AbilityTerminateAbilityWant", []() {
         std::shared_ptr<OHOS::AppExecFwk::Ability> temp = GetParamAbility();
         OHOS::AAFwk::Want param;
@@ -1920,7 +1928,7 @@ void fuzzTestManager::RegisterAbility()
 
     callFunctionMap_.emplace("AbilitySetWindowBackgroundColor", []() {
         std::shared_ptr<OHOS::AppExecFwk::Ability> temp = GetParamAbility();
-        temp->SetWindowBackgroundColor(100, 100, 100);
+        temp->SetWindowBackgroundColor(COLOR_R, COLOR_G, COLOR_B);
     });
 
     callFunctionMap_.emplace("AbilityTerminateAbility", []() {
@@ -2068,7 +2076,7 @@ void fuzzTestManager::RegisterAbility()
 
     callFunctionMap_.emplace("AbilityInsert", []() {
         std::shared_ptr<OHOS::AppExecFwk::Ability> temp = GetParamAbility();
-        temp->Insert(GetParamUri(), OHOS::AppExecFwk::ValuesBucket());
+        temp->Insert(GetParamUri(), NativeRdb::ValuesBucket());
     });
 
     callFunctionMap_.emplace("AbilityOnConfigurationUpdated", []() {
@@ -2088,7 +2096,7 @@ void fuzzTestManager::RegisterAbility()
 
     callFunctionMap_.emplace("AbilityUpdate", []() {
         std::shared_ptr<OHOS::AppExecFwk::Ability> temp = GetParamAbility();
-        temp->Update(GetParamUri(), OHOS::AppExecFwk::ValuesBucket(), GetParamDataAbilityPredicates());
+        temp->Update(GetParamUri(), NativeRdb::ValuesBucket(), GetParamDataAbilityPredicates());
     });
 
     callFunctionMap_.emplace("AbilityGetApplication", []() {
@@ -2249,7 +2257,7 @@ void fuzzTestManager::RegisterAbility()
 
     callFunctionMap_.emplace("AbilityBatchInsert", []() {
         std::shared_ptr<OHOS::AppExecFwk::Ability> temp = GetParamAbility();
-        temp->BatchInsert(GetParamUri(), std::vector<OHOS::AppExecFwk::ValuesBucket>());
+        temp->BatchInsert(GetParamUri(), std::vector<NativeRdb::ValuesBucket>());
     });
 
     callFunctionMap_.emplace("AbilityGetVolumeTypeAdjustedByKey", []() {
@@ -2290,9 +2298,6 @@ void fuzzTestManager::RegisterAbility()
 
 void fuzzTestManager::RegisterDataAbilityHelper()
 {
-#define GetParamDataAbilityHelper() \
-    OHOS::AppExecFwk::DataAbilityHelper::Creator(std::make_shared<OHOS::AppExecFwk::Ability>())
-
     callFunctionMap_.emplace("DataAbilityHelperRelease", []() {
         std::shared_ptr<OHOS::AppExecFwk::DataAbilityHelper> temp = GetParamDataAbilityHelper();
         temp->Release();
@@ -2319,13 +2324,13 @@ void fuzzTestManager::RegisterDataAbilityHelper()
     callFunctionMap_.emplace("DataAbilityHelperInsert", []() {
         std::shared_ptr<OHOS::AppExecFwk::DataAbilityHelper> temp = GetParamDataAbilityHelper();
         auto uri = GetParamUri();
-        temp->Insert(uri, OHOS::AppExecFwk::ValuesBucket());
+        temp->Insert(uri, NativeRdb::ValuesBucket());
     });
 
     callFunctionMap_.emplace("DataAbilityHelperUpdate", []() {
         std::shared_ptr<OHOS::AppExecFwk::DataAbilityHelper> temp = GetParamDataAbilityHelper();
         auto uri = GetParamUri();
-        temp->Update(uri, OHOS::AppExecFwk::ValuesBucket(), GetParamDataAbilityPredicates());
+        temp->Update(uri, NativeRdb::ValuesBucket(), GetParamDataAbilityPredicates());
     });
 
     callFunctionMap_.emplace("DataAbilityHelperDelete", []() {
@@ -2356,7 +2361,7 @@ void fuzzTestManager::RegisterDataAbilityHelper()
     callFunctionMap_.emplace("DataAbilityHelperBatchInsert", []() {
         std::shared_ptr<OHOS::AppExecFwk::DataAbilityHelper> temp = GetParamDataAbilityHelper();
         auto uri = GetParamUri();
-        std::vector<OHOS::AppExecFwk::ValuesBucket> values{};
+        std::vector<NativeRdb::ValuesBucket> values{};
         temp->BatchInsert(uri, values);
     });
 }
@@ -2384,7 +2389,6 @@ void fuzzTestManager::RegisterDataUriUtils()
 
 void fuzzTestManager::RegisterLifeCycle()
 {
-#define GetParamLifeCycle() std::make_shared<OHOS::AppExecFwk::LifeCycle>()
     callFunctionMap_.emplace("LifeCycleGetLifecycleState", []() {
         std::shared_ptr<OHOS::AppExecFwk::LifeCycle> temp = GetParamLifeCycle();
         temp->GetLifecycleState();
@@ -2790,6 +2794,5 @@ void fuzzTestManager::StartFuzzTest()
     }
     std::cout << remainderMap_.size() << "--------fuzz test end--------" << std::endl;
 }
-
 }  // namespace EventFwk
 }  // namespace OHOS
