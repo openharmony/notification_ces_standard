@@ -14,6 +14,7 @@
  */
 
 #include "common_event.h"
+#include "napi_common.h"
 #include "support.h"
 
 #include <uv.h>
@@ -41,9 +42,9 @@ static const std::int32_t ABORT_MAX_PARA = 1;
 static const std::int32_t CLEAR_ABORT_MAX_PARA = 1;
 static const std::int32_t GET_ABORT_MAX_PARA = 1;
 static const std::int32_t FINISH_MAX_PARA = 1;
-static const std::int32_t ARGS_TWO = 2;
-static const std::int32_t PARAM0 = 0;
-static const std::int32_t PARAM1 = 1;
+static const std::int32_t ARGS_TWO_EVENT = 2;
+static const std::int32_t PARAM0_EVENT = 0;
+static const std::int32_t PARAM1_EVENT = 1;
 static const std::int32_t NO_ERROR = 0;
 
 SubscriberInstance::SubscriberInstance(const CommonEventSubscribeInfo &sp) : CommonEventSubscriber(sp)
@@ -133,6 +134,17 @@ void SubscriberInstance::OnReceiveEvent(const CommonEventData &data)
                 commonEventDataWorkerData->env, commonEventDataWorkerData->data.c_str(), NAPI_AUTO_LENGTH, &value);
             napi_set_named_property(commonEventDataWorkerData->env, result, "data", value);
 
+            // parameters ?: {[key:string] : any}
+            AAFwk::WantParams wantParams = commonEventDataWorkerData->want.GetParams();
+            napi_value wantParamsValue = nullptr;
+            wantParamsValue = OHOS::AppExecFwk::WrapWantParams(commonEventDataWorkerData->env, wantParams);
+            if (wantParamsValue) {
+                napi_set_named_property(commonEventDataWorkerData->env, result, "parameters", wantParamsValue);
+            } else {
+                napi_set_named_property(
+                    commonEventDataWorkerData->env, result, "parameters", NapiGetNull(commonEventDataWorkerData->env));
+            }
+
             napi_value undefined = nullptr;
             napi_get_undefined(commonEventDataWorkerData->env, &undefined);
 
@@ -140,12 +152,12 @@ void SubscriberInstance::OnReceiveEvent(const CommonEventData &data)
             napi_value resultout = nullptr;
             napi_get_reference_value(commonEventDataWorkerData->env, commonEventDataWorkerData->ref, &callback);
 
-            napi_value results[ARGS_TWO] = {nullptr};
-            results[PARAM0] = GetCallbackErrorValue(commonEventDataWorkerData->env, NO_ERROR);
-            results[PARAM1] = result;
+            napi_value results[ARGS_TWO_EVENT] = {nullptr};
+            results[PARAM0_EVENT] = GetCallbackErrorValue(commonEventDataWorkerData->env, NO_ERROR);
+            results[PARAM1_EVENT] = result;
             NAPI_CALL_RETURN_VOID(commonEventDataWorkerData->env,
                 napi_call_function(
-                    commonEventDataWorkerData->env, undefined, callback, ARGS_TWO, &results[PARAM0], &resultout));
+                    commonEventDataWorkerData->env, undefined, callback, ARGS_TWO_EVENT, &results[PARAM0_EVENT], &resultout));
 
             delete commonEventDataWorkerData;
             commonEventDataWorkerData = nullptr;
@@ -212,11 +224,11 @@ void SetCallback(const napi_env &env, const napi_ref &callbackIn, const napi_val
     napi_value resultout = nullptr;
     napi_get_reference_value(env, callbackIn, &callback);
 
-    napi_value results[ARGS_TWO] = {nullptr};
-    results[PARAM0] = GetCallbackErrorValue(env, NO_ERROR);
-    results[PARAM1] = result;
+    napi_value results[ARGS_TWO_EVENT] = {nullptr};
+    results[PARAM0_EVENT] = GetCallbackErrorValue(env, NO_ERROR);
+    results[PARAM1_EVENT] = result;
 
-    NAPI_CALL_RETURN_VOID(env, napi_call_function(env, undefined, callback, ARGS_TWO, &results[PARAM0], &resultout));
+    NAPI_CALL_RETURN_VOID(env, napi_call_function(env, undefined, callback, ARGS_TWO_EVENT, &results[PARAM0_EVENT], &resultout));
 }
 
 void SetPromise(const napi_env &env, const napi_deferred &deferred, const napi_value &result)
@@ -1951,6 +1963,28 @@ napi_value GetIsStickyByPublish(const napi_env &env, const napi_value &value, bo
     return NapiGetNull(env);
 }
 
+napi_value GetParametersByPublish(const napi_env &env, const napi_value &value, AAFwk::WantParams &wantParams)
+{
+    EVENT_LOGI("GetParametersByPublish start");
+
+    napi_valuetype valuetype = napi_undefined;
+    napi_value result = nullptr;
+    bool hasProperty = false;
+
+    NAPI_CALL(env, napi_has_named_property(env, value, "parameters", &hasProperty));
+    if (hasProperty) {
+        napi_get_named_property(env, value, "parameters", &result);
+        NAPI_CALL(env, napi_typeof(env, result, &valuetype));
+        NAPI_ASSERT(env, valuetype == napi_object, "Wrong argument type. Object expected.");
+        AAFwk::WantParams wantParams;
+        if (!OHOS::AppExecFwk::UnwrapWantParams(env, result, wantParams)) {
+            return nullptr;
+        }
+    }
+
+    return NapiGetNull(env);
+}
+
 napi_value ParseParametersByPublish(const napi_env &env, const napi_value (&argv)[PUBLISH_MAX_PARA_BY_PUBLISHDATA],
     const size_t &argc, std::string &event, CommonEventPublishDataByjs &commonEventPublishData, napi_ref &callback)
 {
@@ -1995,6 +2029,10 @@ napi_value ParseParametersByPublish(const napi_env &env, const napi_value (&argv
         if (GetIsStickyByPublish(env, argv[1], commonEventPublishData.isSticky) == nullptr) {
             return nullptr;
         }
+        // argv[1]: CommonEventPublishData:parameters
+        if (GetParametersByPublish(env, argv[1], commonEventPublishData.wantParams) == nullptr) {
+            return nullptr;
+        }
     }
 
     // argv[2]: callback
@@ -2017,6 +2055,7 @@ void PaddingCallbackInfoPublish(Want &want, AsyncCallbackInfoPublish *&asyncCall
     EVENT_LOGI("PaddingCallbackInfoPublish start");
 
     want.SetBundle(commonEventPublishDatajs.bundleName);
+    want.SetParams(commonEventPublishDatajs.wantParams);
     asyncCallbackInfo->commonEventData.SetCode(commonEventPublishDatajs.code);
     asyncCallbackInfo->commonEventData.SetData(commonEventPublishDatajs.data);
     asyncCallbackInfo->commonEventPublishInfo.SetSubscriberPermissions(commonEventPublishDatajs.subscriberPermissions);
