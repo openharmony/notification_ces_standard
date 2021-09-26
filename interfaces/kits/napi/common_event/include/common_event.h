@@ -210,6 +210,7 @@ struct CommonEventPublishDataByjs {
     std::vector<std::string> subscriberPermissions;
     bool isOrdered = false;
     bool isSticky = false;
+    AAFwk::WantParams wantParams;
 };
 
 struct CommonEventDataWorker {
@@ -381,6 +382,8 @@ napi_value GetSubscriberPermissionsByPublish(
 napi_value GetIsOrderedByPublish(const napi_env &env, const napi_value &value, bool &isOrdered);
 
 napi_value GetIsStickyByPublish(const napi_env &env, const napi_value &value, bool &isSticky);
+
+napi_value GetParametersByPublish(const napi_env &env, const napi_value &value, AAFwk::WantParams &wantParams);
 
 napi_value ParseParametersByPublish(const napi_env &env, const napi_value (&argv)[PUBLISH_MAX_PARA_BY_PUBLISHDATA],
     const size_t &argc, std::string &event, CommonEventPublishDataByjs &commonEventPublishData, napi_ref &callback);
