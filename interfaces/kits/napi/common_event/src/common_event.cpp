@@ -301,10 +301,13 @@ napi_value CreateSubscriber(napi_env env, napi_callback_info info)
         [](napi_env env, napi_status status, void *data) {
             EVENT_LOGI("CreateSubscriber napi_create_async_work end");
             AsyncCallbackInfoCreate *asyncCallbackInfo = (AsyncCallbackInfoCreate *)data;
+
+            napi_value constructor = nullptr;
             napi_value subscriberInfoRefValue = nullptr;
             napi_get_reference_value(env, asyncCallbackInfo->subscriberInfo, &subscriberInfoRefValue);
+            napi_get_reference_value(env, g_CommonEventSubscriber, &constructor);
 
-            napi_new_instance(env, g_CommonEventSubscriber, 1, &subscriberInfoRefValue, &asyncCallbackInfo->result);
+            napi_new_instance(env, constructor, 1, &subscriberInfoRefValue, &asyncCallbackInfo->result);
 
             ReturnCallbackPromise(env,
                 asyncCallbackInfo->isCallback,
@@ -314,6 +317,9 @@ napi_value CreateSubscriber(napi_env env, napi_callback_info info)
 
             if (asyncCallbackInfo->callback != nullptr) {
                 napi_delete_reference(env, asyncCallbackInfo->callback);
+            }
+            if (asyncCallbackInfo->subscriberInfo != nullptr) {
+                napi_delete_reference(env, asyncCallbackInfo->subscriberInfo);
             }
             napi_delete_async_work(env, asyncCallbackInfo->asyncWork);
             if (asyncCallbackInfo) {
@@ -1976,7 +1982,6 @@ napi_value GetParametersByPublish(const napi_env &env, const napi_value &value, 
         napi_get_named_property(env, value, "parameters", &result);
         NAPI_CALL(env, napi_typeof(env, result, &valuetype));
         NAPI_ASSERT(env, valuetype == napi_object, "Wrong argument type. Object expected.");
-        AAFwk::WantParams wantParams;
         if (!OHOS::AppExecFwk::UnwrapWantParams(env, result, wantParams)) {
             return nullptr;
         }
@@ -2293,26 +2298,30 @@ napi_value GetEventsByCreateSubscriber(const napi_env &env, const napi_value &ar
     uint32_t length = 0;
     // events
     NAPI_CALL(env, napi_has_named_property(env, argv, "events", &hasProperty));
-    if (hasProperty) {
-        napi_value eventsNapi = nullptr;
-        napi_get_named_property(env, argv, "events", &eventsNapi);
-        napi_is_array(env, eventsNapi, &isArray);
-        if (isArray) {
-            napi_get_array_length(env, eventsNapi, &length);
-            NAPI_ASSERT(env, length > 0, "The array is empty.");
-            for (size_t i = 0; i < length; i++) {
-                napi_value event = nullptr;
-                napi_get_element(env, eventsNapi, i, &event);
-                NAPI_CALL(env, napi_typeof(env, event, &valuetype));
-                NAPI_ASSERT(env, valuetype == napi_string, "Wrong argument type. String expected.");
-                char str[STR_MAX_SIZE] = {0};
-                NAPI_CALL(env, napi_get_value_string_utf8(env, event, str, STR_MAX_SIZE - 1, &strLen));
-                EVENT_LOGI("GetEventsByCreateSubscriber str = %{public}s", str);
-                events.push_back(str);
-            }
-        }
+    if (!hasProperty) {
+        EVENT_LOGE("Property events expected.");
+        return nullptr;
     }
-
+    napi_value eventsNapi = nullptr;
+    napi_get_named_property(env, argv, "events", &eventsNapi);
+    napi_is_array(env, eventsNapi, &isArray);
+    if (!isArray) {
+        EVENT_LOGE("Wrong argument type. Array expected.");
+        return nullptr;
+    }
+    napi_get_array_length(env, eventsNapi, &length);
+    NAPI_ASSERT(env, length > 0, "The array is empty.");
+    for (size_t i = 0; i < length; i++) {
+        napi_value event = nullptr;
+        napi_get_element(env, eventsNapi, i, &event);
+        NAPI_CALL(env, napi_typeof(env, event, &valuetype));
+        NAPI_ASSERT(env, valuetype == napi_string, "Wrong argument type. String expected.");
+        char str[STR_MAX_SIZE] = {0};
+        NAPI_CALL(env, napi_get_value_string_utf8(env, event, str, STR_MAX_SIZE - 1, &strLen));
+        EVENT_LOGI("GetEventsByCreateSubscriber str = %{public}s", str);
+        events.push_back(str);
+    }
+    
     return NapiGetNull(env);
 }
 
@@ -2397,25 +2406,25 @@ napi_value CommonEventSubscriberConstructor(napi_env env, napi_callback_info inf
     // argv[0]:CommonEventSubscribeInfo:events
     std::vector<std::string> events;
     if (GetEventsByCreateSubscriber(env, argv[0], events) == nullptr) {
-        return nullptr;
+        return  NapiGetNull(env);
     }
 
     std::string permission;
     bool hasPermission = false;
     if (GetPublisherPermissionByCreateSubscriber(env, argv[0], permission, hasPermission) == nullptr) {
-        return nullptr;
+        return  NapiGetNull(env);
     }
 
     std::string publisherDeviceId;
     bool hasPublisherDeviceId = false;
     if (GetPublisherDeviceIdByCreateSubscriber(env, argv[0], publisherDeviceId, hasPublisherDeviceId) == nullptr) {
-        return nullptr;
+        return  NapiGetNull(env);
     }
 
     int priority;
     bool hasPriority = false;
     if (GetPriorityByCreateSubscriber(env, argv[0], priority, hasPriority) == nullptr) {
-        return nullptr;
+        return  NapiGetNull(env);
     }
 
     MatchingSkills matchingSkills;
@@ -2439,7 +2448,7 @@ napi_value CommonEventSubscriberConstructor(napi_env env, napi_callback_info inf
     SubscriberInstance *objectInfo = new (std::nothrow) SubscriberInstance(subscriberInfo);
     if (objectInfo == nullptr) {
         EVENT_LOGE("objectInfo is null");
-        return nullptr;
+        return  NapiGetNull(env);
     }
     EVENT_LOGI("CommonEventSubscriberConstructor  objectInfo = %{public}p", objectInfo);
 
@@ -2481,7 +2490,7 @@ napi_value CommonEventSubscriberConstructor(napi_env env, napi_callback_info inf
 napi_value CommonEventSubscriberInit(napi_env env, napi_value exports)
 {
     EVENT_LOGI("enter");
-
+    napi_value constructor = nullptr;
     napi_property_descriptor properties[] = {
         DECLARE_NAPI_FUNCTION("getSubscribeInfo", GetSubscribeInfo),
         DECLARE_NAPI_FUNCTION("isOrderedCommonEvent", IsOrderedCommonEvent),
@@ -2505,8 +2514,10 @@ napi_value CommonEventSubscriberInit(napi_env env, napi_value exports)
             nullptr,
             sizeof(properties) / sizeof(*properties),
             properties,
-            &g_CommonEventSubscriber));
+            &constructor));
 
+    napi_create_reference(env, constructor, 1, &g_CommonEventSubscriber);
+    napi_set_named_property(env, exports, "commonEventSubscriber", constructor);
     return exports;
 }
 

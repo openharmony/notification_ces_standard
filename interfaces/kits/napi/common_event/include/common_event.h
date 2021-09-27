@@ -46,7 +46,7 @@ struct subscriberInstanceInfo {
     std::shared_ptr<AsyncCommonEventResult> commonEventResult = nullptr;
 };
 
-static napi_value g_CommonEventSubscriber;
+static napi_ref g_CommonEventSubscriber = nullptr;
 static std::map<std::shared_ptr<SubscriberInstance>, subscriberInstanceInfo> subscriberInstances;
 
 struct AsyncCallbackInfoSubscribe {

@@ -45,6 +45,7 @@ declare namespace commonEvent {
    */
   function publish(event: string, options: CommonEventPublishData, callback: AsyncCallback<void>): void;
 
+
   /**
    * create the CommonEventSubscriber for the SubscriberInfo.
    *
