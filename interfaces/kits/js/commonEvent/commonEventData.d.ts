@@ -19,7 +19,7 @@
  * @since 7
  * @permission N/A
  */
-export interface CommonEventData {
+ export interface CommonEventData {
   /**
    * event type
    * @default -
@@ -49,4 +49,12 @@ export interface CommonEventData {
    * @since 7
    */
   data?: string;
+
+  /**
+   * The description of the parameters in a common event.
+   *
+   * @default -
+   * @since 7
+   */
+  parameters?: {[key: string]: any};
 }

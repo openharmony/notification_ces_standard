@@ -19,7 +19,7 @@
  * @since 7
  * @permission N/A
  */
-export interface CommonEventPublishData {
+ export interface CommonEventPublishData {
   /**
    * bundle name
    * @default -
@@ -66,4 +66,12 @@ export interface CommonEventPublishData {
    * @since 7
    */
   isSticky?: boolean;
+
+  /**
+   * The description of the parameters in a common event.
+   *
+   * @default -
+   * @since 7
+   */
+  parameters?: {[key: string]: any};
 }
