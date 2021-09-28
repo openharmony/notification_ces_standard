@@ -498,7 +498,6 @@
         "OpenFile": [],
         "Query": [],
         "SetMainRoute": [],
-        "ContinueAbilityReversibly": [],
         "ContinueAbilityReversiblyS": [],
         "GetOriginalDeviceId": [],
         "GetContinuationState": [],
