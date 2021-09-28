@@ -242,7 +242,7 @@ void CommonEventPermissionManager::Init()
 
     per.names.clear();
     per.state = Permission::DEFAULT;
-    per.names.emplace_back("ohos.permission.USE_BLUETOOTH permission");
+    per.names.emplace_back("ohos.permission.USE_BLUETOOTH");
     multimap_.insert(std::make_pair(CommonEventSupport::COMMON_EVENT_BLUETOOTH_A2DPSINK_AUDIO_STATE_UPDATE, per));
 
     per.names.clear();
