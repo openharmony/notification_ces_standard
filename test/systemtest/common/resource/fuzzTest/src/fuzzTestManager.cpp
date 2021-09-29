@@ -2220,11 +2220,6 @@ void fuzzTestManager::RegisterAbility()
         temp->SetMainRoute("");
     });
 
-    callFunctionMap_.emplace("AbilityContinueAbilityReversibly", []() {
-        std::shared_ptr<OHOS::AppExecFwk::Ability> temp = GetParamAbility();
-        temp->ContinueAbilityReversibly();
-    });
-
     callFunctionMap_.emplace("AbilityContinueAbilityReversiblyS", []() {
         std::shared_ptr<OHOS::AppExecFwk::Ability> temp = GetParamAbility();
         temp->ContinueAbilityReversibly("id");
