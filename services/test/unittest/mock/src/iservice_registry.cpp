@@ -25,12 +25,6 @@ SystemAbilityManagerClient &SystemAbilityManagerClient::GetInstance()
     return *instance;
 }
 
-sptr<ISystemAbilityManager> SystemAbilityManagerClient::GetSystemAbilityManager()
-{
-    HILOG_ERROR(" SystemAbilityManagerClient::GetSystemAbilityManager()");
-    return SystemAbilityManager::GetInstance();
-}
-
 sptr<IRemoteObject> SystemAbilityManagerClient::GetRegistryRemoteObject()
 {
     HILOG_ERROR("SystemAbilityManagerClient::GetRegistryRemoteObject()");

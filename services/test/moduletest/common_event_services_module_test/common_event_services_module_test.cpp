@@ -19,6 +19,7 @@
 #include "common_event_listener.h"
 #define private public
 #define protected public
+#include "bundle_manager_helper.h"
 #include "common_event.h"
 #include "common_event_manager_service.h"
 #include "common_event_manager.h"
@@ -29,7 +30,6 @@
 #include "datetime_ex.h"
 #include "event_log_wrapper.h"
 #include "event_receive_stub.h"
-#include "iservice_registry.h"
 #include "mock_bundle_manager.h"
 #include "system_ability_definition.h"
 
@@ -77,11 +77,22 @@ void cesModuleTest::SetUpTestCase()
     handlerPtr->PostTask(task);
 
     bundleObject = new OHOS::AppExecFwk::MockBundleMgrService();
-    OHOS::sptr<OHOS::ISystemAbilityManager> systemAbilityManager =
-        OHOS::SystemAbilityManagerClient::GetInstance().GetSystemAbilityManager();
+    
+    OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->sptrBundleMgr_ =
+        iface_cast<OHOS::AppExecFwk::IBundleMgr>(bundleObject);
+
+    OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->bmsDeath_ = new BMSDeathRecipient();
+    if (!OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->bmsDeath_) {
+        EVENT_LOGE("Failed to create death Recipient ptr BMSDeathRecipient");
+        return;
+    }
+    if (!OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->sptrBundleMgr_->AsObject()->AddDeathRecipient(
+        OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->bmsDeath_)) {
+        EVENT_LOGE("Failed to add death recipient");
+        return;
+    }
+
     OHOS::DelayedSingleton<CommonEventManagerService>::GetInstance()->OnStart();
-    OHOS::ISystemAbilityManager::SAExtraProp saExtraProp;
-    systemAbilityManager->AddSystemAbility(OHOS::BUNDLE_MGR_SERVICE_SYS_ABILITY_ID, bundleObject, saExtraProp);
 }
 
 void cesModuleTest::TearDownTestCase()
