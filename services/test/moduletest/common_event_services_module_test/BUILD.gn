@@ -23,8 +23,6 @@ ohos_moduletest("cesModuleTest") {
     "${services_path}/test/mock/src/iservice_registry.cpp",
     "${services_path}/test/mock/src/mock_bundle_manager.cpp",
     "${services_path}/test/mock/src/mock_ipc.cpp",
-    "${services_path}/test/mock/src/system_ability_manager.cpp",
-    "${services_path}/test/mock/src/system_ability_manager_stub.cpp",
     "//foundation/appexecfwk/standard/interfaces/innerkits/appexecfwk_core/src/bundlemgr/bundle_mgr_host.cpp",
     "//foundation/appexecfwk/standard/interfaces/innerkits/appexecfwk_core/src/bundlemgr/bundle_mgr_proxy.cpp",
     "common_event_services_module_test.cpp",

@@ -17,6 +17,7 @@
 
 #define private public
 #define protected public
+#include "bundle_manager_helper.h"
 #include "common_event_manager_service.h"
 #include "common_event_subscriber_manager.h"
 #undef private
@@ -69,10 +70,20 @@ public:
 void CommonEventUnSubscribeUnitTest::SetUpTestCase(void)
 {
     bundleObject = new OHOS::AppExecFwk::MockBundleMgrService();
-    OHOS::sptr<OHOS::ISystemAbilityManager> systemAbilityManager =
-        OHOS::SystemAbilityManagerClient::GetInstance().GetSystemAbilityManager();
-    OHOS::ISystemAbilityManager::SAExtraProp saExtraProp;
-    systemAbilityManager->AddSystemAbility(OHOS::BUNDLE_MGR_SERVICE_SYS_ABILITY_ID, bundleObject, saExtraProp);
+    
+    OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->sptrBundleMgr_ =
+        OHOS::iface_cast<OHOS::AppExecFwk::IBundleMgr>(bundleObject);
+
+    OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->bmsDeath_ = new BMSDeathRecipient();
+    if (!OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->bmsDeath_) {
+        GTEST_LOG_(INFO) << "Failed to create death Recipient ptr BMSDeathRecipient";
+        return;
+    }
+    if (!OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->sptrBundleMgr_->AsObject()->AddDeathRecipient(
+        OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->bmsDeath_)) {
+        GTEST_LOG_(INFO) << "Failed to add death recipient";
+        return;
+    }
 }
 
 void CommonEventUnSubscribeUnitTest::TearDownTestCase(void)
