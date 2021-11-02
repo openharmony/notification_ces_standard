@@ -279,7 +279,7 @@ napi_value CreateSubscriber(napi_env env, napi_callback_info info)
     }
 
     AsyncCallbackInfoCreate *asyncCallbackInfo =
-        new (std::nothrow) AsyncCallbackInfoCreate {.env = env, .asyncWork = nullptr, .subscriberInfo = nullptr};
+        new (std::nothrow) AsyncCallbackInfoCreate {.env = env, .asyncWork = nullptr, .subscribeInfo = nullptr};
     if (asyncCallbackInfo == nullptr) {
         EVENT_LOGE("asyncCallbackInfo is null");
         return NapiGetNull(env);
@@ -288,7 +288,7 @@ napi_value CreateSubscriber(napi_env env, napi_callback_info info)
 
     PaddingAsyncCallbackInfoCreateSubscriber(env, argc, asyncCallbackInfo, callback, promise);
 
-    napi_create_reference(env, argv[0], 1, &asyncCallbackInfo->subscriberInfo);
+    napi_create_reference(env, argv[0], 1, &asyncCallbackInfo->subscribeInfo);
 
     napi_value resourceName = nullptr;
     napi_create_string_latin1(env, "CreateSubscriber", NAPI_AUTO_LENGTH, &resourceName);
@@ -303,11 +303,11 @@ napi_value CreateSubscriber(napi_env env, napi_callback_info info)
             AsyncCallbackInfoCreate *asyncCallbackInfo = (AsyncCallbackInfoCreate *)data;
 
             napi_value constructor = nullptr;
-            napi_value subscriberInfoRefValue = nullptr;
-            napi_get_reference_value(env, asyncCallbackInfo->subscriberInfo, &subscriberInfoRefValue);
+            napi_value subscribeInfoRefValue = nullptr;
+            napi_get_reference_value(env, asyncCallbackInfo->subscribeInfo, &subscribeInfoRefValue);
             napi_get_reference_value(env, g_CommonEventSubscriber, &constructor);
 
-            napi_new_instance(env, constructor, 1, &subscriberInfoRefValue, &asyncCallbackInfo->result);
+            napi_new_instance(env, constructor, 1, &subscribeInfoRefValue, &asyncCallbackInfo->result);
 
             ReturnCallbackPromise(env,
                 asyncCallbackInfo->isCallback,
@@ -318,8 +318,8 @@ napi_value CreateSubscriber(napi_env env, napi_callback_info info)
             if (asyncCallbackInfo->callback != nullptr) {
                 napi_delete_reference(env, asyncCallbackInfo->callback);
             }
-            if (asyncCallbackInfo->subscriberInfo != nullptr) {
-                napi_delete_reference(env, asyncCallbackInfo->subscriberInfo);
+            if (asyncCallbackInfo->subscribeInfo != nullptr) {
+                napi_delete_reference(env, asyncCallbackInfo->subscribeInfo);
             }
             napi_delete_async_work(env, asyncCallbackInfo->asyncWork);
             if (asyncCallbackInfo) {
@@ -2321,7 +2321,7 @@ napi_value GetEventsByCreateSubscriber(const napi_env &env, const napi_value &ar
         EVENT_LOGI("GetEventsByCreateSubscriber str = %{public}s", str);
         events.push_back(str);
     }
-    
+
     return NapiGetNull(env);
 }
 
@@ -2432,20 +2432,20 @@ napi_value CommonEventSubscriberConstructor(napi_env env, napi_callback_info inf
         matchingSkills.AddEvent(event);
     }
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
     if (hasPermission) {
-        subscriberInfo.SetPermission(permission);
+        subscribeInfo.SetPermission(permission);
     }
 
     if (hasPublisherDeviceId) {
-        subscriberInfo.SetDeviceId(publisherDeviceId);
+        subscribeInfo.SetDeviceId(publisherDeviceId);
     }
 
     if (hasPriority) {
-        subscriberInfo.SetPriority(priority);
+        subscribeInfo.SetPriority(priority);
     }
 
-    SubscriberInstance *objectInfo = new (std::nothrow) SubscriberInstance(subscriberInfo);
+    SubscriberInstance *objectInfo = new (std::nothrow) SubscriberInstance(subscribeInfo);
     if (objectInfo == nullptr) {
         EVENT_LOGE("objectInfo is null");
         return  NapiGetNull(env);

@@ -31,7 +31,6 @@
 #include "event_log_wrapper.h"
 #include "event_receive_stub.h"
 #include "mock_bundle_manager.h"
-#include "system_ability_definition.h"
 
 using namespace testing::ext;
 
@@ -46,14 +45,14 @@ std::shared_ptr<EventHandler> handlerPtr;
 
 class CommonEventServicesModuleTest : public CommonEventSubscriber {
 public:
-    CommonEventServicesModuleTest(const CommonEventSubscribeInfo &subscriberInfo);
-    virtual ~CommonEventServicesModuleTest(){};
+    explicit CommonEventServicesModuleTest(const CommonEventSubscribeInfo &subscribeInfo);
+    virtual ~CommonEventServicesModuleTest() {};
     virtual void OnReceiveEvent(const CommonEventData &data);
 
 public:
 };
-CommonEventServicesModuleTest::CommonEventServicesModuleTest(const CommonEventSubscribeInfo &subscriberInfo)
-    : CommonEventSubscriber(subscriberInfo)
+CommonEventServicesModuleTest::CommonEventServicesModuleTest(const CommonEventSubscribeInfo &subscribeInfo)
+    : CommonEventSubscriber(subscribeInfo)
 {}
 
 void CommonEventServicesModuleTest::OnReceiveEvent(const CommonEventData &data)
@@ -77,21 +76,8 @@ void cesModuleTest::SetUpTestCase()
     handlerPtr->PostTask(task);
 
     bundleObject = new OHOS::AppExecFwk::MockBundleMgrService();
-    
     OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->sptrBundleMgr_ =
-        iface_cast<OHOS::AppExecFwk::IBundleMgr>(bundleObject);
-
-    OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->bmsDeath_ = new BMSDeathRecipient();
-    if (!OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->bmsDeath_) {
-        EVENT_LOGE("Failed to create death Recipient ptr BMSDeathRecipient");
-        return;
-    }
-    if (!OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->sptrBundleMgr_->AsObject()->AddDeathRecipient(
-        OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->bmsDeath_)) {
-        EVENT_LOGE("Failed to add death recipient");
-        return;
-    }
-
+        OHOS::iface_cast<OHOS::AppExecFwk::IBundleMgr>(bundleObject);
     OHOS::DelayedSingleton<CommonEventManagerService>::GetInstance()->OnStart();
 }
 

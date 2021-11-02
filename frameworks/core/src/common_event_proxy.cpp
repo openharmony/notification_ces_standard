@@ -101,15 +101,15 @@ bool CommonEventProxy::PublishCommonEvent(const CommonEventData &event, const Co
 }
 
 bool CommonEventProxy::SubscribeCommonEvent(
-    const CommonEventSubscribeInfo &subscriberInfo, const sptr<IRemoteObject> &commonEventListener)
+    const CommonEventSubscribeInfo &subscribeInfo, const sptr<IRemoteObject> &commonEventListener)
 {
     EVENT_LOGD("start");
 
     MessageParcel data;
     MessageParcel reply;
 
-    if (!data.WriteParcelable(&subscriberInfo)) {
-        EVENT_LOGE("Failed to write parcelable subscriberInfo");
+    if (!data.WriteParcelable(&subscribeInfo)) {
+        EVENT_LOGE("Failed to write parcelable subscribeInfo");
         return false;
     }
     if (!data.WriteParcelable(commonEventListener)) {

@@ -31,7 +31,7 @@ public:
         const sptr<IRemoteObject> &commonEventListener, const struct tm &recordTime, const pid_t &pid, const uid_t &uid,
         const std::string &bundleName);
 
-    bool SubscribeCommonEvent(const CommonEventSubscribeInfo &subscriberInfo,
+    bool SubscribeCommonEvent(const CommonEventSubscribeInfo &subscribeInfo,
         const sptr<IRemoteObject> &commonEventListener, const struct tm &recordTime, const pid_t &pid, const uid_t &uid,
         const std::string &bundleName);
 

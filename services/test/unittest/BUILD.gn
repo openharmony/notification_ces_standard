@@ -56,7 +56,6 @@ ohos_unittest("common_event_publish_system_event_test") {
   module_out_path = module_output_path
 
   sources = [
-    "${services_path}/test/unittest/mock/src/iservice_registry.cpp",
     "${services_path}/test/unittest/mock/src/mock_bundle_manager.cpp",
     "${services_path}/test/unittest/mock/src/mock_ipc.cpp",
     "//foundation/appexecfwk/standard/interfaces/innerkits/appexecfwk_core/src/bundlemgr/bundle_mgr_host.cpp",
@@ -92,7 +91,6 @@ ohos_unittest("common_event_dump_test") {
   module_out_path = module_output_path
 
   sources = [
-    "${services_path}/test/unittest/mock/src/iservice_registry.cpp",
     "${services_path}/test/unittest/mock/src/mock_bundle_manager.cpp",
     "${services_path}/test/unittest/mock/src/mock_ipc.cpp",
     "//foundation/appexecfwk/standard/interfaces/innerkits/appexecfwk_core/src/bundlemgr/bundle_mgr_host.cpp",
@@ -129,7 +127,6 @@ ohos_unittest("common_event_freeze_test") {
   module_out_path = module_output_path
 
   sources = [
-    "${services_path}/test/unittest/mock/src/iservice_registry.cpp",
     "${services_path}/test/unittest/mock/src/mock_bundle_manager.cpp",
     "${services_path}/test/unittest/mock/src/mock_ipc.cpp",
     "//foundation/appexecfwk/standard/interfaces/innerkits/appexecfwk_core/src/bundlemgr/bundle_mgr_host.cpp",
@@ -165,7 +162,6 @@ ohos_unittest("common_event_sticky_test") {
   module_out_path = module_output_path
 
   sources = [
-    "${services_path}/test/unittest/mock/src/iservice_registry.cpp",
     "${services_path}/test/unittest/mock/src/mock_bundle_manager.cpp",
     "${services_path}/test/unittest/mock/src/mock_ipc.cpp",
     "//foundation/appexecfwk/standard/interfaces/innerkits/appexecfwk_core/src/bundlemgr/bundle_mgr_host.cpp",
@@ -201,7 +197,6 @@ ohos_unittest("common_event_subscribe_unit_test") {
   module_out_path = module_output_path
 
   sources = [
-    "${services_path}/test/unittest/mock/src/iservice_registry.cpp",
     "${services_path}/test/unittest/mock/src/mock_bundle_manager.cpp",
     "${services_path}/test/unittest/mock/src/mock_ipc.cpp",
     "//foundation/appexecfwk/standard/interfaces/innerkits/appexecfwk_core/src/bundlemgr/bundle_mgr_host.cpp",
@@ -237,7 +232,6 @@ ohos_unittest("common_event_unsubscribe_unit_test") {
   module_out_path = module_output_path
 
   sources = [
-    "${services_path}/test/unittest/mock/src/iservice_registry.cpp",
     "${services_path}/test/unittest/mock/src/mock_bundle_manager.cpp",
     "//foundation/appexecfwk/standard/interfaces/innerkits/appexecfwk_core/src/bundlemgr/bundle_mgr_host.cpp",
     "//foundation/appexecfwk/standard/interfaces/innerkits/appexecfwk_core/src/bundlemgr/bundle_mgr_proxy.cpp",
@@ -272,7 +266,6 @@ ohos_unittest("common_event_publish_ordered_event_unit_test") {
   module_out_path = module_output_path
 
   sources = [
-    "${services_path}/test/unittest/mock/src/iservice_registry.cpp",
     "${services_path}/test/unittest/mock/src/mock_bundle_manager.cpp",
     "${services_path}/test/unittest/mock/src/mock_ipc.cpp",
     "//foundation/appexecfwk/standard/interfaces/innerkits/appexecfwk_core/src/bundlemgr/bundle_mgr_host.cpp",
@@ -308,7 +301,6 @@ ohos_unittest("common_event_publish_permission_event_unit_test") {
   module_out_path = module_output_path
 
   sources = [
-    "${services_path}/test/unittest/mock/src/iservice_registry.cpp",
     "${services_path}/test/unittest/mock/src/mock_bundle_manager.cpp",
     "${services_path}/test/unittest/mock/src/mock_ipc.cpp",
     "//foundation/appexecfwk/standard/interfaces/innerkits/appexecfwk_core/src/bundlemgr/bundle_mgr_host.cpp",
@@ -344,7 +336,6 @@ ohos_unittest("common_event_publish_manager_event_unit_test") {
   module_out_path = module_output_path
 
   sources = [
-    "${services_path}/test/unittest/mock/src/iservice_registry.cpp",
     "${services_path}/test/unittest/mock/src/mock_bundle_manager.cpp",
     "${services_path}/test/unittest/mock/src/mock_ipc.cpp",
     "//foundation/appexecfwk/standard/interfaces/innerkits/appexecfwk_core/src/bundlemgr/bundle_mgr_host.cpp",

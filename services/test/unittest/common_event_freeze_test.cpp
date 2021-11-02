@@ -15,9 +15,7 @@
 
 #include <gtest/gtest.h>
 #define UNIT_TEST
-#include "system_ability_definition.h"
 #include "mock_bundle_manager.h"
-#include "iservice_registry.h"
 #include "inner_common_event_manager.h"
 #include "common_event_sticky_manager.h"
 #include "errors.h"
@@ -55,7 +53,6 @@ const int FREEZE_SLEEP2 = 120;
 bool isFreeze_uid = false;
 bool isFreeze_uid2 = false;
 std::mutex mtx;
-}  // namespace
 
 static OHOS::sptr<OHOS::IRemoteObject> bundleObject = nullptr;
 OHOS::sptr<OHOS::IRemoteObject> commonEventListener;
@@ -266,20 +263,8 @@ std::shared_ptr<InnerCommonEventManager> CommonEventFreezeTest::innerCommonEvent
 void CommonEventFreezeTest::SetUpTestCase(void)
 {
     bundleObject = new OHOS::AppExecFwk::MockBundleMgrService();
-    
     OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->sptrBundleMgr_ =
         OHOS::iface_cast<OHOS::AppExecFwk::IBundleMgr>(bundleObject);
-
-    OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->bmsDeath_ = new BMSDeathRecipient();
-    if (!OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->bmsDeath_) {
-        GTEST_LOG_(INFO) << "Failed to create death Recipient ptr BMSDeathRecipient";
-        return;
-    }
-    if (!OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->sptrBundleMgr_->AsObject()->AddDeathRecipient(
-        OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->bmsDeath_)) {
-        GTEST_LOG_(INFO) << "Failed to add death recipient";
-        return;
-    }
 }
 
 void CommonEventFreezeTest::TearDownTestCase(void)
@@ -411,10 +396,10 @@ HWTEST_F(CommonEventFreezeTest, CommonEventFreezeTest_001, TestSize.Level1)
     matchingSkills.AddEvent(EVENTCASE1);
 
     // make subcriber info
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
     // make a subcriber object
-    std::shared_ptr<SubscriberTest> subscriberTest = std::make_shared<SubscriberTest>(subscriberInfo);
+    std::shared_ptr<SubscriberTest> subscriberTest = std::make_shared<SubscriberTest>(subscribeInfo);
 
     // subscribe a common event
     bool subscribeResult = SubscribeCommonEvent(subscriberTest, UID, commonEventListener);
@@ -425,10 +410,10 @@ HWTEST_F(CommonEventFreezeTest, CommonEventFreezeTest_001, TestSize.Level1)
     matchingSkillsAnother.AddEvent(EVENTCASE1);
 
     // make another subcriber info
-    CommonEventSubscribeInfo subscriberInfo2(matchingSkillsAnother);
+    CommonEventSubscribeInfo subscribeInfo2(matchingSkillsAnother);
 
     // make another subcriber object
-    std::shared_ptr<SubscriberTest2> subscriberTest2 = std::make_shared<SubscriberTest2>(subscriberInfo2);
+    std::shared_ptr<SubscriberTest2> subscriberTest2 = std::make_shared<SubscriberTest2>(subscribeInfo2);
 
     // subscribe another event
     bool subscribeResult2 = SubscribeCommonEvent(subscriberTest2, UID2, commonEventListener2);
@@ -476,10 +461,10 @@ HWTEST_F(CommonEventFreezeTest, CommonEventFreezeTest_002, TestSize.Level1)
     matchingSkills.AddEvent(EVENTCASE2);
 
     // make subcriber info
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
     // make a subcriber object
-    std::shared_ptr<SubscriberTest> subscriberTest = std::make_shared<SubscriberTest>(subscriberInfo);
+    std::shared_ptr<SubscriberTest> subscriberTest = std::make_shared<SubscriberTest>(subscribeInfo);
 
     // subscribe a common event
     bool subscribeResult = SubscribeCommonEvent(subscriberTest, UID, commonEventListener);
@@ -490,10 +475,10 @@ HWTEST_F(CommonEventFreezeTest, CommonEventFreezeTest_002, TestSize.Level1)
     matchingSkillsAnother.AddEvent(EVENTCASE2);
 
     // make another subcriber info
-    CommonEventSubscribeInfo subscriberInfo2(matchingSkillsAnother);
+    CommonEventSubscribeInfo subscribeInfo2(matchingSkillsAnother);
 
     // make another subcriber object
-    std::shared_ptr<SubscriberTest2> subscriberTest2 = std::make_shared<SubscriberTest2>(subscriberInfo2);
+    std::shared_ptr<SubscriberTest2> subscriberTest2 = std::make_shared<SubscriberTest2>(subscribeInfo2);
 
     // subscribe another event
     bool subscribeResult2 = SubscribeCommonEvent(subscriberTest2, UID2, commonEventListener2);
@@ -530,3 +515,4 @@ HWTEST_F(CommonEventFreezeTest, CommonEventFreezeTest_002, TestSize.Level1)
     sleep(PUBLISH_SLEEP);
     mtx.unlock();
 }
+}  // namespace

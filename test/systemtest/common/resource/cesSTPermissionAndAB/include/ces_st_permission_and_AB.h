@@ -28,13 +28,13 @@ namespace OHOS {
 namespace AppExecFwk {
 class CommonEventServicesSystemTest : public EventFwk::CommonEventSubscriber {
 public:
-    CommonEventServicesSystemTest(const EventFwk::CommonEventSubscribeInfo &subscriberInfo);
+    CommonEventServicesSystemTest(const EventFwk::CommonEventSubscribeInfo &subscribeInfo);
     virtual ~CommonEventServicesSystemTest(){};
     virtual void OnReceiveEvent(const EventFwk::CommonEventData &data);
 };
 
-CommonEventServicesSystemTest::CommonEventServicesSystemTest(const EventFwk::CommonEventSubscribeInfo &subscriberInfo)
-    : EventFwk::CommonEventSubscriber(subscriberInfo)
+CommonEventServicesSystemTest::CommonEventServicesSystemTest(const EventFwk::CommonEventSubscribeInfo &subscribeInfo)
+    : EventFwk::CommonEventSubscriber(subscribeInfo)
 {}
 
 void CommonEventServicesSystemTest::OnReceiveEvent(const EventFwk::CommonEventData &data)

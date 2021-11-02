@@ -20,7 +20,6 @@ ohos_moduletest("CesPublishOrderedEventModuleTest") {
   module_out_path = module_output_path
 
   sources = [
-    "${services_path}/test/mock/src/iservice_registry.cpp",
     "${services_path}/test/mock/src/mock_bundle_manager.cpp",
     "${services_path}/test/mock/src/mock_ipc.cpp",
     "//foundation/appexecfwk/standard/interfaces/innerkits/appexecfwk_core/src/bundlemgr/bundle_mgr_host.cpp",

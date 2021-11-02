@@ -29,10 +29,6 @@
 #include "common_event_record.h"
 #include "common_event_support.h"
 #include "mock_bundle_manager.h"
-#include "iremote_object.h"
-#include "iservice_registry.h"
-#include "refbase.h"
-#include "system_ability_definition.h"
 
 #include <gtest/gtest.h>
 
@@ -87,20 +83,8 @@ public:
 void CommonEventPublishPermissionEventUnitTest::SetUpTestCase(void)
 {
     bundleObject = new OHOS::AppExecFwk::MockBundleMgrService();
-    
     OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->sptrBundleMgr_ =
-        iface_cast<OHOS::AppExecFwk::IBundleMgr>(bundleObject);
-
-    OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->bmsDeath_ = new BMSDeathRecipient();
-    if (!OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->bmsDeath_) {
-        GTEST_LOG_(INFO) << "Failed to create death Recipient ptr BMSDeathRecipient";
-        return;
-    }
-    if (!OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->sptrBundleMgr_->AsObject()->AddDeathRecipient(
-        OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->bmsDeath_)) {
-        GTEST_LOG_(INFO) << "Failed to add death recipient";
-        return;
-    }
+        OHOS::iface_cast<OHOS::AppExecFwk::IBundleMgr>(bundleObject);
 }
 
 void CommonEventPublishPermissionEventUnitTest::TearDownTestCase(void)
@@ -129,11 +113,11 @@ HWTEST_F(CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermission
     /* subscriber */
     MatchingSkills matchingSkillsObj;
     matchingSkillsObj.AddEvent("1234");
-    CommonEventSubscribeInfo subscriberInfo(matchingSkillsObj);
-    subscriberInfo.SetPermission("123");
-    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscriberInfo);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkillsObj);
+    subscribeInfo.SetPermission("123");
+    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscribeInfo);
     auto listener = sptr<IRemoteObject>(new CommonEventListener(subscriber));
-    inner.SubscribeCommonEvent(subscriberInfo, listener, curTime, 0, 1000, "hello");
+    inner.SubscribeCommonEvent(subscribeInfo, listener, curTime, 0, 1000, "hello");
 
     /* Publish */
     Want want;
@@ -167,12 +151,12 @@ HWTEST_F(CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermission
     struct tm curTime{0};
     MatchingSkills matchingSkillsObj;
     matchingSkillsObj.AddEvent("1234");
-    CommonEventSubscribeInfo subscriberInfo(matchingSkillsObj);
-    subscriberInfo.SetPermission("123");
-    subscriberInfo.SetPriority(1);
-    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscriberInfo);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkillsObj);
+    subscribeInfo.SetPermission("123");
+    subscribeInfo.SetPriority(1);
+    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscribeInfo);
     auto listener = sptr<IRemoteObject>(new CommonEventListener(subscriber));
-    inner.SubscribeCommonEvent(subscriberInfo, listener, curTime, 0, 1000, "hello");
+    inner.SubscribeCommonEvent(subscribeInfo, listener, curTime, 0, 1000, "hello");
 
     /* Publish */
     Want want;
@@ -207,12 +191,12 @@ HWTEST_F(CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermission
     struct tm curTime{0};
     MatchingSkills matchingSkillsObj;
     matchingSkillsObj.AddEvent("1234");
-    CommonEventSubscribeInfo subscriberInfo(matchingSkillsObj);
-    subscriberInfo.SetPermission("");
-    subscriberInfo.SetPriority(1);
-    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscriberInfo);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkillsObj);
+    subscribeInfo.SetPermission("");
+    subscribeInfo.SetPriority(1);
+    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscribeInfo);
     auto listener = sptr<IRemoteObject>(new CommonEventListener(subscriber));
-    inner.SubscribeCommonEvent(subscriberInfo, listener, curTime, 0, 1000, "hello");
+    inner.SubscribeCommonEvent(subscribeInfo, listener, curTime, 0, 1000, "hello");
 
     /* Publish */
     Want want;
@@ -247,12 +231,12 @@ HWTEST_F(CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermission
     struct tm curTime{0};
     MatchingSkills matchingSkillsObj;
     matchingSkillsObj.AddEvent("1234");
-    CommonEventSubscribeInfo subscriberInfo(matchingSkillsObj);
-    subscriberInfo.SetPermission("");
-    subscriberInfo.SetPriority(1);
-    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscriberInfo);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkillsObj);
+    subscribeInfo.SetPermission("");
+    subscribeInfo.SetPriority(1);
+    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscribeInfo);
     auto listener = sptr<IRemoteObject>(new CommonEventListener(subscriber));
-    inner.SubscribeCommonEvent(subscriberInfo, listener, curTime, 0, 1000, "hello");
+    inner.SubscribeCommonEvent(subscribeInfo, listener, curTime, 0, 1000, "hello");
 
     /* Publish */
     Want want;
@@ -283,12 +267,12 @@ HWTEST_F(CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermission
     GTEST_LOG_(INFO)
         << "CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermissionEventUnitTest_0500, TestSize.Level1";
 
-    CommonEventSubscribeInfo commonEventSubscriberInfo;
-    commonEventSubscriberInfo.SetPermission("");
-    std::shared_ptr<CommonEventSubscribeInfo> commonEventSubscriberInfoSptr =
-        std::make_shared<CommonEventSubscribeInfo>(commonEventSubscriberInfo);
+    CommonEventSubscribeInfo commonEventSubscribeInfo;
+    commonEventSubscribeInfo.SetPermission("");
+    std::shared_ptr<CommonEventSubscribeInfo> commonEventSubscribeInfoSptr =
+        std::make_shared<CommonEventSubscribeInfo>(commonEventSubscribeInfo);
     EventSubscriberRecord eventSubRecord;
-    eventSubRecord.eventSubscriberInfo = commonEventSubscriberInfoSptr;
+    eventSubRecord.eventSubscribeInfo = commonEventSubscribeInfoSptr;
     eventSubRecord.bundleName = "hello";
 
     CommonEventPublishInfo commonEventPublishInfo;
@@ -324,12 +308,12 @@ HWTEST_F(CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermission
     GTEST_LOG_(INFO)
         << "CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermissionEventUnitTest_0600, TestSize.Level1";
 
-    CommonEventSubscribeInfo commonEventSubscriberInfo;
-    commonEventSubscriberInfo.SetPermission("12345");
-    std::shared_ptr<CommonEventSubscribeInfo> commonEventSubscriberInfoSptr =
-        std::make_shared<CommonEventSubscribeInfo>(commonEventSubscriberInfo);
+    CommonEventSubscribeInfo commonEventSubscribeInfo;
+    commonEventSubscribeInfo.SetPermission("12345");
+    std::shared_ptr<CommonEventSubscribeInfo> commonEventSubscribeInfoSptr =
+        std::make_shared<CommonEventSubscribeInfo>(commonEventSubscribeInfo);
     EventSubscriberRecord eventSubRecord;
-    eventSubRecord.eventSubscriberInfo = commonEventSubscriberInfoSptr;
+    eventSubRecord.eventSubscribeInfo = commonEventSubscribeInfoSptr;
     eventSubRecord.bundleName = "hello";
 
     CommonEventPublishInfo commonEventPublishInfo;
@@ -365,12 +349,12 @@ HWTEST_F(CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermission
     GTEST_LOG_(INFO)
         << "CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermissionEventUnitTest_0700, TestSize.Level1";
 
-    CommonEventSubscribeInfo commonEventSubscriberInfo;
-    commonEventSubscriberInfo.SetPermission("12345");
-    std::shared_ptr<CommonEventSubscribeInfo> commonEventSubscriberInfoSptr =
-        std::make_shared<CommonEventSubscribeInfo>(commonEventSubscriberInfo);
+    CommonEventSubscribeInfo commonEventSubscribeInfo;
+    commonEventSubscribeInfo.SetPermission("12345");
+    std::shared_ptr<CommonEventSubscribeInfo> commonEventSubscribeInfoSptr =
+        std::make_shared<CommonEventSubscribeInfo>(commonEventSubscribeInfo);
     EventSubscriberRecord eventSubRecord;
-    eventSubRecord.eventSubscriberInfo = commonEventSubscriberInfoSptr;
+    eventSubRecord.eventSubscribeInfo = commonEventSubscribeInfoSptr;
 
     CommonEventPublishInfo commonEventPublishInfo;
     commonEventPublishInfo.SetSubscriberPermissions(std::vector<std::string>());
@@ -404,12 +388,12 @@ HWTEST_F(CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermission
     GTEST_LOG_(INFO)
         << "CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermissionEventUnitTest_0800, TestSize.Level1";
 
-    CommonEventSubscribeInfo commonEventSubscriberInfo;
-    commonEventSubscriberInfo.SetPermission("");
-    std::shared_ptr<CommonEventSubscribeInfo> commonEventSubscriberInfoSptr =
-        std::make_shared<CommonEventSubscribeInfo>(commonEventSubscriberInfo);
+    CommonEventSubscribeInfo commonEventSubscribeInfo;
+    commonEventSubscribeInfo.SetPermission("");
+    std::shared_ptr<CommonEventSubscribeInfo> commonEventSubscribeInfoSptr =
+        std::make_shared<CommonEventSubscribeInfo>(commonEventSubscribeInfo);
     EventSubscriberRecord eventSubRecord;
-    eventSubRecord.eventSubscriberInfo = commonEventSubscriberInfoSptr;
+    eventSubRecord.eventSubscribeInfo = commonEventSubscribeInfoSptr;
     eventSubRecord.bundleName = "hello";
 
     CommonEventPublishInfo commonEventPublishInfo;
@@ -444,12 +428,12 @@ HWTEST_F(CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermission
     GTEST_LOG_(INFO)
         << "CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermissionEventUnitTest_0900, TestSize.Level1";
 
-    CommonEventSubscribeInfo commonEventSubscriberInfo;
-    commonEventSubscriberInfo.SetPermission("");
-    std::shared_ptr<CommonEventSubscribeInfo> commonEventSubscriberInfoSptr =
-        std::make_shared<CommonEventSubscribeInfo>(commonEventSubscriberInfo);
+    CommonEventSubscribeInfo commonEventSubscribeInfo;
+    commonEventSubscribeInfo.SetPermission("");
+    std::shared_ptr<CommonEventSubscribeInfo> commonEventSubscribeInfoSptr =
+        std::make_shared<CommonEventSubscribeInfo>(commonEventSubscribeInfo);
     EventSubscriberRecord eventSubRecord;
-    eventSubRecord.eventSubscriberInfo = commonEventSubscriberInfoSptr;
+    eventSubRecord.eventSubscribeInfo = commonEventSubscribeInfoSptr;
     eventSubRecord.bundleName = "hello world";
 
     CommonEventPublishInfo commonEventPublishInfo;
@@ -484,12 +468,12 @@ HWTEST_F(CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermission
     GTEST_LOG_(INFO)
         << "CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermissionEventUnitTest_1000, TestSize.Level1";
 
-    CommonEventSubscribeInfo commonEventSubscriberInfo;
-    commonEventSubscriberInfo.SetPermission("12345");
-    std::shared_ptr<CommonEventSubscribeInfo> commonEventSubscriberInfoSptr =
-        std::make_shared<CommonEventSubscribeInfo>(commonEventSubscriberInfo);
+    CommonEventSubscribeInfo commonEventSubscribeInfo;
+    commonEventSubscribeInfo.SetPermission("12345");
+    std::shared_ptr<CommonEventSubscribeInfo> commonEventSubscribeInfoSptr =
+        std::make_shared<CommonEventSubscribeInfo>(commonEventSubscribeInfo);
     EventSubscriberRecord eventSubRecord;
-    eventSubRecord.eventSubscriberInfo = commonEventSubscriberInfoSptr;
+    eventSubRecord.eventSubscribeInfo = commonEventSubscribeInfoSptr;
     eventSubRecord.bundleName = "hello";
 
     CommonEventPublishInfo commonEventPublishInfo;
@@ -526,12 +510,12 @@ HWTEST_F(CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermission
     GTEST_LOG_(INFO)
         << "CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermissionEventUnitTest_1100, TestSize.Level1";
 
-    CommonEventSubscribeInfo commonEventSubscriberInfo;
-    commonEventSubscriberInfo.SetPermission("12345");
-    std::shared_ptr<CommonEventSubscribeInfo> commonEventSubscriberInfoSptr =
-        std::make_shared<CommonEventSubscribeInfo>(commonEventSubscriberInfo);
+    CommonEventSubscribeInfo commonEventSubscribeInfo;
+    commonEventSubscribeInfo.SetPermission("12345");
+    std::shared_ptr<CommonEventSubscribeInfo> commonEventSubscribeInfoSptr =
+        std::make_shared<CommonEventSubscribeInfo>(commonEventSubscribeInfo);
     EventSubscriberRecord eventSubRecord;
-    eventSubRecord.eventSubscriberInfo = commonEventSubscriberInfoSptr;
+    eventSubRecord.eventSubscribeInfo = commonEventSubscribeInfoSptr;
     eventSubRecord.bundleName = "hello world";
 
     CommonEventPublishInfo commonEventPublishInfo;
@@ -568,12 +552,12 @@ HWTEST_F(CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermission
     GTEST_LOG_(INFO)
         << "CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermissionEventUnitTest_1200, TestSize.Level1";
 
-    CommonEventSubscribeInfo commonEventSubscriberInfo;
-    commonEventSubscriberInfo.SetPermission("12345");
-    std::shared_ptr<CommonEventSubscribeInfo> commonEventSubscriberInfoSptr =
-        std::make_shared<CommonEventSubscribeInfo>(commonEventSubscriberInfo);
+    CommonEventSubscribeInfo commonEventSubscribeInfo;
+    commonEventSubscribeInfo.SetPermission("12345");
+    std::shared_ptr<CommonEventSubscribeInfo> commonEventSubscribeInfoSptr =
+        std::make_shared<CommonEventSubscribeInfo>(commonEventSubscribeInfo);
     EventSubscriberRecord eventSubRecord;
-    eventSubRecord.eventSubscriberInfo = commonEventSubscriberInfoSptr;
+    eventSubRecord.eventSubscribeInfo = commonEventSubscribeInfoSptr;
     eventSubRecord.bundleName = "hello";
 
     CommonEventPublishInfo commonEventPublishInfo;
@@ -610,12 +594,12 @@ HWTEST_F(CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermission
     GTEST_LOG_(INFO)
         << "CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermissionEventUnitTest_1300, TestSize.Level1";
 
-    CommonEventSubscribeInfo commonEventSubscriberInfo;
-    commonEventSubscriberInfo.SetPermission("12345");
-    std::shared_ptr<CommonEventSubscribeInfo> commonEventSubscriberInfoSptr =
-        std::make_shared<CommonEventSubscribeInfo>(commonEventSubscriberInfo);
+    CommonEventSubscribeInfo commonEventSubscribeInfo;
+    commonEventSubscribeInfo.SetPermission("12345");
+    std::shared_ptr<CommonEventSubscribeInfo> commonEventSubscribeInfoSptr =
+        std::make_shared<CommonEventSubscribeInfo>(commonEventSubscribeInfo);
     EventSubscriberRecord eventSubRecord;
-    eventSubRecord.eventSubscriberInfo = commonEventSubscriberInfoSptr;
+    eventSubRecord.eventSubscribeInfo = commonEventSubscribeInfoSptr;
     eventSubRecord.bundleName = "hello world";
 
     CommonEventPublishInfo commonEventPublishInfo;
@@ -700,12 +684,12 @@ HWTEST_F(CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermission
     GTEST_LOG_(INFO)
         << "CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermissionEventUnitTest_1600, TestSize.Level1";
 
-    CommonEventSubscribeInfo commonEventSubscriberInfo;
-    commonEventSubscriberInfo.SetPermission("ohos.permission.GET_WIFI_INFO");
-    std::shared_ptr<CommonEventSubscribeInfo> commonEventSubscriberInfoSptr =
-        std::make_shared<CommonEventSubscribeInfo>(commonEventSubscriberInfo);
+    CommonEventSubscribeInfo commonEventSubscribeInfo;
+    commonEventSubscribeInfo.SetPermission("ohos.permission.GET_WIFI_INFO");
+    std::shared_ptr<CommonEventSubscribeInfo> commonEventSubscribeInfoSptr =
+        std::make_shared<CommonEventSubscribeInfo>(commonEventSubscribeInfo);
     EventSubscriberRecord eventSubRecord;
-    eventSubRecord.eventSubscriberInfo = commonEventSubscriberInfoSptr;
+    eventSubRecord.eventSubscribeInfo = commonEventSubscribeInfoSptr;
     eventSubRecord.bundleName = "hello";
 
     CommonEventPublishInfo commonEventPublishInfo;
@@ -740,12 +724,12 @@ HWTEST_F(CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermission
     GTEST_LOG_(INFO)
         << "CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermissionEventUnitTest_1700, TestSize.Level1";
 
-    CommonEventSubscribeInfo commonEventSubscriberInfo;
-    commonEventSubscriberInfo.SetPermission("1234");
-    std::shared_ptr<CommonEventSubscribeInfo> commonEventSubscriberInfoSptr =
-        std::make_shared<CommonEventSubscribeInfo>(commonEventSubscriberInfo);
+    CommonEventSubscribeInfo commonEventSubscribeInfo;
+    commonEventSubscribeInfo.SetPermission("1234");
+    std::shared_ptr<CommonEventSubscribeInfo> commonEventSubscribeInfoSptr =
+        std::make_shared<CommonEventSubscribeInfo>(commonEventSubscribeInfo);
     EventSubscriberRecord eventSubRecord;
-    eventSubRecord.eventSubscriberInfo = commonEventSubscriberInfoSptr;
+    eventSubRecord.eventSubscribeInfo = commonEventSubscribeInfoSptr;
     eventSubRecord.bundleName = "hello";
 
     CommonEventPublishInfo commonEventPublishInfo;
@@ -780,12 +764,12 @@ HWTEST_F(CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermission
     GTEST_LOG_(INFO)
         << "CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermissionEventUnitTest_1800, TestSize.Level1";
 
-    CommonEventSubscribeInfo commonEventSubscriberInfo;
-    commonEventSubscriberInfo.SetPermission("1234");
-    std::shared_ptr<CommonEventSubscribeInfo> commonEventSubscriberInfoSptr =
-        std::make_shared<CommonEventSubscribeInfo>(commonEventSubscriberInfo);
+    CommonEventSubscribeInfo commonEventSubscribeInfo;
+    commonEventSubscribeInfo.SetPermission("1234");
+    std::shared_ptr<CommonEventSubscribeInfo> commonEventSubscribeInfoSptr =
+        std::make_shared<CommonEventSubscribeInfo>(commonEventSubscribeInfo);
     EventSubscriberRecord eventSubRecord;
-    eventSubRecord.eventSubscriberInfo = commonEventSubscriberInfoSptr;
+    eventSubRecord.eventSubscribeInfo = commonEventSubscribeInfoSptr;
     eventSubRecord.bundleName = "hello";
 
     CommonEventPublishInfo commonEventPublishInfo;
@@ -820,12 +804,12 @@ HWTEST_F(CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermission
     GTEST_LOG_(INFO)
         << "CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermissionEventUnitTest_1900, TestSize.Level1";
 
-    CommonEventSubscribeInfo commonEventSubscriberInfo;
-    commonEventSubscriberInfo.SetPermission("1234");
-    std::shared_ptr<CommonEventSubscribeInfo> commonEventSubscriberInfoSptr =
-        std::make_shared<CommonEventSubscribeInfo>(commonEventSubscriberInfo);
+    CommonEventSubscribeInfo commonEventSubscribeInfo;
+    commonEventSubscribeInfo.SetPermission("1234");
+    std::shared_ptr<CommonEventSubscribeInfo> commonEventSubscribeInfoSptr =
+        std::make_shared<CommonEventSubscribeInfo>(commonEventSubscribeInfo);
     EventSubscriberRecord eventSubRecord;
-    eventSubRecord.eventSubscriberInfo = commonEventSubscriberInfoSptr;
+    eventSubRecord.eventSubscribeInfo = commonEventSubscribeInfoSptr;
     eventSubRecord.bundleName = "hello";
 
     CommonEventPublishInfo commonEventPublishInfo;
@@ -860,12 +844,12 @@ HWTEST_F(CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermission
     GTEST_LOG_(INFO)
         << "CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermissionEventUnitTest_2000, TestSize.Level1";
 
-    CommonEventSubscribeInfo commonEventSubscriberInfo;
-    commonEventSubscriberInfo.SetPermission("1234");
-    std::shared_ptr<CommonEventSubscribeInfo> commonEventSubscriberInfoSptr =
-        std::make_shared<CommonEventSubscribeInfo>(commonEventSubscriberInfo);
+    CommonEventSubscribeInfo commonEventSubscribeInfo;
+    commonEventSubscribeInfo.SetPermission("1234");
+    std::shared_ptr<CommonEventSubscribeInfo> commonEventSubscribeInfoSptr =
+        std::make_shared<CommonEventSubscribeInfo>(commonEventSubscribeInfo);
     EventSubscriberRecord eventSubRecord;
-    eventSubRecord.eventSubscriberInfo = commonEventSubscriberInfoSptr;
+    eventSubRecord.eventSubscribeInfo = commonEventSubscribeInfoSptr;
     eventSubRecord.bundleName = "hello";
 
     CommonEventPublishInfo commonEventPublishInfo;
@@ -900,12 +884,12 @@ HWTEST_F(CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermission
     GTEST_LOG_(INFO)
         << "CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermissionEventUnitTest_2100, TestSize.Level1";
 
-    CommonEventSubscribeInfo commonEventSubscriberInfo;
-    commonEventSubscriberInfo.SetPermission("1234");
-    std::shared_ptr<CommonEventSubscribeInfo> commonEventSubscriberInfoSptr =
-        std::make_shared<CommonEventSubscribeInfo>(commonEventSubscriberInfo);
+    CommonEventSubscribeInfo commonEventSubscribeInfo;
+    commonEventSubscribeInfo.SetPermission("1234");
+    std::shared_ptr<CommonEventSubscribeInfo> commonEventSubscribeInfoSptr =
+        std::make_shared<CommonEventSubscribeInfo>(commonEventSubscribeInfo);
     EventSubscriberRecord eventSubRecord;
-    eventSubRecord.eventSubscriberInfo = commonEventSubscriberInfoSptr;
+    eventSubRecord.eventSubscribeInfo = commonEventSubscribeInfoSptr;
     eventSubRecord.bundleName = "hello";
 
     CommonEventPublishInfo commonEventPublishInfo;
@@ -1012,12 +996,12 @@ HWTEST_F(CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermission
     MatchingSkills matchingSkillsObj;
     // matchingSkillsObj.AddEvent("usual.event.BOOT_COMPLETED");
     matchingSkillsObj.AddEvent("usual.event.nfc.action.RF_FIELD_ON_DETECTED");
-    CommonEventSubscribeInfo subscriberInfo(matchingSkillsObj);
-    subscriberInfo.SetPermission("123");
-    subscriberInfo.SetPriority(1);
-    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscriberInfo);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkillsObj);
+    subscribeInfo.SetPermission("123");
+    subscribeInfo.SetPriority(1);
+    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscribeInfo);
     auto listener = sptr<IRemoteObject>(new CommonEventListener(subscriber));
-    inner.SubscribeCommonEvent(subscriberInfo, listener, curTime, 0, 1000, "case1");
+    inner.SubscribeCommonEvent(subscribeInfo, listener, curTime, 0, 1000, "case1");
 
     /* Publish */
     Want want;
@@ -1058,12 +1042,12 @@ HWTEST_F(CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermission
     MatchingSkills matchingSkillsObj;
     // matchingSkillsObj.AddEvent("usual.event.USER_SWITCHED");
     matchingSkillsObj.AddEvent("usual.event.wifi.mplink.STATE_CHANGE");
-    CommonEventSubscribeInfo subscriberInfo(matchingSkillsObj);
-    subscriberInfo.SetPermission("");
-    subscriberInfo.SetPriority(1);
-    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscriberInfo);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkillsObj);
+    subscribeInfo.SetPermission("");
+    subscribeInfo.SetPriority(1);
+    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscribeInfo);
     auto listener = sptr<IRemoteObject>(new CommonEventListener(subscriber));
-    inner.SubscribeCommonEvent(subscriberInfo, listener, curTime, 0, 1000, "case2");
+    inner.SubscribeCommonEvent(subscribeInfo, listener, curTime, 0, 1000, "case2");
 
     /* Publish */
     Want want;
@@ -1104,12 +1088,12 @@ HWTEST_F(CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermission
     MatchingSkills matchingSkillsObj;
     // matchingSkillsObj.AddEvent("usual.event.wifi.p2p.CONN_STATE_CHANGE");
     matchingSkillsObj.AddEvent("usual.event.bluetooth.remotedevice.DISCOVERED");
-    CommonEventSubscribeInfo subscriberInfo(matchingSkillsObj);
-    subscriberInfo.SetPermission("");
-    subscriberInfo.SetPriority(1);
-    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscriberInfo);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkillsObj);
+    subscribeInfo.SetPermission("");
+    subscribeInfo.SetPriority(1);
+    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscribeInfo);
     auto listener = sptr<IRemoteObject>(new CommonEventListener(subscriber));
-    inner.SubscribeCommonEvent(subscriberInfo, listener, curTime, 0, 1000, "case3");
+    inner.SubscribeCommonEvent(subscribeInfo, listener, curTime, 0, 1000, "case3");
 
     /* Publish */
     Want want;
@@ -1150,12 +1134,12 @@ HWTEST_F(CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermission
     MatchingSkills matchingSkillsObj;
     // matchingSkillsObj.AddEvent("usual.event.data.DISK_REMOVED");
     matchingSkillsObj.AddEvent("usual.event.data.DISK_MOUNTED");
-    CommonEventSubscribeInfo subscriberInfo(matchingSkillsObj);
-    subscriberInfo.SetPermission("");
-    subscriberInfo.SetPriority(1);
-    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscriberInfo);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkillsObj);
+    subscribeInfo.SetPermission("");
+    subscribeInfo.SetPriority(1);
+    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscribeInfo);
     auto listener = sptr<IRemoteObject>(new CommonEventListener(subscriber));
-    inner.SubscribeCommonEvent(subscriberInfo, listener, curTime, 0, 1000, "case4");
+    inner.SubscribeCommonEvent(subscribeInfo, listener, curTime, 0, 1000, "case4");
 
     /* Publish */
     Want want;
@@ -1195,12 +1179,12 @@ HWTEST_F(CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermission
     };
     MatchingSkills matchingSkillsObj;
     matchingSkillsObj.AddEvent("common.event.IVI_TEMPERATURE_RECOVERY");
-    CommonEventSubscribeInfo subscriberInfo(matchingSkillsObj);
-    subscriberInfo.SetPermission("");
-    subscriberInfo.SetPriority(1);
-    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscriberInfo);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkillsObj);
+    subscribeInfo.SetPermission("");
+    subscribeInfo.SetPriority(1);
+    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscribeInfo);
     auto listener = sptr<IRemoteObject>(new CommonEventListener(subscriber));
-    inner.SubscribeCommonEvent(subscriberInfo, listener, curTime, 0, 1000, "case6");
+    inner.SubscribeCommonEvent(subscribeInfo, listener, curTime, 0, 1000, "case6");
 
     /* Publish */
     Want want;
@@ -1239,12 +1223,12 @@ HWTEST_F(CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermission
     };
     MatchingSkills matchingSkillsObj;
     matchingSkillsObj.AddEvent("usual.event.BOOT_COMPLETED");
-    CommonEventSubscribeInfo subscriberInfo(matchingSkillsObj);
-    subscriberInfo.SetPermission("123");
-    subscriberInfo.SetPriority(1);
-    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscriberInfo);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkillsObj);
+    subscribeInfo.SetPermission("123");
+    subscribeInfo.SetPriority(1);
+    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscribeInfo);
     auto listener = sptr<IRemoteObject>(new CommonEventListener(subscriber));
-    inner.SubscribeCommonEvent(subscriberInfo, listener, curTime, 0, 1000, "case1");
+    inner.SubscribeCommonEvent(subscribeInfo, listener, curTime, 0, 1000, "case1");
 
     /* Publish */
     Want want;
@@ -1283,12 +1267,12 @@ HWTEST_F(CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermission
     };
     MatchingSkills matchingSkillsObj;
     matchingSkillsObj.AddEvent("usual.event.USER_SWITCHED");
-    CommonEventSubscribeInfo subscriberInfo(matchingSkillsObj);
-    subscriberInfo.SetPermission("");
-    subscriberInfo.SetPriority(1);
-    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscriberInfo);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkillsObj);
+    subscribeInfo.SetPermission("");
+    subscribeInfo.SetPriority(1);
+    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscribeInfo);
     auto listener = sptr<IRemoteObject>(new CommonEventListener(subscriber));
-    inner.SubscribeCommonEvent(subscriberInfo, listener, curTime, 0, 1000, "case2");
+    inner.SubscribeCommonEvent(subscribeInfo, listener, curTime, 0, 1000, "case2");
 
     /* Publish */
     Want want;
@@ -1327,12 +1311,12 @@ HWTEST_F(CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermission
     };
     MatchingSkills matchingSkillsObj;
     matchingSkillsObj.AddEvent("usual.event.wifi.p2p.CONN_STATE_CHANGE");
-    CommonEventSubscribeInfo subscriberInfo(matchingSkillsObj);
-    subscriberInfo.SetPermission("");
-    subscriberInfo.SetPriority(1);
-    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscriberInfo);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkillsObj);
+    subscribeInfo.SetPermission("");
+    subscribeInfo.SetPriority(1);
+    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscribeInfo);
     auto listener = sptr<IRemoteObject>(new CommonEventListener(subscriber));
-    inner.SubscribeCommonEvent(subscriberInfo, listener, curTime, 0, 1000, "case3");
+    inner.SubscribeCommonEvent(subscribeInfo, listener, curTime, 0, 1000, "case3");
 
     /* Publish */
     Want want;
@@ -1371,12 +1355,12 @@ HWTEST_F(CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermission
     };
     MatchingSkills matchingSkillsObj;
     matchingSkillsObj.AddEvent("usual.event.data.DISK_REMOVED");
-    CommonEventSubscribeInfo subscriberInfo(matchingSkillsObj);
-    subscriberInfo.SetPermission("");
-    subscriberInfo.SetPriority(1);
-    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscriberInfo);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkillsObj);
+    subscribeInfo.SetPermission("");
+    subscribeInfo.SetPriority(1);
+    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscribeInfo);
     auto listener = sptr<IRemoteObject>(new CommonEventListener(subscriber));
-    inner.SubscribeCommonEvent(subscriberInfo, listener, curTime, 0, 1000, "case4");
+    inner.SubscribeCommonEvent(subscribeInfo, listener, curTime, 0, 1000, "case4");
 
     /* Publish */
     Want want;
@@ -1415,12 +1399,12 @@ HWTEST_F(CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermission
     };
     MatchingSkills matchingSkillsObj;
     matchingSkillsObj.AddEvent("common.event.IVI_TEMPERATURE_RECOVERY");
-    CommonEventSubscribeInfo subscriberInfo(matchingSkillsObj);
-    subscriberInfo.SetPermission("");
-    subscriberInfo.SetPriority(1);
-    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscriberInfo);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkillsObj);
+    subscribeInfo.SetPermission("");
+    subscribeInfo.SetPriority(1);
+    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscribeInfo);
     auto listener = sptr<IRemoteObject>(new CommonEventListener(subscriber));
-    inner.SubscribeCommonEvent(subscriberInfo, listener, curTime, 0, 1000, "case6");
+    inner.SubscribeCommonEvent(subscribeInfo, listener, curTime, 0, 1000, "case6");
 
     /* Publish */
     Want want;

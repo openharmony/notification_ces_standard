@@ -34,7 +34,7 @@ public:
     using CommonEventPublishInfoPtr = std::shared_ptr<CommonEventPublishInfo>;
     using SubscribeInfoPtr = std::shared_ptr<CommonEventSubscribeInfo>;
 
-    int FindStickyEvents(const SubscribeInfoPtr &subscriberInfo, std::vector<CommonEventRecordPtr> &commonEventRecords);
+    int FindStickyEvents(const SubscribeInfoPtr &subscribeInfo, std::vector<CommonEventRecordPtr> &commonEventRecords);
 
     bool GetStickyCommonEvent(const std::string &event, CommonEventData &eventData);
 

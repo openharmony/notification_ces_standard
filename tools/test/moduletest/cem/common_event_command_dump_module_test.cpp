@@ -131,10 +131,10 @@ HWTEST_F(CemCommandDumpModuleTest, Cem_Command_Dump_ModuleTest_0200, Function | 
     matchingSkills.AddEvent(STRING_EVENT);
 
     // make subcriber info
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
     // make a subcriber object
-    auto subscriberTestPtr = std::make_shared<CommonEventSubscriberTest>(subscriberInfo);
+    auto subscriberTestPtr = std::make_shared<CommonEventSubscriberTest>(subscribeInfo);
     // subscribe a common event
     CommonEventManager::SubscribeCommonEvent(subscriberTestPtr);
 

@@ -53,13 +53,13 @@ int SIGNUMTHIRD = 0;
 
 class CommonEventServicesSystemTest : public CommonEventSubscriber {
 public:
-    explicit CommonEventServicesSystemTest(const CommonEventSubscribeInfo &subscriberInfo);
+    explicit CommonEventServicesSystemTest(const CommonEventSubscribeInfo &subscribeInfo);
     virtual ~CommonEventServicesSystemTest(){};
     virtual void OnReceiveEvent(const CommonEventData &data);
 };
 
-CommonEventServicesSystemTest::CommonEventServicesSystemTest(const CommonEventSubscribeInfo &subscriberInfo)
-    : CommonEventSubscriber(subscriberInfo)
+CommonEventServicesSystemTest::CommonEventServicesSystemTest(const CommonEventSubscribeInfo &subscribeInfo)
+    : CommonEventSubscriber(subscribeInfo)
 {}
 
 void CommonEventServicesSystemTest::OnReceiveEvent(const CommonEventData &data)
@@ -75,14 +75,14 @@ void CommonEventServicesSystemTest::OnReceiveEvent(const CommonEventData &data)
 
 class CommonEventServicesSystemTestSubscriber : public CommonEventSubscriber {
 public:
-    explicit CommonEventServicesSystemTestSubscriber(const CommonEventSubscribeInfo &subscriberInfo);
+    explicit CommonEventServicesSystemTestSubscriber(const CommonEventSubscribeInfo &subscribeInfo);
     virtual ~CommonEventServicesSystemTestSubscriber(){};
     virtual void OnReceiveEvent(const CommonEventData &data);
 };
 
 CommonEventServicesSystemTestSubscriber::CommonEventServicesSystemTestSubscriber(
-    const CommonEventSubscribeInfo &subscriberInfo)
-    : CommonEventSubscriber(subscriberInfo)
+    const CommonEventSubscribeInfo &subscribeInfo)
+    : CommonEventSubscriber(subscribeInfo)
 {}
 
 void CommonEventServicesSystemTestSubscriber::OnReceiveEvent(const CommonEventData &data)

@@ -24,13 +24,7 @@
 #undef protected
 #include "common_event_manager.h"
 #include "datetime_ex.h"
-#include "iremote_object.h"
-#include "message_parcel.h"
-#include "sa_mgr_client.h"
 #include "singleton.h"
-#include "system_ability_definition.h"
-#include "system_ability.h"
-#include "system_ability_helper.h"
 #include "want.h"
 
 #include <gtest/gtest.h>
@@ -91,7 +85,8 @@ public:
 
 class Subscriber : public CommonEventSubscriber {
 public:
-    explicit Subscriber(const CommonEventSubscribeInfo &subscriberInfo) : CommonEventSubscriber(subscriberInfo){};
+    explicit Subscriber(const CommonEventSubscribeInfo &subscribeInfo) : CommonEventSubscriber(subscribeInfo)
+    {}
 
     ~Subscriber()
     {}
@@ -116,7 +111,8 @@ public:
 
 class SubscriberTest : public CommonEventSubscriber {
 public:
-    explicit SubscriberTest(const CommonEventSubscribeInfo &subscriberInfo) : CommonEventSubscriber(subscriberInfo){};
+    explicit SubscriberTest(const CommonEventSubscribeInfo &subscribeInfo) : CommonEventSubscriber(subscribeInfo)
+    {}
 
     ~SubscriberTest()
     {}
@@ -251,8 +247,9 @@ private:
 
 class SubscriberAnotherTest : public CommonEventSubscriber {
 public:
-    explicit SubscriberAnotherTest(const CommonEventSubscribeInfo &subscriberInfo)
-        : CommonEventSubscriber(subscriberInfo){};
+    explicit SubscriberAnotherTest(const CommonEventSubscribeInfo &subscribeInfo)
+        : CommonEventSubscriber(subscribeInfo)
+    {}
 
     ~SubscriberAnotherTest()
     {}
@@ -420,10 +417,10 @@ HWTEST_F(CESPublishOrderedEventSystmTest, CommonEventPublishOrderedEventTest_010
     matchingSkills.AddEvent(EVENTCASE1);
 
     // make subcriber info
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
     // make a subcriber object
-    std::shared_ptr<SubscriberTest> subscriberTest = std::make_shared<SubscriberTest>(subscriberInfo);
+    std::shared_ptr<SubscriberTest> subscriberTest = std::make_shared<SubscriberTest>(subscribeInfo);
 
     // subscribe a common event
     bool subscribeResult = SubscribeCommonEventTest(subscriberTest);
@@ -434,11 +431,11 @@ HWTEST_F(CESPublishOrderedEventSystmTest, CommonEventPublishOrderedEventTest_010
     matchingSkillsAnother.AddEvent(EVENTCASE1);
 
     // make another subcriber info
-    CommonEventSubscribeInfo subscriberInfoAnother(matchingSkillsAnother);
+    CommonEventSubscribeInfo subscribeInfoAnother(matchingSkillsAnother);
 
     // make another subcriber object
     std::shared_ptr<SubscriberAnotherTest> subscriberTestAnother =
-        std::make_shared<SubscriberAnotherTest>(subscriberInfoAnother);
+        std::make_shared<SubscriberAnotherTest>(subscribeInfoAnother);
 
     // subscribe another event
     bool subscribeResultAnother = SubscribeCommonEventTest(subscriberTestAnother);
@@ -464,7 +461,7 @@ HWTEST_F(CESPublishOrderedEventSystmTest, CommonEventPublishOrderedEventTest_010
     g_mtx.lock();
     g_mtxAnother.lock();
 
-    std::shared_ptr<Subscriber> subscriber = std::make_shared<Subscriber>(subscriberInfo);
+    std::shared_ptr<Subscriber> subscriber = std::make_shared<Subscriber>(subscribeInfo);
 
     // publish ordered event
     bool publishResult = PublishOrderedCommonEventTest(data, publishInfo, subscriber);
@@ -537,11 +534,11 @@ HWTEST_F(CESPublishOrderedEventSystmTest, CommonEventPublishOrderedEventTest_020
     matchingSkills.AddEvent(EVENTCASE2);
 
     // make subcriber info
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
-    subscriberInfo.SetPriority(LOWPRIORITY);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
+    subscribeInfo.SetPriority(LOWPRIORITY);
 
     // make a subcriber object
-    std::shared_ptr<SubscriberTest> subscriberTest = std::make_shared<SubscriberTest>(subscriberInfo);
+    std::shared_ptr<SubscriberTest> subscriberTest = std::make_shared<SubscriberTest>(subscribeInfo);
 
     // subscribe a common event
     bool subscribeResult = SubscribeCommonEventTest(subscriberTest);
@@ -552,12 +549,12 @@ HWTEST_F(CESPublishOrderedEventSystmTest, CommonEventPublishOrderedEventTest_020
     matchingSkillsAnother.AddEvent(EVENTCASE2);
 
     // make another subcriber info
-    CommonEventSubscribeInfo subscriberInfoAnother(matchingSkillsAnother);
-    subscriberInfoAnother.SetPriority(HIGHPRIORITY);
+    CommonEventSubscribeInfo subscribeInfoAnother(matchingSkillsAnother);
+    subscribeInfoAnother.SetPriority(HIGHPRIORITY);
 
     // make another subcriber object
     std::shared_ptr<SubscriberAnotherTest> subscriberTestAnother =
-        std::make_shared<SubscriberAnotherTest>(subscriberInfoAnother);
+        std::make_shared<SubscriberAnotherTest>(subscribeInfoAnother);
 
     // subscribe another event
     bool subscribeResultAnother = SubscribeCommonEventTest(subscriberTestAnother);
@@ -583,7 +580,7 @@ HWTEST_F(CESPublishOrderedEventSystmTest, CommonEventPublishOrderedEventTest_020
     g_mtx.lock();
     g_mtxAnother.lock();
 
-    std::shared_ptr<Subscriber> subscriber = std::make_shared<Subscriber>(subscriberInfo);
+    std::shared_ptr<Subscriber> subscriber = std::make_shared<Subscriber>(subscribeInfo);
 
     // publish ordered event
     bool publishResult = PublishOrderedCommonEventTest(data, publishInfo, subscriber);
@@ -657,10 +654,10 @@ HWTEST_F(CESPublishOrderedEventSystmTest, CommonEventPublishOrderedEventTest_030
     matchingSkills.AddEvent(EVENTCASE3);
 
     // make subcriber info
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
     // make a subcriber object
-    std::shared_ptr<SubscriberTest> subscriberTest = std::make_shared<SubscriberTest>(subscriberInfo);
+    std::shared_ptr<SubscriberTest> subscriberTest = std::make_shared<SubscriberTest>(subscribeInfo);
 
     // subscribe a common event
     bool subscribeResult = SubscribeCommonEventTest(subscriberTest);
@@ -671,11 +668,11 @@ HWTEST_F(CESPublishOrderedEventSystmTest, CommonEventPublishOrderedEventTest_030
     matchingSkillsAnother.AddEvent(EVENTCASE3);
 
     // make another subcriber info
-    CommonEventSubscribeInfo subscriberInfoAnother(matchingSkillsAnother);
+    CommonEventSubscribeInfo subscribeInfoAnother(matchingSkillsAnother);
 
     // make another subcriber object
     std::shared_ptr<SubscriberAnotherTest> subscriberTestAnother =
-        std::make_shared<SubscriberAnotherTest>(subscriberInfoAnother);
+        std::make_shared<SubscriberAnotherTest>(subscribeInfoAnother);
 
     // subscribe another event
     bool subscribeResultAnother = SubscribeCommonEventTest(subscriberTestAnother);
@@ -702,7 +699,7 @@ HWTEST_F(CESPublishOrderedEventSystmTest, CommonEventPublishOrderedEventTest_030
     g_mtxAnother.lock();
 
     // publish ordered event
-    std::shared_ptr<Subscriber> subscriber = std::make_shared<Subscriber>(subscriberInfo);
+    std::shared_ptr<Subscriber> subscriber = std::make_shared<Subscriber>(subscribeInfo);
     bool publishResult = PublishOrderedCommonEventTest(data, publishInfo, subscriber);
 
     EXPECT_EQ(true, publishResult);
@@ -769,10 +766,10 @@ HWTEST_F(CESPublishOrderedEventSystmTest, CommonEventPublishOrderedEventTest_040
     matchingSkills.AddEvent(EVENTCASE4);
 
     // make subcriber info
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
     // make a subcriber object
-    std::shared_ptr<SubscriberTest> subscriberTest = std::make_shared<SubscriberTest>(subscriberInfo);
+    std::shared_ptr<SubscriberTest> subscriberTest = std::make_shared<SubscriberTest>(subscribeInfo);
 
     // subscribe a common event
     bool subscribeResult = SubscribeCommonEventTest(subscriberTest);
@@ -783,11 +780,11 @@ HWTEST_F(CESPublishOrderedEventSystmTest, CommonEventPublishOrderedEventTest_040
     matchingSkillsAnother.AddEvent(EVENTCASE4);
 
     // make another subcriber info
-    CommonEventSubscribeInfo subscriberInfoAnother(matchingSkillsAnother);
+    CommonEventSubscribeInfo subscribeInfoAnother(matchingSkillsAnother);
 
     // make another subcriber object
     std::shared_ptr<SubscriberAnotherTest> subscriberTestAnother =
-        std::make_shared<SubscriberAnotherTest>(subscriberInfoAnother);
+        std::make_shared<SubscriberAnotherTest>(subscribeInfoAnother);
 
     // subscribe another event
     bool subscribeResultAnother = SubscribeCommonEventTest(subscriberTestAnother);
@@ -813,7 +810,7 @@ HWTEST_F(CESPublishOrderedEventSystmTest, CommonEventPublishOrderedEventTest_040
     g_mtx.lock();
     g_mtxAnother.lock();
 
-    std::shared_ptr<Subscriber> subscriber = std::make_shared<Subscriber>(subscriberInfo);
+    std::shared_ptr<Subscriber> subscriber = std::make_shared<Subscriber>(subscribeInfo);
 
     // publish ordered event
     bool publishResult = PublishOrderedCommonEventTest(data, publishInfo, subscriber);
@@ -883,10 +880,10 @@ HWTEST_F(CESPublishOrderedEventSystmTest, CommonEventPublishOrderedEventTest_050
     matchingSkills.AddEvent(EVENTCASE5);
 
     // make subcriber info
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
     // make a subcriber object
-    std::shared_ptr<SubscriberTest> subscriberTest = std::make_shared<SubscriberTest>(subscriberInfo);
+    std::shared_ptr<SubscriberTest> subscriberTest = std::make_shared<SubscriberTest>(subscribeInfo);
 
     // subscribe a common event
     bool subscribeResult = SubscribeCommonEventTest(subscriberTest);
@@ -897,11 +894,11 @@ HWTEST_F(CESPublishOrderedEventSystmTest, CommonEventPublishOrderedEventTest_050
     matchingSkillsAnother.AddEvent(EVENTCASE5);
 
     // make another subcriber info
-    CommonEventSubscribeInfo subscriberInfoAnother(matchingSkillsAnother);
+    CommonEventSubscribeInfo subscribeInfoAnother(matchingSkillsAnother);
 
     // make another subcriber object
     std::shared_ptr<SubscriberAnotherTest> subscriberTestAnother =
-        std::make_shared<SubscriberAnotherTest>(subscriberInfoAnother);
+        std::make_shared<SubscriberAnotherTest>(subscribeInfoAnother);
 
     // subscribe another event
     bool subscribeResultAnother = SubscribeCommonEventTest(subscriberTestAnother);
@@ -928,7 +925,7 @@ HWTEST_F(CESPublishOrderedEventSystmTest, CommonEventPublishOrderedEventTest_050
     g_mtxAnother.lock();
 
     // publish ordered event
-    std::shared_ptr<Subscriber> subscriber = std::make_shared<Subscriber>(subscriberInfo);
+    std::shared_ptr<Subscriber> subscriber = std::make_shared<Subscriber>(subscribeInfo);
     bool publishResult = PublishOrderedCommonEventTest(data, publishInfo, subscriber);
 
     EXPECT_EQ(true, publishResult);
@@ -998,10 +995,10 @@ HWTEST_F(CESPublishOrderedEventSystmTest, CommonEventPublishOrderedEventTest_060
     matchingSkills.AddEvent(EVENTCASE6);
 
     // make subcriber info
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
     // make a subcriber object
-    std::shared_ptr<SubscriberTest> subscriberTest = std::make_shared<SubscriberTest>(subscriberInfo);
+    std::shared_ptr<SubscriberTest> subscriberTest = std::make_shared<SubscriberTest>(subscribeInfo);
 
     // subscribe a common event
     bool subscribeResult = SubscribeCommonEventTest(subscriberTest);
@@ -1012,11 +1009,11 @@ HWTEST_F(CESPublishOrderedEventSystmTest, CommonEventPublishOrderedEventTest_060
     matchingSkillsAnother.AddEvent(EVENTCASE6);
 
     // make another subcriber info
-    CommonEventSubscribeInfo subscriberInfoAnother(matchingSkillsAnother);
+    CommonEventSubscribeInfo subscribeInfoAnother(matchingSkillsAnother);
 
     // make another subcriber object
     std::shared_ptr<SubscriberAnotherTest> subscriberTestAnother =
-        std::make_shared<SubscriberAnotherTest>(subscriberInfoAnother);
+        std::make_shared<SubscriberAnotherTest>(subscribeInfoAnother);
 
     // subscribe another event
     bool subscribeResultAnother = SubscribeCommonEventTest(subscriberTestAnother);
@@ -1042,7 +1039,7 @@ HWTEST_F(CESPublishOrderedEventSystmTest, CommonEventPublishOrderedEventTest_060
     g_mtx.lock();
     g_mtxAnother.lock();
 
-    std::shared_ptr<Subscriber> subscriber = std::make_shared<Subscriber>(subscriberInfo);
+    std::shared_ptr<Subscriber> subscriber = std::make_shared<Subscriber>(subscribeInfo);
 
     // publish ordered event
     bool publishResult = PublishOrderedCommonEventTest(data, publishInfo, subscriber);
