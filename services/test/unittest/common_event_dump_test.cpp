@@ -25,9 +25,7 @@
 #undef protected
 
 #include "inner_common_event_manager.h"
-#include "iservice_registry.h"
 #include "mock_bundle_manager.h"
-#include "system_ability_definition.h"
 #include "datetime_ex.h"
 #include <gtest/gtest.h>
 
@@ -79,7 +77,6 @@ const int STATE_INDEX2 = 2;
 const int STATE_INDEX3 = 3;
 const int DUMP_INFO_COUNT = 2;
 const int PUBLISH_COUNT = 60;
-}  // namespace
 
 static OHOS::sptr<OHOS::IRemoteObject> bundleObject = nullptr;
 OHOS::sptr<OHOS::IRemoteObject> commonEventListener;
@@ -288,21 +285,8 @@ std::shared_ptr<InnerCommonEventManager> CommonEventDumpTest::innerCommonEventMa
 void CommonEventDumpTest::SetUpTestCase(void)
 {
     bundleObject = new OHOS::AppExecFwk::MockBundleMgrService();
-    
     OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->sptrBundleMgr_ =
         OHOS::iface_cast<OHOS::AppExecFwk::IBundleMgr>(bundleObject);
-
-    OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->bmsDeath_ = new BMSDeathRecipient();
-    if (!OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->bmsDeath_) {
-        GTEST_LOG_(INFO) << "Failed to create death Recipient ptr BMSDeathRecipient";
-        return;
-    }
-    if (!OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->sptrBundleMgr_->AsObject()->AddDeathRecipient(
-        OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->bmsDeath_)) {
-        GTEST_LOG_(INFO) << "Failed to add death recipient";
-        return;
-    }
-
     OHOS::DelayedSingleton<CommonEventManagerService>::GetInstance()->OnStart();
 }
 
@@ -538,30 +522,30 @@ static void SetMatchingSkills(MatchingSkills &matchingSkills)
     matchingSkills.AddEntity(ENTITY2);
 }
 
-static void SetSubscriberInfo1(CommonEventListener *&listener, MatchingSkills &matchingSkills)
+static void SetSubscribeInfo1(CommonEventListener *&listener, MatchingSkills &matchingSkills)
 {
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
-    subscriberInfo.SetPriority(PRIORITY);
-    subscriberInfo.SetPermission(PERMISSION);
-    subscriberInfo.SetDeviceId(DEVICEDID);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
+    subscribeInfo.SetPriority(PRIORITY);
+    subscribeInfo.SetPermission(PERMISSION);
+    subscribeInfo.SetDeviceId(DEVICEDID);
 
-    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscriberInfo);
+    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscribeInfo);
     listener = new CommonEventListener(subscriber);
 
     OHOS::DelayedSingleton<CommonEventManagerService>::GetInstance()->SubscribeCommonEvent(
-        subscriberInfo, listener->AsObject());
+        subscribeInfo, listener->AsObject());
 }
 
-static void SetSubscriberInfo2(CommonEventListener *&listener2, MatchingSkills &matchingSkills)
+static void SetSubscribeInfo2(CommonEventListener *&listener2, MatchingSkills &matchingSkills)
 {
-    CommonEventSubscribeInfo subscriberInfo2(matchingSkills);
-    subscriberInfo2.SetPriority(PRIORITY2);
-    subscriberInfo2.SetPermission(PERMISSION2);
-    subscriberInfo2.SetDeviceId(DEVICEDID2);
-    std::shared_ptr<SubscriberTest> subscriber2 = std::make_shared<SubscriberTest>(subscriberInfo2);
+    CommonEventSubscribeInfo subscribeInfo2(matchingSkills);
+    subscribeInfo2.SetPriority(PRIORITY2);
+    subscribeInfo2.SetPermission(PERMISSION2);
+    subscribeInfo2.SetDeviceId(DEVICEDID2);
+    std::shared_ptr<SubscriberTest> subscriber2 = std::make_shared<SubscriberTest>(subscribeInfo2);
     listener2 = new CommonEventListener(subscriber2);
     OHOS::DelayedSingleton<CommonEventManagerService>::GetInstance()->SubscribeCommonEvent(
-        subscriberInfo2, listener2->AsObject());
+        subscribeInfo2, listener2->AsObject());
 }
 
 static void Test0100Publish1()
@@ -710,9 +694,9 @@ HWTEST_F(CommonEventDumpTest, CommonEventDumpTest_0100, Function | MediumTest | 
 
     SetMatchingSkills(matchingSkills);
 
-    SetSubscriberInfo1(listener, matchingSkills);
+    SetSubscribeInfo1(listener, matchingSkills);
 
-    SetSubscriberInfo2(listener2, matchingSkills);
+    SetSubscribeInfo2(listener2, matchingSkills);
 
     /* Publish */
     Test0100Publish1();
@@ -746,9 +730,9 @@ HWTEST_F(CommonEventDumpTest, CommonEventDumpTest_0200, Function | MediumTest | 
 
     SetMatchingSkills(matchingSkills);
 
-    SetSubscriberInfo1(listener, matchingSkills);
+    SetSubscribeInfo1(listener, matchingSkills);
 
-    SetSubscriberInfo2(listener2, matchingSkills);
+    SetSubscribeInfo2(listener2, matchingSkills);
 
     /* Publish */
     Test0200Publish1();
@@ -852,15 +836,15 @@ HWTEST_F(CommonEventDumpTest, CommonEventDumpTest_0400, Function | MediumTest | 
     matchingSkills.AddEvent(EVENT);
     matchingSkills.AddScheme(SCHEME);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
-    subscriberInfo.SetPriority(PRIORITY);
-    subscriberInfo.SetPermission(PERMISSION);
-    subscriberInfo.SetDeviceId(DEVICEDID);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
+    subscribeInfo.SetPriority(PRIORITY);
+    subscribeInfo.SetPermission(PERMISSION);
+    subscribeInfo.SetDeviceId(DEVICEDID);
 
-    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscriberInfo);
+    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscribeInfo);
     CommonEventListener *listener = new CommonEventListener(subscriber);
     OHOS::DelayedSingleton<CommonEventManagerService>::GetInstance()->SubscribeCommonEvent(
-        subscriberInfo, listener->AsObject());
+        subscribeInfo, listener->AsObject());
 
     sleep(1);
 
@@ -884,15 +868,15 @@ HWTEST_F(CommonEventDumpTest, CommonEventDumpTest_0500, Function | MediumTest | 
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENT);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
-    subscriberInfo.SetPriority(PRIORITY);
-    subscriberInfo.SetPermission(PERMISSION);
-    subscriberInfo.SetDeviceId(DEVICEDID);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
+    subscribeInfo.SetPriority(PRIORITY);
+    subscribeInfo.SetPermission(PERMISSION);
+    subscribeInfo.SetDeviceId(DEVICEDID);
 
-    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscriberInfo);
+    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscribeInfo);
     CommonEventListener *listener = new CommonEventListener(subscriber);
     OHOS::DelayedSingleton<CommonEventManagerService>::GetInstance()->SubscribeCommonEvent(
-        subscriberInfo, listener->AsObject());
+        subscribeInfo, listener->AsObject());
 
     sleep(1);
 
@@ -916,14 +900,14 @@ HWTEST_F(CommonEventDumpTest, CommonEventDumpTest_0600, Function | MediumTest | 
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENT);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
-    subscriberInfo.SetPermission(PERMISSION);
-    subscriberInfo.SetDeviceId(DEVICEDID);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
+    subscribeInfo.SetPermission(PERMISSION);
+    subscribeInfo.SetDeviceId(DEVICEDID);
 
-    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscriberInfo);
+    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscribeInfo);
     CommonEventListener *listener = new CommonEventListener(subscriber);
     OHOS::DelayedSingleton<CommonEventManagerService>::GetInstance()->SubscribeCommonEvent(
-        subscriberInfo, listener->AsObject());
+        subscribeInfo, listener->AsObject());
 
     sleep(1);
 
@@ -947,13 +931,13 @@ HWTEST_F(CommonEventDumpTest, CommonEventDumpTest_0700, Function | MediumTest | 
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENT);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
-    subscriberInfo.SetDeviceId(DEVICEDID);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
+    subscribeInfo.SetDeviceId(DEVICEDID);
 
-    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscriberInfo);
+    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscribeInfo);
     CommonEventListener *listener = new CommonEventListener(subscriber);
     OHOS::DelayedSingleton<CommonEventManagerService>::GetInstance()->SubscribeCommonEvent(
-        subscriberInfo, listener->AsObject());
+        subscribeInfo, listener->AsObject());
 
     sleep(1);
 
@@ -977,12 +961,12 @@ HWTEST_F(CommonEventDumpTest, CommonEventDumpTest_0800, Function | MediumTest | 
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENT);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
-    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscriberInfo);
+    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscribeInfo);
     CommonEventListener *listener = new CommonEventListener(subscriber);
     OHOS::DelayedSingleton<CommonEventManagerService>::GetInstance()->SubscribeCommonEvent(
-        subscriberInfo, listener->AsObject());
+        subscribeInfo, listener->AsObject());
 
     sleep(1);
 
@@ -1006,12 +990,12 @@ HWTEST_F(CommonEventDumpTest, CommonEventDumpTest_0900, Function | MediumTest | 
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENT);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
-    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscriberInfo);
+    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscribeInfo);
     CommonEventListener *listener = new CommonEventListener(subscriber);
     OHOS::DelayedSingleton<CommonEventManagerService>::GetInstance()->SubscribeCommonEvent(
-        subscriberInfo, listener->AsObject());
+        subscribeInfo, listener->AsObject());
 
     sleep(1);
 
@@ -1101,9 +1085,9 @@ HWTEST_F(CommonEventDumpTest, CommonEventDumpTest_1000, TestSize.Level1)
 
     SetMatchingSkills(matchingSkills);
 
-    SetSubscriberInfo1(listener, matchingSkills);
+    SetSubscribeInfo1(listener, matchingSkills);
 
-    SetSubscriberInfo2(listener2, matchingSkills);
+    SetSubscribeInfo2(listener2, matchingSkills);
 
     /* Publish */
     // Publish1
@@ -1419,12 +1403,12 @@ HWTEST_F(CommonEventDumpTest, CommonEventDumpTest_1900, TestSize.Level1)
     matchingSkills.AddEntity(ENTITY);
     matchingSkills.AddEntity(ENTITY2);
     // make subcriber info
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
-    subscriberInfo.SetPriority(1);
-    subscriberInfo.SetDeviceId(DEVICEDID);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
+    subscribeInfo.SetPriority(1);
+    subscribeInfo.SetDeviceId(DEVICEDID);
     // make a subcriber object
     std::shared_ptr<SubscriberTest> subscriberTest =
-        std::make_shared<SubscriberTest>(subscriberInfo, getInnerCommonEventManager());
+        std::make_shared<SubscriberTest>(subscribeInfo, getInnerCommonEventManager());
     // subscribe a common event
     bool subscribeResult = SubscribeCommonEvent(subscriberTest, UID, commonEventListener);
     EXPECT_EQ(true, subscribeResult);
@@ -1435,12 +1419,12 @@ HWTEST_F(CommonEventDumpTest, CommonEventDumpTest_1900, TestSize.Level1)
     matchingSkillsAnother.AddEntity(ENTITY);
     matchingSkillsAnother.AddEntity(ENTITY2);
     // make another subcriber info
-    CommonEventSubscribeInfo subscriberInfo2(matchingSkillsAnother);
-    subscriberInfo2.SetPriority(0);
-    subscriberInfo2.SetDeviceId(DEVICEDID2);
+    CommonEventSubscribeInfo subscribeInfo2(matchingSkillsAnother);
+    subscribeInfo2.SetPriority(0);
+    subscribeInfo2.SetDeviceId(DEVICEDID2);
     // make another subcriber object
     std::shared_ptr<SubscriberTest2> subscriberTest2 =
-        std::make_shared<SubscriberTest2>(subscriberInfo2, getInnerCommonEventManager());
+        std::make_shared<SubscriberTest2>(subscribeInfo2, getInnerCommonEventManager());
 
     // subscribe another event
     bool subscribeResult2 = SubscribeCommonEvent(subscriberTest2, UID2, commonEventListener2);
@@ -1476,12 +1460,12 @@ HWTEST_F(CommonEventDumpTest, CommonEventDumpTest_2000, TestSize.Level1)
     matchingSkills.AddEntity(ENTITY);
     matchingSkills.AddEntity(ENTITY2);
     // make subcriber info
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
-    subscriberInfo.SetPriority(1);
-    subscriberInfo.SetDeviceId(DEVICEDID);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
+    subscribeInfo.SetPriority(1);
+    subscribeInfo.SetDeviceId(DEVICEDID);
     // make a subcriber object
     std::shared_ptr<SubscriberTest> subscriberTest =
-        std::make_shared<SubscriberTest>(subscriberInfo, getInnerCommonEventManager());
+        std::make_shared<SubscriberTest>(subscribeInfo, getInnerCommonEventManager());
     // subscribe a common event
     bool subscribeResult = SubscribeCommonEvent(subscriberTest, UID, commonEventListener);
     EXPECT_EQ(true, subscribeResult);
@@ -1492,12 +1476,12 @@ HWTEST_F(CommonEventDumpTest, CommonEventDumpTest_2000, TestSize.Level1)
     matchingSkillsAnother.AddEntity(ENTITY);
     matchingSkillsAnother.AddEntity(ENTITY2);
     // make another subcriber info
-    CommonEventSubscribeInfo subscriberInfo2(matchingSkillsAnother);
-    subscriberInfo2.SetPriority(0);
-    subscriberInfo2.SetDeviceId(DEVICEDID2);
+    CommonEventSubscribeInfo subscribeInfo2(matchingSkillsAnother);
+    subscribeInfo2.SetPriority(0);
+    subscribeInfo2.SetDeviceId(DEVICEDID2);
     // make another subcriber object
     std::shared_ptr<SubscriberTest2> subscriberTest2 =
-        std::make_shared<SubscriberTest2>(subscriberInfo2, getInnerCommonEventManager());
+        std::make_shared<SubscriberTest2>(subscribeInfo2, getInnerCommonEventManager());
 
     // subscribe another event
     bool subscribeResult2 = SubscribeCommonEvent(subscriberTest2, UID2, commonEventListener2);
@@ -1528,3 +1512,4 @@ HWTEST_F(CommonEventDumpTest, CommonEventDumpTest_2000, TestSize.Level1)
     getInnerCommonEventManager()->DumpState("", state);
     CommonEventDumpTest::dumpInfoCount(state, 4, DUMP_INFO_COUNT, 0, 100);
 }
+}  // namespace

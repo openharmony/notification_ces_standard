@@ -24,13 +24,7 @@
 #undef protected
 #include "common_event_manager.h"
 #include "datetime_ex.h"
-#include "iremote_object.h"
-#include "message_parcel.h"
-#include "sa_mgr_client.h"
 #include "singleton.h"
-#include "system_ability_definition.h"
-#include "system_ability.h"
-#include "system_ability_helper.h"
 #include "want.h"
 
 #include <gtest/gtest.h>

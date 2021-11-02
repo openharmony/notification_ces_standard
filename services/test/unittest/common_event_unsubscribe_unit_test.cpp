@@ -23,9 +23,7 @@
 #undef private
 #undef protected
 
-#include "iservice_registry.h"
 #include "mock_bundle_manager.h"
-#include "system_ability_definition.h"
 
 #include <gtest/gtest.h>
 
@@ -70,20 +68,8 @@ public:
 void CommonEventUnSubscribeUnitTest::SetUpTestCase(void)
 {
     bundleObject = new OHOS::AppExecFwk::MockBundleMgrService();
-    
     OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->sptrBundleMgr_ =
         OHOS::iface_cast<OHOS::AppExecFwk::IBundleMgr>(bundleObject);
-
-    OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->bmsDeath_ = new BMSDeathRecipient();
-    if (!OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->bmsDeath_) {
-        GTEST_LOG_(INFO) << "Failed to create death Recipient ptr BMSDeathRecipient";
-        return;
-    }
-    if (!OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->sptrBundleMgr_->AsObject()->AddDeathRecipient(
-        OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->bmsDeath_)) {
-        GTEST_LOG_(INFO) << "Failed to add death recipient";
-        return;
-    }
 }
 
 void CommonEventUnSubscribeUnitTest::TearDownTestCase(void)
@@ -113,13 +99,13 @@ HWTEST_F(CommonEventUnSubscribeUnitTest, CommonEventUnSubscribeUnitTest_0100, Fu
     matchingSkills.AddScheme(SCHEME);
 
     // make subcriber info
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
-    subscriberInfo.SetPriority(PRIORITY);
-    subscriberInfo.SetPermission(PERMISSION);
-    subscriberInfo.SetDeviceId(DEVICEDID);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
+    subscribeInfo.SetPriority(PRIORITY);
+    subscribeInfo.SetPermission(PERMISSION);
+    subscribeInfo.SetDeviceId(DEVICEDID);
 
     // make subscriber
-    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscriberInfo);
+    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscribeInfo);
 
     // make common event listner
     CommonEventListener *listener = new CommonEventListener(subscriber);
@@ -147,13 +133,13 @@ HWTEST_F(CommonEventUnSubscribeUnitTest, CommonEventUnSubscribeUnitTest_0200, Fu
     matchingSkills.AddScheme(SCHEME);
 
     // make subcriber info
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
-    subscriberInfo.SetPriority(PRIORITY);
-    subscriberInfo.SetPermission(PERMISSION);
-    subscriberInfo.SetDeviceId(DEVICEDID);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
+    subscribeInfo.SetPriority(PRIORITY);
+    subscribeInfo.SetPermission(PERMISSION);
+    subscribeInfo.SetDeviceId(DEVICEDID);
 
     // make subscriber
-    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscriberInfo);
+    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscribeInfo);
 
     // make common event listner
     CommonEventListener *listener = new CommonEventListener(subscriber);
@@ -173,10 +159,10 @@ HWTEST_F(CommonEventUnSubscribeUnitTest, CommonEventUnSubscribeUnitTest_0300, Fu
     // make subcriber info
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENT);
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
     // make subscriber
-    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscriberInfo);
+    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscribeInfo);
 
     // make common event listner
     OHOS::sptr<CommonEventListener> commonEventListener = new CommonEventListener(subscriber);
@@ -210,10 +196,10 @@ HWTEST_F(CommonEventUnSubscribeUnitTest, CommonEventUnSubscribeUnitTest_0500, Fu
     // make subcriber info
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENT);
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
     // make subscriber
-    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscriberInfo);
+    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscribeInfo);
 
     // make common event listner
     OHOS::sptr<CommonEventListener> commonEventListener = new CommonEventListener(subscriber);
@@ -251,13 +237,13 @@ HWTEST_F(CommonEventUnSubscribeUnitTest, CommonEventUnSubscribeUnitTest_0700, Fu
     matchingSkills.AddScheme(SCHEME);
 
     // make subcriber info
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
-    subscriberInfo.SetPriority(PRIORITY);
-    subscriberInfo.SetPermission(PERMISSION);
-    subscriberInfo.SetDeviceId(DEVICEDID);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
+    subscribeInfo.SetPriority(PRIORITY);
+    subscribeInfo.SetPermission(PERMISSION);
+    subscribeInfo.SetDeviceId(DEVICEDID);
 
     // make a subcriber
-    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscriberInfo);
+    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscribeInfo);
 
     // make common event listner
     OHOS::sptr<CommonEventListener> commonEventListener = new CommonEventListener(subscriber);
@@ -277,10 +263,10 @@ HWTEST_F(CommonEventUnSubscribeUnitTest, CommonEventUnSubscribeUnitTest_0800, Fu
 {
     // make subcriber info
     MatchingSkills matchingSkills;
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
     // make subcriber
-    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscriberInfo);
+    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscribeInfo);
 
     // make commone event listener
     OHOS::sptr<CommonEventListener> commonEventListener = new CommonEventListener(subscriber);
@@ -300,10 +286,10 @@ HWTEST_F(CommonEventUnSubscribeUnitTest, CommonEventUnSubscribeUnitTest_0900, Fu
 {
     // make subcriber info
     MatchingSkills matchingSkills;
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
     // make subcriber
-    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscriberInfo);
+    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscribeInfo);
 
     // make commone event listener
     OHOS::sptr<CommonEventListener> commonEventListener = new CommonEventListener(subscriber);
