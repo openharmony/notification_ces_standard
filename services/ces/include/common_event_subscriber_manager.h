@@ -32,7 +32,7 @@
 namespace OHOS {
 namespace EventFwk {
 struct EventSubscriberRecord {
-    std::shared_ptr<CommonEventSubscribeInfo> eventSubscriberInfo;
+    std::shared_ptr<CommonEventSubscribeInfo> eventSubscribeInfo;
     sptr<IRemoteObject> commonEventListener;
     struct tm recordTime;
     pid_t pid;
@@ -42,7 +42,7 @@ struct EventSubscriberRecord {
     int64_t freezeTime;
 
     EventSubscriberRecord()
-        : eventSubscriberInfo(nullptr), commonEventListener(nullptr), pid(0), uid(0), isFreeze(false), freezeTime(0)
+        : eventSubscribeInfo(nullptr), commonEventListener(nullptr), pid(0), uid(0), isFreeze(false), freezeTime(0)
     {}
 };
 
@@ -56,7 +56,7 @@ struct FrozenEventRecord {
 
 inline bool operator<(const std::shared_ptr<EventSubscriberRecord> &a, const std::shared_ptr<EventSubscriberRecord> &b)
 {
-    return a->eventSubscriberInfo->GetPriority() > b->eventSubscriberInfo->GetPriority();
+    return a->eventSubscribeInfo->GetPriority() > b->eventSubscribeInfo->GetPriority();
 }
 
 using SubscriberRecordPtr = std::shared_ptr<EventSubscriberRecord>;
@@ -69,7 +69,7 @@ public:
 
     virtual ~CommonEventSubscriberManager() override;
 
-    int InsertSubscriber(const SubscribeInfoPtr &eventSubscriberInfo, const sptr<IRemoteObject> &commonEventListener,
+    int InsertSubscriber(const SubscribeInfoPtr &eventSubscribeInfo, const sptr<IRemoteObject> &commonEventListener,
         const struct tm &recordTime, const pid_t &pid, const uid_t &uid, const std::string &bundleName);
 
     int RemoveSubscriber(const sptr<IRemoteObject> &commonEventListener);

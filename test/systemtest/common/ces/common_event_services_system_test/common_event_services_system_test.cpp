@@ -57,13 +57,13 @@ const int32_t PRIORITY_LOW = 20;
 
 class CommonEventServicesSystemTest : public CommonEventSubscriber {
 public:
-    CommonEventServicesSystemTest(const CommonEventSubscribeInfo &subscriberInfo);
-    virtual ~CommonEventServicesSystemTest(){};
+    explicit CommonEventServicesSystemTest(const CommonEventSubscribeInfo &subscribeInfo);
+    virtual ~CommonEventServicesSystemTest() {};
     virtual void OnReceiveEvent(const CommonEventData &data);
 };
 
-CommonEventServicesSystemTest::CommonEventServicesSystemTest(const CommonEventSubscribeInfo &subscriberInfo)
-    : CommonEventSubscriber(subscriberInfo)
+CommonEventServicesSystemTest::CommonEventServicesSystemTest(const CommonEventSubscribeInfo &subscribeInfo)
+    : CommonEventSubscriber(subscribeInfo)
 {}
 
 void CommonEventServicesSystemTest::OnReceiveEvent(const CommonEventData &data)
@@ -77,14 +77,14 @@ void CommonEventServicesSystemTest::OnReceiveEvent(const CommonEventData &data)
 
 class CommonEventServicesSystemTestSubscriber : public CommonEventSubscriber {
 public:
-    CommonEventServicesSystemTestSubscriber(const CommonEventSubscribeInfo &subscriberInfo);
-    virtual ~CommonEventServicesSystemTestSubscriber(){};
+    explicit CommonEventServicesSystemTestSubscriber(const CommonEventSubscribeInfo &subscribeInfo);
+    virtual ~CommonEventServicesSystemTestSubscriber() {};
     virtual void OnReceiveEvent(const CommonEventData &data);
 };
 
 CommonEventServicesSystemTestSubscriber::CommonEventServicesSystemTestSubscriber(
-    const CommonEventSubscribeInfo &subscriberInfo)
-    : CommonEventSubscriber(subscriberInfo)
+    const CommonEventSubscribeInfo &subscribeInfo)
+    : CommonEventSubscriber(subscribeInfo)
 {}
 
 void CommonEventServicesSystemTestSubscriber::OnReceiveEvent(const CommonEventData &data)
@@ -100,13 +100,13 @@ void CommonEventServicesSystemTestSubscriber::OnReceiveEvent(const CommonEventDa
 
 class CESPublishOrderTimeOutOne : public CommonEventSubscriber {
 public:
-    CESPublishOrderTimeOutOne(const CommonEventSubscribeInfo &subscriberInfo);
-    virtual ~CESPublishOrderTimeOutOne(){};
+    explicit CESPublishOrderTimeOutOne(const CommonEventSubscribeInfo &subscribeInfo);
+    virtual ~CESPublishOrderTimeOutOne() {};
     virtual void OnReceiveEvent(const CommonEventData &data);
 };
 
-CESPublishOrderTimeOutOne::CESPublishOrderTimeOutOne(const CommonEventSubscribeInfo &subscriberInfo)
-    : CommonEventSubscriber(subscriberInfo)
+CESPublishOrderTimeOutOne::CESPublishOrderTimeOutOne(const CommonEventSubscribeInfo &subscribeInfo)
+    : CommonEventSubscriber(subscribeInfo)
 {}
 
 void CESPublishOrderTimeOutOne::OnReceiveEvent(const CommonEventData &data)
@@ -116,13 +116,13 @@ void CESPublishOrderTimeOutOne::OnReceiveEvent(const CommonEventData &data)
 
 class CESPublishOrderTimeOutTwo : public CommonEventSubscriber {
 public:
-    CESPublishOrderTimeOutTwo(const CommonEventSubscribeInfo &subscriberInfo);
-    virtual ~CESPublishOrderTimeOutTwo(){};
+    explicit CESPublishOrderTimeOutTwo(const CommonEventSubscribeInfo &subscribeInfo);
+    virtual ~CESPublishOrderTimeOutTwo() {};
     virtual void OnReceiveEvent(const CommonEventData &data);
 };
 
-CESPublishOrderTimeOutTwo::CESPublishOrderTimeOutTwo(const CommonEventSubscribeInfo &subscriberInfo)
-    : CommonEventSubscriber(subscriberInfo)
+CESPublishOrderTimeOutTwo::CESPublishOrderTimeOutTwo(const CommonEventSubscribeInfo &subscribeInfo)
+    : CommonEventSubscriber(subscribeInfo)
 {}
 
 void CESPublishOrderTimeOutTwo::OnReceiveEvent(const CommonEventData &data)

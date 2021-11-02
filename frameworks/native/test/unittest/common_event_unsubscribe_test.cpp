@@ -76,7 +76,7 @@ public:
     }
 
     virtual bool SubscribeCommonEvent(
-        const CommonEventSubscribeInfo &subscriberInfo, const OHOS::sptr<IRemoteObject> &commonEventListener)
+        const CommonEventSubscribeInfo &subscribeInfo, const OHOS::sptr<IRemoteObject> &commonEventListener)
     {
         return false;
     }
@@ -151,8 +151,8 @@ void CommonEventUnSubscribeTest::SetMatchingSkillsWithScheme(const std::string &
 HWTEST_F(CommonEventUnSubscribeTest, UnSubscribe_001, TestSize.Level1)
 {
     CommonEventUnSubscribeTest::SetMatchingSkillsWithEvent("event");
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills_);
-    std::shared_ptr<DreivedSubscriber> subscriber = std::make_shared<DreivedSubscriber>(subscriberInfo);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills_);
+    std::shared_ptr<DreivedSubscriber> subscriber = std::make_shared<DreivedSubscriber>(subscribeInfo);
     std::shared_ptr<CommonEventManager> helper;
     EXPECT_EQ(true, helper->UnSubscribeCommonEvent(subscriber));
 }
@@ -168,8 +168,8 @@ HWTEST_F(CommonEventUnSubscribeTest, UnSubscribe_001, TestSize.Level1)
 HWTEST_F(CommonEventUnSubscribeTest, UnSubscribe_002, TestSize.Level1)
 {
     CommonEventUnSubscribeTest::SetMatchingSkillsWithEvent("event");
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills_);
-    std::shared_ptr<DreivedSubscriber> subscriber = std::make_shared<DreivedSubscriber>(subscriberInfo);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills_);
+    std::shared_ptr<DreivedSubscriber> subscriber = std::make_shared<DreivedSubscriber>(subscribeInfo);
     EXPECT_EQ(true, DelayedSingleton<CommonEvent>::GetInstance()->UnSubscribeCommonEvent(subscriber));
 }
 
@@ -184,8 +184,8 @@ HWTEST_F(CommonEventUnSubscribeTest, UnSubscribe_002, TestSize.Level1)
 HWTEST_F(CommonEventUnSubscribeTest, UnSubscribe_003, TestSize.Level1)
 {
     CommonEventUnSubscribeTest::SetMatchingSkillsWithEvent("event");
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills_);
-    std::shared_ptr<DreivedSubscriber> subscriber = std::make_shared<DreivedSubscriber>(subscriberInfo);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills_);
+    std::shared_ptr<DreivedSubscriber> subscriber = std::make_shared<DreivedSubscriber>(subscribeInfo);
     DelayedSingleton<CommonEvent>::GetInstance()->SubscribeCommonEvent(subscriber);
     EXPECT_EQ(true, DelayedSingleton<CommonEvent>::GetInstance()->UnSubscribeCommonEvent(subscriber));
 }
@@ -201,8 +201,8 @@ HWTEST_F(CommonEventUnSubscribeTest, UnSubscribe_003, TestSize.Level1)
 HWTEST_F(CommonEventUnSubscribeTest, UnSubscribe_004, TestSize.Level1)
 {
     CommonEventUnSubscribeTest::SetMatchingSkillsWithEvent("event");
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills_);
-    std::shared_ptr<DreivedSubscriber> subscriber = std::make_shared<DreivedSubscriber>(subscriberInfo);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills_);
+    std::shared_ptr<DreivedSubscriber> subscriber = std::make_shared<DreivedSubscriber>(subscribeInfo);
     sptr<IRemoteObject> commonEventListener = new CommonEventListener(subscriber);
     std::shared_ptr<InnerCommonEventManager> innerCommonEventManager = std::make_shared<InnerCommonEventManager>();
     EXPECT_EQ(true, innerCommonEventManager->UnsubscribeCommonEvent(commonEventListener));
@@ -219,8 +219,8 @@ HWTEST_F(CommonEventUnSubscribeTest, UnSubscribe_004, TestSize.Level1)
 HWTEST_F(CommonEventUnSubscribeTest, UnSubscribe_005, TestSize.Level1)
 {
     CommonEventUnSubscribeTest::SetMatchingSkillsWithEvent("event");
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills_);
-    std::shared_ptr<DreivedSubscriber> subscriber = std::make_shared<DreivedSubscriber>(subscriberInfo);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills_);
+    std::shared_ptr<DreivedSubscriber> subscriber = std::make_shared<DreivedSubscriber>(subscribeInfo);
     sptr<IRemoteObject> commonEventListener = new CommonEventListener(subscriber);
     EXPECT_EQ(
         ERR_OK, DelayedSingleton<CommonEventSubscriberManager>::GetInstance()->RemoveSubscriber(commonEventListener));
@@ -321,9 +321,9 @@ HWTEST_F(CommonEventUnSubscribeTest, UnSubscribe_010, TestSize.Level1)
 HWTEST_F(CommonEventUnSubscribeTest, UnSubscribe_011, TestSize.Level1)
 {
     CommonEventUnSubscribeTest::SetMatchingSkillsWithEvent("event");
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills_);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills_);
     // make a subcriber object
-    std::shared_ptr<SubscriberTest> subscriberTest = std::make_shared<SubscriberTest>(subscriberInfo);
+    std::shared_ptr<SubscriberTest> subscriberTest = std::make_shared<SubscriberTest>(subscribeInfo);
     OHOS::sptr<CommonEventListener> commonEventListener = new CommonEventListener(subscriberTest);
     DelayedSingleton<CommonEventSubscriberManager>::GetInstance()->death_ = nullptr;
     EXPECT_EQ(

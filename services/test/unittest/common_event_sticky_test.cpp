@@ -27,9 +27,7 @@
 
 #include "errors.h"
 #include "inner_common_event_manager.h"
-#include "iservice_registry.h"
 #include "mock_bundle_manager.h"
-#include "system_ability_definition.h"
 
 #include <gtest/gtest.h>
 
@@ -79,20 +77,8 @@ public:
 void CommonEventStickyTest::SetUpTestCase(void)
 {
     bundleObject = new OHOS::AppExecFwk::MockBundleMgrService();
-    
     OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->sptrBundleMgr_ =
-    OHOS::iface_cast<OHOS::AppExecFwk::IBundleMgr>(bundleObject);
-
-    OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->bmsDeath_ = new BMSDeathRecipient();
-    if (!OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->bmsDeath_) {
-        GTEST_LOG_(INFO) << "Failed to create death Recipient ptr BMSDeathRecipient";
-        return;
-    }
-    if (!OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->sptrBundleMgr_->AsObject()->AddDeathRecipient(
-        OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->bmsDeath_)) {
-        GTEST_LOG_(INFO) << "Failed to add death recipient";
-        return;
-    }
+        OHOS::iface_cast<OHOS::AppExecFwk::IBundleMgr>(bundleObject);
 }
 
 void CommonEventStickyTest::TearDownTestCase(void)
@@ -310,8 +296,8 @@ HWTEST_F(CommonEventStickyTest, FindStickyEvents_0700, TestSize.Level0)
     matchingSkills.AddEvent(STRING_EVENT);
 
     // make subcriber info
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
-    auto subscriberInfoPtr = std::make_shared<CommonEventSubscribeInfo>(subscriberInfo);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
+    auto subscribeInfoPtr = std::make_shared<CommonEventSubscribeInfo>(subscribeInfo);
 
     // make a vector of records
     std::vector<std::shared_ptr<CommonEventRecord>> records;
@@ -319,7 +305,7 @@ HWTEST_F(CommonEventStickyTest, FindStickyEvents_0700, TestSize.Level0)
     // get common event sticky manager
     auto stickyManagerPtr = OHOS::DelayedSingleton<CommonEventStickyManager>::GetInstance();
     // find sticky events
-    int result = stickyManagerPtr->FindStickyEvents(subscriberInfoPtr, records);
+    int result = stickyManagerPtr->FindStickyEvents(subscribeInfoPtr, records);
     // check result of finding sticky events
     EXPECT_EQ(result, OHOS::ERR_OK);
 }
@@ -336,8 +322,8 @@ HWTEST_F(CommonEventStickyTest, FindStickyEvents_0800, TestSize.Level0)
     matchingSkills.AddEvent(STRING_EVENT);
 
     // make subcriber info
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
-    auto subscriberInfoPtr = std::make_shared<CommonEventSubscribeInfo>(subscriberInfo);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
+    auto subscribeInfoPtr = std::make_shared<CommonEventSubscribeInfo>(subscribeInfo);
 
     // make a vector of records
     std::vector<std::shared_ptr<CommonEventRecord>> records;
@@ -367,7 +353,7 @@ HWTEST_F(CommonEventStickyTest, FindStickyEvents_0800, TestSize.Level0)
     stickyManagerPtr->commonEventRecords_[STRING_EVENT] = recordPtr;
 
     // find sticky events
-    int result = stickyManagerPtr->FindStickyEvents(subscriberInfoPtr, records);
+    int result = stickyManagerPtr->FindStickyEvents(subscribeInfoPtr, records);
     // check result of finding sticky events
     EXPECT_EQ(result, OHOS::ERR_OK);
     // check size of the records

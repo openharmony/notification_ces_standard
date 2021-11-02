@@ -186,7 +186,7 @@ bool CommonEventManagerService::PublishCommonEventDetailed(const CommonEventData
 }
 
 bool CommonEventManagerService::SubscribeCommonEvent(
-    const CommonEventSubscribeInfo &subscriberInfo, const sptr<IRemoteObject> &commonEventListener)
+    const CommonEventSubscribeInfo &subscribeInfo, const sptr<IRemoteObject> &commonEventListener)
 {
     EVENT_LOGI("enter");
 
@@ -205,7 +205,7 @@ bool CommonEventManagerService::SubscribeCommonEvent(
 
     std::function<void()> SubscribeCommonEventFunc = std::bind(&InnerCommonEventManager::SubscribeCommonEvent,
         innerCommonEventManager_,
-        subscriberInfo,
+        subscribeInfo,
         commonEventListener,
         recordTime,
         callingPid,
