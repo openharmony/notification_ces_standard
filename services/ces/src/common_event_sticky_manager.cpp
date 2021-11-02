@@ -20,16 +20,16 @@
 namespace OHOS {
 namespace EventFwk {
 int CommonEventStickyManager::FindStickyEvents(
-    const SubscribeInfoPtr &subscriberInfo, std::vector<CommonEventRecordPtr> &commonEventRecords)
+    const SubscribeInfoPtr &subscribeInfo, std::vector<CommonEventRecordPtr> &commonEventRecords)
 {
     EVENT_LOGI("enter");
 
-    if (subscriberInfo == nullptr) {
-        EVENT_LOGE("subscriberInfo is null");
+    if (subscribeInfo == nullptr) {
+        EVENT_LOGE("subscribeInfo is null");
         return ERR_INVALID_VALUE;
     }
 
-    auto events = subscriberInfo->GetMatchingSkills().GetEvents();
+    auto events = subscribeInfo->GetMatchingSkills().GetEvents();
     if (events.size() == 0) {
         EVENT_LOGW("No subscribed events");
         return ERR_INVALID_VALUE;

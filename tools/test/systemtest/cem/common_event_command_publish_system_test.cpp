@@ -113,10 +113,10 @@ HWTEST_F(CemCommandPublishSystemTest, Cem_Command_Publish_SystemTest_0100, Funct
     matchingSkills.AddEvent(STRING_EVENT);
 
     // make subcriber info
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
     // make a subcriber object
-    auto subscriberTestPtr = std::make_shared<CommonEventSubscriberTest>(subscriberInfo);
+    auto subscriberTestPtr = std::make_shared<CommonEventSubscriberTest>(subscribeInfo);
     // subscribe a common event
     CommonEventManager::SubscribeCommonEvent(subscriberTestPtr);
 
@@ -170,13 +170,13 @@ HWTEST_F(CemCommandPublishSystemTest, Cem_Command_Publish_SystemTest_0200, Funct
     matchingSkills.AddEvent(STRING_EVENT);
 
     // make subcriber info
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
     // set device id
-    subscriberInfo.SetDeviceId(STRING_DEVICE_ID_001);
+    subscribeInfo.SetDeviceId(STRING_DEVICE_ID_001);
 
     // make a subcriber object
-    auto subscriberTestPtr = std::make_shared<CommonEventSubscriberTest>(subscriberInfo);
+    auto subscriberTestPtr = std::make_shared<CommonEventSubscriberTest>(subscribeInfo);
     // subscribe a common event
     CommonEventManager::SubscribeCommonEvent(subscriberTestPtr);
 
@@ -230,13 +230,13 @@ HWTEST_F(CemCommandPublishSystemTest, Cem_Command_Publish_SystemTest_0300, Funct
     matchingSkills.AddEvent(STRING_EVENT);
 
     // make subcriber info
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
     // set device id
-    subscriberInfo.SetDeviceId(STRING_DEVICE_ID_002);
+    subscribeInfo.SetDeviceId(STRING_DEVICE_ID_002);
 
     // make a subcriber object
-    auto subscriberTestPtr = std::make_shared<CommonEventSubscriberTest>(subscriberInfo);
+    auto subscriberTestPtr = std::make_shared<CommonEventSubscriberTest>(subscribeInfo);
     // subscribe a common event
     CommonEventManager::SubscribeCommonEvent(subscriberTestPtr);
 

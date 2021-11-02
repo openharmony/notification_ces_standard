@@ -90,13 +90,13 @@ bool InnerCommonEventManager::PublishCommonEvent(const CommonEventData &data, co
     return true;
 }
 
-bool InnerCommonEventManager::SubscribeCommonEvent(const CommonEventSubscribeInfo &subscriberInfo,
+bool InnerCommonEventManager::SubscribeCommonEvent(const CommonEventSubscribeInfo &subscribeInfo,
     const sptr<IRemoteObject> &commonEventListener, const struct tm &recordTime, const pid_t &pid, const uid_t &uid,
     const std::string &bundleName)
 {
     EVENT_LOGI("enter");
 
-    if (subscriberInfo.GetMatchingSkills().CountEvent() == 0) {
+    if (subscribeInfo.GetMatchingSkills().CountEvent() == 0) {
         EVENT_LOGE("the subscriber has no event");
         return false;
     }
@@ -105,7 +105,7 @@ bool InnerCommonEventManager::SubscribeCommonEvent(const CommonEventSubscribeInf
         return false;
     }
 
-    std::shared_ptr<CommonEventSubscribeInfo> sp = std::make_shared<CommonEventSubscribeInfo>(subscriberInfo);
+    std::shared_ptr<CommonEventSubscribeInfo> sp = std::make_shared<CommonEventSubscribeInfo>(subscribeInfo);
     DelayedSingleton<CommonEventSubscriberManager>::GetInstance()->InsertSubscriber(
         sp, commonEventListener, recordTime, pid, uid, bundleName);
 

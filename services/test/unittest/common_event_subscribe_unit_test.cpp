@@ -410,7 +410,7 @@ HWTEST_F(CommonEventSubscribeUnitTest, CommonEventSubscribeUnitTest_1000, Functi
     // make record
     struct tm recordTime{0};
     auto record = std::make_shared<EventSubscriberRecord>();
-    record->eventSubscriberInfo = std::make_shared<CommonEventSubscribeInfo>(subscribeInfo);
+    record->eventSubscribeInfo = std::make_shared<CommonEventSubscribeInfo>(subscribeInfo);
     record->commonEventListener = commonEventListenerPtr;
     record->recordTime = recordTime;
     record->pid = 0;
@@ -447,7 +447,7 @@ HWTEST_F(CommonEventSubscribeUnitTest, CommonEventSubscribeUnitTest_1100, Functi
     // make record
     struct tm recordTime{0};
     auto record = std::make_shared<EventSubscriberRecord>();
-    record->eventSubscriberInfo = std::make_shared<CommonEventSubscribeInfo>(subscribeInfo);
+    record->eventSubscribeInfo = std::make_shared<CommonEventSubscribeInfo>(subscribeInfo);
     record->commonEventListener = commonEventListenerPtr;
     record->recordTime = recordTime;
     record->pid = 0;

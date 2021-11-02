@@ -26,11 +26,11 @@ bool MockCommonEventStub::PublishCommonEvent(const CommonEventData &event, const
 }
 
 bool MockCommonEventStub::SubscribeCommonEvent(
-    const CommonEventSubscribeInfo &subscriberInfo, const sptr<IRemoteObject> &commonEventListener)
+    const CommonEventSubscribeInfo &subscribeInfo, const sptr<IRemoteObject> &commonEventListener)
 {
     EVENT_LOGI("enter");
 
-    subscribeInfoPtr = std::make_shared<CommonEventSubscribeInfo>(subscriberInfo);
+    subscribeInfoPtr = std::make_shared<CommonEventSubscribeInfo>(subscribeInfo);
 
     return true;
 }

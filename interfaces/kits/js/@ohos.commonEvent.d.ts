@@ -47,7 +47,7 @@ declare namespace commonEvent {
 
 
   /**
-   * create the CommonEventSubscriber for the SubscriberInfo.
+   * create the CommonEventSubscriber for the SubscribeInfo.
    *
    * @since 7
    * @param subscribeInfo Indicate the information of the subscriber.
@@ -57,7 +57,7 @@ declare namespace commonEvent {
   function createSubscriber(subscribeInfo: CommonEventSubscribeInfo, callback: AsyncCallback<CommonEventSubscriber>): void;
 
   /**
-   * create the CommonEventSubscriber for the SubscriberInfo.
+   * create the CommonEventSubscriber for the SubscribeInfo.
    *
    * @since 7
    * @param subscribeInfo Indicate the information of the subscriber.

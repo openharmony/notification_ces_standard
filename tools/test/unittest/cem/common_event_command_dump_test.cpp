@@ -335,10 +335,10 @@ HWTEST_F(CemCommandDumpTest, Cem_Command_Dump_1100, Function | MediumTest | Leve
     matchingSkills.AddEvent(STRING_EVENT);
 
     // make subcriber info
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
     // make a subcriber object
-    auto subscriberTestPtr = std::make_shared<CommonEventSubscriberTest>(subscriberInfo);
+    auto subscriberTestPtr = std::make_shared<CommonEventSubscriberTest>(subscribeInfo);
     // subscribe a common event
     CommonEventManager::SubscribeCommonEvent(subscriberTestPtr);
 
@@ -418,10 +418,10 @@ HWTEST_F(CemCommandDumpTest, Cem_Command_Dump_1400, Function | MediumTest | Leve
     matchingSkills.AddEvent(STRING_EVENT);
 
     // make subcriber info
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
     // make a subcriber object
-    auto subscriberTestPtr = std::make_shared<CommonEventSubscriberTest>(subscriberInfo);
+    auto subscriberTestPtr = std::make_shared<CommonEventSubscriberTest>(subscribeInfo);
     // subscribe a common event
     CommonEventManager::SubscribeCommonEvent(subscriberTestPtr);
 

@@ -164,7 +164,7 @@ public:
 
 class SubscriberFirstTest : public CommonEventSubscriber {
 public:
-    explicit SubscriberFirstTest(const CommonEventSubscribeInfo &subscriberInfo) : CommonEventSubscriber(subscriberInfo)
+    explicit SubscriberFirstTest(const CommonEventSubscribeInfo &subscribeInfo) : CommonEventSubscriber(subscribeInfo)
     {}
 
     ~SubscriberFirstTest()
@@ -375,8 +375,8 @@ private:
 
 class SubscriberSecondTest : public CommonEventSubscriber {
 public:
-    explicit SubscriberSecondTest(const CommonEventSubscribeInfo &subscriberInfo)
-        : CommonEventSubscriber(subscriberInfo)
+    explicit SubscriberSecondTest(const CommonEventSubscribeInfo &subscribeInfo)
+        : CommonEventSubscriber(subscribeInfo)
     {}
 
     ~SubscriberSecondTest()
@@ -535,7 +535,7 @@ private:
 
 class SubscriberThirdTest : public CommonEventSubscriber {
 public:
-    explicit SubscriberThirdTest(const CommonEventSubscribeInfo &subscriberInfo) : CommonEventSubscriber(subscriberInfo)
+    explicit SubscriberThirdTest(const CommonEventSubscribeInfo &subscribeInfo) : CommonEventSubscriber(subscribeInfo)
     {}
 
     ~SubscriberThirdTest()
@@ -694,8 +694,8 @@ private:
 
 class SubscriberPublishTest : public CommonEventSubscriber {
 public:
-    explicit SubscriberPublishTest(const CommonEventSubscribeInfo &subscriberInfo)
-        : CommonEventSubscriber(subscriberInfo)
+    explicit SubscriberPublishTest(const CommonEventSubscribeInfo &subscribeInfo)
+        : CommonEventSubscriber(subscribeInfo)
     {}
 
     ~SubscriberPublishTest()
@@ -733,9 +733,9 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeData_0100, Function | MediumTe
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENTCASE1);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
-    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscriberInfo);
+    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscribeInfo);
     bool subscribeFirstResult = CommonEventManager::SubscribeCommonEvent(subscriberFirstTest);
     EXPECT_TRUE(subscribeFirstResult);
 
@@ -743,10 +743,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeData_0100, Function | MediumTe
     MatchingSkills matchingSkillsSecond;
     matchingSkillsSecond.AddEvent(EVENTCASE1);
 
-    CommonEventSubscribeInfo subscriberInfoSecond(matchingSkillsSecond);
+    CommonEventSubscribeInfo subscribeInfoSecond(matchingSkillsSecond);
 
     std::shared_ptr<SubscriberSecondTest> subscriberSecondTest =
-        std::make_shared<SubscriberSecondTest>(subscriberInfoSecond);
+        std::make_shared<SubscriberSecondTest>(subscribeInfoSecond);
     bool subscribeResultSecond = CommonEventManager::SubscribeCommonEvent(subscriberSecondTest);
     EXPECT_TRUE(subscribeResultSecond);
 
@@ -754,10 +754,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeData_0100, Function | MediumTe
     MatchingSkills matchingSkillsThird;
     matchingSkillsThird.AddEvent(EVENTCASE1);
 
-    CommonEventSubscribeInfo subscriberInfoThird(matchingSkillsThird);
+    CommonEventSubscribeInfo subscribeInfoThird(matchingSkillsThird);
 
     std::shared_ptr<SubscriberThirdTest> subscriberThirdTest =
-        std::make_shared<SubscriberThirdTest>(subscriberInfoThird);
+        std::make_shared<SubscriberThirdTest>(subscribeInfoThird);
     bool subscribeResultThird = CommonEventManager::SubscribeCommonEvent(subscriberThirdTest);
     EXPECT_TRUE(subscribeResultThird);
 
@@ -777,7 +777,7 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeData_0100, Function | MediumTe
     publishInfo.SetOrdered(true);
 
     std::shared_ptr<SubscriberPublishTest> subscriberPublishTest =
-        std::make_shared<SubscriberPublishTest>(subscriberInfo);
+        std::make_shared<SubscriberPublishTest>(subscribeInfo);
     bool publishResult = CommonEventManager::PublishCommonEvent(data, publishInfo, subscriberPublishTest);
     Delay(1);
     EXPECT_TRUE(publishResult);
@@ -799,9 +799,9 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeData_0200, Function | MediumTe
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENTCASE2);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
-    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscriberInfo);
+    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscribeInfo);
     bool subscribeFirstResult = CommonEventManager::SubscribeCommonEvent(subscriberFirstTest);
     EXPECT_TRUE(subscribeFirstResult);
 
@@ -809,10 +809,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeData_0200, Function | MediumTe
     MatchingSkills matchingSkillsSecond;
     matchingSkillsSecond.AddEvent(EVENTCASE2);
 
-    CommonEventSubscribeInfo subscriberInfoSecond(matchingSkillsSecond);
+    CommonEventSubscribeInfo subscribeInfoSecond(matchingSkillsSecond);
 
     std::shared_ptr<SubscriberSecondTest> subscriberSecondTest =
-        std::make_shared<SubscriberSecondTest>(subscriberInfoSecond);
+        std::make_shared<SubscriberSecondTest>(subscribeInfoSecond);
     bool subscribeResultSecond = CommonEventManager::SubscribeCommonEvent(subscriberSecondTest);
     EXPECT_TRUE(subscribeResultSecond);
 
@@ -820,10 +820,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeData_0200, Function | MediumTe
     MatchingSkills matchingSkillsThird;
     matchingSkillsThird.AddEvent(EVENTCASE2);
 
-    CommonEventSubscribeInfo subscriberInfoThird(matchingSkillsThird);
+    CommonEventSubscribeInfo subscribeInfoThird(matchingSkillsThird);
 
     std::shared_ptr<SubscriberThirdTest> subscriberThirdTest =
-        std::make_shared<SubscriberThirdTest>(subscriberInfoThird);
+        std::make_shared<SubscriberThirdTest>(subscribeInfoThird);
     bool subscribeResultThird = CommonEventManager::SubscribeCommonEvent(subscriberThirdTest);
     EXPECT_TRUE(subscribeResultThird);
 
@@ -843,7 +843,7 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeData_0200, Function | MediumTe
     publishInfo.SetOrdered(true);
 
     std::shared_ptr<SubscriberPublishTest> subscriberPublishTest =
-        std::make_shared<SubscriberPublishTest>(subscriberInfo);
+        std::make_shared<SubscriberPublishTest>(subscribeInfo);
     bool publishResult = CommonEventManager::PublishCommonEvent(data, publishInfo, subscriberPublishTest);
     Delay(1);
     EXPECT_TRUE(publishResult);
@@ -865,10 +865,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeData_0300, Function | MediumTe
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENTCASE3);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
-    subscriberInfo.SetPriority(LOWPRIORITY);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
+    subscribeInfo.SetPriority(LOWPRIORITY);
 
-    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscriberInfo);
+    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscribeInfo);
     bool subscribeFirstResult = CommonEventManager::SubscribeCommonEvent(subscriberFirstTest);
     EXPECT_TRUE(subscribeFirstResult);
 
@@ -876,11 +876,11 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeData_0300, Function | MediumTe
     MatchingSkills matchingSkillsSecond;
     matchingSkillsSecond.AddEvent(EVENTCASE3);
 
-    CommonEventSubscribeInfo subscriberInfoSecond(matchingSkillsSecond);
-    subscriberInfoSecond.SetPriority(MIDPRIORITY);
+    CommonEventSubscribeInfo subscribeInfoSecond(matchingSkillsSecond);
+    subscribeInfoSecond.SetPriority(MIDPRIORITY);
 
     std::shared_ptr<SubscriberSecondTest> subscriberSecondTest =
-        std::make_shared<SubscriberSecondTest>(subscriberInfoSecond);
+        std::make_shared<SubscriberSecondTest>(subscribeInfoSecond);
     bool subscribeResultSecond = CommonEventManager::SubscribeCommonEvent(subscriberSecondTest);
     EXPECT_TRUE(subscribeResultSecond);
 
@@ -888,11 +888,11 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeData_0300, Function | MediumTe
     MatchingSkills matchingSkillsThird;
     matchingSkillsThird.AddEvent(EVENTCASE3);
 
-    CommonEventSubscribeInfo subscriberInfoThird(matchingSkillsThird);
-    subscriberInfoThird.SetPriority(HIGHPRIORITY);
+    CommonEventSubscribeInfo subscribeInfoThird(matchingSkillsThird);
+    subscribeInfoThird.SetPriority(HIGHPRIORITY);
 
     std::shared_ptr<SubscriberThirdTest> subscriberThirdTest =
-        std::make_shared<SubscriberThirdTest>(subscriberInfoThird);
+        std::make_shared<SubscriberThirdTest>(subscribeInfoThird);
     bool subscribeResultThird = CommonEventManager::SubscribeCommonEvent(subscriberThirdTest);
     EXPECT_TRUE(subscribeResultThird);
 
@@ -912,7 +912,7 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeData_0300, Function | MediumTe
     publishInfo.SetOrdered(true);
 
     std::shared_ptr<SubscriberPublishTest> subscriberPublishTest =
-        std::make_shared<SubscriberPublishTest>(subscriberInfo);
+        std::make_shared<SubscriberPublishTest>(subscribeInfo);
     bool publishResult = CommonEventManager::PublishCommonEvent(data, publishInfo, subscriberPublishTest);
     Delay(1);
     EXPECT_TRUE(publishResult);
@@ -934,10 +934,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeData_0400, Function | MediumTe
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENTCASE4);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
-    subscriberInfo.SetPriority(LOWPRIORITY);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
+    subscribeInfo.SetPriority(LOWPRIORITY);
 
-    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscriberInfo);
+    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscribeInfo);
     bool subscribeFirstResult = CommonEventManager::SubscribeCommonEvent(subscriberFirstTest);
     EXPECT_TRUE(subscribeFirstResult);
 
@@ -945,11 +945,11 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeData_0400, Function | MediumTe
     MatchingSkills matchingSkillsSecond;
     matchingSkillsSecond.AddEvent(EVENTCASE4);
 
-    CommonEventSubscribeInfo subscriberInfoSecond(matchingSkillsSecond);
-    subscriberInfoSecond.SetPriority(MIDPRIORITY);
+    CommonEventSubscribeInfo subscribeInfoSecond(matchingSkillsSecond);
+    subscribeInfoSecond.SetPriority(MIDPRIORITY);
 
     std::shared_ptr<SubscriberSecondTest> subscriberSecondTest =
-        std::make_shared<SubscriberSecondTest>(subscriberInfoSecond);
+        std::make_shared<SubscriberSecondTest>(subscribeInfoSecond);
     bool subscribeResultSecond = CommonEventManager::SubscribeCommonEvent(subscriberSecondTest);
     EXPECT_TRUE(subscribeResultSecond);
 
@@ -957,11 +957,11 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeData_0400, Function | MediumTe
     MatchingSkills matchingSkillsThird;
     matchingSkillsThird.AddEvent(EVENTCASE4);
 
-    CommonEventSubscribeInfo subscriberInfoThird(matchingSkillsThird);
-    subscriberInfoThird.SetPriority(HIGHPRIORITY);
+    CommonEventSubscribeInfo subscribeInfoThird(matchingSkillsThird);
+    subscribeInfoThird.SetPriority(HIGHPRIORITY);
 
     std::shared_ptr<SubscriberThirdTest> subscriberThirdTest =
-        std::make_shared<SubscriberThirdTest>(subscriberInfoThird);
+        std::make_shared<SubscriberThirdTest>(subscribeInfoThird);
     bool subscribeResultThird = CommonEventManager::SubscribeCommonEvent(subscriberThirdTest);
     EXPECT_TRUE(subscribeResultThird);
 
@@ -981,7 +981,7 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeData_0400, Function | MediumTe
     publishInfo.SetOrdered(true);
 
     std::shared_ptr<SubscriberPublishTest> subscriberPublishTest =
-        std::make_shared<SubscriberPublishTest>(subscriberInfo);
+        std::make_shared<SubscriberPublishTest>(subscribeInfo);
     bool publishResult = CommonEventManager::PublishCommonEvent(data, publishInfo, subscriberPublishTest);
     Delay(1);
     EXPECT_TRUE(publishResult);
@@ -1003,10 +1003,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeData_0500, Function | MediumTe
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENTCASE5);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
-    subscriberInfo.SetPriority(LOWPRIORITY);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
+    subscribeInfo.SetPriority(LOWPRIORITY);
 
-    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscriberInfo);
+    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscribeInfo);
     bool subscribeFirstResult = CommonEventManager::SubscribeCommonEvent(subscriberFirstTest);
     EXPECT_TRUE(subscribeFirstResult);
 
@@ -1014,11 +1014,11 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeData_0500, Function | MediumTe
     MatchingSkills matchingSkillsSecond;
     matchingSkillsSecond.AddEvent(EVENTCASE5);
 
-    CommonEventSubscribeInfo subscriberInfoSecond(matchingSkillsSecond);
-    subscriberInfoSecond.SetPriority(MIDPRIORITY);
+    CommonEventSubscribeInfo subscribeInfoSecond(matchingSkillsSecond);
+    subscribeInfoSecond.SetPriority(MIDPRIORITY);
 
     std::shared_ptr<SubscriberSecondTest> subscriberSecondTest =
-        std::make_shared<SubscriberSecondTest>(subscriberInfoSecond);
+        std::make_shared<SubscriberSecondTest>(subscribeInfoSecond);
     bool subscribeResultSecond = CommonEventManager::SubscribeCommonEvent(subscriberSecondTest);
     EXPECT_TRUE(subscribeResultSecond);
 
@@ -1026,11 +1026,11 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeData_0500, Function | MediumTe
     MatchingSkills matchingSkillsThird;
     matchingSkillsThird.AddEvent(EVENTCASE5);
 
-    CommonEventSubscribeInfo subscriberInfoThird(matchingSkillsThird);
-    subscriberInfoThird.SetPriority(HIGHPRIORITY);
+    CommonEventSubscribeInfo subscribeInfoThird(matchingSkillsThird);
+    subscribeInfoThird.SetPriority(HIGHPRIORITY);
 
     std::shared_ptr<SubscriberThirdTest> subscriberThirdTest =
-        std::make_shared<SubscriberThirdTest>(subscriberInfoThird);
+        std::make_shared<SubscriberThirdTest>(subscribeInfoThird);
     bool subscribeResultThird = CommonEventManager::SubscribeCommonEvent(subscriberThirdTest);
     EXPECT_TRUE(subscribeResultThird);
 
@@ -1050,7 +1050,7 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeData_0500, Function | MediumTe
     publishInfo.SetOrdered(true);
 
     std::shared_ptr<SubscriberPublishTest> subscriberPublishTest =
-        std::make_shared<SubscriberPublishTest>(subscriberInfo);
+        std::make_shared<SubscriberPublishTest>(subscribeInfo);
     bool publishResult = CommonEventManager::PublishCommonEvent(data, publishInfo, subscriberPublishTest);
     Delay(1);
     EXPECT_TRUE(publishResult);
@@ -1072,9 +1072,9 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeData_0600, Function | MediumTe
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENTCASE6);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
-    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscriberInfo);
+    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscribeInfo);
     bool subscribeFirstResult = CommonEventManager::SubscribeCommonEvent(subscriberFirstTest);
     EXPECT_TRUE(subscribeFirstResult);
 
@@ -1082,10 +1082,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeData_0600, Function | MediumTe
     MatchingSkills matchingSkillsSecond;
     matchingSkillsSecond.AddEvent(EVENTCASE6);
 
-    CommonEventSubscribeInfo subscriberInfoSecond(matchingSkillsSecond);
+    CommonEventSubscribeInfo subscribeInfoSecond(matchingSkillsSecond);
 
     std::shared_ptr<SubscriberSecondTest> subscriberSecondTest =
-        std::make_shared<SubscriberSecondTest>(subscriberInfoSecond);
+        std::make_shared<SubscriberSecondTest>(subscribeInfoSecond);
     bool subscribeResultSecond = CommonEventManager::SubscribeCommonEvent(subscriberSecondTest);
     EXPECT_TRUE(subscribeResultSecond);
 
@@ -1093,10 +1093,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeData_0600, Function | MediumTe
     MatchingSkills matchingSkillsThird;
     matchingSkillsThird.AddEvent(EVENTCASE6);
 
-    CommonEventSubscribeInfo subscriberInfoThird(matchingSkillsThird);
+    CommonEventSubscribeInfo subscribeInfoThird(matchingSkillsThird);
 
     std::shared_ptr<SubscriberThirdTest> subscriberThirdTest =
-        std::make_shared<SubscriberThirdTest>(subscriberInfoThird);
+        std::make_shared<SubscriberThirdTest>(subscribeInfoThird);
     bool subscribeResultThird = CommonEventManager::SubscribeCommonEvent(subscriberThirdTest);
     EXPECT_TRUE(subscribeResultThird);
 
@@ -1116,7 +1116,7 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeData_0600, Function | MediumTe
     publishInfo.SetOrdered(true);
 
     std::shared_ptr<SubscriberPublishTest> subscriberPublishTest =
-        std::make_shared<SubscriberPublishTest>(subscriberInfo);
+        std::make_shared<SubscriberPublishTest>(subscribeInfo);
     bool publishResult = CommonEventManager::PublishCommonEvent(data, publishInfo, subscriberPublishTest);
     Delay(1);
     EXPECT_TRUE(publishResult);
@@ -1138,10 +1138,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeData_0700, Function | MediumTe
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENTCASE7);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
-    subscriberInfo.SetPriority(LOWPRIORITY);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
+    subscribeInfo.SetPriority(LOWPRIORITY);
 
-    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscriberInfo);
+    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscribeInfo);
     bool subscribeFirstResult = CommonEventManager::SubscribeCommonEvent(subscriberFirstTest);
     EXPECT_TRUE(subscribeFirstResult);
 
@@ -1149,11 +1149,11 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeData_0700, Function | MediumTe
     MatchingSkills matchingSkillsSecond;
     matchingSkillsSecond.AddEvent(EVENTCASE7);
 
-    CommonEventSubscribeInfo subscriberInfoSecond(matchingSkillsSecond);
-    subscriberInfoSecond.SetPriority(MIDPRIORITY);
+    CommonEventSubscribeInfo subscribeInfoSecond(matchingSkillsSecond);
+    subscribeInfoSecond.SetPriority(MIDPRIORITY);
 
     std::shared_ptr<SubscriberSecondTest> subscriberSecondTest =
-        std::make_shared<SubscriberSecondTest>(subscriberInfoSecond);
+        std::make_shared<SubscriberSecondTest>(subscribeInfoSecond);
     bool subscribeResultSecond = CommonEventManager::SubscribeCommonEvent(subscriberSecondTest);
     EXPECT_TRUE(subscribeResultSecond);
 
@@ -1161,11 +1161,11 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeData_0700, Function | MediumTe
     MatchingSkills matchingSkillsThird;
     matchingSkillsThird.AddEvent(EVENTCASE7);
 
-    CommonEventSubscribeInfo subscriberInfoThird(matchingSkillsThird);
-    subscriberInfoThird.SetPriority(HIGHPRIORITY);
+    CommonEventSubscribeInfo subscribeInfoThird(matchingSkillsThird);
+    subscribeInfoThird.SetPriority(HIGHPRIORITY);
 
     std::shared_ptr<SubscriberThirdTest> subscriberThirdTest =
-        std::make_shared<SubscriberThirdTest>(subscriberInfoThird);
+        std::make_shared<SubscriberThirdTest>(subscribeInfoThird);
     bool subscribeResultThird = CommonEventManager::SubscribeCommonEvent(subscriberThirdTest);
     EXPECT_TRUE(subscribeResultThird);
 
@@ -1185,7 +1185,7 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeData_0700, Function | MediumTe
     publishInfo.SetOrdered(true);
 
     std::shared_ptr<SubscriberPublishTest> subscriberPublishTest =
-        std::make_shared<SubscriberPublishTest>(subscriberInfo);
+        std::make_shared<SubscriberPublishTest>(subscribeInfo);
     bool publishResult = CommonEventManager::PublishCommonEvent(data, publishInfo, subscriberPublishTest);
     Delay(1);
     EXPECT_TRUE(publishResult);
@@ -1398,9 +1398,9 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEvent_0100, Function |
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENTCASE8);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
-    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscriberInfo);
+    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscribeInfo);
     bool subscribeFirstResult = CommonEventManager::SubscribeCommonEvent(subscriberFirstTest);
     EXPECT_TRUE(subscribeFirstResult);
 
@@ -1408,10 +1408,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEvent_0100, Function |
     MatchingSkills matchingSkillsSecond;
     matchingSkillsSecond.AddEvent(EVENTCASE8);
 
-    CommonEventSubscribeInfo subscriberInfoSecond(matchingSkillsSecond);
+    CommonEventSubscribeInfo subscribeInfoSecond(matchingSkillsSecond);
 
     std::shared_ptr<SubscriberSecondTest> subscriberSecondTest =
-        std::make_shared<SubscriberSecondTest>(subscriberInfoSecond);
+        std::make_shared<SubscriberSecondTest>(subscribeInfoSecond);
     bool subscribeResultSecond = CommonEventManager::SubscribeCommonEvent(subscriberSecondTest);
     EXPECT_TRUE(subscribeResultSecond);
 
@@ -1419,10 +1419,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEvent_0100, Function |
     MatchingSkills matchingSkillsThird;
     matchingSkillsThird.AddEvent(EVENTCASE8);
 
-    CommonEventSubscribeInfo subscriberInfoThird(matchingSkillsThird);
+    CommonEventSubscribeInfo subscribeInfoThird(matchingSkillsThird);
 
     std::shared_ptr<SubscriberThirdTest> subscriberThirdTest =
-        std::make_shared<SubscriberThirdTest>(subscriberInfoThird);
+        std::make_shared<SubscriberThirdTest>(subscribeInfoThird);
     bool subscribeResultThird = CommonEventManager::SubscribeCommonEvent(subscriberThirdTest);
     EXPECT_TRUE(subscribeResultThird);
 
@@ -1439,7 +1439,7 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEvent_0100, Function |
     publishInfo.SetOrdered(true);
 
     std::shared_ptr<SubscriberPublishTest> subscriberPublishTest =
-        std::make_shared<SubscriberPublishTest>(subscriberInfo);
+        std::make_shared<SubscriberPublishTest>(subscribeInfo);
     bool publishResult = CommonEventManager::PublishCommonEvent(data, publishInfo, subscriberPublishTest);
     Delay(1);
     EXPECT_TRUE(publishResult);
@@ -1458,9 +1458,9 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEvent_0200, Function |
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENTCASE9);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
-    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscriberInfo);
+    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscribeInfo);
     bool subscribeFirstResult = CommonEventManager::SubscribeCommonEvent(subscriberFirstTest);
     EXPECT_TRUE(subscribeFirstResult);
 
@@ -1468,10 +1468,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEvent_0200, Function |
     MatchingSkills matchingSkillsSecond;
     matchingSkillsSecond.AddEvent(EVENTCASE9);
 
-    CommonEventSubscribeInfo subscriberInfoSecond(matchingSkillsSecond);
+    CommonEventSubscribeInfo subscribeInfoSecond(matchingSkillsSecond);
 
     std::shared_ptr<SubscriberSecondTest> subscriberSecondTest =
-        std::make_shared<SubscriberSecondTest>(subscriberInfoSecond);
+        std::make_shared<SubscriberSecondTest>(subscribeInfoSecond);
     bool subscribeResultSecond = CommonEventManager::SubscribeCommonEvent(subscriberSecondTest);
     EXPECT_TRUE(subscribeResultSecond);
 
@@ -1479,10 +1479,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEvent_0200, Function |
     MatchingSkills matchingSkillsThird;
     matchingSkillsThird.AddEvent(EVENTCASE9);
 
-    CommonEventSubscribeInfo subscriberInfoThird(matchingSkillsThird);
+    CommonEventSubscribeInfo subscribeInfoThird(matchingSkillsThird);
 
     std::shared_ptr<SubscriberThirdTest> subscriberThirdTest =
-        std::make_shared<SubscriberThirdTest>(subscriberInfoThird);
+        std::make_shared<SubscriberThirdTest>(subscribeInfoThird);
     bool subscribeResultThird = CommonEventManager::SubscribeCommonEvent(subscriberThirdTest);
     EXPECT_TRUE(subscribeResultThird);
 
@@ -1499,7 +1499,7 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEvent_0200, Function |
     publishInfo.SetOrdered(true);
 
     std::shared_ptr<SubscriberPublishTest> subscriberPublishTest =
-        std::make_shared<SubscriberPublishTest>(subscriberInfo);
+        std::make_shared<SubscriberPublishTest>(subscribeInfo);
     bool publishResult = CommonEventManager::PublishCommonEvent(data, publishInfo, subscriberPublishTest);
     Delay(1);
     EXPECT_TRUE(publishResult);
@@ -1518,9 +1518,9 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEvent_0300, Function |
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENTCASE10);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
-    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscriberInfo);
+    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscribeInfo);
     bool subscribeFirstResult = CommonEventManager::SubscribeCommonEvent(subscriberFirstTest);
     EXPECT_TRUE(subscribeFirstResult);
 
@@ -1528,10 +1528,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEvent_0300, Function |
     MatchingSkills matchingSkillsSecond;
     matchingSkillsSecond.AddEvent(EVENTCASE10);
 
-    CommonEventSubscribeInfo subscriberInfoSecond(matchingSkillsSecond);
+    CommonEventSubscribeInfo subscribeInfoSecond(matchingSkillsSecond);
 
     std::shared_ptr<SubscriberSecondTest> subscriberSecondTest =
-        std::make_shared<SubscriberSecondTest>(subscriberInfoSecond);
+        std::make_shared<SubscriberSecondTest>(subscribeInfoSecond);
     bool subscribeResultSecond = CommonEventManager::SubscribeCommonEvent(subscriberSecondTest);
     EXPECT_TRUE(subscribeResultSecond);
 
@@ -1539,10 +1539,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEvent_0300, Function |
     MatchingSkills matchingSkillsThird;
     matchingSkillsThird.AddEvent(EVENTCASE10);
 
-    CommonEventSubscribeInfo subscriberInfoThird(matchingSkillsThird);
+    CommonEventSubscribeInfo subscribeInfoThird(matchingSkillsThird);
 
     std::shared_ptr<SubscriberThirdTest> subscriberThirdTest =
-        std::make_shared<SubscriberThirdTest>(subscriberInfoThird);
+        std::make_shared<SubscriberThirdTest>(subscribeInfoThird);
     bool subscribeResultThird = CommonEventManager::SubscribeCommonEvent(subscriberThirdTest);
     EXPECT_TRUE(subscribeResultThird);
 
@@ -1559,7 +1559,7 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEvent_0300, Function |
     publishInfo.SetOrdered(true);
 
     std::shared_ptr<SubscriberPublishTest> subscriberPublishTest =
-        std::make_shared<SubscriberPublishTest>(subscriberInfo);
+        std::make_shared<SubscriberPublishTest>(subscribeInfo);
     bool publishResult = CommonEventManager::PublishCommonEvent(data, publishInfo, subscriberPublishTest);
     Delay(1);
     EXPECT_TRUE(publishResult);
@@ -1578,9 +1578,9 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEvent_0400, Function |
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENTCASE11);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
-    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscriberInfo);
+    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscribeInfo);
     bool subscribeFirstResult = CommonEventManager::SubscribeCommonEvent(subscriberFirstTest);
     EXPECT_TRUE(subscribeFirstResult);
 
@@ -1588,10 +1588,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEvent_0400, Function |
     MatchingSkills matchingSkillsSecond;
     matchingSkillsSecond.AddEvent(EVENTCASE11);
 
-    CommonEventSubscribeInfo subscriberInfoSecond(matchingSkillsSecond);
+    CommonEventSubscribeInfo subscribeInfoSecond(matchingSkillsSecond);
 
     std::shared_ptr<SubscriberSecondTest> subscriberSecondTest =
-        std::make_shared<SubscriberSecondTest>(subscriberInfoSecond);
+        std::make_shared<SubscriberSecondTest>(subscribeInfoSecond);
     bool subscribeResultSecond = CommonEventManager::SubscribeCommonEvent(subscriberSecondTest);
     EXPECT_TRUE(subscribeResultSecond);
 
@@ -1599,10 +1599,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEvent_0400, Function |
     MatchingSkills matchingSkillsThird;
     matchingSkillsThird.AddEvent(EVENTCASE11);
 
-    CommonEventSubscribeInfo subscriberInfoThird(matchingSkillsThird);
+    CommonEventSubscribeInfo subscribeInfoThird(matchingSkillsThird);
 
     std::shared_ptr<SubscriberThirdTest> subscriberThirdTest =
-        std::make_shared<SubscriberThirdTest>(subscriberInfoThird);
+        std::make_shared<SubscriberThirdTest>(subscribeInfoThird);
     bool subscribeResultThird = CommonEventManager::SubscribeCommonEvent(subscriberThirdTest);
     EXPECT_TRUE(subscribeResultThird);
 
@@ -1619,7 +1619,7 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEvent_0400, Function |
     publishInfo.SetOrdered(true);
 
     std::shared_ptr<SubscriberPublishTest> subscriberPublishTest =
-        std::make_shared<SubscriberPublishTest>(subscriberInfo);
+        std::make_shared<SubscriberPublishTest>(subscribeInfo);
     bool publishResult = CommonEventManager::PublishCommonEvent(data, publishInfo, subscriberPublishTest);
     Delay(1);
     EXPECT_TRUE(publishResult);
@@ -1638,9 +1638,9 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEvent_0500, Function |
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENTCASE12);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
-    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscriberInfo);
+    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscribeInfo);
     bool subscribeFirstResult = CommonEventManager::SubscribeCommonEvent(subscriberFirstTest);
     EXPECT_TRUE(subscribeFirstResult);
 
@@ -1648,10 +1648,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEvent_0500, Function |
     MatchingSkills matchingSkillsSecond;
     matchingSkillsSecond.AddEvent(EVENTCASE12);
 
-    CommonEventSubscribeInfo subscriberInfoSecond(matchingSkillsSecond);
+    CommonEventSubscribeInfo subscribeInfoSecond(matchingSkillsSecond);
 
     std::shared_ptr<SubscriberSecondTest> subscriberSecondTest =
-        std::make_shared<SubscriberSecondTest>(subscriberInfoSecond);
+        std::make_shared<SubscriberSecondTest>(subscribeInfoSecond);
     bool subscribeResultSecond = CommonEventManager::SubscribeCommonEvent(subscriberSecondTest);
     EXPECT_TRUE(subscribeResultSecond);
 
@@ -1659,10 +1659,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEvent_0500, Function |
     MatchingSkills matchingSkillsThird;
     matchingSkillsThird.AddEvent(EVENTCASE12);
 
-    CommonEventSubscribeInfo subscriberInfoThird(matchingSkillsThird);
+    CommonEventSubscribeInfo subscribeInfoThird(matchingSkillsThird);
 
     std::shared_ptr<SubscriberThirdTest> subscriberThirdTest =
-        std::make_shared<SubscriberThirdTest>(subscriberInfoThird);
+        std::make_shared<SubscriberThirdTest>(subscribeInfoThird);
     bool subscribeResultThird = CommonEventManager::SubscribeCommonEvent(subscriberThirdTest);
     EXPECT_TRUE(subscribeResultThird);
 
@@ -1679,7 +1679,7 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEvent_0500, Function |
     publishInfo.SetOrdered(true);
 
     std::shared_ptr<SubscriberPublishTest> subscriberPublishTest =
-        std::make_shared<SubscriberPublishTest>(subscriberInfo);
+        std::make_shared<SubscriberPublishTest>(subscribeInfo);
     bool publishResult = CommonEventManager::PublishCommonEvent(data, publishInfo, subscriberPublishTest);
     Delay(1);
     EXPECT_TRUE(publishResult);
@@ -1698,9 +1698,9 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEvent_0600, Function |
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENTCASE13);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
-    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscriberInfo);
+    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscribeInfo);
     bool subscribeFirstResult = CommonEventManager::SubscribeCommonEvent(subscriberFirstTest);
     EXPECT_TRUE(subscribeFirstResult);
 
@@ -1708,10 +1708,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEvent_0600, Function |
     MatchingSkills matchingSkillsSecond;
     matchingSkillsSecond.AddEvent(EVENTCASE13);
 
-    CommonEventSubscribeInfo subscriberInfoSecond(matchingSkillsSecond);
+    CommonEventSubscribeInfo subscribeInfoSecond(matchingSkillsSecond);
 
     std::shared_ptr<SubscriberSecondTest> subscriberSecondTest =
-        std::make_shared<SubscriberSecondTest>(subscriberInfoSecond);
+        std::make_shared<SubscriberSecondTest>(subscribeInfoSecond);
     bool subscribeResultSecond = CommonEventManager::SubscribeCommonEvent(subscriberSecondTest);
     EXPECT_TRUE(subscribeResultSecond);
 
@@ -1719,10 +1719,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEvent_0600, Function |
     MatchingSkills matchingSkillsThird;
     matchingSkillsThird.AddEvent(EVENTCASE13);
 
-    CommonEventSubscribeInfo subscriberInfoThird(matchingSkillsThird);
+    CommonEventSubscribeInfo subscribeInfoThird(matchingSkillsThird);
 
     std::shared_ptr<SubscriberThirdTest> subscriberThirdTest =
-        std::make_shared<SubscriberThirdTest>(subscriberInfoThird);
+        std::make_shared<SubscriberThirdTest>(subscribeInfoThird);
     bool subscribeResultThird = CommonEventManager::SubscribeCommonEvent(subscriberThirdTest);
     EXPECT_TRUE(subscribeResultThird);
 
@@ -1759,9 +1759,9 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEvent_0700, Function |
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENTCASE14);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
-    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscriberInfo);
+    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscribeInfo);
     bool subscribeFirstResult = CommonEventManager::SubscribeCommonEvent(subscriberFirstTest);
     EXPECT_TRUE(subscribeFirstResult);
 
@@ -1769,10 +1769,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEvent_0700, Function |
     MatchingSkills matchingSkillsSecond;
     matchingSkillsSecond.AddEvent(EVENTCASE14);
 
-    CommonEventSubscribeInfo subscriberInfoSecond(matchingSkillsSecond);
+    CommonEventSubscribeInfo subscribeInfoSecond(matchingSkillsSecond);
 
     std::shared_ptr<SubscriberSecondTest> subscriberSecondTest =
-        std::make_shared<SubscriberSecondTest>(subscriberInfoSecond);
+        std::make_shared<SubscriberSecondTest>(subscribeInfoSecond);
     bool subscribeResultSecond = CommonEventManager::SubscribeCommonEvent(subscriberSecondTest);
     EXPECT_TRUE(subscribeResultSecond);
 
@@ -1780,10 +1780,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEvent_0700, Function |
     MatchingSkills matchingSkillsThird;
     matchingSkillsThird.AddEvent(EVENTCASE14);
 
-    CommonEventSubscribeInfo subscriberInfoThird(matchingSkillsThird);
+    CommonEventSubscribeInfo subscribeInfoThird(matchingSkillsThird);
 
     std::shared_ptr<SubscriberThirdTest> subscriberThirdTest =
-        std::make_shared<SubscriberThirdTest>(subscriberInfoThird);
+        std::make_shared<SubscriberThirdTest>(subscribeInfoThird);
     bool subscribeResultThird = CommonEventManager::SubscribeCommonEvent(subscriberThirdTest);
     EXPECT_TRUE(subscribeResultThird);
 
@@ -1820,9 +1820,9 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEvent_0800, Function |
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENTCASE15);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
-    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscriberInfo);
+    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscribeInfo);
     bool subscribeFirstResult = CommonEventManager::SubscribeCommonEvent(subscriberFirstTest);
     EXPECT_TRUE(subscribeFirstResult);
 
@@ -1830,10 +1830,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEvent_0800, Function |
     MatchingSkills matchingSkillsSecond;
     matchingSkillsSecond.AddEvent(EVENTCASE15);
 
-    CommonEventSubscribeInfo subscriberInfoSecond(matchingSkillsSecond);
+    CommonEventSubscribeInfo subscribeInfoSecond(matchingSkillsSecond);
 
     std::shared_ptr<SubscriberSecondTest> subscriberSecondTest =
-        std::make_shared<SubscriberSecondTest>(subscriberInfoSecond);
+        std::make_shared<SubscriberSecondTest>(subscribeInfoSecond);
     bool subscribeResultSecond = CommonEventManager::SubscribeCommonEvent(subscriberSecondTest);
     EXPECT_TRUE(subscribeResultSecond);
 
@@ -1841,10 +1841,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEvent_0800, Function |
     MatchingSkills matchingSkillsThird;
     matchingSkillsThird.AddEvent(EVENTCASE15);
 
-    CommonEventSubscribeInfo subscriberInfoThird(matchingSkillsThird);
+    CommonEventSubscribeInfo subscribeInfoThird(matchingSkillsThird);
 
     std::shared_ptr<SubscriberThirdTest> subscriberThirdTest =
-        std::make_shared<SubscriberThirdTest>(subscriberInfoThird);
+        std::make_shared<SubscriberThirdTest>(subscribeInfoThird);
     bool subscribeResultThird = CommonEventManager::SubscribeCommonEvent(subscriberThirdTest);
     EXPECT_TRUE(subscribeResultThird);
 
@@ -1881,9 +1881,9 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEvent_0900, Function |
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENTCASE16);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
-    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscriberInfo);
+    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscribeInfo);
     bool subscribeFirstResult = CommonEventManager::SubscribeCommonEvent(subscriberFirstTest);
     EXPECT_TRUE(subscribeFirstResult);
 
@@ -1891,10 +1891,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEvent_0900, Function |
     MatchingSkills matchingSkillsSecond;
     matchingSkillsSecond.AddEvent(EVENTCASE16);
 
-    CommonEventSubscribeInfo subscriberInfoSecond(matchingSkillsSecond);
+    CommonEventSubscribeInfo subscribeInfoSecond(matchingSkillsSecond);
 
     std::shared_ptr<SubscriberSecondTest> subscriberSecondTest =
-        std::make_shared<SubscriberSecondTest>(subscriberInfoSecond);
+        std::make_shared<SubscriberSecondTest>(subscribeInfoSecond);
     bool subscribeResultSecond = CommonEventManager::SubscribeCommonEvent(subscriberSecondTest);
     EXPECT_TRUE(subscribeResultSecond);
 
@@ -1902,10 +1902,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEvent_0900, Function |
     MatchingSkills matchingSkillsThird;
     matchingSkillsThird.AddEvent(EVENTCASE16);
 
-    CommonEventSubscribeInfo subscriberInfoThird(matchingSkillsThird);
+    CommonEventSubscribeInfo subscribeInfoThird(matchingSkillsThird);
 
     std::shared_ptr<SubscriberThirdTest> subscriberThirdTest =
-        std::make_shared<SubscriberThirdTest>(subscriberInfoThird);
+        std::make_shared<SubscriberThirdTest>(subscribeInfoThird);
     bool subscribeResultThird = CommonEventManager::SubscribeCommonEvent(subscriberThirdTest);
     EXPECT_TRUE(subscribeResultThird);
 
@@ -1942,9 +1942,9 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEvent_1000, Function |
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENTCASE17);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
-    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscriberInfo);
+    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscribeInfo);
     bool subscribeFirstResult = CommonEventManager::SubscribeCommonEvent(subscriberFirstTest);
     EXPECT_TRUE(subscribeFirstResult);
 
@@ -1952,10 +1952,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEvent_1000, Function |
     MatchingSkills matchingSkillsSecond;
     matchingSkillsSecond.AddEvent(EVENTCASE17);
 
-    CommonEventSubscribeInfo subscriberInfoSecond(matchingSkillsSecond);
+    CommonEventSubscribeInfo subscribeInfoSecond(matchingSkillsSecond);
 
     std::shared_ptr<SubscriberSecondTest> subscriberSecondTest =
-        std::make_shared<SubscriberSecondTest>(subscriberInfoSecond);
+        std::make_shared<SubscriberSecondTest>(subscribeInfoSecond);
     bool subscribeResultSecond = CommonEventManager::SubscribeCommonEvent(subscriberSecondTest);
     EXPECT_TRUE(subscribeResultSecond);
 
@@ -1963,10 +1963,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEvent_1000, Function |
     MatchingSkills matchingSkillsThird;
     matchingSkillsThird.AddEvent(EVENTCASE17);
 
-    CommonEventSubscribeInfo subscriberInfoThird(matchingSkillsThird);
+    CommonEventSubscribeInfo subscribeInfoThird(matchingSkillsThird);
 
     std::shared_ptr<SubscriberThirdTest> subscriberThirdTest =
-        std::make_shared<SubscriberThirdTest>(subscriberInfoThird);
+        std::make_shared<SubscriberThirdTest>(subscribeInfoThird);
     bool subscribeResultThird = CommonEventManager::SubscribeCommonEvent(subscriberThirdTest);
     EXPECT_TRUE(subscribeResultThird);
 
@@ -2003,9 +2003,9 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEvent_1100, Function |
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENTCASE18);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
-    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscriberInfo);
+    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscribeInfo);
     bool subscribeFirstResult = CommonEventManager::SubscribeCommonEvent(subscriberFirstTest);
     EXPECT_TRUE(subscribeFirstResult);
 
@@ -2013,10 +2013,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEvent_1100, Function |
     MatchingSkills matchingSkillsSecond;
     matchingSkillsSecond.AddEvent(EVENTCASE18);
 
-    CommonEventSubscribeInfo subscriberInfoSecond(matchingSkillsSecond);
+    CommonEventSubscribeInfo subscribeInfoSecond(matchingSkillsSecond);
 
     std::shared_ptr<SubscriberSecondTest> subscriberSecondTest =
-        std::make_shared<SubscriberSecondTest>(subscriberInfoSecond);
+        std::make_shared<SubscriberSecondTest>(subscribeInfoSecond);
     bool subscribeResultSecond = CommonEventManager::SubscribeCommonEvent(subscriberSecondTest);
     EXPECT_TRUE(subscribeResultSecond);
 
@@ -2024,10 +2024,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEvent_1100, Function |
     MatchingSkills matchingSkillsThird;
     matchingSkillsThird.AddEvent(EVENTCASE18);
 
-    CommonEventSubscribeInfo subscriberInfoThird(matchingSkillsThird);
+    CommonEventSubscribeInfo subscribeInfoThird(matchingSkillsThird);
 
     std::shared_ptr<SubscriberThirdTest> subscriberThirdTest =
-        std::make_shared<SubscriberThirdTest>(subscriberInfoThird);
+        std::make_shared<SubscriberThirdTest>(subscribeInfoThird);
     bool subscribeResultThird = CommonEventManager::SubscribeCommonEvent(subscriberThirdTest);
     EXPECT_TRUE(subscribeResultThird);
 
@@ -2064,9 +2064,9 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CodeDataAsync_0100, Function
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENTCASE19);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
-    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscriberInfo);
+    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscribeInfo);
     bool subscribeFirstResult = CommonEventManager::SubscribeCommonEvent(subscriberFirstTest);
     EXPECT_TRUE(subscribeFirstResult);
 
@@ -2074,10 +2074,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CodeDataAsync_0100, Function
     MatchingSkills matchingSkillsSecond;
     matchingSkillsSecond.AddEvent(EVENTCASE19);
 
-    CommonEventSubscribeInfo subscriberInfoSecond(matchingSkillsSecond);
+    CommonEventSubscribeInfo subscribeInfoSecond(matchingSkillsSecond);
 
     std::shared_ptr<SubscriberSecondTest> subscriberSecondTest =
-        std::make_shared<SubscriberSecondTest>(subscriberInfoSecond);
+        std::make_shared<SubscriberSecondTest>(subscribeInfoSecond);
     bool subscribeResultSecond = CommonEventManager::SubscribeCommonEvent(subscriberSecondTest);
     EXPECT_TRUE(subscribeResultSecond);
 
@@ -2085,10 +2085,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CodeDataAsync_0100, Function
     MatchingSkills matchingSkillsThird;
     matchingSkillsThird.AddEvent(EVENTCASE19);
 
-    CommonEventSubscribeInfo subscriberInfoThird(matchingSkillsThird);
+    CommonEventSubscribeInfo subscribeInfoThird(matchingSkillsThird);
 
     std::shared_ptr<SubscriberThirdTest> subscriberThirdTest =
-        std::make_shared<SubscriberThirdTest>(subscriberInfoThird);
+        std::make_shared<SubscriberThirdTest>(subscribeInfoThird);
     bool subscribeResultThird = CommonEventManager::SubscribeCommonEvent(subscriberThirdTest);
     EXPECT_TRUE(subscribeResultThird);
 
@@ -2105,7 +2105,7 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CodeDataAsync_0100, Function
     publishInfo.SetOrdered(true);
 
     std::shared_ptr<SubscriberPublishTest> subscriberPublishTest =
-        std::make_shared<SubscriberPublishTest>(subscriberInfo);
+        std::make_shared<SubscriberPublishTest>(subscribeInfo);
     bool publishResult = CommonEventManager::PublishCommonEvent(data, publishInfo, subscriberPublishTest);
     Delay(2);
     EXPECT_TRUE(publishResult);
@@ -2124,9 +2124,9 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CodeDataAsync_0200, Function
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENTCASE20);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
-    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscriberInfo);
+    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscribeInfo);
     bool subscribeFirstResult = CommonEventManager::SubscribeCommonEvent(subscriberFirstTest);
     EXPECT_TRUE(subscribeFirstResult);
 
@@ -2134,10 +2134,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CodeDataAsync_0200, Function
     MatchingSkills matchingSkillsSecond;
     matchingSkillsSecond.AddEvent(EVENTCASE20);
 
-    CommonEventSubscribeInfo subscriberInfoSecond(matchingSkillsSecond);
+    CommonEventSubscribeInfo subscribeInfoSecond(matchingSkillsSecond);
 
     std::shared_ptr<SubscriberSecondTest> subscriberSecondTest =
-        std::make_shared<SubscriberSecondTest>(subscriberInfoSecond);
+        std::make_shared<SubscriberSecondTest>(subscribeInfoSecond);
     bool subscribeResultSecond = CommonEventManager::SubscribeCommonEvent(subscriberSecondTest);
     EXPECT_TRUE(subscribeResultSecond);
 
@@ -2145,10 +2145,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CodeDataAsync_0200, Function
     MatchingSkills matchingSkillsThird;
     matchingSkillsThird.AddEvent(EVENTCASE20);
 
-    CommonEventSubscribeInfo subscriberInfoThird(matchingSkillsThird);
+    CommonEventSubscribeInfo subscribeInfoThird(matchingSkillsThird);
 
     std::shared_ptr<SubscriberThirdTest> subscriberThirdTest =
-        std::make_shared<SubscriberThirdTest>(subscriberInfoThird);
+        std::make_shared<SubscriberThirdTest>(subscribeInfoThird);
     bool subscribeResultThird = CommonEventManager::SubscribeCommonEvent(subscriberThirdTest);
     EXPECT_TRUE(subscribeResultThird);
 
@@ -2165,7 +2165,7 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CodeDataAsync_0200, Function
     publishInfo.SetOrdered(true);
 
     std::shared_ptr<SubscriberPublishTest> subscriberPublishTest =
-        std::make_shared<SubscriberPublishTest>(subscriberInfo);
+        std::make_shared<SubscriberPublishTest>(subscribeInfo);
     bool publishResult = CommonEventManager::PublishCommonEvent(data, publishInfo, subscriberPublishTest);
     Delay(1);
     EXPECT_TRUE(publishResult);
@@ -2184,9 +2184,9 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CodeDataAsync_0300, Function
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENTCASE21);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
-    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscriberInfo);
+    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscribeInfo);
     bool subscribeFirstResult = CommonEventManager::SubscribeCommonEvent(subscriberFirstTest);
     EXPECT_TRUE(subscribeFirstResult);
 
@@ -2194,10 +2194,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CodeDataAsync_0300, Function
     MatchingSkills matchingSkillsSecond;
     matchingSkillsSecond.AddEvent(EVENTCASE21);
 
-    CommonEventSubscribeInfo subscriberInfoSecond(matchingSkillsSecond);
+    CommonEventSubscribeInfo subscribeInfoSecond(matchingSkillsSecond);
 
     std::shared_ptr<SubscriberSecondTest> subscriberSecondTest =
-        std::make_shared<SubscriberSecondTest>(subscriberInfoSecond);
+        std::make_shared<SubscriberSecondTest>(subscribeInfoSecond);
     bool subscribeResultSecond = CommonEventManager::SubscribeCommonEvent(subscriberSecondTest);
     EXPECT_TRUE(subscribeResultSecond);
 
@@ -2205,10 +2205,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CodeDataAsync_0300, Function
     MatchingSkills matchingSkillsThird;
     matchingSkillsThird.AddEvent(EVENTCASE21);
 
-    CommonEventSubscribeInfo subscriberInfoThird(matchingSkillsThird);
+    CommonEventSubscribeInfo subscribeInfoThird(matchingSkillsThird);
 
     std::shared_ptr<SubscriberThirdTest> subscriberThirdTest =
-        std::make_shared<SubscriberThirdTest>(subscriberInfoThird);
+        std::make_shared<SubscriberThirdTest>(subscribeInfoThird);
     bool subscribeResultThird = CommonEventManager::SubscribeCommonEvent(subscriberThirdTest);
     EXPECT_TRUE(subscribeResultThird);
 
@@ -2225,7 +2225,7 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CodeDataAsync_0300, Function
     publishInfo.SetOrdered(true);
 
     std::shared_ptr<SubscriberPublishTest> subscriberPublishTest =
-        std::make_shared<SubscriberPublishTest>(subscriberInfo);
+        std::make_shared<SubscriberPublishTest>(subscribeInfo);
     bool publishResult = CommonEventManager::PublishCommonEvent(data, publishInfo, subscriberPublishTest);
     Delay(1);
     EXPECT_TRUE(publishResult);
@@ -2244,9 +2244,9 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CodeDataAsync_0400, Function
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENTCASE22);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
-    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscriberInfo);
+    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscribeInfo);
     bool subscribeFirstResult = CommonEventManager::SubscribeCommonEvent(subscriberFirstTest);
     EXPECT_TRUE(subscribeFirstResult);
 
@@ -2254,10 +2254,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CodeDataAsync_0400, Function
     MatchingSkills matchingSkillsSecond;
     matchingSkillsSecond.AddEvent(EVENTCASE22);
 
-    CommonEventSubscribeInfo subscriberInfoSecond(matchingSkillsSecond);
+    CommonEventSubscribeInfo subscribeInfoSecond(matchingSkillsSecond);
 
     std::shared_ptr<SubscriberSecondTest> subscriberSecondTest =
-        std::make_shared<SubscriberSecondTest>(subscriberInfoSecond);
+        std::make_shared<SubscriberSecondTest>(subscribeInfoSecond);
     bool subscribeResultSecond = CommonEventManager::SubscribeCommonEvent(subscriberSecondTest);
     EXPECT_TRUE(subscribeResultSecond);
 
@@ -2265,10 +2265,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CodeDataAsync_0400, Function
     MatchingSkills matchingSkillsThird;
     matchingSkillsThird.AddEvent(EVENTCASE22);
 
-    CommonEventSubscribeInfo subscriberInfoThird(matchingSkillsThird);
+    CommonEventSubscribeInfo subscribeInfoThird(matchingSkillsThird);
 
     std::shared_ptr<SubscriberThirdTest> subscriberThirdTest =
-        std::make_shared<SubscriberThirdTest>(subscriberInfoThird);
+        std::make_shared<SubscriberThirdTest>(subscribeInfoThird);
     bool subscribeResultThird = CommonEventManager::SubscribeCommonEvent(subscriberThirdTest);
     EXPECT_TRUE(subscribeResultThird);
 
@@ -2285,7 +2285,7 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CodeDataAsync_0400, Function
     publishInfo.SetOrdered(true);
 
     std::shared_ptr<SubscriberPublishTest> subscriberPublishTest =
-        std::make_shared<SubscriberPublishTest>(subscriberInfo);
+        std::make_shared<SubscriberPublishTest>(subscribeInfo);
     bool publishResult = CommonEventManager::PublishCommonEvent(data, publishInfo, subscriberPublishTest);
     Delay(1);
     EXPECT_TRUE(publishResult);
@@ -2304,9 +2304,9 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CodeDataAsync_0500, Function
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENTCASE23);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
-    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscriberInfo);
+    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscribeInfo);
     bool subscribeFirstResult = CommonEventManager::SubscribeCommonEvent(subscriberFirstTest);
     EXPECT_TRUE(subscribeFirstResult);
 
@@ -2314,10 +2314,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CodeDataAsync_0500, Function
     MatchingSkills matchingSkillsSecond;
     matchingSkillsSecond.AddEvent(EVENTCASE23);
 
-    CommonEventSubscribeInfo subscriberInfoSecond(matchingSkillsSecond);
+    CommonEventSubscribeInfo subscribeInfoSecond(matchingSkillsSecond);
 
     std::shared_ptr<SubscriberSecondTest> subscriberSecondTest =
-        std::make_shared<SubscriberSecondTest>(subscriberInfoSecond);
+        std::make_shared<SubscriberSecondTest>(subscribeInfoSecond);
     bool subscribeResultSecond = CommonEventManager::SubscribeCommonEvent(subscriberSecondTest);
     EXPECT_TRUE(subscribeResultSecond);
 
@@ -2325,10 +2325,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CodeDataAsync_0500, Function
     MatchingSkills matchingSkillsThird;
     matchingSkillsThird.AddEvent(EVENTCASE23);
 
-    CommonEventSubscribeInfo subscriberInfoThird(matchingSkillsThird);
+    CommonEventSubscribeInfo subscribeInfoThird(matchingSkillsThird);
 
     std::shared_ptr<SubscriberThirdTest> subscriberThirdTest =
-        std::make_shared<SubscriberThirdTest>(subscriberInfoThird);
+        std::make_shared<SubscriberThirdTest>(subscribeInfoThird);
     bool subscribeResultThird = CommonEventManager::SubscribeCommonEvent(subscriberThirdTest);
     EXPECT_TRUE(subscribeResultThird);
 
@@ -2345,7 +2345,7 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CodeDataAsync_0500, Function
     publishInfo.SetOrdered(true);
 
     std::shared_ptr<SubscriberPublishTest> subscriberPublishTest =
-        std::make_shared<SubscriberPublishTest>(subscriberInfo);
+        std::make_shared<SubscriberPublishTest>(subscribeInfo);
     bool publishResult = CommonEventManager::PublishCommonEvent(data, publishInfo, subscriberPublishTest);
     Delay(1);
     EXPECT_TRUE(publishResult);
@@ -2364,9 +2364,9 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeDataInfo_0100, Function | Medi
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENTCASE1);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
-    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscriberInfo);
+    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscribeInfo);
     bool subscribeFirstResult = CommonEventManager::SubscribeCommonEvent(subscriberFirstTest);
     EXPECT_TRUE(subscribeFirstResult);
 
@@ -2374,10 +2374,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeDataInfo_0100, Function | Medi
     MatchingSkills matchingSkillsSecond;
     matchingSkillsSecond.AddEvent(EVENTCASE1);
 
-    CommonEventSubscribeInfo subscriberInfoSecond(matchingSkillsSecond);
+    CommonEventSubscribeInfo subscribeInfoSecond(matchingSkillsSecond);
 
     std::shared_ptr<SubscriberSecondTest> subscriberSecondTest =
-        std::make_shared<SubscriberSecondTest>(subscriberInfoSecond);
+        std::make_shared<SubscriberSecondTest>(subscribeInfoSecond);
     bool subscribeResultSecond = CommonEventManager::SubscribeCommonEvent(subscriberSecondTest);
     EXPECT_TRUE(subscribeResultSecond);
 
@@ -2385,10 +2385,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeDataInfo_0100, Function | Medi
     MatchingSkills matchingSkillsThird;
     matchingSkillsThird.AddEvent(EVENTCASE1);
 
-    CommonEventSubscribeInfo subscriberInfoThird(matchingSkillsThird);
+    CommonEventSubscribeInfo subscribeInfoThird(matchingSkillsThird);
 
     std::shared_ptr<SubscriberThirdTest> subscriberThirdTest =
-        std::make_shared<SubscriberThirdTest>(subscriberInfoThird);
+        std::make_shared<SubscriberThirdTest>(subscribeInfoThird);
     bool subscribeResultThird = CommonEventManager::SubscribeCommonEvent(subscriberThirdTest);
     EXPECT_TRUE(subscribeResultThird);
 
@@ -2428,9 +2428,9 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeDataInfo_0200, Function | Medi
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENTCASE2);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
-    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscriberInfo);
+    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscribeInfo);
     bool subscribeFirstResult = CommonEventManager::SubscribeCommonEvent(subscriberFirstTest);
     EXPECT_TRUE(subscribeFirstResult);
 
@@ -2438,10 +2438,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeDataInfo_0200, Function | Medi
     MatchingSkills matchingSkillsSecond;
     matchingSkillsSecond.AddEvent(EVENTCASE2);
 
-    CommonEventSubscribeInfo subscriberInfoSecond(matchingSkillsSecond);
+    CommonEventSubscribeInfo subscribeInfoSecond(matchingSkillsSecond);
 
     std::shared_ptr<SubscriberSecondTest> subscriberSecondTest =
-        std::make_shared<SubscriberSecondTest>(subscriberInfoSecond);
+        std::make_shared<SubscriberSecondTest>(subscribeInfoSecond);
     bool subscribeResultSecond = CommonEventManager::SubscribeCommonEvent(subscriberSecondTest);
     EXPECT_TRUE(subscribeResultSecond);
 
@@ -2449,10 +2449,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeDataInfo_0200, Function | Medi
     MatchingSkills matchingSkillsThird;
     matchingSkillsThird.AddEvent(EVENTCASE2);
 
-    CommonEventSubscribeInfo subscriberInfoThird(matchingSkillsThird);
+    CommonEventSubscribeInfo subscribeInfoThird(matchingSkillsThird);
 
     std::shared_ptr<SubscriberThirdTest> subscriberThirdTest =
-        std::make_shared<SubscriberThirdTest>(subscriberInfoThird);
+        std::make_shared<SubscriberThirdTest>(subscribeInfoThird);
     bool subscribeResultThird = CommonEventManager::SubscribeCommonEvent(subscriberThirdTest);
     EXPECT_TRUE(subscribeResultThird);
 
@@ -2492,10 +2492,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeDataInfo_0300, Function | Medi
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENTCASE3);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
-    subscriberInfo.SetPriority(LOWPRIORITY);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
+    subscribeInfo.SetPriority(LOWPRIORITY);
 
-    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscriberInfo);
+    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscribeInfo);
     bool subscribeFirstResult = CommonEventManager::SubscribeCommonEvent(subscriberFirstTest);
     EXPECT_TRUE(subscribeFirstResult);
 
@@ -2503,11 +2503,11 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeDataInfo_0300, Function | Medi
     MatchingSkills matchingSkillsSecond;
     matchingSkillsSecond.AddEvent(EVENTCASE3);
 
-    CommonEventSubscribeInfo subscriberInfoSecond(matchingSkillsSecond);
-    subscriberInfoSecond.SetPriority(MIDPRIORITY);
+    CommonEventSubscribeInfo subscribeInfoSecond(matchingSkillsSecond);
+    subscribeInfoSecond.SetPriority(MIDPRIORITY);
 
     std::shared_ptr<SubscriberSecondTest> subscriberSecondTest =
-        std::make_shared<SubscriberSecondTest>(subscriberInfoSecond);
+        std::make_shared<SubscriberSecondTest>(subscribeInfoSecond);
     bool subscribeResultSecond = CommonEventManager::SubscribeCommonEvent(subscriberSecondTest);
     EXPECT_TRUE(subscribeResultSecond);
 
@@ -2515,11 +2515,11 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeDataInfo_0300, Function | Medi
     MatchingSkills matchingSkillsThird;
     matchingSkillsThird.AddEvent(EVENTCASE3);
 
-    CommonEventSubscribeInfo subscriberInfoThird(matchingSkillsThird);
-    subscriberInfoThird.SetPriority(HIGHPRIORITY);
+    CommonEventSubscribeInfo subscribeInfoThird(matchingSkillsThird);
+    subscribeInfoThird.SetPriority(HIGHPRIORITY);
 
     std::shared_ptr<SubscriberThirdTest> subscriberThirdTest =
-        std::make_shared<SubscriberThirdTest>(subscriberInfoThird);
+        std::make_shared<SubscriberThirdTest>(subscribeInfoThird);
     bool subscribeResultThird = CommonEventManager::SubscribeCommonEvent(subscriberThirdTest);
     EXPECT_TRUE(subscribeResultThird);
 
@@ -2559,10 +2559,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeDataInfo_0400, Function | Medi
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENTCASE4);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
-    subscriberInfo.SetPriority(LOWPRIORITY);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
+    subscribeInfo.SetPriority(LOWPRIORITY);
 
-    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscriberInfo);
+    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscribeInfo);
     bool subscribeFirstResult = CommonEventManager::SubscribeCommonEvent(subscriberFirstTest);
     EXPECT_TRUE(subscribeFirstResult);
 
@@ -2570,11 +2570,11 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeDataInfo_0400, Function | Medi
     MatchingSkills matchingSkillsSecond;
     matchingSkillsSecond.AddEvent(EVENTCASE4);
 
-    CommonEventSubscribeInfo subscriberInfoSecond(matchingSkillsSecond);
-    subscriberInfoSecond.SetPriority(MIDPRIORITY);
+    CommonEventSubscribeInfo subscribeInfoSecond(matchingSkillsSecond);
+    subscribeInfoSecond.SetPriority(MIDPRIORITY);
 
     std::shared_ptr<SubscriberSecondTest> subscriberSecondTest =
-        std::make_shared<SubscriberSecondTest>(subscriberInfoSecond);
+        std::make_shared<SubscriberSecondTest>(subscribeInfoSecond);
     bool subscribeResultSecond = CommonEventManager::SubscribeCommonEvent(subscriberSecondTest);
     EXPECT_TRUE(subscribeResultSecond);
 
@@ -2582,11 +2582,11 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeDataInfo_0400, Function | Medi
     MatchingSkills matchingSkillsThird;
     matchingSkillsThird.AddEvent(EVENTCASE4);
 
-    CommonEventSubscribeInfo subscriberInfoThird(matchingSkillsThird);
-    subscriberInfoThird.SetPriority(HIGHPRIORITY);
+    CommonEventSubscribeInfo subscribeInfoThird(matchingSkillsThird);
+    subscribeInfoThird.SetPriority(HIGHPRIORITY);
 
     std::shared_ptr<SubscriberThirdTest> subscriberThirdTest =
-        std::make_shared<SubscriberThirdTest>(subscriberInfoThird);
+        std::make_shared<SubscriberThirdTest>(subscribeInfoThird);
     bool subscribeResultThird = CommonEventManager::SubscribeCommonEvent(subscriberThirdTest);
     EXPECT_TRUE(subscribeResultThird);
 
@@ -2626,10 +2626,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeDataInfo_0500, Function | Medi
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENTCASE5);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
-    subscriberInfo.SetPriority(LOWPRIORITY);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
+    subscribeInfo.SetPriority(LOWPRIORITY);
 
-    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscriberInfo);
+    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscribeInfo);
     bool subscribeFirstResult = CommonEventManager::SubscribeCommonEvent(subscriberFirstTest);
     EXPECT_TRUE(subscribeFirstResult);
 
@@ -2637,11 +2637,11 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeDataInfo_0500, Function | Medi
     MatchingSkills matchingSkillsSecond;
     matchingSkillsSecond.AddEvent(EVENTCASE5);
 
-    CommonEventSubscribeInfo subscriberInfoSecond(matchingSkillsSecond);
-    subscriberInfoSecond.SetPriority(MIDPRIORITY);
+    CommonEventSubscribeInfo subscribeInfoSecond(matchingSkillsSecond);
+    subscribeInfoSecond.SetPriority(MIDPRIORITY);
 
     std::shared_ptr<SubscriberSecondTest> subscriberSecondTest =
-        std::make_shared<SubscriberSecondTest>(subscriberInfoSecond);
+        std::make_shared<SubscriberSecondTest>(subscribeInfoSecond);
     bool subscribeResultSecond = CommonEventManager::SubscribeCommonEvent(subscriberSecondTest);
     EXPECT_TRUE(subscribeResultSecond);
 
@@ -2649,11 +2649,11 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeDataInfo_0500, Function | Medi
     MatchingSkills matchingSkillsThird;
     matchingSkillsThird.AddEvent(EVENTCASE5);
 
-    CommonEventSubscribeInfo subscriberInfoThird(matchingSkillsThird);
-    subscriberInfoThird.SetPriority(HIGHPRIORITY);
+    CommonEventSubscribeInfo subscribeInfoThird(matchingSkillsThird);
+    subscribeInfoThird.SetPriority(HIGHPRIORITY);
 
     std::shared_ptr<SubscriberThirdTest> subscriberThirdTest =
-        std::make_shared<SubscriberThirdTest>(subscriberInfoThird);
+        std::make_shared<SubscriberThirdTest>(subscribeInfoThird);
     bool subscribeResultThird = CommonEventManager::SubscribeCommonEvent(subscriberThirdTest);
     EXPECT_TRUE(subscribeResultThird);
 
@@ -2693,9 +2693,9 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeDataInfo_0600, Function | Medi
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENTCASE6);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
-    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscriberInfo);
+    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscribeInfo);
     bool subscribeFirstResult = CommonEventManager::SubscribeCommonEvent(subscriberFirstTest);
     EXPECT_TRUE(subscribeFirstResult);
 
@@ -2703,10 +2703,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeDataInfo_0600, Function | Medi
     MatchingSkills matchingSkillsSecond;
     matchingSkillsSecond.AddEvent(EVENTCASE6);
 
-    CommonEventSubscribeInfo subscriberInfoSecond(matchingSkillsSecond);
+    CommonEventSubscribeInfo subscribeInfoSecond(matchingSkillsSecond);
 
     std::shared_ptr<SubscriberSecondTest> subscriberSecondTest =
-        std::make_shared<SubscriberSecondTest>(subscriberInfoSecond);
+        std::make_shared<SubscriberSecondTest>(subscribeInfoSecond);
     bool subscribeResultSecond = CommonEventManager::SubscribeCommonEvent(subscriberSecondTest);
     EXPECT_TRUE(subscribeResultSecond);
 
@@ -2714,10 +2714,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeDataInfo_0600, Function | Medi
     MatchingSkills matchingSkillsThird;
     matchingSkillsThird.AddEvent(EVENTCASE6);
 
-    CommonEventSubscribeInfo subscriberInfoThird(matchingSkillsThird);
+    CommonEventSubscribeInfo subscribeInfoThird(matchingSkillsThird);
 
     std::shared_ptr<SubscriberThirdTest> subscriberThirdTest =
-        std::make_shared<SubscriberThirdTest>(subscriberInfoThird);
+        std::make_shared<SubscriberThirdTest>(subscribeInfoThird);
     bool subscribeResultThird = CommonEventManager::SubscribeCommonEvent(subscriberThirdTest);
     EXPECT_TRUE(subscribeResultThird);
 
@@ -2757,10 +2757,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeDataInfo_0700, Function | Medi
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENTCASE7);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
-    subscriberInfo.SetPriority(LOWPRIORITY);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
+    subscribeInfo.SetPriority(LOWPRIORITY);
 
-    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscriberInfo);
+    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscribeInfo);
     bool subscribeFirstResult = CommonEventManager::SubscribeCommonEvent(subscriberFirstTest);
     EXPECT_TRUE(subscribeFirstResult);
 
@@ -2768,11 +2768,11 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeDataInfo_0700, Function | Medi
     MatchingSkills matchingSkillsSecond;
     matchingSkillsSecond.AddEvent(EVENTCASE7);
 
-    CommonEventSubscribeInfo subscriberInfoSecond(matchingSkillsSecond);
-    subscriberInfoSecond.SetPriority(MIDPRIORITY);
+    CommonEventSubscribeInfo subscribeInfoSecond(matchingSkillsSecond);
+    subscribeInfoSecond.SetPriority(MIDPRIORITY);
 
     std::shared_ptr<SubscriberSecondTest> subscriberSecondTest =
-        std::make_shared<SubscriberSecondTest>(subscriberInfoSecond);
+        std::make_shared<SubscriberSecondTest>(subscribeInfoSecond);
     bool subscribeResultSecond = CommonEventManager::SubscribeCommonEvent(subscriberSecondTest);
     EXPECT_TRUE(subscribeResultSecond);
 
@@ -2780,11 +2780,11 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventData_CodeDataInfo_0700, Function | Medi
     MatchingSkills matchingSkillsThird;
     matchingSkillsThird.AddEvent(EVENTCASE7);
 
-    CommonEventSubscribeInfo subscriberInfoThird(matchingSkillsThird);
-    subscriberInfoThird.SetPriority(HIGHPRIORITY);
+    CommonEventSubscribeInfo subscribeInfoThird(matchingSkillsThird);
+    subscribeInfoThird.SetPriority(HIGHPRIORITY);
 
     std::shared_ptr<SubscriberThirdTest> subscriberThirdTest =
-        std::make_shared<SubscriberThirdTest>(subscriberInfoThird);
+        std::make_shared<SubscriberThirdTest>(subscribeInfoThird);
     bool subscribeResultThird = CommonEventManager::SubscribeCommonEvent(subscriberThirdTest);
     EXPECT_TRUE(subscribeResultThird);
 
@@ -2913,9 +2913,9 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEventInfo_0100, Functi
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENTCASE8);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
-    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscriberInfo);
+    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscribeInfo);
     bool subscribeFirstResult = CommonEventManager::SubscribeCommonEvent(subscriberFirstTest);
     EXPECT_TRUE(subscribeFirstResult);
 
@@ -2923,10 +2923,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEventInfo_0100, Functi
     MatchingSkills matchingSkillsSecond;
     matchingSkillsSecond.AddEvent(EVENTCASE8);
 
-    CommonEventSubscribeInfo subscriberInfoSecond(matchingSkillsSecond);
+    CommonEventSubscribeInfo subscribeInfoSecond(matchingSkillsSecond);
 
     std::shared_ptr<SubscriberSecondTest> subscriberSecondTest =
-        std::make_shared<SubscriberSecondTest>(subscriberInfoSecond);
+        std::make_shared<SubscriberSecondTest>(subscribeInfoSecond);
     bool subscribeResultSecond = CommonEventManager::SubscribeCommonEvent(subscriberSecondTest);
     EXPECT_TRUE(subscribeResultSecond);
 
@@ -2934,10 +2934,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEventInfo_0100, Functi
     MatchingSkills matchingSkillsThird;
     matchingSkillsThird.AddEvent(EVENTCASE8);
 
-    CommonEventSubscribeInfo subscriberInfoThird(matchingSkillsThird);
+    CommonEventSubscribeInfo subscribeInfoThird(matchingSkillsThird);
 
     std::shared_ptr<SubscriberThirdTest> subscriberThirdTest =
-        std::make_shared<SubscriberThirdTest>(subscriberInfoThird);
+        std::make_shared<SubscriberThirdTest>(subscribeInfoThird);
     bool subscribeResultThird = CommonEventManager::SubscribeCommonEvent(subscriberThirdTest);
     EXPECT_TRUE(subscribeResultThird);
 
@@ -2971,9 +2971,9 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEventInfo_0200, Functi
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENTCASE9);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
-    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscriberInfo);
+    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscribeInfo);
     bool subscribeFirstResult = CommonEventManager::SubscribeCommonEvent(subscriberFirstTest);
     EXPECT_TRUE(subscribeFirstResult);
 
@@ -2981,10 +2981,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEventInfo_0200, Functi
     MatchingSkills matchingSkillsSecond;
     matchingSkillsSecond.AddEvent(EVENTCASE9);
 
-    CommonEventSubscribeInfo subscriberInfoSecond(matchingSkillsSecond);
+    CommonEventSubscribeInfo subscribeInfoSecond(matchingSkillsSecond);
 
     std::shared_ptr<SubscriberSecondTest> subscriberSecondTest =
-        std::make_shared<SubscriberSecondTest>(subscriberInfoSecond);
+        std::make_shared<SubscriberSecondTest>(subscribeInfoSecond);
     bool subscribeResultSecond = CommonEventManager::SubscribeCommonEvent(subscriberSecondTest);
     EXPECT_TRUE(subscribeResultSecond);
 
@@ -2992,10 +2992,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEventInfo_0200, Functi
     MatchingSkills matchingSkillsThird;
     matchingSkillsThird.AddEvent(EVENTCASE9);
 
-    CommonEventSubscribeInfo subscriberInfoThird(matchingSkillsThird);
+    CommonEventSubscribeInfo subscribeInfoThird(matchingSkillsThird);
 
     std::shared_ptr<SubscriberThirdTest> subscriberThirdTest =
-        std::make_shared<SubscriberThirdTest>(subscriberInfoThird);
+        std::make_shared<SubscriberThirdTest>(subscribeInfoThird);
     bool subscribeResultThird = CommonEventManager::SubscribeCommonEvent(subscriberThirdTest);
     EXPECT_TRUE(subscribeResultThird);
 
@@ -3029,9 +3029,9 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEventInfo_0300, Functi
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENTCASE10);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
-    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscriberInfo);
+    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscribeInfo);
     bool subscribeFirstResult = CommonEventManager::SubscribeCommonEvent(subscriberFirstTest);
     EXPECT_TRUE(subscribeFirstResult);
 
@@ -3039,10 +3039,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEventInfo_0300, Functi
     MatchingSkills matchingSkillsSecond;
     matchingSkillsSecond.AddEvent(EVENTCASE10);
 
-    CommonEventSubscribeInfo subscriberInfoSecond(matchingSkillsSecond);
+    CommonEventSubscribeInfo subscribeInfoSecond(matchingSkillsSecond);
 
     std::shared_ptr<SubscriberSecondTest> subscriberSecondTest =
-        std::make_shared<SubscriberSecondTest>(subscriberInfoSecond);
+        std::make_shared<SubscriberSecondTest>(subscribeInfoSecond);
     bool subscribeResultSecond = CommonEventManager::SubscribeCommonEvent(subscriberSecondTest);
     EXPECT_TRUE(subscribeResultSecond);
 
@@ -3050,10 +3050,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEventInfo_0300, Functi
     MatchingSkills matchingSkillsThird;
     matchingSkillsThird.AddEvent(EVENTCASE10);
 
-    CommonEventSubscribeInfo subscriberInfoThird(matchingSkillsThird);
+    CommonEventSubscribeInfo subscribeInfoThird(matchingSkillsThird);
 
     std::shared_ptr<SubscriberThirdTest> subscriberThirdTest =
-        std::make_shared<SubscriberThirdTest>(subscriberInfoThird);
+        std::make_shared<SubscriberThirdTest>(subscribeInfoThird);
     bool subscribeResultThird = CommonEventManager::SubscribeCommonEvent(subscriberThirdTest);
     EXPECT_TRUE(subscribeResultThird);
 
@@ -3087,9 +3087,9 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEventInfo_0400, Functi
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENTCASE11);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
-    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscriberInfo);
+    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscribeInfo);
     bool subscribeFirstResult = CommonEventManager::SubscribeCommonEvent(subscriberFirstTest);
     EXPECT_TRUE(subscribeFirstResult);
 
@@ -3097,10 +3097,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEventInfo_0400, Functi
     MatchingSkills matchingSkillsSecond;
     matchingSkillsSecond.AddEvent(EVENTCASE11);
 
-    CommonEventSubscribeInfo subscriberInfoSecond(matchingSkillsSecond);
+    CommonEventSubscribeInfo subscribeInfoSecond(matchingSkillsSecond);
 
     std::shared_ptr<SubscriberSecondTest> subscriberSecondTest =
-        std::make_shared<SubscriberSecondTest>(subscriberInfoSecond);
+        std::make_shared<SubscriberSecondTest>(subscribeInfoSecond);
     bool subscribeResultSecond = CommonEventManager::SubscribeCommonEvent(subscriberSecondTest);
     EXPECT_TRUE(subscribeResultSecond);
 
@@ -3108,10 +3108,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEventInfo_0400, Functi
     MatchingSkills matchingSkillsThird;
     matchingSkillsThird.AddEvent(EVENTCASE11);
 
-    CommonEventSubscribeInfo subscriberInfoThird(matchingSkillsThird);
+    CommonEventSubscribeInfo subscribeInfoThird(matchingSkillsThird);
 
     std::shared_ptr<SubscriberThirdTest> subscriberThirdTest =
-        std::make_shared<SubscriberThirdTest>(subscriberInfoThird);
+        std::make_shared<SubscriberThirdTest>(subscribeInfoThird);
     bool subscribeResultThird = CommonEventManager::SubscribeCommonEvent(subscriberThirdTest);
     EXPECT_TRUE(subscribeResultThird);
 
@@ -3145,9 +3145,9 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEventInfo_0500, Functi
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENTCASE12);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
-    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscriberInfo);
+    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscribeInfo);
     bool subscribeFirstResult = CommonEventManager::SubscribeCommonEvent(subscriberFirstTest);
     EXPECT_TRUE(subscribeFirstResult);
 
@@ -3155,10 +3155,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEventInfo_0500, Functi
     MatchingSkills matchingSkillsSecond;
     matchingSkillsSecond.AddEvent(EVENTCASE12);
 
-    CommonEventSubscribeInfo subscriberInfoSecond(matchingSkillsSecond);
+    CommonEventSubscribeInfo subscribeInfoSecond(matchingSkillsSecond);
 
     std::shared_ptr<SubscriberSecondTest> subscriberSecondTest =
-        std::make_shared<SubscriberSecondTest>(subscriberInfoSecond);
+        std::make_shared<SubscriberSecondTest>(subscribeInfoSecond);
     bool subscribeResultSecond = CommonEventManager::SubscribeCommonEvent(subscriberSecondTest);
     EXPECT_TRUE(subscribeResultSecond);
 
@@ -3166,10 +3166,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CommonEventInfo_0500, Functi
     MatchingSkills matchingSkillsThird;
     matchingSkillsThird.AddEvent(EVENTCASE12);
 
-    CommonEventSubscribeInfo subscriberInfoThird(matchingSkillsThird);
+    CommonEventSubscribeInfo subscribeInfoThird(matchingSkillsThird);
 
     std::shared_ptr<SubscriberThirdTest> subscriberThirdTest =
-        std::make_shared<SubscriberThirdTest>(subscriberInfoThird);
+        std::make_shared<SubscriberThirdTest>(subscribeInfoThird);
     bool subscribeResultThird = CommonEventManager::SubscribeCommonEvent(subscriberThirdTest);
     EXPECT_TRUE(subscribeResultThird);
 
@@ -3203,9 +3203,9 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CodeDataAsyncInfo_0100, Func
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENTCASE19);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
-    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscriberInfo);
+    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscribeInfo);
     bool subscribeFirstResult = CommonEventManager::SubscribeCommonEvent(subscriberFirstTest);
     EXPECT_TRUE(subscribeFirstResult);
 
@@ -3213,10 +3213,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CodeDataAsyncInfo_0100, Func
     MatchingSkills matchingSkillsSecond;
     matchingSkillsSecond.AddEvent(EVENTCASE19);
 
-    CommonEventSubscribeInfo subscriberInfoSecond(matchingSkillsSecond);
+    CommonEventSubscribeInfo subscribeInfoSecond(matchingSkillsSecond);
 
     std::shared_ptr<SubscriberSecondTest> subscriberSecondTest =
-        std::make_shared<SubscriberSecondTest>(subscriberInfoSecond);
+        std::make_shared<SubscriberSecondTest>(subscribeInfoSecond);
     bool subscribeResultSecond = CommonEventManager::SubscribeCommonEvent(subscriberSecondTest);
     EXPECT_TRUE(subscribeResultSecond);
 
@@ -3224,10 +3224,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CodeDataAsyncInfo_0100, Func
     MatchingSkills matchingSkillsThird;
     matchingSkillsThird.AddEvent(EVENTCASE19);
 
-    CommonEventSubscribeInfo subscriberInfoThird(matchingSkillsThird);
+    CommonEventSubscribeInfo subscribeInfoThird(matchingSkillsThird);
 
     std::shared_ptr<SubscriberThirdTest> subscriberThirdTest =
-        std::make_shared<SubscriberThirdTest>(subscriberInfoThird);
+        std::make_shared<SubscriberThirdTest>(subscribeInfoThird);
     bool subscribeResultThird = CommonEventManager::SubscribeCommonEvent(subscriberThirdTest);
     EXPECT_TRUE(subscribeResultThird);
 
@@ -3261,9 +3261,9 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CodeDataAsyncInfo_0200, Func
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENTCASE20);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
-    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscriberInfo);
+    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscribeInfo);
     bool subscribeFirstResult = CommonEventManager::SubscribeCommonEvent(subscriberFirstTest);
     EXPECT_TRUE(subscribeFirstResult);
 
@@ -3271,10 +3271,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CodeDataAsyncInfo_0200, Func
     MatchingSkills matchingSkillsSecond;
     matchingSkillsSecond.AddEvent(EVENTCASE20);
 
-    CommonEventSubscribeInfo subscriberInfoSecond(matchingSkillsSecond);
+    CommonEventSubscribeInfo subscribeInfoSecond(matchingSkillsSecond);
 
     std::shared_ptr<SubscriberSecondTest> subscriberSecondTest =
-        std::make_shared<SubscriberSecondTest>(subscriberInfoSecond);
+        std::make_shared<SubscriberSecondTest>(subscribeInfoSecond);
     bool subscribeResultSecond = CommonEventManager::SubscribeCommonEvent(subscriberSecondTest);
     EXPECT_TRUE(subscribeResultSecond);
 
@@ -3282,10 +3282,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CodeDataAsyncInfo_0200, Func
     MatchingSkills matchingSkillsThird;
     matchingSkillsThird.AddEvent(EVENTCASE20);
 
-    CommonEventSubscribeInfo subscriberInfoThird(matchingSkillsThird);
+    CommonEventSubscribeInfo subscribeInfoThird(matchingSkillsThird);
 
     std::shared_ptr<SubscriberThirdTest> subscriberThirdTest =
-        std::make_shared<SubscriberThirdTest>(subscriberInfoThird);
+        std::make_shared<SubscriberThirdTest>(subscribeInfoThird);
     bool subscribeResultThird = CommonEventManager::SubscribeCommonEvent(subscriberThirdTest);
     EXPECT_TRUE(subscribeResultThird);
 
@@ -3319,9 +3319,9 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CodeDataAsyncInfo_0300, Func
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENTCASE21);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
-    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscriberInfo);
+    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscribeInfo);
     bool subscribeFirstResult = CommonEventManager::SubscribeCommonEvent(subscriberFirstTest);
     EXPECT_TRUE(subscribeFirstResult);
 
@@ -3329,10 +3329,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CodeDataAsyncInfo_0300, Func
     MatchingSkills matchingSkillsSecond;
     matchingSkillsSecond.AddEvent(EVENTCASE21);
 
-    CommonEventSubscribeInfo subscriberInfoSecond(matchingSkillsSecond);
+    CommonEventSubscribeInfo subscribeInfoSecond(matchingSkillsSecond);
 
     std::shared_ptr<SubscriberSecondTest> subscriberSecondTest =
-        std::make_shared<SubscriberSecondTest>(subscriberInfoSecond);
+        std::make_shared<SubscriberSecondTest>(subscribeInfoSecond);
     bool subscribeResultSecond = CommonEventManager::SubscribeCommonEvent(subscriberSecondTest);
     EXPECT_TRUE(subscribeResultSecond);
 
@@ -3340,10 +3340,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CodeDataAsyncInfo_0300, Func
     MatchingSkills matchingSkillsThird;
     matchingSkillsThird.AddEvent(EVENTCASE21);
 
-    CommonEventSubscribeInfo subscriberInfoThird(matchingSkillsThird);
+    CommonEventSubscribeInfo subscribeInfoThird(matchingSkillsThird);
 
     std::shared_ptr<SubscriberThirdTest> subscriberThirdTest =
-        std::make_shared<SubscriberThirdTest>(subscriberInfoThird);
+        std::make_shared<SubscriberThirdTest>(subscribeInfoThird);
     bool subscribeResultThird = CommonEventManager::SubscribeCommonEvent(subscriberThirdTest);
     EXPECT_TRUE(subscribeResultThird);
 
@@ -3377,9 +3377,9 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CodeDataAsyncInfo_0400, Func
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENTCASE22);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
-    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscriberInfo);
+    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscribeInfo);
     bool subscribeFirstResult = CommonEventManager::SubscribeCommonEvent(subscriberFirstTest);
     EXPECT_TRUE(subscribeFirstResult);
 
@@ -3387,10 +3387,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CodeDataAsyncInfo_0400, Func
     MatchingSkills matchingSkillsSecond;
     matchingSkillsSecond.AddEvent(EVENTCASE22);
 
-    CommonEventSubscribeInfo subscriberInfoSecond(matchingSkillsSecond);
+    CommonEventSubscribeInfo subscribeInfoSecond(matchingSkillsSecond);
 
     std::shared_ptr<SubscriberSecondTest> subscriberSecondTest =
-        std::make_shared<SubscriberSecondTest>(subscriberInfoSecond);
+        std::make_shared<SubscriberSecondTest>(subscribeInfoSecond);
     bool subscribeResultSecond = CommonEventManager::SubscribeCommonEvent(subscriberSecondTest);
     EXPECT_TRUE(subscribeResultSecond);
 
@@ -3398,10 +3398,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CodeDataAsyncInfo_0400, Func
     MatchingSkills matchingSkillsThird;
     matchingSkillsThird.AddEvent(EVENTCASE22);
 
-    CommonEventSubscribeInfo subscriberInfoThird(matchingSkillsThird);
+    CommonEventSubscribeInfo subscribeInfoThird(matchingSkillsThird);
 
     std::shared_ptr<SubscriberThirdTest> subscriberThirdTest =
-        std::make_shared<SubscriberThirdTest>(subscriberInfoThird);
+        std::make_shared<SubscriberThirdTest>(subscribeInfoThird);
     bool subscribeResultThird = CommonEventManager::SubscribeCommonEvent(subscriberThirdTest);
     EXPECT_TRUE(subscribeResultThird);
 
@@ -3435,9 +3435,9 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CodeDataAsyncInfo_0500, Func
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(EVENTCASE23);
 
-    CommonEventSubscribeInfo subscriberInfo(matchingSkills);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
-    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscriberInfo);
+    std::shared_ptr<SubscriberFirstTest> subscriberFirstTest = std::make_shared<SubscriberFirstTest>(subscribeInfo);
     bool subscribeFirstResult = CommonEventManager::SubscribeCommonEvent(subscriberFirstTest);
     EXPECT_TRUE(subscribeFirstResult);
 
@@ -3445,10 +3445,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CodeDataAsyncInfo_0500, Func
     MatchingSkills matchingSkillsSecond;
     matchingSkillsSecond.AddEvent(EVENTCASE23);
 
-    CommonEventSubscribeInfo subscriberInfoSecond(matchingSkillsSecond);
+    CommonEventSubscribeInfo subscribeInfoSecond(matchingSkillsSecond);
 
     std::shared_ptr<SubscriberSecondTest> subscriberSecondTest =
-        std::make_shared<SubscriberSecondTest>(subscriberInfoSecond);
+        std::make_shared<SubscriberSecondTest>(subscribeInfoSecond);
     bool subscribeResultSecond = CommonEventManager::SubscribeCommonEvent(subscriberSecondTest);
     EXPECT_TRUE(subscribeResultSecond);
 
@@ -3456,10 +3456,10 @@ HWTEST_F(ActsCESDateTest, CES_CommonEventSubscriber_CodeDataAsyncInfo_0500, Func
     MatchingSkills matchingSkillsThird;
     matchingSkillsThird.AddEvent(EVENTCASE23);
 
-    CommonEventSubscribeInfo subscriberInfoThird(matchingSkillsThird);
+    CommonEventSubscribeInfo subscribeInfoThird(matchingSkillsThird);
 
     std::shared_ptr<SubscriberThirdTest> subscriberThirdTest =
-        std::make_shared<SubscriberThirdTest>(subscriberInfoThird);
+        std::make_shared<SubscriberThirdTest>(subscribeInfoThird);
     bool subscribeResultThird = CommonEventManager::SubscribeCommonEvent(subscriberThirdTest);
     EXPECT_TRUE(subscribeResultThird);
 
