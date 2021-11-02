@@ -18,12 +18,11 @@
 #include "bundle_manager_helper.h"
 #undef private
 #undef protected
+
 #include "common_event.h"
 #include "common_event_support.h"
 #include "inner_common_event_manager.h"
-#include "iservice_registry.h"
 #include "mock_bundle_manager.h"
-#include "system_ability_definition.h"
 
 #include <gtest/gtest.h>
 
@@ -55,20 +54,8 @@ public:
 void CommonEventPublishSystemEventTest::SetUpTestCase(void)
 {
     bundleObject = new OHOS::AppExecFwk::MockBundleMgrService();
-    
     OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->sptrBundleMgr_ =
-    OHOS::iface_cast<OHOS::AppExecFwk::IBundleMgr>(bundleObject);
-
-    OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->bmsDeath_ = new BMSDeathRecipient();
-    if (!OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->bmsDeath_) {
-        GTEST_LOG_(INFO) << "Failed to create death Recipient ptr BMSDeathRecipient";
-        return;
-    }
-    if (!OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->sptrBundleMgr_->AsObject()->AddDeathRecipient(
-        OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->bmsDeath_)) {
-        GTEST_LOG_(INFO) << "Failed to add death recipient";
-        return;
-    }
+        OHOS::iface_cast<OHOS::AppExecFwk::IBundleMgr>(bundleObject);
 }
 
 void CommonEventPublishSystemEventTest::TearDownTestCase(void)

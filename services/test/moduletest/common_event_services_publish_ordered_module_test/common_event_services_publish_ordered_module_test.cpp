@@ -27,16 +27,9 @@
 #undef private
 #undef protected
 #include "common_event_manager.h"
-#include "event_log_wrapper.h"
 #include "datetime_ex.h"
-#include "iremote_object.h"
-#include "message_parcel.h"
 #include "mock_bundle_manager.h"
-#include "sa_mgr_client.h"
 #include "singleton.h"
-#include "system_ability_definition.h"
-#include "system_ability_helper.h"
-#include "system_ability.h"
 #include "want.h"
 
 #include <gtest/gtest.h>
@@ -394,18 +387,6 @@ void CesPublishOrderedEventModuleTest::SetUpTestCase(void)
     p_bundleObject = new OHOS::AppExecFwk::MockBundleMgrService();
     OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->sptrBundleMgr_ =
         OHOS::iface_cast<OHOS::AppExecFwk::IBundleMgr>(p_bundleObject);
-
-    OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->bmsDeath_ = new BMSDeathRecipient();
-    
-    if (!OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->bmsDeath_) {
-        EVENT_LOGE("Failed to create death Recipient ptr BMSDeathRecipient");
-        return;
-    }
-    if (!OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->sptrBundleMgr_->AsObject()->AddDeathRecipient(
-        OHOS::DelayedSingleton<BundleManagerHelper>::GetInstance()->bmsDeath_)) {
-        EVENT_LOGE("Failed to add death recipient");
-        return;
-    }
     OHOS::DelayedSingleton<CommonEventManagerService>::GetInstance()->OnStart();
 }
 
