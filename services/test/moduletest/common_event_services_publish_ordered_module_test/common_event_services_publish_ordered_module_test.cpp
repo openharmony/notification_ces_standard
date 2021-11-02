@@ -91,7 +91,8 @@ public:
 
 class Subscriber : public CommonEventSubscriber {
 public:
-    explicit Subscriber(const CommonEventSubscribeInfo &subscribeInfo) : CommonEventSubscriber(subscribeInfo){};
+    explicit Subscriber(const CommonEventSubscribeInfo &subscribeInfo) : CommonEventSubscriber(subscribeInfo)
+    {}
 
     ~Subscriber()
     {}
@@ -116,7 +117,8 @@ public:
 
 class SubscriberTest : public CommonEventSubscriber {
 public:
-    explicit SubscriberTest(const CommonEventSubscribeInfo &subscribeInfo) : CommonEventSubscriber(subscribeInfo){};
+    explicit SubscriberTest(const CommonEventSubscribeInfo &subscribeInfo) : CommonEventSubscriber(subscribeInfo)
+    {}
 
     ~SubscriberTest()
     {}
@@ -258,7 +260,8 @@ private:
 class SubscriberAnotherTest : public CommonEventSubscriber {
 public:
     explicit SubscriberAnotherTest(const CommonEventSubscribeInfo &subscribeInfo)
-        : CommonEventSubscriber(subscribeInfo){};
+        : CommonEventSubscriber(subscribeInfo)
+    {}
 
     ~SubscriberAnotherTest()
     {}

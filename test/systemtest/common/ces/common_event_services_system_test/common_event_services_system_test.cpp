@@ -57,8 +57,8 @@ const int32_t PRIORITY_LOW = 20;
 
 class CommonEventServicesSystemTest : public CommonEventSubscriber {
 public:
-    CommonEventServicesSystemTest(const CommonEventSubscribeInfo &subscribeInfo);
-    virtual ~CommonEventServicesSystemTest(){};
+    explicit CommonEventServicesSystemTest(const CommonEventSubscribeInfo &subscribeInfo);
+    virtual ~CommonEventServicesSystemTest() {};
     virtual void OnReceiveEvent(const CommonEventData &data);
 };
 
@@ -77,8 +77,8 @@ void CommonEventServicesSystemTest::OnReceiveEvent(const CommonEventData &data)
 
 class CommonEventServicesSystemTestSubscriber : public CommonEventSubscriber {
 public:
-    CommonEventServicesSystemTestSubscriber(const CommonEventSubscribeInfo &subscribeInfo);
-    virtual ~CommonEventServicesSystemTestSubscriber(){};
+    explicit CommonEventServicesSystemTestSubscriber(const CommonEventSubscribeInfo &subscribeInfo);
+    virtual ~CommonEventServicesSystemTestSubscriber() {};
     virtual void OnReceiveEvent(const CommonEventData &data);
 };
 
@@ -100,8 +100,8 @@ void CommonEventServicesSystemTestSubscriber::OnReceiveEvent(const CommonEventDa
 
 class CESPublishOrderTimeOutOne : public CommonEventSubscriber {
 public:
-    CESPublishOrderTimeOutOne(const CommonEventSubscribeInfo &subscribeInfo);
-    virtual ~CESPublishOrderTimeOutOne(){};
+    explicit CESPublishOrderTimeOutOne(const CommonEventSubscribeInfo &subscribeInfo);
+    virtual ~CESPublishOrderTimeOutOne() {};
     virtual void OnReceiveEvent(const CommonEventData &data);
 };
 
@@ -116,8 +116,8 @@ void CESPublishOrderTimeOutOne::OnReceiveEvent(const CommonEventData &data)
 
 class CESPublishOrderTimeOutTwo : public CommonEventSubscriber {
 public:
-    CESPublishOrderTimeOutTwo(const CommonEventSubscribeInfo &subscribeInfo);
-    virtual ~CESPublishOrderTimeOutTwo(){};
+    explicit CESPublishOrderTimeOutTwo(const CommonEventSubscribeInfo &subscribeInfo);
+    virtual ~CESPublishOrderTimeOutTwo() {};
     virtual void OnReceiveEvent(const CommonEventData &data);
 };
 

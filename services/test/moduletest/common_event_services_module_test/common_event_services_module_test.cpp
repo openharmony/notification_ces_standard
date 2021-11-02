@@ -45,8 +45,8 @@ std::shared_ptr<EventHandler> handlerPtr;
 
 class CommonEventServicesModuleTest : public CommonEventSubscriber {
 public:
-    CommonEventServicesModuleTest(const CommonEventSubscribeInfo &subscribeInfo);
-    virtual ~CommonEventServicesModuleTest(){};
+    explicit CommonEventServicesModuleTest(const CommonEventSubscribeInfo &subscribeInfo);
+    virtual ~CommonEventServicesModuleTest() {};
     virtual void OnReceiveEvent(const CommonEventData &data);
 
 public:
