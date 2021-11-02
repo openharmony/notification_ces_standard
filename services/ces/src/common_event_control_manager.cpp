@@ -320,9 +320,9 @@ void CommonEventControlManager::EnqueueHistoryEventRecord(const std::shared_ptr<
         HistorySubscriberRecord receiver;
         receiver.recordTime = vec->recordTime;
         receiver.bundleName = vec->bundleName;
-        receiver.priority = vec->eventSubscriberInfo->GetPriority();
-        receiver.permission = vec->eventSubscriberInfo->GetPermission();
-        receiver.deviceId = vec->eventSubscriberInfo->GetDeviceId();
+        receiver.priority = vec->eventSubscribeInfo->GetPriority();
+        receiver.permission = vec->eventSubscribeInfo->GetPermission();
+        receiver.deviceId = vec->eventSubscribeInfo->GetDeviceId();
         receiver.isFreeze = vec->isFreeze;
         receiver.freezeTime = vec->freezeTime;
         record.receivers.emplace_back(receiver);
@@ -651,7 +651,7 @@ int CommonEventControlManager::CheckPermission(
 
     bool skip = false;
     bool ret = false;
-    std::string subscriberRequiredPermission = subscriberRecord.eventSubscriberInfo->GetPermission();
+    std::string subscriberRequiredPermission = subscriberRecord.eventSubscribeInfo->GetPermission();
     std::vector<std::string> publisherRequiredPermissions = eventRecord.publishInfo->GetSubscriberPermissions();
 
     Permission per = DelayedSingleton<CommonEventPermissionManager>::GetInstance()->GetEventPermission(

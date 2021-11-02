@@ -31,13 +31,13 @@ namespace EventFwk {
 
 class ActsCommonEventServicesSystemTest : public CommonEventSubscriber {
 public:
-    explicit ActsCommonEventServicesSystemTest(const CommonEventSubscribeInfo &subscriberInfo);
+    explicit ActsCommonEventServicesSystemTest(const CommonEventSubscribeInfo &subscribeInfo);
     virtual ~ActsCommonEventServicesSystemTest(){};
     virtual void OnReceiveEvent(const CommonEventData &data);
 };
 
-ActsCommonEventServicesSystemTest::ActsCommonEventServicesSystemTest(const CommonEventSubscribeInfo &subscriberInfo)
-    : CommonEventSubscriber(subscriberInfo)
+ActsCommonEventServicesSystemTest::ActsCommonEventServicesSystemTest(const CommonEventSubscribeInfo &subscribeInfo)
+    : CommonEventSubscriber(subscribeInfo)
 {}
 
 void ActsCommonEventServicesSystemTest::OnReceiveEvent(const CommonEventData &data)

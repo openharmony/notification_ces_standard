@@ -272,7 +272,7 @@ HWTEST_F(CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermission
     std::shared_ptr<CommonEventSubscribeInfo> commonEventSubscribeInfoSptr =
         std::make_shared<CommonEventSubscribeInfo>(commonEventSubscribeInfo);
     EventSubscriberRecord eventSubRecord;
-    eventSubRecord.eventSubscriberInfo = commonEventSubscribeInfoSptr;
+    eventSubRecord.eventSubscribeInfo = commonEventSubscribeInfoSptr;
     eventSubRecord.bundleName = "hello";
 
     CommonEventPublishInfo commonEventPublishInfo;
@@ -313,7 +313,7 @@ HWTEST_F(CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermission
     std::shared_ptr<CommonEventSubscribeInfo> commonEventSubscribeInfoSptr =
         std::make_shared<CommonEventSubscribeInfo>(commonEventSubscribeInfo);
     EventSubscriberRecord eventSubRecord;
-    eventSubRecord.eventSubscriberInfo = commonEventSubscribeInfoSptr;
+    eventSubRecord.eventSubscribeInfo = commonEventSubscribeInfoSptr;
     eventSubRecord.bundleName = "hello";
 
     CommonEventPublishInfo commonEventPublishInfo;
@@ -354,7 +354,7 @@ HWTEST_F(CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermission
     std::shared_ptr<CommonEventSubscribeInfo> commonEventSubscribeInfoSptr =
         std::make_shared<CommonEventSubscribeInfo>(commonEventSubscribeInfo);
     EventSubscriberRecord eventSubRecord;
-    eventSubRecord.eventSubscriberInfo = commonEventSubscribeInfoSptr;
+    eventSubRecord.eventSubscribeInfo = commonEventSubscribeInfoSptr;
 
     CommonEventPublishInfo commonEventPublishInfo;
     commonEventPublishInfo.SetSubscriberPermissions(std::vector<std::string>());
@@ -393,7 +393,7 @@ HWTEST_F(CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermission
     std::shared_ptr<CommonEventSubscribeInfo> commonEventSubscribeInfoSptr =
         std::make_shared<CommonEventSubscribeInfo>(commonEventSubscribeInfo);
     EventSubscriberRecord eventSubRecord;
-    eventSubRecord.eventSubscriberInfo = commonEventSubscribeInfoSptr;
+    eventSubRecord.eventSubscribeInfo = commonEventSubscribeInfoSptr;
     eventSubRecord.bundleName = "hello";
 
     CommonEventPublishInfo commonEventPublishInfo;
@@ -433,7 +433,7 @@ HWTEST_F(CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermission
     std::shared_ptr<CommonEventSubscribeInfo> commonEventSubscribeInfoSptr =
         std::make_shared<CommonEventSubscribeInfo>(commonEventSubscribeInfo);
     EventSubscriberRecord eventSubRecord;
-    eventSubRecord.eventSubscriberInfo = commonEventSubscribeInfoSptr;
+    eventSubRecord.eventSubscribeInfo = commonEventSubscribeInfoSptr;
     eventSubRecord.bundleName = "hello world";
 
     CommonEventPublishInfo commonEventPublishInfo;
@@ -473,7 +473,7 @@ HWTEST_F(CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermission
     std::shared_ptr<CommonEventSubscribeInfo> commonEventSubscribeInfoSptr =
         std::make_shared<CommonEventSubscribeInfo>(commonEventSubscribeInfo);
     EventSubscriberRecord eventSubRecord;
-    eventSubRecord.eventSubscriberInfo = commonEventSubscribeInfoSptr;
+    eventSubRecord.eventSubscribeInfo = commonEventSubscribeInfoSptr;
     eventSubRecord.bundleName = "hello";
 
     CommonEventPublishInfo commonEventPublishInfo;
@@ -515,7 +515,7 @@ HWTEST_F(CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermission
     std::shared_ptr<CommonEventSubscribeInfo> commonEventSubscribeInfoSptr =
         std::make_shared<CommonEventSubscribeInfo>(commonEventSubscribeInfo);
     EventSubscriberRecord eventSubRecord;
-    eventSubRecord.eventSubscriberInfo = commonEventSubscribeInfoSptr;
+    eventSubRecord.eventSubscribeInfo = commonEventSubscribeInfoSptr;
     eventSubRecord.bundleName = "hello world";
 
     CommonEventPublishInfo commonEventPublishInfo;
@@ -557,7 +557,7 @@ HWTEST_F(CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermission
     std::shared_ptr<CommonEventSubscribeInfo> commonEventSubscribeInfoSptr =
         std::make_shared<CommonEventSubscribeInfo>(commonEventSubscribeInfo);
     EventSubscriberRecord eventSubRecord;
-    eventSubRecord.eventSubscriberInfo = commonEventSubscribeInfoSptr;
+    eventSubRecord.eventSubscribeInfo = commonEventSubscribeInfoSptr;
     eventSubRecord.bundleName = "hello";
 
     CommonEventPublishInfo commonEventPublishInfo;
@@ -599,7 +599,7 @@ HWTEST_F(CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermission
     std::shared_ptr<CommonEventSubscribeInfo> commonEventSubscribeInfoSptr =
         std::make_shared<CommonEventSubscribeInfo>(commonEventSubscribeInfo);
     EventSubscriberRecord eventSubRecord;
-    eventSubRecord.eventSubscriberInfo = commonEventSubscribeInfoSptr;
+    eventSubRecord.eventSubscribeInfo = commonEventSubscribeInfoSptr;
     eventSubRecord.bundleName = "hello world";
 
     CommonEventPublishInfo commonEventPublishInfo;
@@ -689,7 +689,7 @@ HWTEST_F(CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermission
     std::shared_ptr<CommonEventSubscribeInfo> commonEventSubscribeInfoSptr =
         std::make_shared<CommonEventSubscribeInfo>(commonEventSubscribeInfo);
     EventSubscriberRecord eventSubRecord;
-    eventSubRecord.eventSubscriberInfo = commonEventSubscribeInfoSptr;
+    eventSubRecord.eventSubscribeInfo = commonEventSubscribeInfoSptr;
     eventSubRecord.bundleName = "hello";
 
     CommonEventPublishInfo commonEventPublishInfo;
@@ -729,7 +729,7 @@ HWTEST_F(CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermission
     std::shared_ptr<CommonEventSubscribeInfo> commonEventSubscribeInfoSptr =
         std::make_shared<CommonEventSubscribeInfo>(commonEventSubscribeInfo);
     EventSubscriberRecord eventSubRecord;
-    eventSubRecord.eventSubscriberInfo = commonEventSubscribeInfoSptr;
+    eventSubRecord.eventSubscribeInfo = commonEventSubscribeInfoSptr;
     eventSubRecord.bundleName = "hello";
 
     CommonEventPublishInfo commonEventPublishInfo;
@@ -769,7 +769,7 @@ HWTEST_F(CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermission
     std::shared_ptr<CommonEventSubscribeInfo> commonEventSubscribeInfoSptr =
         std::make_shared<CommonEventSubscribeInfo>(commonEventSubscribeInfo);
     EventSubscriberRecord eventSubRecord;
-    eventSubRecord.eventSubscriberInfo = commonEventSubscribeInfoSptr;
+    eventSubRecord.eventSubscribeInfo = commonEventSubscribeInfoSptr;
     eventSubRecord.bundleName = "hello";
 
     CommonEventPublishInfo commonEventPublishInfo;
@@ -809,7 +809,7 @@ HWTEST_F(CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermission
     std::shared_ptr<CommonEventSubscribeInfo> commonEventSubscribeInfoSptr =
         std::make_shared<CommonEventSubscribeInfo>(commonEventSubscribeInfo);
     EventSubscriberRecord eventSubRecord;
-    eventSubRecord.eventSubscriberInfo = commonEventSubscribeInfoSptr;
+    eventSubRecord.eventSubscribeInfo = commonEventSubscribeInfoSptr;
     eventSubRecord.bundleName = "hello";
 
     CommonEventPublishInfo commonEventPublishInfo;
@@ -849,7 +849,7 @@ HWTEST_F(CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermission
     std::shared_ptr<CommonEventSubscribeInfo> commonEventSubscribeInfoSptr =
         std::make_shared<CommonEventSubscribeInfo>(commonEventSubscribeInfo);
     EventSubscriberRecord eventSubRecord;
-    eventSubRecord.eventSubscriberInfo = commonEventSubscribeInfoSptr;
+    eventSubRecord.eventSubscribeInfo = commonEventSubscribeInfoSptr;
     eventSubRecord.bundleName = "hello";
 
     CommonEventPublishInfo commonEventPublishInfo;
@@ -889,7 +889,7 @@ HWTEST_F(CommonEventPublishPermissionEventUnitTest, CommonEventPublishPermission
     std::shared_ptr<CommonEventSubscribeInfo> commonEventSubscribeInfoSptr =
         std::make_shared<CommonEventSubscribeInfo>(commonEventSubscribeInfo);
     EventSubscriberRecord eventSubRecord;
-    eventSubRecord.eventSubscriberInfo = commonEventSubscribeInfoSptr;
+    eventSubRecord.eventSubscribeInfo = commonEventSubscribeInfoSptr;
     eventSubRecord.bundleName = "hello";
 
     CommonEventPublishInfo commonEventPublishInfo;

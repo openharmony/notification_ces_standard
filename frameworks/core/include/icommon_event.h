@@ -33,7 +33,7 @@ public:
     virtual bool PublishCommonEvent(const CommonEventData &event, const CommonEventPublishInfo &publishinfo,
         const sptr<IRemoteObject> &commonEventListener, const uid_t &uid) = 0;
     virtual bool SubscribeCommonEvent(
-        const CommonEventSubscribeInfo &subscriberInfo, const sptr<IRemoteObject> &commonEventListener) = 0;
+        const CommonEventSubscribeInfo &subscribeInfo, const sptr<IRemoteObject> &commonEventListener) = 0;
     virtual bool UnsubscribeCommonEvent(const sptr<IRemoteObject> &commonEventListener) = 0;
     virtual bool GetStickyCommonEvent(const std::string &event, CommonEventData &eventData) = 0;
     virtual bool DumpState(const std::string &event, std::vector<std::string> &state) = 0;

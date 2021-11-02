@@ -32,7 +32,7 @@ public:
         const sptr<IRemoteObject> &commonEventListener) override;
 
     bool SubscribeCommonEvent(
-        const CommonEventSubscribeInfo &subscriberInfo, const sptr<IRemoteObject> &commonEventListener) override;
+        const CommonEventSubscribeInfo &subscribeInfo, const sptr<IRemoteObject> &commonEventListener) override;
 
     bool DumpState(const std::string &event, std::vector<std::string> &state) override;
 

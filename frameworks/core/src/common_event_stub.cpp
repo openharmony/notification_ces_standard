@@ -71,9 +71,9 @@ int CommonEventStub::OnRemoteRequest(uint32_t code, MessageParcel &data, Message
         }
 
         case static_cast<uint32_t>(ICommonEvent::Message::CES_SUBSCRIBE_COMMON_EVENT): {
-            std::unique_ptr<CommonEventSubscribeInfo> subscriberInfo(data.ReadParcelable<CommonEventSubscribeInfo>());
+            std::unique_ptr<CommonEventSubscribeInfo> subscribeInfo(data.ReadParcelable<CommonEventSubscribeInfo>());
             sptr<IRemoteObject> commonEventListener = data.ReadParcelable<IRemoteObject>();
-            if (!subscriberInfo) {
+            if (!subscribeInfo) {
                 EVENT_LOGE("Failed to ReadParcelable<CommonEventSubscribeInfo>");
                 return ERR_INVALID_VALUE;
             }
@@ -81,7 +81,7 @@ int CommonEventStub::OnRemoteRequest(uint32_t code, MessageParcel &data, Message
                 EVENT_LOGE("Failed to ReadParcelable<IRemoteObject>");
                 return ERR_INVALID_VALUE;
             }
-            bool ret = SubscribeCommonEvent(*subscriberInfo, commonEventListener);
+            bool ret = SubscribeCommonEvent(*subscribeInfo, commonEventListener);
             if (!reply.WriteBool(ret)) {
                 EVENT_LOGE("Failed to write reply");
                 return ERR_INVALID_VALUE;
@@ -191,7 +191,7 @@ bool CommonEventStub::PublishCommonEvent(const CommonEventData &event, const Com
 }
 
 bool CommonEventStub::SubscribeCommonEvent(
-    const CommonEventSubscribeInfo &subscriberInfo, const sptr<IRemoteObject> &commonEventListener)
+    const CommonEventSubscribeInfo &subscribeInfo, const sptr<IRemoteObject> &commonEventListener)
 {
     EVENT_LOGD("called");
 

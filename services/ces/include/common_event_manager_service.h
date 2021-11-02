@@ -41,7 +41,7 @@ public:
         const sptr<IRemoteObject> &commonEventListener, const uid_t &uid) override;
 
     virtual bool SubscribeCommonEvent(
-        const CommonEventSubscribeInfo &subscriberInfo, const sptr<IRemoteObject> &commonEventListener) override;
+        const CommonEventSubscribeInfo &subscribeInfo, const sptr<IRemoteObject> &commonEventListener) override;
 
     virtual bool UnsubscribeCommonEvent(const sptr<IRemoteObject> &commonEventListener) override;
 

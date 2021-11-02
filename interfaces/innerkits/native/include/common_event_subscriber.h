@@ -34,7 +34,7 @@ public:
      * A constructor used to create a CommonEventSubscriber instance with the
      * subscribeInfo parameter passed.
      *
-     * @param subscriberInfo the subscriberInfo
+     * @param subscribeInfo the subscribeInfo
      */
     explicit CommonEventSubscriber(const CommonEventSubscribeInfo &subscribeInfo);
 

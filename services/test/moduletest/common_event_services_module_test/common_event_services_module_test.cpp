@@ -45,14 +45,14 @@ std::shared_ptr<EventHandler> handlerPtr;
 
 class CommonEventServicesModuleTest : public CommonEventSubscriber {
 public:
-    CommonEventServicesModuleTest(const CommonEventSubscribeInfo &subscriberInfo);
+    CommonEventServicesModuleTest(const CommonEventSubscribeInfo &subscribeInfo);
     virtual ~CommonEventServicesModuleTest(){};
     virtual void OnReceiveEvent(const CommonEventData &data);
 
 public:
 };
-CommonEventServicesModuleTest::CommonEventServicesModuleTest(const CommonEventSubscribeInfo &subscriberInfo)
-    : CommonEventSubscriber(subscriberInfo)
+CommonEventServicesModuleTest::CommonEventServicesModuleTest(const CommonEventSubscribeInfo &subscribeInfo)
+    : CommonEventSubscriber(subscribeInfo)
 {}
 
 void CommonEventServicesModuleTest::OnReceiveEvent(const CommonEventData &data)

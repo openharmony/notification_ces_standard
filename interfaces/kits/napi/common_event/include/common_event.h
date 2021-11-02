@@ -190,7 +190,7 @@ struct AsyncCallbackInfoCreate {
     napi_async_work asyncWork;
     napi_ref callback = nullptr;
     napi_deferred deferred = nullptr;
-    napi_ref subscriberInfo = nullptr;
+    napi_ref subscribeInfo = nullptr;
     bool isCallback = false;
     napi_value result = nullptr;
 };
