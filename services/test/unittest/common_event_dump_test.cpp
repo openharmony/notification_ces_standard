@@ -14,6 +14,7 @@
  */
 
 #include <iostream>
+#include <gtest/gtest.h>
 
 #define private public
 #define protected public
@@ -24,10 +25,9 @@
 #undef private
 #undef protected
 
+#include "datetime_ex.h"
 #include "inner_common_event_manager.h"
 #include "mock_bundle_manager.h"
-#include "datetime_ex.h"
-#include <gtest/gtest.h>
 
 using namespace testing::ext;
 using namespace OHOS::EventFwk;
