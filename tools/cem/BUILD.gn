@@ -49,6 +49,11 @@ ohos_source_set("tools_cem_source_set") {
     cflags += [ "-DBINDER_IPC_32BIT" ]
   }
 
+  defines = [
+    "EVENT_LOG_TAG = \"CesFwk\"",
+    "LOG_DOMAIN = 0xD008800",
+  ]
+
   deps = [
     "${aafwk_path}/services/abilitymgr:abilityms",
     "${ces_common_path}:libevent_common",
