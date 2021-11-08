@@ -29,13 +29,12 @@ using namespace OHOS::EventFwk;
 namespace {
 const std::string STRING_EVENT = "com.ces.event";
 const std::string STRING_CODE = "1024";
+const std::string STRING_CODE_TWO = "2048";
 const std::string STRING_DATA = "data";
-const std::string STRING_KEY_BOOL = "keybool";
-const std::string STRING_PARAM_BOOL = "true";
-const std::string STRING_KEY_BYTE = "keybyte";
-const std::string STRING_PARAM_BYTE = "6";
-const std::string STRING_DEVICE_ID_001 = "device001";
-const std::string STRING_DEVICE_ID_002 = "device002";
+const std::string STRING_DATA_TWO = "data_two";
+const std::string STRING_DEVICE_ID_001 = "device_001";
+const std::string STRING_DEVICE_ID_002 = "device_002";
+const std::string STRING_DEVICE_ID_003 = "device_003";
 const time_t TIME_OUT_SECONDS_LIMIT = 5;
 std::mutex mtx;
 }  // namespace
@@ -72,26 +71,30 @@ public:
     ~CommonEventSubscriberTest()
     {}
 
-    void OnReceiveEvent(const CommonEventData &data)
+    void OnReceiveEvent(const CommonEventData &commonEventData)
     {
+        GTEST_LOG_(INFO) << "OnReceiveEvent";
+
         std::string deviceId = GetSubscribeInfo().GetDeviceId();
+        GTEST_LOG_(INFO) << "deviceId = " << deviceId;
+
+        int code = commonEventData.GetCode();
+        GTEST_LOG_(INFO) << "code = " << code;
+
+        std::string data = commonEventData.GetData();
+        GTEST_LOG_(INFO) << "data = " << data;
+
         if (deviceId == STRING_DEVICE_ID_001) {
-            if (atoi(STRING_CODE.c_str()) == data.GetCode() && STRING_DATA == data.GetData()) {
+            if (atoi(STRING_CODE.c_str()) == code && STRING_DATA == data) {
                 mtx.unlock();
             }
         } else if (deviceId == STRING_DEVICE_ID_002) {
-            Want want = data.GetWant();
-            bool boolParam = want.GetBoolParam(STRING_KEY_BOOL, false);
-            byte byteParam = want.GetByteParam(STRING_KEY_BYTE, false);
-
-            if (STRING_PARAM_BOOL == "true") {
-                if (boolParam == true && byteParam == STRING_PARAM_BYTE.at(0)) {
-                    mtx.unlock();
-                }
-            } else {
-                if (boolParam == false && byteParam == STRING_PARAM_BYTE.at(0)) {
-                    mtx.unlock();
-                }
+            if (atoi(STRING_CODE_TWO.c_str()) == code) {
+                mtx.unlock();
+            }
+        } else if (deviceId == STRING_DEVICE_ID_003) {
+            if (STRING_DATA_TWO == data) {
+                mtx.unlock();
             }
         } else {
             mtx.unlock();
@@ -112,7 +115,7 @@ HWTEST_F(CemCommandPublishSystemTest, Cem_Command_Publish_SystemTest_0100, Funct
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(STRING_EVENT);
 
-    // make subcriber info
+    // make subcribe info
     CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
     // make a subcriber object
@@ -169,7 +172,7 @@ HWTEST_F(CemCommandPublishSystemTest, Cem_Command_Publish_SystemTest_0200, Funct
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(STRING_EVENT);
 
-    // make subcriber info
+    // make subcribe info
     CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
     // set device id
@@ -219,7 +222,7 @@ HWTEST_F(CemCommandPublishSystemTest, Cem_Command_Publish_SystemTest_0200, Funct
 /**
  * @tc.number: Cem_Command_Publish_SystemTest_0300
  * @tc.name: ExecCommand
- * @tc.desc: Verify the "cem publish -e <name> --ebool <key> <value> --ebyte <key> <value>" command.
+ * @tc.desc: Verify the "cem publish -e <name> -c <code>" command.
  */
 HWTEST_F(CemCommandPublishSystemTest, Cem_Command_Publish_SystemTest_0300, Function | MediumTest | Level1)
 {
@@ -229,7 +232,7 @@ HWTEST_F(CemCommandPublishSystemTest, Cem_Command_Publish_SystemTest_0300, Funct
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(STRING_EVENT);
 
-    // make subcriber info
+    // make subcribe info
     CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
     // set device id
@@ -244,8 +247,67 @@ HWTEST_F(CemCommandPublishSystemTest, Cem_Command_Publish_SystemTest_0300, Funct
     mtx.lock();
 
     // publish a common event with code and data
-    std::string command = "cem publish -e " + STRING_EVENT + " --ebool " + STRING_KEY_BOOL + " " + STRING_PARAM_BOOL +
-                          " --ebyte " + STRING_KEY_BYTE + " " + STRING_PARAM_BYTE;
+    std::string command = "cem publish -e " + STRING_EVENT + " -c " + STRING_CODE_TWO;
+    std::string commandResult = ToolSystemTest::ExecuteCommand(command);
+
+    EXPECT_EQ(commandResult, STRING_PUBLISH_COMMON_EVENT_OK + "\n");
+
+    // record start time of publishing
+    struct tm startTime = {0};
+    EXPECT_EQ(OHOS::GetSystemCurrentTime(&startTime), true);
+
+    // record current time
+    struct tm doingTime = {0};
+    int64_t seconds = 0;
+
+    while (!mtx.try_lock()) {
+        // get current time and compare it with the start time
+        EXPECT_EQ(OHOS::GetSystemCurrentTime(&doingTime), true);
+        seconds = OHOS::GetSecondsBetween(startTime, doingTime);
+        if (seconds >= TIME_OUT_SECONDS_LIMIT) {
+            break;
+        }
+    }
+
+    // unsubscribe the common event
+    CommonEventManager::UnSubscribeCommonEvent(subscriberTestPtr);
+
+    // expect the subscriber could receive the event within 5 seconds.
+    EXPECT_LT(seconds, TIME_OUT_SECONDS_LIMIT);
+
+    // unlock the mutex
+    mtx.unlock();
+}
+
+/**
+ * @tc.number: Cem_Command_Publish_SystemTest_0400
+ * @tc.name: ExecCommand
+ * @tc.desc: Verify the "cem publish -e <name> -d <data>" command.
+ */
+HWTEST_F(CemCommandPublishSystemTest, Cem_Command_Publish_SystemTest_0400, Function | MediumTest | Level1)
+{
+    /* Subscribe */
+
+    // make matching skills
+    MatchingSkills matchingSkills;
+    matchingSkills.AddEvent(STRING_EVENT);
+
+    // make subcribe info
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
+
+    // set device id
+    subscribeInfo.SetDeviceId(STRING_DEVICE_ID_003);
+
+    // make a subcriber object
+    auto subscriberTestPtr = std::make_shared<CommonEventSubscriberTest>(subscribeInfo);
+    // subscribe a common event
+    CommonEventManager::SubscribeCommonEvent(subscriberTestPtr);
+
+    // lock the mutex
+    mtx.lock();
+
+    // publish a common event with code and data
+    std::string command = "cem publish -e " + STRING_EVENT + " -d " + STRING_DATA_TWO;
     std::string commandResult = ToolSystemTest::ExecuteCommand(command);
 
     EXPECT_EQ(commandResult, STRING_PUBLISH_COMMON_EVENT_OK + "\n");

@@ -334,7 +334,7 @@ HWTEST_F(CemCommandDumpTest, Cem_Command_Dump_1100, Function | MediumTest | Leve
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(STRING_EVENT);
 
-    // make subcriber info
+    // make subcribe info
     CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
     // make a subcriber object
@@ -417,7 +417,7 @@ HWTEST_F(CemCommandDumpTest, Cem_Command_Dump_1400, Function | MediumTest | Leve
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(STRING_EVENT);
 
-    // make subcriber info
+    // make subcribe info
     CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
     // make a subcriber object

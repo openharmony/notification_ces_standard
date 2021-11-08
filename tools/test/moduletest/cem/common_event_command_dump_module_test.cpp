@@ -130,7 +130,7 @@ HWTEST_F(CemCommandDumpModuleTest, Cem_Command_Dump_ModuleTest_0200, Function | 
     MatchingSkills matchingSkills;
     matchingSkills.AddEvent(STRING_EVENT);
 
-    // make subcriber info
+    // make subcribe info
     CommonEventSubscribeInfo subscribeInfo(matchingSkills);
 
     // make a subcriber object

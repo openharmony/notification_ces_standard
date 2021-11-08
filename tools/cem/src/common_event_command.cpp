@@ -35,21 +35,18 @@ const struct option LONG_OPTIONS[] = {
     {"ordered", no_argument, nullptr, 'o'},
     {"code", required_argument, nullptr, 'c'},
     {"data", required_argument, nullptr, 'd'},
-    {"ebool", required_argument, nullptr, 0},
-    {"ebyte", required_argument, nullptr, 0},
-    {"echar", required_argument, nullptr, 0},
-    {"eint", required_argument, nullptr, 0},
-    {"edouble", required_argument, nullptr, 0},
-    {"efloat", required_argument, nullptr, 0},
-    {"elong", required_argument, nullptr, 0},
-    {"eshort", required_argument, nullptr, 0},
-    {"estring", required_argument, nullptr, 0},
 };
 }  // namespace
 
 CommonEventManagerShellCommand::CommonEventManagerShellCommand(int argc, char *argv[])
     : ShellCommand(argc, argv, TOOL_NAME)
-{}
+{
+    EVENT_LOGI("enter");
+
+    for (int i = 0; i < argc_; i++) {
+        EVENT_LOGI("argv_[%{public}d]: %{public}s", i, argv_[i]);
+    }
+}
 
 ErrCode CommonEventManagerShellCommand::CreateCommandMap()
 {
@@ -110,33 +107,6 @@ ErrCode CommonEventManagerShellCommand::RunAsPublishCommand()
     std::string action = "";
     int code = 0;
     std::string data = "";
-
-    std::string boolKey = "";
-    bool boolParam = false;
-
-    std::string byteKey = "";
-    OHOS::AAFwk::byte byteParam = 0;
-
-    std::string charKey = "";
-    zchar charParam = 0;
-
-    std::string intKey = "";
-    int intParam = 0;
-
-    std::string doubleKey = "";
-    double doubleParam = 0;
-
-    std::string floatKey = "";
-    float floatParam = 0;
-
-    std::string longKey = "";
-    long longParam = 0;
-
-    std::string shortKey = "";
-    short shortParam = 0;
-
-    std::string stringKey = "";
-    std::string stringParam = "";
 
     while (true) {
         counter++;
@@ -205,24 +175,14 @@ ErrCode CommonEventManagerShellCommand::RunAsPublishCommand()
                     break;
                 }
                 case 0: {
-                    std::string longOption = argv_[optind - 1];
+                    // 'cem publish' with an unknown option: cem publish --x
+                    // 'cem publish' with an unknown option: cem publish --xxx
+                    std::string unknownOption = "";
+                    std::string unknownOptionMsg = GetUnknownOptionMsg(unknownOption);
 
-                    if (longOption == "--ebool" || longOption == "--ebyte" || longOption == "--echar" ||
-                        longOption == "--eint" || longOption == "--edouble" || longOption == "--efloat" ||
-                        longOption == "--elong" || longOption == "--eshort" || longOption == "--estring") {
-                        resultReceiver_.append("error: option ");
-                        resultReceiver_.append("requires a value at least.\n");
-                    } else {
-                        // 'cem publish' with an unknown option: cem publish --x
-                        // 'cem publish' with an unknown option: cem publish --xxx
-                        std::string unknownOption = "";
-                        std::string unknownOptionMsg = GetUnknownOptionMsg(unknownOption);
+                    EVENT_LOGI("'cem publish' with an unknown option.");
 
-                        EVENT_LOGI("'cem publish' with an unknown option.");
-
-                        resultReceiver_.append(unknownOptionMsg);
-                    }
-
+                    resultReceiver_.append(unknownOptionMsg);
                     result = OHOS::ERR_INVALID_VALUE;
                     break;
                 }
@@ -280,68 +240,6 @@ ErrCode CommonEventManagerShellCommand::RunAsPublishCommand()
                 break;
             }
             case 0: {
-                int optionIndex = optind - 2;
-
-                std::string optionString = argv_[optionIndex];
-
-                std::string optionKey = "";
-                if (argv_[optionIndex + 1]) {
-                    optionKey = argv_[optionIndex + 1];
-                }
-
-                std::string optionParam = "";
-                if (argv_[optionIndex + 2]) {
-                    optionParam = argv_[optionIndex + 2];
-                }
-
-                switch (optopt) {
-                    case '?': {
-                        if (optionString == "--ebool") {
-                            boolKey = optionKey;
-
-                            if (optionParam == "true") {
-                                boolParam = true;
-                            } else {
-                                boolParam = false;
-                            }
-                        } else if (optionString == "--ebyte") {
-                            byteKey = optionKey;
-
-                            byteParam = optionParam.size() ? optionParam.at(0) : 0;
-                        } else if (optionString == "--echar") {
-                            charKey = optionKey;
-
-                            charParam = optionParam.size() ? optionParam.at(0) : 0;
-                        } else if (optionString == "--eint") {
-                            intKey = optionKey;
-
-                            intParam = atoi(optionParam.c_str());
-                        } else if (optionString == "--edouble") {
-                            doubleKey = optionKey;
-
-                            doubleParam = atof(optionParam.c_str());
-                        } else if (optionString == "--efloat") {
-                            floatKey = optionKey;
-
-                            floatParam = atof(optionParam.c_str());
-                        } else if (optionString == "--elong") {
-                            longKey = optionKey;
-
-                            longParam = atol(optionParam.c_str());
-                        } else if (optionString == "--eshort") {
-                            shortKey = optionKey;
-
-                            shortParam = atoi(optionParam.c_str());
-                        } else if (optionString == "--estring") {
-                            stringKey = optionKey;
-
-                            stringParam = optionParam;
-                        }
-                        break;
-                    }
-                    default:
-                        break;
-                }
                 break;
             }
             default: {
@@ -368,69 +266,6 @@ ErrCode CommonEventManagerShellCommand::RunAsPublishCommand()
         // make a want
         Want want;
         want.SetAction(action);
-
-        // set bool param of the want if necessary
-        if (boolKey.size() > 0) {
-            EVENT_LOGI("boolParam: %{public}d", boolParam);
-
-            want.SetParam(boolKey, boolParam);
-        }
-
-        // set byte param of the want if necessary
-        if (byteKey.size() > 0) {
-            EVENT_LOGI("byteParam: %{public}d", byteParam);
-
-            want.SetParam(byteKey, byteParam);
-        }
-
-        // set char param of the want if necessary
-        if (charKey.size() > 0) {
-            EVENT_LOGI("charParam: %{public}d", charParam);
-
-            want.SetParam(charKey, charParam);
-        }
-
-        // set int param of the want if necessary
-        if (intKey.size() > 0) {
-            EVENT_LOGI("intParam: %{public}d", intParam);
-
-            want.SetParam(intKey, intParam);
-        }
-
-        // set double param of the want if necessary
-        if (doubleKey.size() > 0) {
-            EVENT_LOGI("doubleParam: %{public}f", doubleParam);
-
-            want.SetParam(doubleKey, doubleParam);
-        }
-
-        // set float param of the want if necessary
-        if (floatKey.size() > 0) {
-            EVENT_LOGI("floatParam: %{public}f", floatParam);
-
-            want.SetParam(floatKey, floatParam);
-        }
-
-        // set long param of the want if necessary
-        if (longKey.size() > 0) {
-            EVENT_LOGI("longParam: %{public}ld", longParam);
-
-            want.SetParam(longKey, longParam);
-        }
-
-        // set short param of the want if necessary
-        if (shortKey.size() > 0) {
-            EVENT_LOGI("shortParam: %{public}d", shortParam);
-
-            want.SetParam(shortKey, shortParam);
-        }
-
-        // set string param of the want if necessary
-        if (stringKey.size() > 0) {
-            EVENT_LOGI("stringParam: %{public}s", stringParam.c_str());
-
-            want.SetParam(stringKey, stringParam);
-        }
 
         // make common event data
         CommonEventData commonEventData;
