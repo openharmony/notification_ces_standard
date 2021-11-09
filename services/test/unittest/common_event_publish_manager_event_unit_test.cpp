@@ -38,7 +38,6 @@ using namespace OHOS;
 using namespace OHOS::EventFwk;
 
 static OHOS::sptr<OHOS::IRemoteObject> bundleObject = nullptr;
-#define FLOOD_ATTACH_INTERVAL_MAX 5
 #define FLOOD_ATTACH_MAX 20
 
 class CommonEventPublishManagerEventUnitTest : public testing::Test {
@@ -82,17 +81,10 @@ HWTEST_F(CommonEventPublishManagerEventUnitTest, CommonEventPublishManagerEventU
         << "CommonEventPublishManagerEventUnitTest, CommonEventPublishManagerEventUnitTestt_0100, TestSize.Level1";
     int i = 0;
     bool result = false;
-    int64_t startTime = SystemTime::GetNowSysTime();
-    int64_t lastTime = 0;
-    int64_t innternal = 0;
     for (; i < 1000; ++i) {
         result = DelayedSingleton<PublishManager>::GetInstance()->CheckIsFloodAttack(100);
         if (!result) {
-            lastTime = SystemTime::GetNowSysTime();
-            innternal = lastTime - startTime;
             GTEST_LOG_(INFO) << "after CheckIsFloodAttack---------------- i = " << i;
-            GTEST_LOG_(INFO) << "----------------innternal = " << innternal;
-            EXPECT_EQ(true, innternal < FLOOD_ATTACH_INTERVAL_MAX);
             EXPECT_EQ(true, i >= FLOOD_ATTACH_MAX);
             break;
         }
