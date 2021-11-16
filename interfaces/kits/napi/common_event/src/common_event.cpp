@@ -72,6 +72,8 @@ void SubscriberInstance::OnReceiveEvent(const CommonEventData &data)
     CommonEventDataWorker *commonEventDataWorker = new (std::nothrow) CommonEventDataWorker();
     if (commonEventDataWorker == nullptr) {
         EVENT_LOGE("commonEventDataWorker is null");
+        delete work;
+        work = nullptr;
         return;
     }
     commonEventDataWorker->want = data.GetWant();
@@ -95,7 +97,7 @@ void SubscriberInstance::OnReceiveEvent(const CommonEventData &data)
         }
     }
 
-    uv_queue_work(loop,
+    int ret = uv_queue_work(loop,
         work,
         [](uv_work_t *work) {},
         [](uv_work_t *work, int status) {
@@ -105,6 +107,8 @@ void SubscriberInstance::OnReceiveEvent(const CommonEventData &data)
             }
             CommonEventDataWorker *commonEventDataWorkerData = (CommonEventDataWorker *)work->data;
             if (commonEventDataWorkerData == nullptr) {
+                delete work;
+                work = nullptr;
                 return;
             }
             napi_value result = nullptr;
@@ -164,7 +168,12 @@ void SubscriberInstance::OnReceiveEvent(const CommonEventData &data)
             delete work;
             work = nullptr;
         });
-
+    if (ret != 0) {
+        delete commonEventDataWorker;
+        commonEventDataWorker = nullptr;
+        delete work;
+        work = nullptr;
+    }
     EVENT_LOGI("OnReceiveEvent end");
 }
 
