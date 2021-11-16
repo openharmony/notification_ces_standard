@@ -53,6 +53,96 @@ SubscriberInstance::SubscriberInstance(const CommonEventSubscribeInfo &sp) : Com
 SubscriberInstance::~SubscriberInstance()
 {}
 
+napi_value SetCommonEventData(CommonEventDataWorker *commonEventDataWorkerData, napi_value &result)
+{
+    EVENT_LOGI("enter");
+
+    if (commonEventDataWorkerData == nullptr) {
+        EVENT_LOGE("commonEventDataWorkerData is null");
+        return nullptr;
+    }
+
+    napi_value value = nullptr;
+
+    // event
+    napi_create_string_utf8(commonEventDataWorkerData->env,
+        commonEventDataWorkerData->want.GetAction().c_str(),
+        NAPI_AUTO_LENGTH,
+        &value);
+    napi_set_named_property(commonEventDataWorkerData->env, result, "event", value);
+
+    // bundleName
+    napi_create_string_utf8(commonEventDataWorkerData->env,
+        commonEventDataWorkerData->want.GetBundle().c_str(),
+        NAPI_AUTO_LENGTH,
+        &value);
+    napi_set_named_property(commonEventDataWorkerData->env, result, "bundleName", value);
+
+    // code
+    napi_create_int32(commonEventDataWorkerData->env, commonEventDataWorkerData->code, &value);
+    napi_set_named_property(commonEventDataWorkerData->env, result, "code", value);
+
+    // data
+    napi_create_string_utf8(
+        commonEventDataWorkerData->env, commonEventDataWorkerData->data.c_str(), NAPI_AUTO_LENGTH, &value);
+    napi_set_named_property(commonEventDataWorkerData->env, result, "data", value);
+
+    // parameters ?: {[key:string] : any}
+    AAFwk::WantParams wantParams = commonEventDataWorkerData->want.GetParams();
+    napi_value wantParamsValue = nullptr;
+    wantParamsValue = OHOS::AppExecFwk::WrapWantParams(commonEventDataWorkerData->env, wantParams);
+    if (wantParamsValue) {
+        napi_set_named_property(commonEventDataWorkerData->env, result, "parameters", wantParamsValue);
+    } else {
+        napi_set_named_property(
+            commonEventDataWorkerData->env, result, "parameters", NapiGetNull(commonEventDataWorkerData->env));
+    }
+
+    return NapiGetNull(commonEventDataWorkerData->env);
+}
+
+void UvQueueWorkOnReceiveEvent(uv_work_t *work, int status)
+{
+    EVENT_LOGI("OnReceiveEvent uv_work_t start");
+    if (work == nullptr) {
+        return;
+    }
+    CommonEventDataWorker *commonEventDataWorkerData = (CommonEventDataWorker *)work->data;
+    if (commonEventDataWorkerData == nullptr) {
+        delete work;
+        work = nullptr;
+        return;
+    }
+
+    napi_value result = nullptr;
+    napi_create_object(commonEventDataWorkerData->env, &result);
+    if (SetCommonEventData(commonEventDataWorkerData, result) == nullptr) {
+        delete work;
+        work = nullptr;
+        delete commonEventDataWorkerData;
+        commonEventDataWorkerData = nullptr;
+        return;
+    }
+
+    napi_value undefined = nullptr;
+    napi_get_undefined(commonEventDataWorkerData->env, &undefined);
+
+    napi_value callback = nullptr;
+    napi_value resultout = nullptr;
+    napi_get_reference_value(commonEventDataWorkerData->env, commonEventDataWorkerData->ref, &callback);
+
+    napi_value results[ARGS_TWO_EVENT] = {nullptr};
+    results[PARAM0_EVENT] = GetCallbackErrorValue(commonEventDataWorkerData->env, NO_ERROR);
+    results[PARAM1_EVENT] = result;
+    napi_call_function(
+        commonEventDataWorkerData->env, undefined, callback, ARGS_TWO_EVENT, &results[PARAM0_EVENT], &resultout);
+
+    delete commonEventDataWorkerData;
+    commonEventDataWorkerData = nullptr;
+    delete work;
+    work = nullptr;
+}
+
 void SubscriberInstance::OnReceiveEvent(const CommonEventData &data)
 {
     EVENT_LOGI("OnReceiveEvent start");
@@ -100,74 +190,7 @@ void SubscriberInstance::OnReceiveEvent(const CommonEventData &data)
     int ret = uv_queue_work(loop,
         work,
         [](uv_work_t *work) {},
-        [](uv_work_t *work, int status) {
-            EVENT_LOGI("OnReceiveEvent uv_work_t start");
-            if (work == nullptr) {
-                return;
-            }
-            CommonEventDataWorker *commonEventDataWorkerData = (CommonEventDataWorker *)work->data;
-            if (commonEventDataWorkerData == nullptr) {
-                delete work;
-                work = nullptr;
-                return;
-            }
-            napi_value result = nullptr;
-            napi_create_object(commonEventDataWorkerData->env, &result);
-            napi_value value = nullptr;
-
-            // event
-            napi_create_string_utf8(commonEventDataWorkerData->env,
-                commonEventDataWorkerData->want.GetAction().c_str(),
-                NAPI_AUTO_LENGTH,
-                &value);
-            napi_set_named_property(commonEventDataWorkerData->env, result, "event", value);
-
-            // bundleName
-            napi_create_string_utf8(commonEventDataWorkerData->env,
-                commonEventDataWorkerData->want.GetBundle().c_str(),
-                NAPI_AUTO_LENGTH,
-                &value);
-            napi_set_named_property(commonEventDataWorkerData->env, result, "bundleName", value);
-
-            // code
-            napi_create_int32(commonEventDataWorkerData->env, commonEventDataWorkerData->code, &value);
-            napi_set_named_property(commonEventDataWorkerData->env, result, "code", value);
-
-            // data
-            napi_create_string_utf8(
-                commonEventDataWorkerData->env, commonEventDataWorkerData->data.c_str(), NAPI_AUTO_LENGTH, &value);
-            napi_set_named_property(commonEventDataWorkerData->env, result, "data", value);
-
-            // parameters ?: {[key:string] : any}
-            AAFwk::WantParams wantParams = commonEventDataWorkerData->want.GetParams();
-            napi_value wantParamsValue = nullptr;
-            wantParamsValue = OHOS::AppExecFwk::WrapWantParams(commonEventDataWorkerData->env, wantParams);
-            if (wantParamsValue) {
-                napi_set_named_property(commonEventDataWorkerData->env, result, "parameters", wantParamsValue);
-            } else {
-                napi_set_named_property(
-                    commonEventDataWorkerData->env, result, "parameters", NapiGetNull(commonEventDataWorkerData->env));
-            }
-
-            napi_value undefined = nullptr;
-            napi_get_undefined(commonEventDataWorkerData->env, &undefined);
-
-            napi_value callback = nullptr;
-            napi_value resultout = nullptr;
-            napi_get_reference_value(commonEventDataWorkerData->env, commonEventDataWorkerData->ref, &callback);
-
-            napi_value results[ARGS_TWO_EVENT] = {nullptr};
-            results[PARAM0_EVENT] = GetCallbackErrorValue(commonEventDataWorkerData->env, NO_ERROR);
-            results[PARAM1_EVENT] = result;
-            NAPI_CALL_RETURN_VOID(commonEventDataWorkerData->env,
-                napi_call_function(
-                    commonEventDataWorkerData->env, undefined, callback, ARGS_TWO_EVENT, &results[PARAM0_EVENT], &resultout));
-
-            delete commonEventDataWorkerData;
-            commonEventDataWorkerData = nullptr;
-            delete work;
-            work = nullptr;
-        });
+        UvQueueWorkOnReceiveEvent);
     if (ret != 0) {
         delete commonEventDataWorker;
         commonEventDataWorker = nullptr;
