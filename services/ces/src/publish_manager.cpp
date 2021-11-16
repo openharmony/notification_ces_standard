@@ -22,11 +22,7 @@
 
 namespace OHOS {
 namespace EventFwk {
-#define FLOOD_ATTACK_NUMBER_MAX 20      // Frequency of decision
-#define FLOOD_ATTACK_INTERVAL_MAX 5     // Period of decision (unit: millisecond)
-
 PublishManager::PublishManager()
-    : floodAttackMax_(FLOOD_ATTACK_NUMBER_MAX), floodAttackIntervalMax_(FLOOD_ATTACK_INTERVAL_MAX)
 {}
 
 PublishManager::~PublishManager()
@@ -50,14 +46,14 @@ bool PublishManager::CheckIsFloodAttack(pid_t appUid)
     // Remove expired record
     auto iterVec = iter->second.begin();
     while (iterVec != iter->second.end()) {
-        if (now - *iterVec > floodAttackIntervalMax_) {
+        if (now - *iterVec > FLOOD_ATTACK_INTERVAL_MAX) {
             iterVec = iter->second.erase(iterVec);
         } else {
             break;
         }
     }
 
-    if (iter->second.size() > floodAttackMax_ - 1) {
+    if (iter->second.size() + 1 > FLOOD_ATTACK_NUMBER_MAX) {
         EVENT_LOGW("CES was maliciously attacked by app (uid = %{publish}d)", appUid);
         isAttacked = true;
     }

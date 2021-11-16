@@ -37,12 +37,13 @@ using namespace testing::ext;
 using namespace OHOS;
 using namespace OHOS::EventFwk;
 
+namespace {
 static OHOS::sptr<OHOS::IRemoteObject> bundleObject = nullptr;
-#define FLOOD_ATTACK_MAX 20
-#define NOT_ATTACK_TIME (10 + FLOOD_ATTACK_MAX)
-#define TEST_TIMES 100
-#define SLEEP_TIME 1000
-#define APPUID 50
+const int32_t FLOOD_ATTACK_MAX = 20;
+const int32_t NOT_ATTACK_TIME = 10 + FLOOD_ATTACK_MAX;
+const int32_t TEST_TIMES = 100;
+const int32_t SLEEP_TIME = 1000;
+const pid_t APPUID = 50;
 
 class CommonEventPublishManagerEventUnitTest : public testing::Test {
 public:
@@ -140,3 +141,4 @@ HWTEST_F(CommonEventPublishManagerEventUnitTest, CommonEventPublishManagerEventU
     GTEST_LOG_(INFO)
         << "CommonEventPublishManagerEventUnitTest, CommonEventPublishManagerEventUnitTestt_0300, TestSize.Level1 end";
 }
+}  // namespace

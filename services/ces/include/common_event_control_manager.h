@@ -115,7 +115,7 @@ private:
     std::vector<History_event_record> historyEventRecords_;
     bool pendingTimeoutMessage_;
     bool scheduled_;
-    const int64_t TIMEOUT;  // How long we allow a receiver to run before giving up on it. Unit: ms
+    const int64_t TIMEOUT = 10000;  // How long we allow a receiver to run before giving up on it. Unit: ms
     std::mutex orderedMutex_;
     std::mutex unorderedMutex_;
     std::mutex historyMutex_;

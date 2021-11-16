@@ -33,8 +33,8 @@ public:
 
 private:
     std::map<pid_t, std::vector<int64_t>> floodAttackAppStatistics_;
-    const int floodAttackMax_;
-    const int floodAttackIntervalMax_;
+    const uint32_t FLOOD_ATTACK_NUMBER_MAX = 20;  // Frequency of decision
+    const int64_t FLOOD_ATTACK_INTERVAL_MAX = 5;  // Period of decision (unit: millisecond)
 };
 }  // namespace EventFwk
 }  // namespace OHOS
