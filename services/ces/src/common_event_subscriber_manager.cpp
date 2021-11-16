@@ -13,7 +13,6 @@
  * limitations under the License.
  */
 
-#include <time.h>
 #include "common_event_subscriber_manager.h"
 #include "event_log_wrapper.h"
 
