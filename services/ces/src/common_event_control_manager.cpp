@@ -23,7 +23,6 @@
 
 namespace OHOS {
 namespace EventFwk {
-
 #define TENSECONDS 10000
 const int LENGTH = 80;
 using frozenRecords = std::map<std::shared_ptr<EventSubscriberRecord>, std::vector<std::shared_ptr<CommonEventRecord>>>;
@@ -429,6 +428,11 @@ void CommonEventControlManager::ProcessNextOrderedEvent(bool isSendMsg)
 
         if (sp->dispatchTime > 0) {
             if ((numReceivers > 0) && (nowSysTime > sp->dispatchTime + (2 * TIMEOUT * numReceivers))) {
+                EVENT_LOGI("Timeout: Discard common event %{public}s (dispatchTime = %{public}" PRId64
+                            ", now = %{public}" PRId64")",
+                    sp->commonEventData->GetWant().GetAction().c_str(),
+                    sp->dispatchTime,
+                    nowSysTime);
                 CurrentOrderedEventTimeout(false);
                 forceReceive = true;
                 sp->state = OrderedEventRecord::IDLE;
@@ -449,7 +453,6 @@ void CommonEventControlManager::ProcessNextOrderedEvent(bool isSendMsg)
                     return;
                 }
                 receiver->NotifyEvent(*(sp->commonEventData), true, sp->publishInfo->IsSticky());
-
             }
 
             CancelTimeout();
@@ -1147,6 +1150,5 @@ void CommonEventControlManager::DumpHistoryState(const std::string &event, std::
         state.emplace_back(stateInfo);
     }
 }
-
 }  // namespace EventFwk
 }  // namespace OHOS

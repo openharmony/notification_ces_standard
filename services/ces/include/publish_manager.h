@@ -17,23 +17,13 @@
 #define FOUNDATION_EVENT_CESFWK_SERVICES_INCLUDE_PUBLIC_MANAGER_H
 
 #include <map>
+#include <vector>
 #include <stdint.h>
 #include "singleton.h"
 
 namespace OHOS {
 namespace EventFwk {
 class PublishManager : public DelayedSingleton<PublishManager> {
-public:
-    struct FloodAttackAttribute {
-        int publishNum;
-        int64_t startPublishTime;
-        FloodAttackAttribute()
-        {
-            publishNum = 0;
-            startPublishTime = 0;
-        }
-    };
-
 public:
     PublishManager();
 
@@ -42,7 +32,7 @@ public:
     bool CheckIsFloodAttack(pid_t appUid);
 
 private:
-    std::map<pid_t, FloodAttackAttribute> floodAttackAppStatistics_;
+    std::map<pid_t, std::vector<int64_t>> floodAttackAppStatistics_;
     const int floodAttackMax_;
     const int floodAttackIntervalMax_;
 };

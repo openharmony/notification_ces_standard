@@ -15,16 +15,18 @@
 
 #include "publish_manager.h"
 
+#include <cinttypes>
+
 #include "event_log_wrapper.h"
 #include "system_time.h"
 
 namespace OHOS {
 namespace EventFwk {
+#define FLOOD_ATTACK_NUMBER_MAX 20      // Frequency of decision
+#define FLOOD_ATTACK_INTERVAL_MAX 5     // Period of decision (unit: millisecond)
 
-#define FLOOD_ATTACH_MAX 20
-#define FLOOD_ATTACH_INTERVAL_MAX 5
-
-PublishManager::PublishManager() : floodAttackMax_(FLOOD_ATTACH_MAX), floodAttackIntervalMax_(FLOOD_ATTACH_INTERVAL_MAX)
+PublishManager::PublishManager()
+    : floodAttackMax_(FLOOD_ATTACK_NUMBER_MAX), floodAttackIntervalMax_(FLOOD_ATTACK_INTERVAL_MAX)
 {}
 
 PublishManager::~PublishManager()
@@ -34,27 +36,34 @@ bool PublishManager::CheckIsFloodAttack(pid_t appUid)
 {
     EVENT_LOGI("enter");
 
-    bool isValid = false;
+    bool isAttacked = false;
 
-    floodAttackAppStatistics_[appUid].publishNum++;
+    int64_t now = SystemTime::GetNowSysTime();
+    EVENT_LOGI("dispatch common event by app (uid = %{publish}d) at now = %{public}" PRId64, appUid, now);
 
-    if (floodAttackAppStatistics_[appUid].startPublishTime == 0) {
-        floodAttackAppStatistics_[appUid].startPublishTime = SystemTime::GetNowSysTime();
+    auto iter = floodAttackAppStatistics_.find(appUid);
+    if (iter == floodAttackAppStatistics_.end()) {
+        floodAttackAppStatistics_[appUid].emplace_back(now);
+        return isAttacked;
     }
 
-    if (floodAttackAppStatistics_[appUid].publishNum > floodAttackMax_) {
-        int64_t innternal = SystemTime::GetNowSysTime() - floodAttackAppStatistics_[appUid].startPublishTime;
-
-        if (innternal >= floodAttackIntervalMax_) {
-            floodAttackAppStatistics_[appUid].publishNum = 1;
-            floodAttackAppStatistics_[appUid].startPublishTime = SystemTime::GetNowSysTime();
-            isValid = true;
+    // Remove expired record
+    auto iterVec = iter->second.begin();
+    while (iterVec != iter->second.end()) {
+        if (now - *iterVec > floodAttackIntervalMax_) {
+            iterVec = iter->second.erase(iterVec);
+        } else {
+            break;
         }
-    } else {
-        isValid = true;
     }
 
-    return isValid;
+    if (iter->second.size() > floodAttackMax_ - 1) {
+        EVENT_LOGW("CES was maliciously attacked by app (uid = %{publish}d)", appUid);
+        isAttacked = true;
+    }
+    iter->second.emplace_back(now);
+
+    return isAttacked;
 }
 }  // namespace EventFwk
 }  // namespace OHOS

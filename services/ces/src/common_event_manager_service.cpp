@@ -164,7 +164,7 @@ bool CommonEventManagerService::PublishCommonEventDetailed(const CommonEventData
 
     std::string bundleName = DelayedSingleton<BundleManagerHelper>::GetInstance()->GetBundleName(uid);
 
-    if (!DelayedSingleton<PublishManager>::GetInstance()->CheckIsFloodAttack(uid)) {
+    if (DelayedSingleton<PublishManager>::GetInstance()->CheckIsFloodAttack(uid)) {
         EVENT_LOGE("Too many common events have been sent in a short period from %{public}s (pid = %{public}d, uid = "
                    "%{public}d)",
             bundleName.c_str(),

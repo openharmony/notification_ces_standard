@@ -38,7 +38,11 @@ using namespace OHOS;
 using namespace OHOS::EventFwk;
 
 static OHOS::sptr<OHOS::IRemoteObject> bundleObject = nullptr;
-#define FLOOD_ATTACH_MAX 20
+#define FLOOD_ATTACK_MAX 20
+#define NOT_ATTACK_TIME (10 + FLOOD_ATTACK_MAX)
+#define TEST_TIMES 100
+#define SLEEP_TIME 1000
+#define APPUID 50
 
 class CommonEventPublishManagerEventUnitTest : public testing::Test {
 public:
@@ -70,24 +74,69 @@ void CommonEventPublishManagerEventUnitTest::TearDown(void)
 
 /*
  * @tc.number: CommonEventPublishManagerEventUnitTest_0100
- * @tc.name: test event floodAttach
- * @tc.desc: 1. subcriber permisssion is not empty
- *           2. publish permission is not empty
+ * @tc.name: test effectinve event floodAttack
  */
 HWTEST_F(CommonEventPublishManagerEventUnitTest, CommonEventPublishManagerEventUnitTestt_0100,
     Function | MediumTest | Level1)
 {
     GTEST_LOG_(INFO)
         << "CommonEventPublishManagerEventUnitTest, CommonEventPublishManagerEventUnitTestt_0100, TestSize.Level1";
-    int i = 0;
+
     bool result = false;
-    for (; i < 1000; ++i) {
-        result = DelayedSingleton<PublishManager>::GetInstance()->CheckIsFloodAttack(100);
-        if (!result) {
-            GTEST_LOG_(INFO) << "after CheckIsFloodAttack---------------- i = " << i;
-            EXPECT_EQ(true, i >= FLOOD_ATTACH_MAX);
-            break;
+
+    for (int i = 1; i <= TEST_TIMES; ++i) {
+        result = DelayedSingleton<PublishManager>::GetInstance()->CheckIsFloodAttack(APPUID);
+        if (result) {
+            EXPECT_EQ(true, i > FLOOD_ATTACK_MAX);
         }
     }
-    EXPECT_EQ(false, result);
+    GTEST_LOG_(INFO)
+        << "CommonEventPublishManagerEventUnitTest, CommonEventPublishManagerEventUnitTestt_0100, TestSize.Level1 end";
+}
+
+/*
+ * @tc.number: CommonEventPublishManagerEventUnitTest_0200
+ * @tc.name: test not event floodAttack
+ */
+HWTEST_F(CommonEventPublishManagerEventUnitTest, CommonEventPublishManagerEventUnitTestt_0200,
+    Function | MediumTest | Level1)
+{
+    GTEST_LOG_(INFO)
+        << "CommonEventPublishManagerEventUnitTest, CommonEventPublishManagerEventUnitTestt_0200, TestSize.Level1";
+
+    for (int i = 1; i <= TEST_TIMES; ++i) {
+        usleep(SLEEP_TIME);
+        EXPECT_EQ(false, DelayedSingleton<PublishManager>::GetInstance()->CheckIsFloodAttack(APPUID));
+    }
+    GTEST_LOG_(INFO)
+        << "CommonEventPublishManagerEventUnitTest, CommonEventPublishManagerEventUnitTestt_0200, TestSize.Level1 end";
+}
+
+/*
+ * @tc.number: CommonEventPublishManagerEventUnitTest_0300
+ * @tc.name: test first some times not event floodAttack then effectinve event floodAttack
+ */
+HWTEST_F(CommonEventPublishManagerEventUnitTest, CommonEventPublishManagerEventUnitTestt_0300,
+    Function | MediumTest | Level1)
+{
+    GTEST_LOG_(INFO)
+        << "CommonEventPublishManagerEventUnitTest, CommonEventPublishManagerEventUnitTestt_0300, TestSize.Level1";
+
+    bool result = false;
+
+    for (int i = 1; i <= TEST_TIMES; ++i) {
+        if (i <= NOT_ATTACK_TIME) {
+            result = DelayedSingleton<PublishManager>::GetInstance()->CheckIsFloodAttack(APPUID);
+            EXPECT_EQ(false, result);
+            usleep(SLEEP_TIME);
+        } else {
+            result = DelayedSingleton<PublishManager>::GetInstance()->CheckIsFloodAttack(APPUID);
+            if (result) {
+                EXPECT_EQ(true, i >= NOT_ATTACK_TIME + FLOOD_ATTACK_MAX + 1);
+                break;
+            }
+        }
+    }
+    GTEST_LOG_(INFO)
+        << "CommonEventPublishManagerEventUnitTest, CommonEventPublishManagerEventUnitTestt_0300, TestSize.Level1 end";
 }
