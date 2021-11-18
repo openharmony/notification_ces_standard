@@ -23,13 +23,11 @@
 
 namespace OHOS {
 namespace EventFwk {
-
-#define TENSECONDS 10000
 const int LENGTH = 80;
 using frozenRecords = std::map<std::shared_ptr<EventSubscriberRecord>, std::vector<std::shared_ptr<CommonEventRecord>>>;
 
 CommonEventControlManager::CommonEventControlManager()
-    : handler_(nullptr), handlerOrdered_(nullptr), pendingTimeoutMessage_(false), scheduled_(false), TIMEOUT(TENSECONDS)
+    : handler_(nullptr), handlerOrdered_(nullptr), pendingTimeoutMessage_(false), scheduled_(false)
 {
     EVENT_LOGD("enter");
 }
@@ -449,7 +447,6 @@ void CommonEventControlManager::ProcessNextOrderedEvent(bool isSendMsg)
                     return;
                 }
                 receiver->NotifyEvent(*(sp->commonEventData), true, sp->publishInfo->IsSticky());
-
             }
 
             CancelTimeout();
@@ -1147,6 +1144,5 @@ void CommonEventControlManager::DumpHistoryState(const std::string &event, std::
         state.emplace_back(stateInfo);
     }
 }
-
 }  // namespace EventFwk
 }  // namespace OHOS

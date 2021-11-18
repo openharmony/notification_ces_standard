@@ -106,7 +106,7 @@ private:
     std::map<std::string, std::multiset<SubscriberRecordPtr>> eventSubscribers_;
     std::vector<SubscriberRecordPtr> subscribers_;
     std::map<uid_t, std::map<SubscriberRecordPtr, std::vector<EventRecordPtr>>> frozenEvents_;
-    const time_t FREEZE_EVENT_TIMEOUT;
+    const time_t FREEZE_EVENT_TIMEOUT = 120; // How long we keep records. Unit: second
 };
 }  // namespace EventFwk
 }  // namespace OHOS
