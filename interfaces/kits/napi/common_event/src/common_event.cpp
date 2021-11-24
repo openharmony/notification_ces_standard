@@ -53,7 +53,7 @@ SubscriberInstance::SubscriberInstance(const CommonEventSubscribeInfo &sp) : Com
 SubscriberInstance::~SubscriberInstance()
 {}
 
-napi_value SetCommonEventData(CommonEventDataWorker *commonEventDataWorkerData, napi_value &result)
+napi_value SetCommonEventData(const CommonEventDataWorker *commonEventDataWorkerData, napi_value &result)
 {
     EVENT_LOGI("enter");
 

@@ -14,20 +14,20 @@
  */
 
 #include <gtest/gtest.h>
-#define UNIT_TEST
-#include "mock_bundle_manager.h"
-#include "inner_common_event_manager.h"
-#include "common_event_sticky_manager.h"
-#include "errors.h"
 #define private public
 #define protected public
 #include "bundle_manager_helper.h"
 #include "common_event.h"
-#include "common_event_manager_service.h"
 #include "common_event_manager.h"
+#include "common_event_manager_service.h"
 #undef private
 #undef protected
+#define UNIT_TEST
+#include "common_event_sticky_manager.h"
 #include "datetime_ex.h"
+#include "errors.h"
+#include "inner_common_event_manager.h"
+#include "mock_bundle_manager.h"
 
 using namespace testing::ext;
 using namespace OHOS::EventFwk;

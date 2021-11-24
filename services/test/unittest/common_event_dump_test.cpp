@@ -522,7 +522,7 @@ static void SetMatchingSkills(MatchingSkills &matchingSkills)
     matchingSkills.AddEntity(ENTITY2);
 }
 
-static void SetSubscribeInfo1(CommonEventListener *&listener, MatchingSkills &matchingSkills)
+static void SetSubscribeInfo1(CommonEventListener *&listener, const MatchingSkills &matchingSkills)
 {
     CommonEventSubscribeInfo subscribeInfo(matchingSkills);
     subscribeInfo.SetPriority(PRIORITY);
@@ -530,22 +530,22 @@ static void SetSubscribeInfo1(CommonEventListener *&listener, MatchingSkills &ma
     subscribeInfo.SetDeviceId(DEVICEDID);
 
     std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscribeInfo);
-    listener = new CommonEventListener(subscriber);
+    listener = new (std::nothrow) CommonEventListener(subscriber);
 
     OHOS::DelayedSingleton<CommonEventManagerService>::GetInstance()->SubscribeCommonEvent(
         subscribeInfo, listener->AsObject());
 }
 
-static void SetSubscribeInfo2(CommonEventListener *&listener2, MatchingSkills &matchingSkills)
+static void SetSubscribeInfo2(CommonEventListener *&listener, const MatchingSkills &matchingSkills)
 {
-    CommonEventSubscribeInfo subscribeInfo2(matchingSkills);
-    subscribeInfo2.SetPriority(PRIORITY2);
-    subscribeInfo2.SetPermission(PERMISSION2);
-    subscribeInfo2.SetDeviceId(DEVICEDID2);
-    std::shared_ptr<SubscriberTest> subscriber2 = std::make_shared<SubscriberTest>(subscribeInfo2);
-    listener2 = new CommonEventListener(subscriber2);
+    CommonEventSubscribeInfo subscribeInfo(matchingSkills);
+    subscribeInfo.SetPriority(PRIORITY2);
+    subscribeInfo.SetPermission(PERMISSION2);
+    subscribeInfo.SetDeviceId(DEVICEDID2);
+    std::shared_ptr<SubscriberTest> subscriber = std::make_shared<SubscriberTest>(subscribeInfo);
+    listener = new (std::nothrow) CommonEventListener(subscriber);
     OHOS::DelayedSingleton<CommonEventManagerService>::GetInstance()->SubscribeCommonEvent(
-        subscribeInfo2, listener2->AsObject());
+        subscribeInfo, listener->AsObject());
 }
 
 static void Test0100Publish1()
