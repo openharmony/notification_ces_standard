@@ -16,6 +16,8 @@
 #include "common_event_command.h"
 
 #include <getopt.h>
+#include <charconv>
+#include <string_view>
 
 #include "common_event.h"
 #include "common_event_constant.h"
@@ -37,6 +39,21 @@ const struct option LONG_OPTIONS[] = {
     {"data", required_argument, nullptr, 'd'},
     {"user-id", required_argument, nullptr, 'u'},
 };
+const std::string INVALID_INT_MSG = "error: option requires a valid integer.\n";
+
+bool ParseCemInt32(std::string_view text, int32_t &out)
+{
+    if (text.empty()) {
+        return false;
+    }
+    int32_t value = 0;
+    auto [ptr, ec] = std::from_chars(text.data(), text.data() + text.size(), value);
+    if (ec != std::errc() || ptr != text.data() + text.size()) {
+        return false;
+    }
+    out = value;
+    return true;
+}
 }  // namespace
 
 CommonEventCommand::CommonEventCommand(int argc, char *argv[])
@@ -242,7 +259,13 @@ ErrCode CommonEventCommand::RunAsPublishCommand()
             case 'c': {
                 // 'cem publish -e <name> -c 1024 '
                 // 'cem publish -e <name> --code 1024'
-                code = atoi(optarg);
+                int32_t parsedCode = 0;
+                if (!ParseCemInt32(optarg != nullptr ? optarg : "", parsedCode)) {
+                    resultReceiver_.append(INVALID_INT_MSG);
+                    result = OHOS::ERR_INVALID_VALUE;
+                    break;
+                }
+                code = parsedCode;
                 break;
             }
             case 'd': {
@@ -254,7 +277,11 @@ ErrCode CommonEventCommand::RunAsPublishCommand()
             case 'u': {
                 // 'cem publish -e <name> -u 100'
                 // 'cem publish --event <name> -u 100'
-                userId = atoi(optarg);
+                if (!ParseCemInt32(optarg != nullptr ? optarg : "", userId)) {
+                    resultReceiver_.append(INVALID_INT_MSG);
+                    result = OHOS::ERR_INVALID_VALUE;
+                    break;
+                }
                 break;
             }
             case 0: {
@@ -357,7 +384,11 @@ ErrCode CommonEventCommand::RunAsDumpCommand()
         case 'u': {
             // 'cem dump -e <name> -u 100'
             // 'cem dump --event <name> -u 100'
-            userId = atoi(optarg);
+            if (!ParseCemInt32(optarg != nullptr ? optarg : "", userId)) {
+                resultReceiver_.append(INVALID_INT_MSG);
+                result = OHOS::ERR_INVALID_VALUE;
+                break;
+            }
             break;
         }
         case '?': {
